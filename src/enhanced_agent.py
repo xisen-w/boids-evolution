@@ -74,15 +74,24 @@ class EnhancedAgent:
 🎯 YOUR GOAL: Propose, discuss, and build tools that enable other agents to create even MORE complex tools.
 
 💰 ENERGY SOURCES:
-1. Proposing popular tool ideas that others want to build (+5 energy)
-2. Supporting good proposals from others (+3 energy)  
-3. Building tools that become building blocks for other tools (+10+ energy)
+1. Proposing popular tool ideas (+5 energy)
+2. Supporting good proposals (+3 energy)
+3. Building tools (+10 energy)
+4. UTILITY REWARDS: When YOUR tools are used by others to build MORE tools
+
+⚠️  NO ENERGY for using existing tools - energy comes from CREATING useful tools!
 
 🛠️  ACTION TYPES (choose ONE per turn):
 A) "Propose tool: [name] - [description] (dependencies: [list])" 
-B) "Support proposal: [proposal_name] - [why it's useful]"
+B) "Support proposal: [proposal_name] - [why it's useful]"  
 C) "Build tool: [proposal_name]" (if it has support)
 D) "Message [Agent_XX]: [discuss tool ideas/collaboration]"
+
+💻 IMPORTANT: Tools are Python functions! When building, you create:
+def execute(parameters, context=None):
+    # Use context.call_tool() to call existing tools
+    # Build complex functionality by combining simpler tools
+    return {'success': True, 'result': '...', 'energy_gain': 0}
 
 STRATEGY: 
 - If there are active proposals from others: SUPPORT the most promising one
@@ -178,7 +187,8 @@ Current Status:
         if self._is_communication(talk_content):
             return self._handle_communication(talk_content)
         
-        # Otherwise, parse as legacy tool usage (discouraged)
+        # Otherwise, parse as legacy tool usage (discouraged) 
+        # Note: Using tools should NOT give energy, only building tools that others use
         action_intent = self._parse_talk_to_action(talk_content)
         
         # Show parsing process
@@ -206,8 +216,8 @@ Current Status:
                 context
             )
             
-            # UPDATED ENERGY SYSTEM: No direct energy for tool usage
-            result['energy_gain'] = 0  # Tools don't give energy anymore!
+            # FIXED ENERGY SYSTEM: No energy for using tools
+            result['energy_gain'] = 0  # Using tools gives NO energy!
             result['action_type'] = 'tool_usage'
             
             # Only track utility rewards for tool creators
@@ -216,8 +226,9 @@ Current Status:
                 result['utility_rewards'] = utility_rewards
                 result['composition_info'] = context.get_execution_summary()
         
+        # Update action statistics for ALL actions (tool building + legacy)  
         self.action_count += 1
-        if result['success']:
+        if result.get('success', False):
             self.success_count += 1
         
         # Show action execution result
