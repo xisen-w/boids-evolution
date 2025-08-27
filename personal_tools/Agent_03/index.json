@@ -1,9 +1,32 @@
 {
-  "tools": {},
+  "tools": {
+    "Universal_Parser": {
+      "name": "Universal_Parser",
+      "description": "Custom tool built by Agent_03",
+      "file": "Universal_Parser.py",
+      "energy_reward": 15,
+      "creator": "Agent_03"
+    },
+    "Universal_Data_Formatter": {
+      "name": "Universal_Data_Formatter",
+      "description": "Custom tool built by Agent_03",
+      "file": "Universal_Data_Formatter.py",
+      "energy_reward": 15,
+      "creator": "Agent_03"
+    },
+    "CoreLogicEngine": {
+      "name": "CoreLogicEngine",
+      "description": "Custom tool built by Agent_03",
+      "file": "CoreLogicEngine.py",
+      "energy_reward": 15,
+      "creator": "Agent_03"
+    }
+  },
   "metadata": {
     "agent_id": "Agent_03",
     "total_tools": 0,
     "last_updated": "2025-08-27T02:45:40.739243",
     "version": "1.0"
-  }
+  },
+  "total_tools": 3
 }

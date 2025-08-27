@@ -74,17 +74,21 @@ class EnhancedAgent:
 🎯 YOUR GOAL: Propose, discuss, and build tools that enable other agents to create even MORE complex tools.
 
 💰 ENERGY SOURCES:
-1. Proposing popular tool ideas that others want to build
-2. Building tools that become building blocks for other tools  
-3. Communication that leads to successful tool development
+1. Proposing popular tool ideas that others want to build (+5 energy)
+2. Supporting good proposals from others (+3 energy)  
+3. Building tools that become building blocks for other tools (+10+ energy)
 
-🛠️  ACTION TYPES:
+🛠️  ACTION TYPES (choose ONE per turn):
 A) "Propose tool: [name] - [description] (dependencies: [list])" 
 B) "Support proposal: [proposal_name] - [why it's useful]"
-C) "Message [Agent_XX]: [discuss tool ideas/collaboration]"
-D) "Build tool: [proposal_name]" (if you have supporters)
+C) "Build tool: [proposal_name]" (if it has support)
+D) "Message [Agent_XX]: [discuss tool ideas/collaboration]"
 
-Think like a software architect - what foundational tools would enable others to build amazing things?
+STRATEGY: 
+- If there are active proposals from others: SUPPORT the most promising one
+- If there are supported proposals: BUILD the one with most support  
+- Otherwise: PROPOSE a new foundational tool
+- Focus on BUILDING ACTUAL TOOLS, not just proposing!
 
 Tool Building Context:
 {tool_building_context}
@@ -101,7 +105,28 @@ Current Status:
 - Network Centrality: {network_centrality:.1f}
 """
         
-        user_prompt = f"As {self.agent_id}, what tool will you propose, support, or build? Focus on creating building blocks others can use!"
+        # Check current marketplace state and guide agent behavior
+        others_proposals = [
+            (pid, prop) for pid, prop in self.tool_marketplace.proposals.items()
+            if prop.status == "proposed" and prop.proposer != self.agent_id
+        ]
+        
+        ready_to_build = [
+            (pid, prop) for pid, prop in self.tool_marketplace.proposals.items()
+            if prop.status == "proposed" and len(prop.supporters) >= 1 and prop.proposer != self.agent_id
+        ]
+        
+        unsupported_others = [
+            (pid, prop) for pid, prop in others_proposals
+            if len(prop.supporters) == 0
+        ]
+        
+        if ready_to_build:
+            user_prompt = f"URGENT: There are tools ready to BUILD! Choose one and build it: {[prop.name for pid, prop in ready_to_build[:2]]}"
+        elif unsupported_others:
+            user_prompt = f"SUPPORT needed! Help others by supporting one of these proposals: {[prop.name for pid, prop in unsupported_others[:2]]}"
+        else:
+            user_prompt = f"No proposals need support. PROPOSE a new foundational tool that others can build upon."
         
         try:
             response = self.azure_client.client.chat.completions.create(
@@ -402,7 +427,7 @@ Current Status:
             if matching_proposals:
                 proposal_id, proposal = matching_proposals[0]
                 
-                # Check if proposal has enough support (at least 1 supporter besides proposer)
+                # Check if proposal has enough support (at least 1 supporter OR is your own proposal)
                 if len(proposal.supporters) >= 1 or proposal.proposer == self.agent_id:
                     # Start building
                     self.tool_marketplace.start_building(proposal_id, [self.agent_id])
@@ -485,10 +510,12 @@ Current Status:
         
         index_data["tools"][tool_name] = {
             "name": tool_name,
-            "description": f"Custom tool built by {self.agent_id}",
+            "description": proposal.description,
             "file": f"{tool_name}.py",
             "energy_reward": 15,
-            "creator": self.agent_id
+            "creator": self.agent_id,
+            "parameters": {"data": "any input data"},  # Basic parameters
+            "depends_on": proposal.dependencies if proposal.dependencies else []
         }
         index_data["total_tools"] = len(index_data["tools"])
         

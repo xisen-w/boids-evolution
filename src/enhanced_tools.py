@@ -55,38 +55,49 @@ class EnhancedToolRegistry:
             print(f"Error loading shared tools: {e}")
     
     def _load_personal_tools(self):
-        """Load personal tools for the specific agent."""
-        if not self.agent_id:
+        """Load personal tools from ALL agents for collaboration."""
+        if not os.path.exists(self.personal_tools_dir):
             return
             
-        agent_tools_dir = os.path.join(self.personal_tools_dir, self.agent_id)
-        index_path = os.path.join(agent_tools_dir, "index.json")
-        
-        if not os.path.exists(index_path):
-            # Create personal tools directory and index for new agent
-            os.makedirs(agent_tools_dir, exist_ok=True)
-            self._create_personal_index(index_path)
-            return
-        
-        try:
-            with open(index_path, 'r') as f:
-                index_data = json.load(f)
+        # Load tools from all agents
+        for agent_dir in os.listdir(self.personal_tools_dir):
+            agent_path = os.path.join(self.personal_tools_dir, agent_dir)
+            index_path = os.path.join(agent_path, "index.json")
             
-            for tool_name, tool_info in index_data.get('tools', {}).items():
-                tool_file = tool_info.get('file')
-                if tool_file:
-                    tool_path = os.path.join(agent_tools_dir, tool_file)
-                    tool_module = self._load_tool_module(tool_path, tool_name)
-                    
-                    if tool_module and hasattr(tool_module, 'execute'):
-                        self.personal_tools[tool_name] = {
-                            'module': tool_module,
-                            'info': tool_info,
-                            'type': 'personal'
-                        }
+            if not os.path.isdir(agent_path) or not os.path.exists(index_path):
+                continue
+                
+            try:
+                with open(index_path, 'r') as f:
+                    index_data = json.load(f)
+                
+                for tool_name, tool_info in index_data.get('tools', {}).items():
+                    tool_file = tool_info.get('file')
+                    if tool_file:
+                        tool_path = os.path.join(agent_path, tool_file)
+                        tool_module = self._load_tool_module(tool_path, tool_name)
                         
-        except Exception as e:
-            print(f"Error loading personal tools for {self.agent_id}: {e}")
+                        if tool_module and hasattr(tool_module, 'execute'):
+                            # Prefix tool name with creator for clarity (except own tools)
+                            display_name = tool_name if agent_dir == self.agent_id else f"{agent_dir}_{tool_name}"
+                            
+                            self.personal_tools[display_name] = {
+                                'module': tool_module,
+                                'info': {**tool_info, 'creator': agent_dir},
+                                'type': 'personal'
+                            }
+                            
+            except Exception as e:
+                print(f"Error loading personal tools from {agent_dir}: {e}")
+        
+        # Ensure current agent has personal tools directory
+        if self.agent_id:
+            agent_tools_dir = os.path.join(self.personal_tools_dir, self.agent_id)
+            index_path = os.path.join(agent_tools_dir, "index.json")
+            
+            if not os.path.exists(index_path):
+                os.makedirs(agent_tools_dir, exist_ok=True)
+                self._create_personal_index(index_path)
     
     def _load_tool_module(self, tool_path: str, tool_name: str):
         """Dynamically load a tool module from file."""
@@ -159,7 +170,7 @@ class EnhancedToolRegistry:
                 'name': tool_data['info']['name'],
                 'description': tool_data['info']['description'],
                 'energy_reward': tool_data['info']['energy_reward'],
-                'parameters': tool_data['info']['parameters'],
+                'parameters': tool_data['info'].get('parameters', {}),  # Safe fallback
                 'type': 'personal',
                 'created_by': tool_data['info'].get('created_by', self.agent_id),
                 'depends_on': tool_data['info'].get('depends_on', [])

@@ -265,12 +265,25 @@ class ToolMarketplace:
         """Get context for agent about current tool building opportunities."""
         context = "🛠️  Tool Building Opportunities:\n\n"
         
-        # Popular proposals to support or build
-        popular = self.get_popular_proposals(3)
-        if popular:
-            context += "🔥 Popular proposals needing support:\n"
-            for prop in popular:
-                context += f"  • {prop['name']}: {prop['description'][:50]}... ({prop['support_score']:.1f} support)\n"
+        # Proposals ready to build (have support)
+        ready_to_build = [
+            (pid, prop) for pid, prop in self.proposals.items()
+            if prop.status == "proposed" and len(prop.supporters) >= 1 and prop.proposer != agent_id
+        ]
+        if ready_to_build:
+            context += "🔨 Ready to BUILD (have support):\n"
+            for pid, prop in ready_to_build:
+                context += f"  • {prop.name}: {len(prop.supporters)} supporters - READY FOR BUILDING!\n"
+        
+        # Proposals needing support from others
+        others_proposals = [
+            (pid, prop) for pid, prop in self.proposals.items()
+            if prop.status == "proposed" and prop.proposer != agent_id and len(prop.supporters) == 0
+        ]
+        if others_proposals:
+            context += "👍 Others' proposals needing support:\n"
+            for pid, prop in others_proposals[:3]:  # Show top 3
+                context += f"  • {prop.name}: {prop.description[:50]}... (by {prop.proposer})\n"
         
         # Agent's own proposals
         my_proposals = [
