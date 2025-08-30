@@ -1,0 +1,3019 @@
+{
+  "metadata": {
+    "simulation_type": "proper_computational_tools",
+    "num_agents": 4,
+    "topology": "star",
+    "total_steps": 15,
+    "has_llm": false
+  },
+  "final_state": {
+    "total_personal_tools": 20,
+    "total_agents": 4,
+    "shared_tools_count": 6,
+    "step_count": 15,
+    "agent_tool_counts": {
+      "Agent_01": 5,
+      "Agent_02": 4,
+      "Agent_03": 5,
+      "Agent_04": 6
+    },
+    "tool_types_created": {
+      "simple": 5,
+      "text": 2,
+      "factorial": 4,
+      "statistics": 1,
+      "pattern": 3,
+      "prime": 2,
+      "boolean": 1,
+      "word": 1,
+      "palindrome": 1
+    },
+    "action_distribution": {
+      "create_tool": 7,
+      "use_tool": 7,
+      "rest": 6
+    }
+  },
+  "agent_states": [
+    {
+      "agent_id": "Agent_01",
+      "total_tools_created": 5,
+      "total_tools_available": 28,
+      "tool_types_created": {
+        "simple": 2,
+        "text": 1,
+        "factorial": 1,
+        "statistics": 1
+      },
+      "recent_actions": [
+        "create_tool",
+        "create_tool",
+        "rest",
+        "create_tool",
+        "use_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "factorial_calculator_1",
+        "simple_hash_2",
+        "statistics_calculator_1"
+      ]
+    },
+    {
+      "agent_id": "Agent_02",
+      "total_tools_created": 4,
+      "total_tools_available": 24,
+      "tool_types_created": {
+        "factorial": 2,
+        "pattern": 2
+      },
+      "recent_actions": [
+        "create_tool",
+        "rest",
+        "rest",
+        "use_tool",
+        "rest"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "pattern_finder_1",
+        "factorial_calculator_2",
+        "pattern_finder_2"
+      ]
+    },
+    {
+      "agent_id": "Agent_03",
+      "total_tools_created": 5,
+      "total_tools_available": 29,
+      "tool_types_created": {
+        "simple": 1,
+        "text": 1,
+        "prime": 2,
+        "boolean": 1
+      },
+      "recent_actions": [
+        "rest",
+        "create_tool",
+        "use_tool",
+        "use_tool",
+        "create_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "prime_checker_1",
+        "prime_checker_2",
+        "boolean_evaluator_1"
+      ]
+    },
+    {
+      "agent_id": "Agent_04",
+      "total_tools_created": 6,
+      "total_tools_available": 25,
+      "tool_types_created": {
+        "word": 1,
+        "palindrome": 1,
+        "factorial": 1,
+        "pattern": 1,
+        "simple": 2
+      },
+      "recent_actions": [
+        "create_tool",
+        "use_tool",
+        "rest",
+        "use_tool",
+        "use_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "pattern_finder_1",
+        "simple_hash_1",
+        "simple_hash_2"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "simple_hash_1",
+            "tool_type": "crypto",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created crypto tool 'simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [],
+              [],
+              []
+            ],
+            "neighbor_actions": [
+              [],
+              [],
+              []
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 0
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "simple_hash_1",
+            "tool_type": "crypto",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created crypto tool 'simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 0
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_01",
+          "tool_name": "simple_hash_1",
+          "tool_type": "crypto",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_03",
+          "tool_name": "simple_hash_1",
+          "tool_type": "crypto",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 2,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 1,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 0,
+          "Agent_03": 1,
+          "Agent_04": 0
+        },
+        "tool_types_created": {
+          "simple": 2
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 0,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "multiply",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "0.0 * 0.0 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 8
+            },
+            "details": "Used neighbor tool 'multiply'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [],
+              [
+                "simple_hash_1"
+              ],
+              []
+            ],
+            "neighbor_actions": [
+              [
+                "rest"
+              ],
+              [
+                "create_tool"
+              ],
+              [
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "factorial_calculator_1",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'factorial_calculator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_01_Boid_01_logic_1",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_01"
+            },
+            "details": "Used neighbor tool 'Boid_01_Boid_01_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 0
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_02",
+          "tool_name": "factorial_calculator_1",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 3,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 2,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 1,
+          "Agent_03": 1,
+          "Agent_04": 0
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "factorial": 1
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 2,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "power",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "0.0^1 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 15
+            },
+            "details": "Used neighbor tool 'power'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1"
+              ],
+              [
+                "simple_hash_1"
+              ],
+              []
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "random_gen",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "Random number between 1 and 100: 70",
+              "energy_gain": 5
+            },
+            "details": "Used neighbor tool 'random_gen'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "random_gen",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "Random number between 1 and 100: 90",
+              "energy_gain": 5
+            },
+            "details": "Used neighbor tool 'random_gen'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 0
+        }
+      ],
+      "tools_created_this_step": [],
+      "global_state": {
+        "total_personal_tools": 3,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 3,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 1,
+          "Agent_03": 1,
+          "Agent_04": 0
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "factorial": 1
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 5,
+          "rest": 4
+        }
+      }
+    },
+    {
+      "step": 4,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1"
+              ],
+              [
+                "simple_hash_1"
+              ],
+              []
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "word_counter_1",
+            "tool_type": "string",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created string tool 'word_counter_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 1
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_04",
+          "tool_name": "word_counter_1",
+          "tool_type": "string",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 4,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 4,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 1,
+          "Agent_03": 1,
+          "Agent_04": 1
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "factorial": 1,
+          "word": 1
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 6,
+          "rest": 6
+        }
+      }
+    },
+    {
+      "step": 5,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1"
+              ],
+              [
+                "simple_hash_1"
+              ],
+              [
+                "word_counter_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "pattern_finder_1",
+            "tool_type": "analysis",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created analysis tool 'pattern_finder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "text_encoder_1",
+            "tool_type": "string",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created string tool 'text_encoder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "palindrome_checker_1",
+            "tool_type": "string",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created string tool 'palindrome_checker_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 2
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_02",
+          "tool_name": "pattern_finder_1",
+          "tool_type": "analysis",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_03",
+          "tool_name": "text_encoder_1",
+          "tool_type": "string",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_04",
+          "tool_name": "palindrome_checker_1",
+          "tool_type": "string",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 7,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 5,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 2,
+          "Agent_03": 2,
+          "Agent_04": 2
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "factorial": 1,
+          "pattern": 1,
+          "text": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 7,
+          "use_tool": 6,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 6,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "prime_checker_1",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'prime_checker_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_simple_hash_1",
+            "test_params": {
+              "text": "world"
+            },
+            "result": {
+              "success": true,
+              "result": 318802
+            },
+            "details": "Used neighbor tool 'Agent_01_simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 2
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_03",
+          "tool_name": "prime_checker_1",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 8,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 6,
+        "agent_tool_counts": {
+          "Agent_01": 1,
+          "Agent_02": 2,
+          "Agent_03": 3,
+          "Agent_04": 2
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "factorial": 1,
+          "pattern": 1,
+          "text": 1,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 7,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 7,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "text_encoder_1",
+            "tool_type": "string",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created string tool 'text_encoder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_02_Boid_02_logic_1",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_02"
+            },
+            "details": "Used neighbor tool 'Boid_02_Boid_02_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "square",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "Square of 0.0 = 0.0 (direct calculation)",
+              "numeric_result": 0.0,
+              "energy_gain": 12
+            },
+            "details": "Used neighbor tool 'square'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "factorial_calculator_1",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'factorial_calculator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_01",
+          "tool_name": "text_encoder_1",
+          "tool_type": "string",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_04",
+          "tool_name": "factorial_calculator_1",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 10,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 7,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 2,
+          "Agent_03": 3,
+          "Agent_04": 3
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "text": 2,
+          "factorial": 2,
+          "pattern": 1,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 7,
+          "use_tool": 7,
+          "rest": 6
+        }
+      }
+    },
+    {
+      "step": 8,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "factorial_calculator_2",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'factorial_calculator_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "pattern_finder_1",
+            "tool_type": "analysis",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created analysis tool 'pattern_finder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 4
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_02",
+          "tool_name": "factorial_calculator_2",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_04",
+          "tool_name": "pattern_finder_1",
+          "tool_type": "analysis",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 12,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 8,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 3,
+          "Agent_03": 3,
+          "Agent_04": 4
+        },
+        "tool_types_created": {
+          "simple": 2,
+          "text": 2,
+          "factorial": 3,
+          "pattern": 2,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 9,
+          "use_tool": 4,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 9,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "simple_hash_1",
+            "tool_type": "crypto",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created crypto tool 'simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 5
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_04",
+          "tool_name": "simple_hash_1",
+          "tool_type": "crypto",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 13,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 9,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 3,
+          "Agent_03": 3,
+          "Agent_04": 5
+        },
+        "tool_types_created": {
+          "simple": 3,
+          "text": 2,
+          "factorial": 3,
+          "pattern": 2,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 9,
+          "use_tool": 4,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 10,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_04_palindrome_checker_1",
+            "test_params": {
+              "text": "world"
+            },
+            "result": {
+              "success": true,
+              "result": false
+            },
+            "details": "Used neighbor tool 'Agent_04_palindrome_checker_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_factorial_calculator_2",
+            "test_params": {
+              "n": 9
+            },
+            "result": {
+              "success": true,
+              "result": 362880
+            },
+            "details": "Used neighbor tool 'Agent_02_factorial_calculator_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 5
+        }
+      ],
+      "tools_created_this_step": [],
+      "global_state": {
+        "total_personal_tools": 13,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 10,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 3,
+          "Agent_03": 3,
+          "Agent_04": 5
+        },
+        "tool_types_created": {
+          "simple": 3,
+          "text": 2,
+          "factorial": 3,
+          "pattern": 2,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 7,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 11,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "factorial_calculator_1",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'factorial_calculator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "pattern_finder_2",
+            "tool_type": "analysis",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created analysis tool 'pattern_finder_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "simple_hash_2",
+            "tool_type": "crypto",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created crypto tool 'simple_hash_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_01",
+          "tool_name": "factorial_calculator_1",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_02",
+          "tool_name": "pattern_finder_2",
+          "tool_type": "analysis",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_04",
+          "tool_name": "simple_hash_2",
+          "tool_type": "crypto",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 16,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 11,
+        "agent_tool_counts": {
+          "Agent_01": 3,
+          "Agent_02": 4,
+          "Agent_03": 3,
+          "Agent_04": 6
+        },
+        "tool_types_created": {
+          "simple": 4,
+          "text": 2,
+          "factorial": 4,
+          "pattern": 3,
+          "prime": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 8,
+          "use_tool": 6,
+          "rest": 6
+        }
+      }
+    },
+    {
+      "step": 12,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "simple_hash_2",
+            "tool_type": "crypto",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created crypto tool 'simple_hash_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2",
+                "pattern_finder_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "prime_checker_2",
+            "tool_type": "math",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created math tool 'prime_checker_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_simple_hash_1",
+            "test_params": {
+              "text": "world"
+            },
+            "result": {
+              "success": true,
+              "result": 318802
+            },
+            "details": "Used neighbor tool 'Agent_01_simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_01",
+          "tool_name": "simple_hash_2",
+          "tool_type": "crypto",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        },
+        {
+          "agent": "Agent_03",
+          "tool_name": "prime_checker_2",
+          "tool_type": "math",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 18,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 12,
+        "agent_tool_counts": {
+          "Agent_01": 4,
+          "Agent_02": 4,
+          "Agent_03": 4,
+          "Agent_04": 6
+        },
+        "tool_types_created": {
+          "simple": 5,
+          "text": 2,
+          "factorial": 4,
+          "pattern": 3,
+          "prime": 2,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 8,
+          "use_tool": 5,
+          "rest": 7
+        }
+      }
+    },
+    {
+      "step": 13,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2",
+                "pattern_finder_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1",
+                "prime_checker_2"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_04_word_counter_1",
+            "test_params": {
+              "text": "hello world this is a test"
+            },
+            "result": {
+              "success": true,
+              "result": {
+                "words": 6,
+                "chars": 26
+              }
+            },
+            "details": "Used neighbor tool 'Agent_04_word_counter_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "create_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "tools_created_this_step": [],
+      "global_state": {
+        "total_personal_tools": 18,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 13,
+        "agent_tool_counts": {
+          "Agent_01": 4,
+          "Agent_02": 4,
+          "Agent_03": 4,
+          "Agent_04": 6
+        },
+        "tool_types_created": {
+          "simple": 5,
+          "text": 2,
+          "factorial": 4,
+          "pattern": 3,
+          "prime": 2,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 6,
+          "rest": 8
+        }
+      }
+    },
+    {
+      "step": 14,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "statistics_calculator_1",
+            "tool_type": "data",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created data tool 'statistics_calculator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2",
+                "pattern_finder_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1",
+                "prime_checker_2"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_01_Boid_01_logic_1",
+            "test_params": {
+              "data": "test"
+            },
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_01"
+            },
+            "details": "Used neighbor tool 'Boid_01_Boid_01_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_04_palindrome_checker_1",
+            "test_params": {
+              "text": "world"
+            },
+            "result": {
+              "success": true,
+              "result": false
+            },
+            "details": "Used neighbor tool 'Agent_04_palindrome_checker_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_text_encoder_1",
+            "test_params": {
+              "text": "hello",
+              "shift": 3
+            },
+            "result": {
+              "success": true,
+              "result": "khoor"
+            },
+            "details": "Used neighbor tool 'Agent_01_text_encoder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_01",
+          "tool_name": "statistics_calculator_1",
+          "tool_type": "data",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 19,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 14,
+        "agent_tool_counts": {
+          "Agent_01": 5,
+          "Agent_02": 4,
+          "Agent_03": 4,
+          "Agent_04": 6
+        },
+        "tool_types_created": {
+          "simple": 5,
+          "text": 2,
+          "factorial": 4,
+          "statistics": 1,
+          "pattern": 3,
+          "prime": 2,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 8,
+          "rest": 6
+        }
+      }
+    },
+    {
+      "step": 15,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_text_encoder_1",
+            "test_params": {
+              "text": "hello",
+              "shift": 3
+            },
+            "result": {
+              "success": true,
+              "result": "khoor"
+            },
+            "details": "Used neighbor tool 'Agent_03_text_encoder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "factorial_calculator_2",
+                "pattern_finder_2"
+              ],
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "prime_checker_1",
+                "prime_checker_2"
+              ],
+              [
+                "word_counter_1",
+                "palindrome_checker_1",
+                "factorial_calculator_1",
+                "pattern_finder_1",
+                "simple_hash_1",
+                "simple_hash_2"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "boolean_evaluator_1",
+            "tool_type": "logic",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "Test 1: PASS",
+                "Test 2: PASS"
+              ]
+            },
+            "details": "Created logic tool 'boolean_evaluator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_factorial_calculator_2",
+            "test_params": {
+              "n": 5
+            },
+            "result": {
+              "success": true,
+              "result": 120
+            },
+            "details": "Used neighbor tool 'Agent_02_factorial_calculator_2'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "simple_hash_1",
+                "text_encoder_1",
+                "factorial_calculator_1",
+                "simple_hash_2",
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "tools_created_this_step": [
+        {
+          "agent": "Agent_03",
+          "tool_name": "boolean_evaluator_1",
+          "tool_type": "logic",
+          "test_results": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "details": [
+              "Test 1: PASS",
+              "Test 2: PASS"
+            ]
+          }
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 20,
+        "total_agents": 4,
+        "shared_tools_count": 6,
+        "step_count": 15,
+        "agent_tool_counts": {
+          "Agent_01": 5,
+          "Agent_02": 4,
+          "Agent_03": 5,
+          "Agent_04": 6
+        },
+        "tool_types_created": {
+          "simple": 5,
+          "text": 2,
+          "factorial": 4,
+          "statistics": 1,
+          "pattern": 3,
+          "prime": 2,
+          "boolean": 1,
+          "word": 1,
+          "palindrome": 1
+        },
+        "action_distribution": {
+          "create_tool": 7,
+          "use_tool": 7,
+          "rest": 6
+        }
+      }
+    }
+  ]
+}

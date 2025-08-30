@@ -11,7 +11,7 @@
       },
       "file": "calculate.py",
       "created_by": "system",
-      "usage_count": 21
+      "usage_count": 10
     },
     "multiply": {
       "name": "multiply",
@@ -23,7 +23,7 @@
       },
       "file": "multiply.py",
       "created_by": "system",
-      "usage_count": 10
+      "usage_count": 4
     },
     "square": {
       "name": "square",
@@ -34,7 +34,7 @@
       },
       "file": "square.py",
       "created_by": "system",
-      "usage_count": 10,
+      "usage_count": 1,
       "depends_on": [
         "multiply"
       ]
@@ -49,7 +49,7 @@
       },
       "file": "power.py",
       "created_by": "system",
-      "usage_count": 11,
+      "usage_count": 4,
       "depends_on": [
         "multiply"
       ]
@@ -64,7 +64,7 @@
       },
       "file": "file_write.py",
       "created_by": "system",
-      "usage_count": 13
+      "usage_count": 8
     },
     "random_gen": {
       "name": "random_gen",
@@ -78,12 +78,12 @@
       },
       "file": "random_gen.py",
       "created_by": "system",
-      "usage_count": 15
+      "usage_count": 7
     }
   },
   "metadata": {
     "total_tools": 6,
-    "last_updated": "2025-08-30T19:26:32.164712",
+    "last_updated": "2025-08-30T19:24:24.758583",
     "version": "2.0",
     "features": [
       "tool_composition",

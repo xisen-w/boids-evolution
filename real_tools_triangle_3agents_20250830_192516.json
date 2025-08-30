@@ -1,0 +1,5497 @@
+{
+  "metadata": {
+    "num_agents": 3,
+    "topology": "triangle",
+    "total_steps": 30,
+    "has_llm": false
+  },
+  "final_state": {
+    "total_personal_tools": 53,
+    "total_agents": 3,
+    "shared_tools_count": 6,
+    "step_count": 30,
+    "agent_tool_counts": {
+      "Agent_01": 18,
+      "Agent_02": 15,
+      "Agent_03": 20
+    },
+    "action_distribution": {
+      "create_tool": 4,
+      "use_tool": 5,
+      "improve_tool": 5,
+      "rest": 1
+    }
+  },
+  "agent_states": [
+    {
+      "agent_id": "Agent_01",
+      "total_tools_created": 18,
+      "total_tools_available": 60,
+      "recent_actions": [
+        "create_tool",
+        "use_tool",
+        "improve_tool",
+        "improve_tool",
+        "create_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "pattern_finder_1",
+        "simple_hash_1",
+        "improved_Agent_03_pattern_finder_1_379",
+        "improved_Boid_01_Boid_01_logic_1_719",
+        "data_tool_3994",
+        "improved_Agent_03_improved_calculate_111_878",
+        "math_tool_4589",
+        "improved_Agent_02_improved_improved_power_425_553_945",
+        "improved_Agent_03_pattern_finder_1_802",
+        "utility_tool_3073",
+        "improved_Agent_03_pattern_finder_1_662",
+        "data_tool_2644",
+        "improved_Boid_02_Boid_02_logic_1_415",
+        "improved_data_tool_3994_24",
+        "data_tool_1797",
+        "improved_improved_Agent_03_pattern_finder_1_379_287",
+        "improved_improved_data_tool_3994_24_386",
+        "data_tool_9422"
+      ]
+    },
+    {
+      "agent_id": "Agent_02",
+      "total_tools_created": 15,
+      "total_tools_available": 61,
+      "recent_actions": [
+        "rest",
+        "use_tool",
+        "use_tool",
+        "create_tool",
+        "improve_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "statistics_calculator_1",
+        "improved_power_425",
+        "math_tool_9903",
+        "math_tool_7524",
+        "improved_improved_power_425_477",
+        "improved_improved_power_425_553",
+        "improved_statistics_calculator_1_810",
+        "data_tool_1640",
+        "improved_statistics_calculator_1_47",
+        "improved_file_write_165",
+        "data_tool_9032",
+        "data_tool_1471",
+        "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411",
+        "utility_tool_5354",
+        "improved_Boid_03_Boid_03_logic_1_514"
+      ]
+    },
+    {
+      "agent_id": "Agent_03",
+      "total_tools_created": 20,
+      "total_tools_available": 62,
+      "recent_actions": [
+        "create_tool",
+        "use_tool",
+        "improve_tool",
+        "use_tool",
+        "improve_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "factorial_calculator_1",
+        "list_sorter_1",
+        "pattern_finder_1",
+        "improved_power_484",
+        "improved_file_write_822",
+        "improved_calculate_111",
+        "improved_improved_power_484_755",
+        "utility_tool_2448",
+        "improved_Agent_02_math_tool_7524_106",
+        "improved_Agent_02_math_tool_9903_162",
+        "improved_improved_Agent_02_math_tool_9903_162_539",
+        "improved_file_write_839",
+        "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+        "improved_improved_Agent_02_math_tool_7524_106_17",
+        "utility_tool_3526",
+        "data_tool_4034",
+        "math_tool_1765",
+        "data_tool_3548",
+        "improved_improved_improved_Agent_02_math_tool_7524_106_17_648",
+        "improved_Agent_02_data_tool_1471_458"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [],
+              []
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_factorial_calculator_1",
+            "result": {
+              "success": true,
+              "result": 120
+            },
+            "details": "Used neighbor tool 'Agent_03_factorial_calculator_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool"
+              ],
+              []
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_power_484",
+            "base_tool": "power",
+            "details": "Improved power \u2192 improved_power_484"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool"
+              ],
+              [
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 7,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 1,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 1,
+          "Agent_03": 4
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 2,
+          "improve_tool": 1,
+          "rest": 0
+        }
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool"
+              ],
+              [
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 1
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "statistics_calculator_1"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 4
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 7,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 2,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 1,
+          "Agent_03": 4
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 4,
+          "improve_tool": 1,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_power_425",
+            "base_tool": "power",
+            "details": "Improved power \u2192 improved_power_425"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_file_write_822",
+            "base_tool": "file_write",
+            "details": "Improved file_write \u2192 improved_file_write_822"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 9,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 3,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 2,
+          "Agent_03": 5
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 5,
+          "improve_tool": 3,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 4,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_simple_hash_1",
+            "result": {
+              "success": true,
+              "result": 0
+            },
+            "details": "Used neighbor tool 'Agent_01_simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_calculate_111",
+            "base_tool": "calculate",
+            "details": "Improved calculate \u2192 improved_calculate_111"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 10,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 4,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 2,
+          "Agent_03": 6
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 6,
+          "improve_tool": 4,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 5,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 2
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_9903",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_9903'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_pattern_finder_1",
+            "result": {
+              "success": false,
+              "result": "Need at least 2 numbers"
+            },
+            "details": "Used neighbor tool 'Agent_01_pattern_finder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 11,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 5,
+        "agent_tool_counts": {
+          "Agent_01": 2,
+          "Agent_02": 3,
+          "Agent_03": 6
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 7,
+          "improve_tool": 4,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 6,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_03_pattern_finder_1_379",
+            "base_tool": "Agent_03_pattern_finder_1",
+            "details": "Improved Agent_03_pattern_finder_1 \u2192 improved_Agent_03_pattern_finder_1_379"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_7524",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_7524'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_power_484_755",
+            "base_tool": "improved_power_484",
+            "details": "Improved improved_power_484 \u2192 improved_improved_power_484_755"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 14,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 6,
+        "agent_tool_counts": {
+          "Agent_01": 3,
+          "Agent_02": 4,
+          "Agent_03": 7
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 5,
+          "improve_tool": 5,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 7,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_file_write_822",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_file_write_822'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 3
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_power_425_477",
+            "base_tool": "improved_power_425",
+            "details": "Improved improved_power_425 \u2192 improved_improved_power_425_477"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 15,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 7,
+        "agent_tool_counts": {
+          "Agent_01": 3,
+          "Agent_02": 5,
+          "Agent_03": 7
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 4,
+          "improve_tool": 6,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 8,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Boid_01_Boid_01_logic_1_719",
+            "base_tool": "Boid_01_Boid_01_logic_1",
+            "details": "Improved Boid_01_Boid_01_logic_1 \u2192 improved_Boid_01_Boid_01_logic_1_719"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 4
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "calculate",
+            "result": {
+              "success": true,
+              "result": "0.0 add 0.0 = 0.0",
+              "energy_gain": 10
+            },
+            "details": "Used neighbor tool 'calculate'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_2448",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_2448'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 8
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 17,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 8,
+        "agent_tool_counts": {
+          "Agent_01": 4,
+          "Agent_02": 5,
+          "Agent_03": 8
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 4,
+          "improve_tool": 5,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 9,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_3994",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_3994'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_02_math_tool_7524_106",
+            "base_tool": "Agent_02_math_tool_7524",
+            "details": "Improved Agent_02_math_tool_7524 \u2192 improved_Agent_02_math_tool_7524_106"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 9
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 19,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 9,
+        "agent_tool_counts": {
+          "Agent_01": 5,
+          "Agent_02": 5,
+          "Agent_03": 9
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 3,
+          "improve_tool": 5,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 10,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_03_improved_calculate_111_878",
+            "base_tool": "Agent_03_improved_calculate_111",
+            "details": "Improved Agent_03_improved_calculate_111 \u2192 improved_Agent_03_improved_calculate_111_878"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_power_425_553",
+            "base_tool": "improved_power_425",
+            "details": "Improved improved_power_425 \u2192 improved_improved_power_425_553"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_02_math_tool_9903_162",
+            "base_tool": "Agent_02_math_tool_9903",
+            "details": "Improved Agent_02_math_tool_9903 \u2192 improved_Agent_02_math_tool_9903_162"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 22,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 10,
+        "agent_tool_counts": {
+          "Agent_01": 6,
+          "Agent_02": 6,
+          "Agent_03": 10
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 2,
+          "improve_tool": 8,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 11,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_4589",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_4589'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_list_sorter_1",
+            "result": {
+              "success": false,
+              "result": "Error: could not convert string to float: 'test_input'"
+            },
+            "details": "Used neighbor tool 'Agent_03_list_sorter_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "multiply",
+            "result": {
+              "success": true,
+              "result": "0.0 * 0.0 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 8
+            },
+            "details": "Used neighbor tool 'multiply'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 23,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 11,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 6,
+          "Agent_03": 10
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 4,
+          "improve_tool": 6,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 12,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_power_425",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_power_425'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_pattern_finder_1",
+            "result": {
+              "success": false,
+              "result": "Need at least 2 numbers"
+            },
+            "details": "Used neighbor tool 'Agent_01_pattern_finder_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_Agent_02_math_tool_9903_162_539",
+            "base_tool": "improved_Agent_02_math_tool_9903_162",
+            "details": "Improved improved_Agent_02_math_tool_9903_162 \u2192 improved_improved_Agent_02_math_tool_9903_162_539"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 11
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 24,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 12,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 6,
+          "Agent_03": 11
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 5,
+          "improve_tool": 6,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 13,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "multiply",
+            "result": {
+              "success": true,
+              "result": "0.0 * 0.0 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 8
+            },
+            "details": "Used neighbor tool 'multiply'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_file_write_839",
+            "base_tool": "file_write",
+            "details": "Improved file_write \u2192 improved_file_write_839"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 12
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 25,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 13,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 6,
+          "Agent_03": 12
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 5,
+          "improve_tool": 6,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 14,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_improved_power_425_553",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_improved_power_425_553'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_statistics_calculator_1_810",
+            "base_tool": "statistics_calculator_1",
+            "details": "Improved statistics_calculator_1 \u2192 improved_statistics_calculator_1_810"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+            "base_tool": "Agent_01_improved_Agent_03_improved_calculate_111_878",
+            "details": "Improved Agent_01_improved_Agent_03_improved_calculate_111_878 \u2192 improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 27,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 14,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 7,
+          "Agent_03": 13
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 6,
+          "improve_tool": 7,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 15,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_improved_power_425_553",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_improved_power_425_553'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "random_gen",
+            "result": {
+              "success": true,
+              "result": "Random number between 1 and 100: 26",
+              "energy_gain": 5
+            },
+            "details": "Used neighbor tool 'random_gen'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_Agent_02_math_tool_7524_106_17",
+            "base_tool": "improved_Agent_02_math_tool_7524_106",
+            "details": "Improved improved_Agent_02_math_tool_7524_106 \u2192 improved_improved_Agent_02_math_tool_7524_106_17"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 14
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 28,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 15,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 7,
+          "Agent_03": 14
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 8,
+          "improve_tool": 5,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 16,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_1640",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_1640'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 8
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_improved_power_425_477",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_improved_power_425_477'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 14
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 29,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 16,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 8,
+          "Agent_03": 14
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 7,
+          "improve_tool": 5,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 17,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_02_improved_improved_power_425_553_945",
+            "base_tool": "Agent_02_improved_improved_power_425_553",
+            "details": "Improved Agent_02_improved_improved_power_425_553 \u2192 improved_Agent_02_improved_improved_power_425_553_945"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 8
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_statistics_calculator_1_47",
+            "base_tool": "statistics_calculator_1",
+            "details": "Improved statistics_calculator_1 \u2192 improved_statistics_calculator_1_47"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 9
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_3526",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_3526'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 15
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 32,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 17,
+        "agent_tool_counts": {
+          "Agent_01": 8,
+          "Agent_02": 9,
+          "Agent_03": 15
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 5,
+          "improve_tool": 6,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 18,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_03_pattern_finder_1_802",
+            "base_tool": "Agent_03_pattern_finder_1",
+            "details": "Improved Agent_03_pattern_finder_1 \u2192 improved_Agent_03_pattern_finder_1_802"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 9
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_file_write_165",
+            "base_tool": "file_write",
+            "details": "Improved file_write \u2192 improved_file_write_165"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_improved_power_425_553",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_improved_power_425_553'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 15
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 34,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 18,
+        "agent_tool_counts": {
+          "Agent_01": 9,
+          "Agent_02": 10,
+          "Agent_03": 15
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 5,
+          "improve_tool": 7,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 19,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_3073",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_3073'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_9032",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_9032'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 11
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 15
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 36,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 19,
+        "agent_tool_counts": {
+          "Agent_01": 10,
+          "Agent_02": 11,
+          "Agent_03": 15
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 5,
+          "improve_tool": 5,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 20,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "random_gen",
+            "result": {
+              "success": true,
+              "result": "Random number between 1 and 100: 92",
+              "energy_gain": 5
+            },
+            "details": "Used neighbor tool 'random_gen'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_1471",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_1471'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 12
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_4034",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_4034'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "create_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 16
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 38,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 20,
+        "agent_tool_counts": {
+          "Agent_01": 10,
+          "Agent_02": 12,
+          "Agent_03": 16
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 4,
+          "improve_tool": 4,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 21,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_03_pattern_finder_1_662",
+            "base_tool": "Agent_03_pattern_finder_1",
+            "details": "Improved Agent_03_pattern_finder_1 \u2192 improved_Agent_03_pattern_finder_1_662"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 11
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411",
+            "base_tool": "Agent_01_improved_Agent_02_improved_improved_power_425_553_945",
+            "details": "Improved Agent_01_improved_Agent_02_improved_improved_power_425_553_945 \u2192 improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_file_write_165",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_file_write_165'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 16
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 40,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 21,
+        "agent_tool_counts": {
+          "Agent_01": 11,
+          "Agent_02": 13,
+          "Agent_03": 16
+        },
+        "action_distribution": {
+          "create_tool": 5,
+          "use_tool": 4,
+          "improve_tool": 6,
+          "rest": 0
+        }
+      }
+    },
+    {
+      "step": 22,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_2644",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_2644'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 12
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_1765",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_1765'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "create_tool",
+                "improve_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 17
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 42,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 22,
+        "agent_tool_counts": {
+          "Agent_01": 12,
+          "Agent_02": 13,
+          "Agent_03": 17
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 4,
+          "improve_tool": 4,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 23,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_data_tool_4034",
+            "result": {
+              "success": true,
+              "result": "processed: test_input"
+            },
+            "details": "Used neighbor tool 'Agent_03_data_tool_4034'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "rest"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 12
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_calculate_111",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_calculate_111'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_utility_tool_3073",
+            "result": {
+              "success": true,
+              "result": "utility task: help"
+            },
+            "details": "Used neighbor tool 'Agent_01_utility_tool_3073'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 17
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 42,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 23,
+        "agent_tool_counts": {
+          "Agent_01": 12,
+          "Agent_02": 13,
+          "Agent_03": 17
+        },
+        "action_distribution": {
+          "create_tool": 6,
+          "use_tool": 6,
+          "improve_tool": 2,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 24,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Boid_02_Boid_02_logic_1_415",
+            "base_tool": "Boid_02_Boid_02_logic_1",
+            "details": "Improved Boid_02_Boid_02_logic_1 \u2192 improved_Boid_02_Boid_02_logic_1_415"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_file_write_822",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_file_write_822'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "power",
+            "result": {
+              "success": true,
+              "result": "0.0^1 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 15
+            },
+            "details": "Used neighbor tool 'power'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 17
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 43,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 24,
+        "agent_tool_counts": {
+          "Agent_01": 13,
+          "Agent_02": 13,
+          "Agent_03": 17
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 7,
+          "improve_tool": 3,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 25,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_data_tool_3994_24",
+            "base_tool": "data_tool_3994",
+            "details": "Improved data_tool_3994 \u2192 improved_data_tool_3994_24"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 14
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 17
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 44,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 25,
+        "agent_tool_counts": {
+          "Agent_01": 14,
+          "Agent_02": 13,
+          "Agent_03": 17
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 6,
+          "improve_tool": 4,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 26,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_1797",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_1797'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 15
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_3548",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_3548'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 18
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 46,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 26,
+        "agent_tool_counts": {
+          "Agent_01": 15,
+          "Agent_02": 13,
+          "Agent_03": 18
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 5,
+          "improve_tool": 2,
+          "rest": 4
+        }
+      }
+    },
+    {
+      "step": 27,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_power_484",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_power_484'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 15
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_Agent_02_math_tool_7524_106",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_Agent_02_math_tool_7524_106'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_simple_hash_1",
+            "result": {
+              "success": true,
+              "result": 0
+            },
+            "details": "Used neighbor tool 'Agent_01_simple_hash_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 18
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 46,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 27,
+        "agent_tool_counts": {
+          "Agent_01": 15,
+          "Agent_02": 13,
+          "Agent_03": 18
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 8,
+          "improve_tool": 2,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 28,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_Agent_03_pattern_finder_1_379_287",
+            "base_tool": "improved_Agent_03_pattern_finder_1_379",
+            "details": "Improved improved_Agent_03_pattern_finder_1_379 \u2192 improved_improved_Agent_03_pattern_finder_1_379_287"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 16
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_03_improved_file_write_839",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_03_improved_file_write_839'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 13
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_improved_Agent_02_math_tool_7524_106_17_648",
+            "base_tool": "improved_improved_Agent_02_math_tool_7524_106_17",
+            "details": "Improved improved_improved_Agent_02_math_tool_7524_106_17 \u2192 improved_improved_improved_Agent_02_math_tool_7524_106_17_648"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 19
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 48,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 28,
+        "agent_tool_counts": {
+          "Agent_01": 16,
+          "Agent_02": 13,
+          "Agent_03": 19
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 6,
+          "improve_tool": 4,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 29,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_improved_data_tool_3994_24_386",
+            "base_tool": "improved_data_tool_3994_24",
+            "details": "Improved improved_data_tool_3994_24 \u2192 improved_improved_data_tool_3994_24_386"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548",
+                "improved_improved_improved_Agent_02_math_tool_7524_106_17_648"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 17
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_5354",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_5354'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287",
+                "improved_improved_data_tool_3994_24_386"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548",
+                "improved_improved_improved_Agent_02_math_tool_7524_106_17_648"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "create_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 14
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_02_improved_statistics_calculator_1_810",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_02_improved_statistics_calculator_1_810'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287",
+                "improved_improved_data_tool_3994_24_386"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411",
+                "utility_tool_5354"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 19
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 50,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 29,
+        "agent_tool_counts": {
+          "Agent_01": 17,
+          "Agent_02": 14,
+          "Agent_03": 19
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 5,
+          "improve_tool": 4,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 30,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "data_tool_9422",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'data_tool_9422'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411",
+                "utility_tool_5354"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548",
+                "improved_improved_improved_Agent_02_math_tool_7524_106_17_648"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 18
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Boid_03_Boid_03_logic_1_514",
+            "base_tool": "Boid_03_Boid_03_logic_1",
+            "details": "Improved Boid_03_Boid_03_logic_1 \u2192 improved_Boid_03_Boid_03_logic_1_514"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287",
+                "improved_improved_data_tool_3994_24_386",
+                "data_tool_9422"
+              ],
+              [
+                "factorial_calculator_1",
+                "list_sorter_1",
+                "pattern_finder_1",
+                "improved_power_484",
+                "improved_file_write_822",
+                "improved_calculate_111",
+                "improved_improved_power_484_755",
+                "utility_tool_2448",
+                "improved_Agent_02_math_tool_7524_106",
+                "improved_Agent_02_math_tool_9903_162",
+                "improved_improved_Agent_02_math_tool_9903_162_539",
+                "improved_file_write_839",
+                "improved_Agent_01_improved_Agent_03_improved_calculate_111_878_267",
+                "improved_improved_Agent_02_math_tool_7524_106_17",
+                "utility_tool_3526",
+                "data_tool_4034",
+                "math_tool_1765",
+                "data_tool_3548",
+                "improved_improved_improved_Agent_02_math_tool_7524_106_17_648"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 15
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_02_data_tool_1471_458",
+            "base_tool": "Agent_02_data_tool_1471",
+            "details": "Improved Agent_02_data_tool_1471 \u2192 improved_Agent_02_data_tool_1471_458"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "pattern_finder_1",
+                "simple_hash_1",
+                "improved_Agent_03_pattern_finder_1_379",
+                "improved_Boid_01_Boid_01_logic_1_719",
+                "data_tool_3994",
+                "improved_Agent_03_improved_calculate_111_878",
+                "math_tool_4589",
+                "improved_Agent_02_improved_improved_power_425_553_945",
+                "improved_Agent_03_pattern_finder_1_802",
+                "utility_tool_3073",
+                "improved_Agent_03_pattern_finder_1_662",
+                "data_tool_2644",
+                "improved_Boid_02_Boid_02_logic_1_415",
+                "improved_data_tool_3994_24",
+                "data_tool_1797",
+                "improved_improved_Agent_03_pattern_finder_1_379_287",
+                "improved_improved_data_tool_3994_24_386",
+                "data_tool_9422"
+              ],
+              [
+                "statistics_calculator_1",
+                "improved_power_425",
+                "math_tool_9903",
+                "math_tool_7524",
+                "improved_improved_power_425_477",
+                "improved_improved_power_425_553",
+                "improved_statistics_calculator_1_810",
+                "data_tool_1640",
+                "improved_statistics_calculator_1_47",
+                "improved_file_write_165",
+                "data_tool_9032",
+                "data_tool_1471",
+                "improved_Agent_01_improved_Agent_02_improved_improved_power_425_553_945_411",
+                "utility_tool_5354",
+                "improved_Boid_03_Boid_03_logic_1_514"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "create_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 20
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 53,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 30,
+        "agent_tool_counts": {
+          "Agent_01": 18,
+          "Agent_02": 15,
+          "Agent_03": 20
+        },
+        "action_distribution": {
+          "create_tool": 4,
+          "use_tool": 5,
+          "improve_tool": 5,
+          "rest": 1
+        }
+      }
+    }
+  ]
+}

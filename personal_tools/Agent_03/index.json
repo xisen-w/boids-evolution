@@ -1,32 +1,46 @@
 {
   "tools": {
-    "Universal_Parser": {
-      "name": "Universal_Parser",
-      "description": "Custom tool built by Agent_03",
-      "file": "Universal_Parser.py",
-      "energy_reward": 15,
-      "creator": "Agent_03"
+    "factorial_calculator_1": {
+      "name": "factorial_calculator_1",
+      "description": "Calculates factorial of a number",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "factorial_calculator_1.py",
+      "created_by": "Agent_03",
+      "usage_count": 2
     },
-    "Universal_Data_Formatter": {
-      "name": "Universal_Data_Formatter",
-      "description": "Custom tool built by Agent_03",
-      "file": "Universal_Data_Formatter.py",
-      "energy_reward": 15,
-      "creator": "Agent_03"
+    "boolean_evaluator_1": {
+      "name": "boolean_evaluator_1",
+      "description": "Evaluates boolean expressions",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "boolean_evaluator_1.py",
+      "created_by": "Agent_03",
+      "usage_count": 2
     },
-    "CoreLogicEngine": {
-      "name": "CoreLogicEngine",
-      "description": "Custom tool built by Agent_03",
-      "file": "CoreLogicEngine.py",
-      "energy_reward": 15,
-      "creator": "Agent_03"
+    "prime_checker_1": {
+      "name": "prime_checker_1",
+      "description": "Checks if a number is prime",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "prime_checker_1.py",
+      "created_by": "Agent_03",
+      "usage_count": 2
+    },
+    "statistics_calculator_1": {
+      "name": "statistics_calculator_1",
+      "description": "Calculates basic statistics",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "statistics_calculator_1.py",
+      "created_by": "Agent_03",
+      "usage_count": 2
     }
   },
   "metadata": {
     "agent_id": "Agent_03",
-    "total_tools": 0,
-    "last_updated": "2025-08-27T02:45:40.739243",
+    "total_tools": 4,
+    "last_updated": "2025-08-30T19:26:32.151391",
     "version": "1.0"
-  },
-  "total_tools": 3
+  }
 }

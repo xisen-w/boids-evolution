@@ -1,0 +1,830 @@
+{
+  "metadata": {
+    "num_agents": 3,
+    "topology": "triangle",
+    "total_steps": 3,
+    "has_llm": false
+  },
+  "final_state": {
+    "total_personal_tools": 62,
+    "total_agents": 3,
+    "shared_tools_count": 6,
+    "step_count": 3,
+    "agent_tool_counts": {
+      "Agent_01": 21,
+      "Agent_02": 19,
+      "Agent_03": 22
+    },
+    "action_distribution": {
+      "create_tool": 1,
+      "use_tool": 3,
+      "improve_tool": 1,
+      "rest": 4
+    }
+  },
+  "agent_states": [
+    {
+      "agent_id": "Agent_01",
+      "total_tools_created": 21,
+      "total_tools_available": 59,
+      "recent_actions": [
+        "rest",
+        "rest",
+        "use_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine",
+        "improved_Agent_03_Universal_Data_Formatter_584",
+        "utility_tool_9528",
+        "improved_power_494",
+        "improved_Agent_04_Universal_Data_Parser_60",
+        "improved_Boid_02_Boid_02_logic_1_760",
+        "utility_tool_7238",
+        "math_tool_5978",
+        "improved_Boid_02_Boid_02_logic_1_206",
+        "improved_utility_tool_9528_442",
+        "utility_tool_3872",
+        "improved_Agent_03_Universal_Data_Formatter_505",
+        "improved_Agent_03_Universal_Parser_75",
+        "improved_Agent_04_Universal_Data_Parser_691",
+        "improved_math_tool_5978_930",
+        "improved_Agent_03_improved_square_970_722",
+        "improved_Agent_02_math_tool_3775_408"
+      ]
+    },
+    {
+      "agent_id": "Agent_02",
+      "total_tools_created": 19,
+      "total_tools_available": 60,
+      "recent_actions": [
+        "use_tool",
+        "rest",
+        "improve_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine",
+        "math_tool_6462",
+        "improved_multiply_219",
+        "utility_tool_4127",
+        "utility_tool_5880",
+        "math_tool_3775",
+        "improved_Boid_02_Boid_02_logic_1_784",
+        "improved_file_write_728",
+        "data_tool_1144",
+        "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+        "math_tool_2359",
+        "data_tool_6430",
+        "improved_Boid_01_Boid_01_logic_1_293",
+        "improved_power_968",
+        "improved_math_tool_2359_486"
+      ]
+    },
+    {
+      "agent_id": "Agent_03",
+      "total_tools_created": 22,
+      "total_tools_available": 61,
+      "recent_actions": [
+        "use_tool",
+        "rest",
+        "create_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Universal_Parser",
+        "Universal_Data_Formatter",
+        "CoreLogicEngine",
+        "improved_Universal_Parser_653",
+        "improved_Universal_Data_Formatter_243",
+        "improved_Agent_04_Universal_Data_Parser_264",
+        "improved_Boid_02_Boid_02_logic_1_477",
+        "utility_tool_1610",
+        "improved_square_970",
+        "improved_square_932",
+        "improved_Agent_04_Universal_Code_Interpreter_754",
+        "improved_Universal_Parser_384",
+        "improved_calculate_89",
+        "math_tool_8907",
+        "math_tool_1774",
+        "data_tool_1102",
+        "utility_tool_1730",
+        "improved_CoreLogicEngine_272",
+        "utility_tool_8045",
+        "math_tool_4847"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [],
+              []
+            ]
+          },
+          "tool_count": 21
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "square",
+            "result": {
+              "success": true,
+              "result": "Square of 0.0 = 0.0 (direct calculation)",
+              "numeric_result": 0.0,
+              "energy_gain": 12
+            },
+            "details": "Used neighbor tool 'square'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest"
+              ],
+              []
+            ]
+          },
+          "tool_count": 18
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_utility_tool_9528",
+            "result": {
+              "success": true,
+              "result": "utility task: help"
+            },
+            "details": "Used neighbor tool 'Agent_01_utility_tool_9528'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest"
+              ],
+              [
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 21
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 60,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 1,
+        "agent_tool_counts": {
+          "Agent_01": 21,
+          "Agent_02": 18,
+          "Agent_03": 21
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 2,
+          "improve_tool": 0,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool"
+              ],
+              [
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 21
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 18
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 21
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 60,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 2,
+        "agent_tool_counts": {
+          "Agent_01": 21,
+          "Agent_02": 18,
+          "Agent_03": 21
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 2,
+          "improve_tool": 0,
+          "rest": 4
+        }
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 21
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_math_tool_2359_486",
+            "base_tool": "math_tool_2359",
+            "details": "Improved math_tool_2359 \u2192 improved_math_tool_2359_486"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610",
+                "improved_square_970",
+                "improved_square_932",
+                "improved_Agent_04_Universal_Code_Interpreter_754",
+                "improved_Universal_Parser_384",
+                "improved_calculate_89",
+                "math_tool_8907",
+                "math_tool_1774",
+                "data_tool_1102",
+                "utility_tool_1730",
+                "improved_CoreLogicEngine_272",
+                "utility_tool_8045"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 19
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_4847",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_4847'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978",
+                "improved_Boid_02_Boid_02_logic_1_206",
+                "improved_utility_tool_9528_442",
+                "utility_tool_3872",
+                "improved_Agent_03_Universal_Data_Formatter_505",
+                "improved_Agent_03_Universal_Parser_75",
+                "improved_Agent_04_Universal_Data_Parser_691",
+                "improved_math_tool_5978_930",
+                "improved_Agent_03_improved_square_970_722",
+                "improved_Agent_02_math_tool_3775_408"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "math_tool_6462",
+                "improved_multiply_219",
+                "utility_tool_4127",
+                "utility_tool_5880",
+                "math_tool_3775",
+                "improved_Boid_02_Boid_02_logic_1_784",
+                "improved_file_write_728",
+                "data_tool_1144",
+                "improved_Agent_03_improved_Universal_Data_Formatter_243_342",
+                "math_tool_2359",
+                "data_tool_6430",
+                "improved_Boid_01_Boid_01_logic_1_293",
+                "improved_power_968",
+                "improved_math_tool_2359_486"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 22
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 62,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 3,
+        "agent_tool_counts": {
+          "Agent_01": 21,
+          "Agent_02": 19,
+          "Agent_03": 22
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 3,
+          "improve_tool": 1,
+          "rest": 4
+        }
+      }
+    }
+  ]
+}

@@ -1,9 +1,64 @@
 {
-  "tools": {},
+  "tools": {
+    "simple_hash_1": {
+      "name": "simple_hash_1",
+      "description": "Generates simple hash of input",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "simple_hash_1.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    },
+    "simple_hash_2": {
+      "name": "simple_hash_2",
+      "description": "Generates simple hash of input",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "simple_hash_2.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    },
+    "simple_hash_3": {
+      "name": "simple_hash_3",
+      "description": "Generates simple hash of input",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "simple_hash_3.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    },
+    "statistics_calculator_1": {
+      "name": "statistics_calculator_1",
+      "description": "Calculates basic statistics",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "statistics_calculator_1.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    },
+    "pattern_finder_1": {
+      "name": "pattern_finder_1",
+      "description": "Finds patterns in sequences",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "pattern_finder_1.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    },
+    "prime_checker_1": {
+      "name": "prime_checker_1",
+      "description": "Checks if a number is prime",
+      "energy_reward": 5,
+      "parameters": {},
+      "file": "prime_checker_1.py",
+      "created_by": "Agent_02",
+      "usage_count": 2
+    }
+  },
   "metadata": {
     "agent_id": "Agent_02",
-    "total_tools": 0,
-    "last_updated": "2025-08-27T02:34:48.888769",
+    "total_tools": 6,
+    "last_updated": "2025-08-30T19:26:32.162246",
     "version": "1.0"
   }
 }

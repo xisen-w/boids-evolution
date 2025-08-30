@@ -1,0 +1,1732 @@
+{
+  "metadata": {
+    "num_agents": 3,
+    "topology": "triangle",
+    "total_steps": 10,
+    "has_llm": false
+  },
+  "final_state": {
+    "total_personal_tools": 27,
+    "total_agents": 3,
+    "shared_tools_count": 6,
+    "step_count": 10,
+    "agent_tool_counts": {
+      "Agent_01": 12,
+      "Agent_02": 5,
+      "Agent_03": 10
+    },
+    "action_distribution": {
+      "create_tool": 3,
+      "use_tool": 7,
+      "improve_tool": 3,
+      "rest": 2
+    }
+  },
+  "agent_states": [
+    {
+      "agent_id": "Agent_01",
+      "total_tools_created": 12,
+      "total_tools_available": 26,
+      "recent_actions": [
+        "improve_tool",
+        "improve_tool",
+        "use_tool",
+        "create_tool",
+        "create_tool"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine",
+        "improved_Agent_03_Universal_Data_Formatter_584",
+        "utility_tool_9528",
+        "improved_power_494",
+        "improved_Agent_04_Universal_Data_Parser_60",
+        "improved_Boid_02_Boid_02_logic_1_760",
+        "utility_tool_7238",
+        "math_tool_5978"
+      ]
+    },
+    {
+      "agent_id": "Agent_02",
+      "total_tools_created": 5,
+      "total_tools_available": 14,
+      "recent_actions": [
+        "use_tool",
+        "use_tool",
+        "use_tool",
+        "use_tool",
+        "rest"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine"
+      ]
+    },
+    {
+      "agent_id": "Agent_03",
+      "total_tools_created": 10,
+      "total_tools_available": 24,
+      "recent_actions": [
+        "use_tool",
+        "improve_tool",
+        "create_tool",
+        "use_tool",
+        "rest"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      },
+      "my_tools": [
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Universal_Parser",
+        "Universal_Data_Formatter",
+        "CoreLogicEngine",
+        "improved_Universal_Parser_653",
+        "improved_Universal_Data_Formatter_243",
+        "improved_Agent_04_Universal_Data_Parser_264",
+        "improved_Boid_02_Boid_02_logic_1_477",
+        "utility_tool_1610"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_03_Universal_Data_Formatter_584",
+            "base_tool": "Agent_03_Universal_Data_Formatter",
+            "details": "Improved Agent_03_Universal_Data_Formatter \u2192 improved_Agent_03_Universal_Data_Formatter_584"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [],
+              []
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool"
+              ],
+              []
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Universal_Parser_653",
+            "base_tool": "Universal_Parser",
+            "details": "Improved Universal_Parser \u2192 improved_Universal_Parser_653"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool"
+              ],
+              [
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 17,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 1,
+        "agent_tool_counts": {
+          "Agent_01": 6,
+          "Agent_02": 5,
+          "Agent_03": 6
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 0,
+          "improve_tool": 2,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "square",
+            "result": {
+              "success": true,
+              "result": "Square of 0.0 = 0.0 (direct calculation)",
+              "numeric_result": 0.0,
+              "energy_gain": 12
+            },
+            "details": "Used neighbor tool 'square'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest"
+              ],
+              [
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "square",
+            "result": {
+              "success": true,
+              "result": "Square of 0.0 = 0.0 (direct calculation)",
+              "numeric_result": 0.0,
+              "energy_gain": 12
+            },
+            "details": "Used neighbor tool 'square'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 6
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 17,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 2,
+        "agent_tool_counts": {
+          "Agent_01": 6,
+          "Agent_02": 5,
+          "Agent_03": 6
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 2,
+          "improve_tool": 2,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_02_Boid_02_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_02"
+            },
+            "details": "Used neighbor tool 'Boid_02_Boid_02_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 6
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_02_Boid_02_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_02"
+            },
+            "details": "Used neighbor tool 'Boid_02_Boid_02_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Universal_Data_Formatter_243",
+            "base_tool": "Universal_Data_Formatter",
+            "details": "Improved Universal_Data_Formatter \u2192 improved_Universal_Data_Formatter_243"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 18,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 3,
+        "agent_tool_counts": {
+          "Agent_01": 6,
+          "Agent_02": 5,
+          "Agent_03": 7
+        },
+        "action_distribution": {
+          "create_tool": 0,
+          "use_tool": 4,
+          "improve_tool": 3,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 4,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_9528",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_9528'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "rest",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "square",
+            "result": {
+              "success": true,
+              "result": "Square of 0.0 = 0.0 (direct calculation)",
+              "numeric_result": 0.0,
+              "energy_gain": 12
+            },
+            "details": "Used neighbor tool 'square'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "rest",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_02_Boid_02_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_02"
+            },
+            "details": "Used neighbor tool 'Boid_02_Boid_02_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 7
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 19,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 4,
+        "agent_tool_counts": {
+          "Agent_01": 7,
+          "Agent_02": 5,
+          "Agent_03": 7
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 6,
+          "improve_tool": 3,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 5,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_power_494",
+            "base_tool": "power",
+            "details": "Improved power \u2192 improved_power_494"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 8
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_04_Universal_Data_Parser_264",
+            "base_tool": "Agent_04_Universal_Data_Parser",
+            "details": "Improved Agent_04_Universal_Data_Parser \u2192 improved_Agent_04_Universal_Data_Parser_264"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 8
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 21,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 5,
+        "agent_tool_counts": {
+          "Agent_01": 8,
+          "Agent_02": 5,
+          "Agent_03": 8
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 6,
+          "improve_tool": 5,
+          "rest": 3
+        }
+      }
+    },
+    {
+      "step": 6,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Agent_04_Universal_Data_Parser_60",
+            "base_tool": "Agent_04_Universal_Data_Parser",
+            "details": "Improved Agent_04_Universal_Data_Parser \u2192 improved_Agent_04_Universal_Data_Parser_60"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 9
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "power",
+            "result": {
+              "success": true,
+              "result": "0.0^1 = 0.0",
+              "numeric_result": 0.0,
+              "energy_gain": 15
+            },
+            "details": "Used neighbor tool 'power'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_02_Boid_02_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_02"
+            },
+            "details": "Used neighbor tool 'Boid_02_Boid_02_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "create_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 8
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 22,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 6,
+        "agent_tool_counts": {
+          "Agent_01": 9,
+          "Agent_02": 5,
+          "Agent_03": 8
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 8,
+          "improve_tool": 4,
+          "rest": 2
+        }
+      }
+    },
+    {
+      "step": 7,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Boid_02_Boid_02_logic_1_760",
+            "base_tool": "Boid_02_Boid_02_logic_1",
+            "details": "Improved Boid_02_Boid_02_logic_1 \u2192 improved_Boid_02_Boid_02_logic_1_760"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "improve_tool",
+          "result": {
+            "success": true,
+            "improved_tool": "improved_Boid_02_Boid_02_logic_1_477",
+            "base_tool": "Boid_02_Boid_02_logic_1",
+            "details": "Improved Boid_02_Boid_02_logic_1 \u2192 improved_Boid_02_Boid_02_logic_1_477"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "improve_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 9
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 24,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 7,
+        "agent_tool_counts": {
+          "Agent_01": 10,
+          "Agent_02": 5,
+          "Agent_03": 9
+        },
+        "action_distribution": {
+          "create_tool": 1,
+          "use_tool": 7,
+          "improve_tool": 6,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 8,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Boid_03_Boid_03_logic_1",
+            "result": {
+              "result": "Logic result: default",
+              "type": "logic",
+              "creator": "Boid_03"
+            },
+            "details": "Used neighbor tool 'Boid_03_Boid_03_logic_1'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "file_write",
+            "result": {
+              "success": true,
+              "result": "Successfully wrote content to agent_outputs/output_20250830_182406.txt",
+              "energy_gain": 15
+            },
+            "details": "Used neighbor tool 'file_write'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "use_tool",
+                "improve_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_1610",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_1610'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "improve_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 25,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 8,
+        "agent_tool_counts": {
+          "Agent_01": 10,
+          "Agent_02": 5,
+          "Agent_03": 10
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 7,
+          "improve_tool": 5,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 9,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "utility_tool_7238",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'utility_tool_7238'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 11
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "file_write",
+            "result": {
+              "success": true,
+              "result": "Successfully wrote content to agent_outputs/output_20250830_182406.txt",
+              "energy_gain": 15
+            },
+            "details": "Used neighbor tool 'file_write'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "improve_tool",
+                "create_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "result": {
+            "success": true,
+            "used_tool": "Agent_01_improved_Boid_02_Boid_02_logic_1_760",
+            "result": {
+              "success": true,
+              "result": "Enhanced standalone execution"
+            },
+            "details": "Used neighbor tool 'Agent_01_improved_Boid_02_Boid_02_logic_1_760'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "improve_tool",
+                "use_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 10
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 26,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 9,
+        "agent_tool_counts": {
+          "Agent_01": 11,
+          "Agent_02": 5,
+          "Agent_03": 10
+        },
+        "action_distribution": {
+          "create_tool": 2,
+          "use_tool": 7,
+          "improve_tool": 5,
+          "rest": 1
+        }
+      }
+    },
+    {
+      "step": 10,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "create_tool",
+          "result": {
+            "success": true,
+            "tool_name": "math_tool_5978",
+            "test_results": {
+              "total": 2,
+              "passed": 2,
+              "failed": 0,
+              "details": [
+                "basic_execution: PASS",
+                "empty_params: PASS"
+              ]
+            },
+            "details": "Created tool 'math_tool_5978'"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 12
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Universal_Parser",
+                "Universal_Data_Formatter",
+                "CoreLogicEngine",
+                "improved_Universal_Parser_653",
+                "improved_Universal_Data_Formatter_243",
+                "improved_Agent_04_Universal_Data_Parser_264",
+                "improved_Boid_02_Boid_02_logic_1_477",
+                "utility_tool_1610"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ],
+              [
+                "improve_tool",
+                "create_tool",
+                "use_tool"
+              ]
+            ]
+          },
+          "tool_count": 5
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "result": {
+            "success": true,
+            "details": "rested"
+          },
+          "observations": {
+            "neighbor_tools": [
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine",
+                "improved_Agent_03_Universal_Data_Formatter_584",
+                "utility_tool_9528",
+                "improved_power_494",
+                "improved_Agent_04_Universal_Data_Parser_60",
+                "improved_Boid_02_Boid_02_logic_1_760",
+                "utility_tool_7238",
+                "math_tool_5978"
+              ],
+              [
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_actions": [
+              [
+                "use_tool",
+                "create_tool",
+                "create_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ]
+          },
+          "tool_count": 10
+        }
+      ],
+      "global_state": {
+        "total_personal_tools": 27,
+        "total_agents": 3,
+        "shared_tools_count": 6,
+        "step_count": 10,
+        "agent_tool_counts": {
+          "Agent_01": 12,
+          "Agent_02": 5,
+          "Agent_03": 10
+        },
+        "action_distribution": {
+          "create_tool": 3,
+          "use_tool": 7,
+          "improve_tool": 3,
+          "rest": 2
+        }
+      }
+    }
+  ]
+}
