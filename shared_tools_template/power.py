@@ -1,7 +1,6 @@
 """
 Power Tool - Calculates power using repeated multiplication (complex composition)
 Created by: system
-Energy Reward: 15
 """
 
 def execute(parameters, context=None):

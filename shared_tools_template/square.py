@@ -1,7 +1,6 @@
 """
 Square Tool - Squares a number using the multiply tool (demonstrates composition)
 Created by: system
-Energy Reward: 12
 """
 
 def execute(parameters, context=None):

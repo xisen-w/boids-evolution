@@ -3,7 +3,6 @@
     "calculate": {
       "name": "calculate",
       "description": "Perform mathematical calculations (add, subtract, multiply, divide)",
-      "energy_reward": 10,
       "parameters": {
         "operation": "string (add, subtract, multiply, divide)",
         "a": "number",
@@ -11,30 +10,28 @@
       },
       "file": "calculate.py",
       "created_by": "system",
-      "usage_count": 10
+      "usage_count": 21
     },
     "multiply": {
       "name": "multiply",
       "description": "Basic multiplication - foundational tool for composition",
-      "energy_reward": 8,
       "parameters": {
         "a": "number",
         "b": "number"
       },
       "file": "multiply.py",
       "created_by": "system",
-      "usage_count": 4
+      "usage_count": 10
     },
     "square": {
       "name": "square",
       "description": "Square a number using the multiply tool (demonstrates composition)",
-      "energy_reward": 12,
       "parameters": {
         "number": "number"
       },
       "file": "square.py",
       "created_by": "system",
-      "usage_count": 1,
+      "usage_count": 10,
       "depends_on": [
         "multiply"
       ]
@@ -42,14 +39,13 @@
     "power": {
       "name": "power",
       "description": "Calculate power using repeated multiplication (complex composition)",
-      "energy_reward": 15,
       "parameters": {
         "base": "number",
         "exponent": "integer (positive)"
       },
       "file": "power.py",
       "created_by": "system",
-      "usage_count": 4,
+      "usage_count": 11,
       "depends_on": [
         "multiply"
       ]
@@ -57,19 +53,17 @@
     "file_write": {
       "name": "file_write",
       "description": "Write content to a file in the agent_outputs directory",
-      "energy_reward": 15,
       "parameters": {
         "filename": "string (optional, auto-generated if not provided)",
         "content": "string"
       },
       "file": "file_write.py",
       "created_by": "system",
-      "usage_count": 8
+      "usage_count": 13
     },
     "random_gen": {
       "name": "random_gen",
       "description": "Generate random numbers or make random choices",
-      "energy_reward": 5,
       "parameters": {
         "type": "string (number or choice)",
         "min": "number (for type=number)",
@@ -78,12 +72,12 @@
       },
       "file": "random_gen.py",
       "created_by": "system",
-      "usage_count": 7
+      "usage_count": 15
     }
   },
   "metadata": {
     "total_tools": 6,
-    "last_updated": "2025-08-30T19:24:24.758583",
+    "last_updated": "2025-08-30T19:26:32.164712",
     "version": "2.0",
     "features": [
       "tool_composition",

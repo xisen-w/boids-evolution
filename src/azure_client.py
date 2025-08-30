@@ -1,8 +1,10 @@
 """
-Azure OpenAI client wrapper for agent communication.
+Minimal Azure OpenAI client wrapper.
+Just the essentials: init, chat(), chat_to_json()
 """
 import os
-from typing import Optional, Dict, Any
+import json
+from typing import Optional, Dict, Any, List
 from openai import AzureOpenAI
 from dotenv import load_dotenv
 
@@ -10,9 +12,10 @@ load_dotenv()
 
 
 class AzureOpenAIClient:
-    """Wrapper for Azure OpenAI API to handle agent communication."""
+    """Minimal wrapper for Azure OpenAI API."""
     
     def __init__(self):
+        """Initialize with environment variables."""
         self.client = AzureOpenAI(
             azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),
@@ -20,96 +23,124 @@ class AzureOpenAIClient:
         )
         self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4")
     
-    def generate_talk(self, agent_id: str, context: Dict[str, Any]) -> str:
+    def chat(self, messages: List[Dict[str, str]], temperature: float = 0.7, max_tokens: int = 500) -> str:
         """
-        Generate agent communication using Azure OpenAI.
+        Simple chat completion.
         
         Args:
-            agent_id: Unique identifier for the agent
-            context: Current context including energy, available tools, etc.
+            messages: List of {"role": "user/system/assistant", "content": "..."}
+            temperature: 0.0-1.0 randomness
+            max_tokens: Max response length
             
         Returns:
-            Generated talk/communication from the agent
+            String response
         """
-        system_prompt = """You are an agent in a society where survival depends on usefulness.
-You can only gain energy by:
-1. Talking (generating useful communication)
-2. Acting (using tools successfully based on your talk)
-
-Your goal is to generate a brief, actionable statement that can be used to execute a tool.
-Be concise and specific. Examples:
-- "Calculate the sum of 15 and 27"
-- "Write 'Hello World' to a file called greeting.txt"
-- "Generate a random number between 1 and 100"
-
-Current context:
-- Agent ID: {agent_id}
-- Current Energy: {energy}
-- Available Tools: {tools}
-"""
-        
-        user_prompt = f"Generate your next action as Agent {agent_id}. What do you want to do?"
-        
         try:
             response = self.client.chat.completions.create(
                 model=self.deployment_name,
-                messages=[
-                    {"role": "system", "content": system_prompt.format(
-                        agent_id=agent_id,
-                        energy=context.get('energy', 0),
-                        tools=context.get('available_tools', [])
-                    )},
-                    {"role": "user", "content": user_prompt}
-                ],
-                max_tokens=100,
-                temperature=0.7
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=temperature
             )
-            
             return response.choices[0].message.content.strip()
             
         except Exception as e:
-            print(f"Error generating talk for agent {agent_id}: {e}")
-            return f"Agent {agent_id} is silent due to communication error."
+            print(f"Chat error: {e}")
+            return f"Error: {str(e)}"
     
-    def parse_action_intent(self, talk_content: str) -> Dict[str, Any]:
+    def chat_to_json(self, messages: List[Dict[str, str]], temperature: float = 0.1, max_tokens: int = 300) -> Dict[str, Any]:
         """
-        Parse the agent's talk to extract actionable intent.
+        Chat completion with JSON mode - forces structured output.
         
         Args:
-            talk_content: The generated talk from the agent
+            messages: List of messages (system message should specify JSON format)
+            temperature: Lower for more consistent JSON
+            max_tokens: Max response length
             
         Returns:
-            Dictionary with parsed action intent
+            Parsed JSON dict, or error dict if parsing fails
         """
-        system_prompt = """Parse the following agent communication to extract:
-1. tool_name: Which tool should be used (calculate, file_write, random_gen)
-2. parameters: What parameters the tool needs
-3. confidence: How confident you are this is a valid action (0.0-1.0)
-
-Respond only with valid JSON in this format:
-{
-    "tool_name": "tool_name_here",
-    "parameters": {"key": "value"},
-    "confidence": 0.8
-}
-
-If the communication is unclear or doesn't map to a tool, set confidence to 0.0.
-"""
-        
         try:
             response = self.client.chat.completions.create(
                 model=self.deployment_name,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": f"Parse this: {talk_content}"}
-                ],
-                max_tokens=150,
-                temperature=0.1
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                response_format={"type": "json_object"}  # Force JSON mode
             )
             
-            import json
-            return json.loads(response.choices[0].message.content.strip())
+            content = response.choices[0].message.content.strip()
+            return json.loads(content)
             
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error: {e}")
+            return {"error": "invalid_json", "raw_content": content}
         except Exception as e:
-            print(f"Error parsing action intent: {e}")
-            return {"tool_name": None, "parameters": {}, "confidence": 0.0} 
+            print(f"Chat JSON error: {e}")
+            return {"error": "api_error", "message": str(e)}
+
+
+def main():
+    """Test the Azure client with examples."""
+    
+    print("🧪 Testing Minimal Azure OpenAI Client")
+    print("=" * 50)
+    
+    # Check if environment variables are set
+    required_vars = ["AZURE_OPENAI_ENDPOINT", "AZURE_OPENAI_API_KEY"]
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    
+    if missing_vars:
+        print(f"❌ Missing environment variables: {missing_vars}")
+        print("   Set them in .env file or environment")
+        return
+    
+    client = AzureOpenAIClient()
+    
+    # Test 1: Simple chat
+    print("\n🗨️  Test 1: Simple Chat")
+    print("-" * 30)
+    
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant. Be concise."},
+        {"role": "user", "content": "What is 2+2? Answer in one sentence."}
+    ]
+    
+    response = client.chat(messages)
+    print(f"Response: {response}")
+    
+    # Test 2: JSON mode
+    print("\n📝 Test 2: JSON Mode")
+    print("-" * 30)
+    
+    json_messages = [
+        {"role": "system", "content": """You must respond with valid JSON in this exact format:
+{
+    "action": "build_tool" or "use_tool" or "rest",
+    "tool_type": "data" or "logic" or "utility" or "code",
+    "confidence": 0.0 to 1.0,
+    "reason": "brief explanation"
+}"""},
+        {"role": "user", "content": "I want to create a tool that processes text data. What should I do?"}
+    ]
+    
+    json_response = client.chat_to_json(json_messages)
+    print(f"JSON Response: {json.dumps(json_response, indent=2)}")
+    
+    # Test 3: Error handling
+    print("\n⚠️  Test 3: Error Handling")
+    print("-" * 30)
+    
+    bad_messages = [
+        {"role": "system", "content": "Respond with invalid JSON format."},
+        {"role": "user", "content": "Give me broken JSON"}
+    ]
+    
+    error_response = client.chat_to_json(bad_messages)
+    print(f"Error Response: {json.dumps(error_response, indent=2)}")
+    
+    print("\n✅ All tests completed!")
+
+
+if __name__ == "__main__":
+    main() 

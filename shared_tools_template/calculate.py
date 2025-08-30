@@ -1,7 +1,6 @@
 """
 Calculate Tool - Perform mathematical calculations
 Created by: system
-Energy Reward: 10
 """
 
 def execute(parameters, context=None):

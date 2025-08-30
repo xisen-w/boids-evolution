@@ -1,7 +1,6 @@
 """
 File Write Tool - Write content to files
 Created by: system
-Energy Reward: 15
 """
 
 import os

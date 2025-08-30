@@ -1,7 +1,6 @@
 """
 Multiply Tool - Basic multiplication that can be composed by other tools
 Created by: system
-Energy Reward: 8
 """
 
 def execute(parameters, context=None):

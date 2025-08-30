@@ -1,7 +1,6 @@
 """
 Random Generator Tool - Generate random numbers or choices
 Created by: system
-Energy Reward: 5
 """
 
 import random
