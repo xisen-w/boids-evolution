@@ -1,101 +1,109 @@
-# Boids Evolution v0.0 - Collaborative Tool Building Marketplace
+# Boids Evolution v1.0 - Simple Cognitive Boids
 
-A breakthrough implementation of emergent intelligence through **collaborative tool building** where agents propose, discuss, and build tools together. This system demonstrates how **"survival through usefulness"** creates a thriving ecosystem where agents prosper by creating tools others find valuable enough to build upon.
+An **ultra-minimal implementation** of emergent intelligence through **3 simple boids rules** applied to tool creation and usage. This system demonstrates how local interactions between agents can create emergent **specialization, collaboration, and tool ecosystems**.
 
-## 🎯 Core Innovation: Tool Building Marketplace
+## 🎯 Core Innovation: 3 Boids Rules → Emergent Tool Collaboration
 
-**The key breakthrough:** Agents don't just use tools - they **propose, support, and build tools collaboratively** based on inter-agent communication and shared needs.
+**The key breakthrough:** Agents follow just **3 simple local rules** yet emergent complex tool ecosystems arise naturally.
 
-### The Fundamental Loop
+### The 3 Boids Rules
 ```
-Agent proposes tool → Others support idea → Collaborative building → Tool becomes available → Creator gets energy when others use it to build MORE tools
+1. SEPARATION:  Avoid building exact same tools as neighbors (creates niches)
+2. ALIGNMENT:   Copy successful neighbors' strategies (spreads good patterns)  
+3. COHESION:    Use neighbors' tools when possible (creates collaboration)
 ```
 
-**Example Tool Building Flow:**
-- Agent A proposes: "Universal Data Parser - handles JSON, XML, CSV"
-- Agent B supports: "Great idea! I need this for my API connector"  
-- Agent C builds: Creates the actual Python code from the proposal
-- Agent D uses it to build: "Advanced ML Pipeline" tool
-- Agent A gets utility energy when their parser enables other tool creation
+**Example Emergent Behavior:**
+- Agent A builds `data_tool_v1` → Agent B sees this → applies SEPARATION → builds `logic_tool_v1`
+- Agent C sees A is successful → applies ALIGNMENT → also builds data tools  
+- Agent B uses A's data tool → applies COHESION → creates collaboration
+- **Result**: Natural specialization and tool ecosystem without central coordination!
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8+
-- Azure OpenAI account with GPT-4 deployment
-- Virtual environment (recommended)
+- No external dependencies needed!
 
 ### Installation
 
-1. **Clone and setup**:
+1. **Clone and run**:
 ```bash
 git clone <your-repo-url>
 cd boids-evolution
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+python3 main_simple.py
 ```
 
-2. **Configure Azure OpenAI**:
+2. **Try different configurations**:
 ```bash
-cp .env.example .env
-# Edit .env with your Azure OpenAI credentials
-```
+# Default: 3 agents, triangle topology, 20 steps
+python3 main_simple.py
 
-3. **Run the tool building demo**:
-```bash
-python main.py --demo --agents 3 --rounds 5
+# More agents and steps
+python3 main_simple.py --agents 5 --steps 50
+
+# Different network topologies
+python3 main_simple.py --topology line --agents 4
+python3 main_simple.py --topology star --agents 6
 ```
 
 ## 🎮 Usage Examples
 
-### Tool Building Marketplace Demo
+### Simple Boids Simulations
 ```bash
-# Watch agents propose and build tools collaboratively
-python main.py --agents 3 --rounds 5 --delay 1
+# Default simulation
+python3 main_simple.py
 
-# Quick test of marketplace dynamics
-python main.py --agents 2 --rounds 3 --delay 0
+# More agents for richer dynamics
+python3 main_simple.py --agents 6 --steps 30
 
-# Quiet mode (no visualization)
-python main.py --agents 4 --rounds 3 --quiet
+# Different topologies create different behaviors
+python3 main_simple.py --topology line --agents 5
+python3 main_simple.py --topology star --agents 4
+
+# Export results for analysis
+python3 main_simple.py --export results.json --quiet
 ```
 
 ### Command Line Options
 ```
---agents N      Number of agents (1-10, default: 2)
---rounds N      Simulation rounds (default: 2) 
---delay N       Delay between actions in seconds (default: 1)
---demo          Enable demo explanations
---quiet         Minimal output
---show-tools    Display tool marketplace at start
+--agents N      Number of agents (default: 3)
+--steps N       Simulation steps (default: 20) 
+--topology T    Network topology: triangle/line/star (default: triangle)
+--quiet         Minimal output mode
+--export FILE   Export results to JSON file
 ```
 
-## 🛠️ How Tool Building Works
+## 🛠️ How Simple Boids Works
 
-### 1. **Tool Proposal Phase**
-Agents propose new tools they think would be useful:
+### 1. **Local Observation**
+Each agent observes only its immediate neighbors:
 ```
-Agent_01: "Propose tool: Universal_Data_Parser - A flexible parser for JSON, XML, CSV formats"
-```
-
-### 2. **Support & Discussion Phase**  
-Other agents evaluate and support promising proposals:
-```
-Agent_02: "Support proposal: Universal_Data_Parser - This would be perfect for my API connector!"
+Agent_01 observes: Agent_02 has [data_tool_v1], Agent_03 has [logic_tool_v1]
 ```
 
-### 3. **Collaborative Building Phase**
-When proposals have enough support, agents build them:
+### 2. **Apply 3 Boids Rules**  
+Agent calculates preferences based on the rules:
 ```
-Agent_03: "Build tool: Universal_Data_Parser"
-→ Creates actual Python code in personal_tools/Agent_03/Universal_Data_Parser.py
+SEPARATION: Agent_02 has data tool → reduce preference for building data tools
+ALIGNMENT: Agent_02 seems successful → increase preference for their recent actions  
+COHESION: Neighbors have tools → increase preference for using their tools
 ```
 
-### 4. **Tool Usage & Rewards**
-- Built tools become available to all agents
-- When tools are used to BUILD other tools, creators get utility energy
-- Creates sustainable incentive for useful tool creation
+### 3. **Weighted Action Selection**
+Rules are combined with genetic weights:
+```
+final_preference = (
+    separation_preference * 0.4 +
+    alignment_preference * 0.3 +
+    cohesion_preference * 0.3
+)
+```
+
+### 4. **Emergent Patterns**
+- **Specialization**: Agents naturally focus on different tool types
+- **Collaboration**: Agents use each other's tools
+- **Diversity**: All 4 tool types emerge without coordination
 
 ## 🎨 Visualization Features
 
@@ -207,72 +215,61 @@ From this v0.0 foundation, natural progressions include:
 ## 📊 Example Session Output
 
 ```
-🤖 ROUND 1 - Tool Building Marketplace
-============================================================
+🐦 Simple Boids Simulation Starting
+   Agents: 3 | Topology: triangle
+   Steps: 10
+   Rules: Separation + Alignment + Cohesion
 
->>> Agent_01 Turn
-💬 Agent_01 says:
-┌──────────────────────────────────────────────────────────┐
-│ Propose tool: Universal_Data_Parser - Flexible parser    │  
-│ for JSON, XML, CSV with extensible format support        │
-└──────────────────────────────────────────────────────────┘
-   📈 Agent_01 Energy: 0 → 5 (+5)
-   🔨 Tool building: +5
+📊 Step 1:
+   ⚡ Agent_01: tried to use tool (none available) (total tools: 0)
+   📊 Agent_02: built data_tool_v1_Agent_02 (total tools: 1)
+   🔧 Agent_03: built utility_tool_v1_Agent_03 (total tools: 1)
 
->>> Agent_02 Turn  
-💬 Agent_02 says:
-┌──────────────────────────────────────────────────────────┐
-│ Support proposal: Universal_Data_Parser - This would be  │
-│ perfect for my API connector project!                    │
-└──────────────────────────────────────────────────────────┘
-   📈 Agent_02 Energy: 0 → 3 (+3)
-   💬 Communication: +3
+📊 Step 2:
+   🔧 Agent_01: built utility_tool_v1_Agent_01 (total tools: 1)
+   🧠 Agent_02: built logic_tool_v1_Agent_02 (total tools: 2)
+   ⚡ Agent_03: used logic_tool_v1_Agent_02 (total tools: 1)
 
->>> Agent_03 Turn
-💬 Agent_03 says:
-┌──────────────────────────────────────────────────────────┐
-│ Build tool: Universal_Data_Parser                        │
-└──────────────────────────────────────────────────────────┘
-   📈 Agent_03 Energy: 0 → 10 (+10)
-   🔨 Tool building: +10
+📊 Step 3:
+   🔗 Agent_01: built connector_tool_v1_Agent_01 (total tools: 2)
+   ⚡ Agent_02: used utility_tool_v1_Agent_01 (total tools: 2)
+   🔗 Agent_03: built connector_tool_v1_Agent_03 (total tools: 2)
 
-🛠️  Tool Marketplace Summary:
-  📋 Active proposals: 0
-  🔨 In development: 0
-  ✅ Completed tools: 1
-  
-✨ New tool available: Universal_Data_Parser (created by Agent_03)
+🧬 BOIDS EMERGENCE ANALYSIS:
+   📊 Total Tools Created: 21
+   🎯 Tool Type Distribution: {'utility': 6, 'connector': 8, 'logic': 3, 'data': 4}
+   🤖 Agent Specializations: {'Agent_01': 'connector', 'Agent_02': 'data', 'Agent_03': 'connector'}
+   ✨ SPECIALIZATION EMERGED! 2 different niches
+   🎨 DIVERSITY EMERGED! 4 tool types created
+   🤝 COLLABORATION EMERGED! 7 tool usage events
 ```
 
 ## 🧪 Technical Architecture
 
 ### Core Components
-- **ToolMarketplace**: Manages proposals, support, and building workflow
-- **CommunicationBoard**: Enables agent discussions about tool ideas
-- **EnhancedAgent**: Handles proposal, support, and building actions
-- **AzureOpenAIClient**: Powers intelligent tool proposal and discussion
+- **SimpleBoid**: Ultra-minimal agent with 3 boids rules
+- **SimpleBoidsNetwork**: Network topology management and simulation orchestration
+- **Local Observation**: Agents only see immediate neighbors (no global state)
+- **Weighted Action Selection**: Genetic weights control rule influence
 
-### Tool Building Workflow
-1. **Proposal creation**: Agent proposes tool with description and dependencies
-2. **Community discussion**: Agents comment and support promising proposals
-3. **Building phase**: Supported proposals get implemented as actual Python code
-4. **Integration**: New tools become available in shared or personal tool registries
-5. **Utility rewards**: Tool creators get energy when their tools enable others
+### Simple Boids Workflow
+1. **Local Observation**: Agent observes neighbor tools and recent actions
+2. **Rule Application**: Apply separation, alignment, cohesion rules independently  
+3. **Weighted Combination**: Combine rule preferences using genetic weights
+4. **Action Execution**: Build specific tool type or use neighbor tool
+5. **Pattern Emergence**: Specialization and collaboration emerge naturally
 
 ### File Structure
 ```
 boids-evolution/
 ├── src/
-│   ├── enhanced_agent.py          # Agent with tool building capabilities
-│   ├── tool_marketplace.py        # Proposal and building management
-│   ├── communication_board.py     # Inter-agent messaging
-│   └── azure_client.py           # LLM integration
-├── shared_tools/                  # Community tools available to all
-├── personal_tools/               # Agent-specific tool collections  
-│   ├── Agent_01/                 # Tools built by Agent_01
-│   ├── Agent_02/                 # Tools built by Agent_02
-│   └── ...
-└── main.py                       # Simulation orchestration
+│   ├── simple_boids_agent.py     # Ultra-minimal boids agent
+│   ├── simple_boids_network.py   # Network topology and simulation
+│   ├── enhanced_agent.py         # Legacy marketplace agent
+│   └── [other legacy files]      # Original marketplace implementation
+├── main_simple.py                # Simple boids entry point
+├── main.py                       # Legacy marketplace entry point
+└── personal_tools/               # Legacy tool storage
 ```
 
 ## 💡 Key Insights
@@ -295,10 +292,22 @@ Community support filtering ensures only valuable tools get built.
 ## 🎉 Try It Yourself!
 
 ```bash
-# Start the tool building marketplace
-python main.py --demo --agents 3 --rounds 5
+# Start the simple boids simulation
+python3 main_simple.py
 
-# Watch agents propose, support, and build tools collaboratively!
+# Try different configurations
+python3 main_simple.py --agents 5 --steps 30 --topology star
+
+# Watch 3 simple rules create emergent specialization!
 ```
 
-**Experience how simple agents can create complex tool ecosystems through communication and collaboration.** 🚀 
+**Experience how 3 simple local rules can create complex collaborative patterns without any central coordination.** 🚀
+
+---
+
+## 🔄 Legacy Marketplace Version
+
+The original marketplace implementation is still available:
+```bash
+python main.py --demo --agents 3 --rounds 5  # Requires Azure OpenAI setup
+``` 

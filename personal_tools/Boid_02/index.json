@@ -1,0 +1,17 @@
+{
+  "tools": {
+    "Boid_02_logic_1": {
+      "name": "Boid_02_logic_1",
+      "description": "logic tool created by cognitive boids agent",
+      "energy_reward": 5,
+      "parameters": {
+        "input": "any input data"
+      },
+      "file": "Boid_02_logic_1.py",
+      "created_by": "Boid_02",
+      "tool_type": "logic",
+      "depends_on": [],
+      "created_at": "2025-08-27T16:30:48.109645"
+    }
+  }
+}

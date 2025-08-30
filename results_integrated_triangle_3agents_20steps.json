@@ -1,0 +1,7049 @@
+{
+  "metadata": {
+    "experiment_type": "integrated_cognitive_boids",
+    "num_agents": 3,
+    "topology": "triangle",
+    "total_steps": 20,
+    "research_principles": [
+      "separation",
+      "alignment",
+      "cohesion"
+    ],
+    "infrastructure": "real_tool_creation_and_execution"
+  },
+  "final_state": {
+    "total_tools": 0,
+    "tool_type_distribution": {},
+    "agent_specializations": {
+      "Boid_01": null,
+      "Boid_02": null,
+      "Boid_03": null
+    },
+    "total_energy": 1,
+    "tool_dependencies": 0,
+    "all_agent_tools": {
+      "Boid_01": [],
+      "Boid_02": [],
+      "Boid_03": []
+    }
+  },
+  "agent_states": [
+    {
+      "agent_id": "Boid_01",
+      "energy": 0,
+      "tool_count": 0,
+      "my_tools": [],
+      "all_available_tools": [
+        "calculate",
+        "multiply",
+        "square",
+        "power",
+        "file_write",
+        "random_gen",
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine"
+      ],
+      "recent_actions": [
+        "build_tool",
+        "build_tool",
+        "build_tool",
+        "rest",
+        "build_tool"
+      ],
+      "step_count": 20,
+      "specialization": {
+        "primary_type": null,
+        "diversity_index": 0,
+        "tool_types": []
+      }
+    },
+    {
+      "agent_id": "Boid_02",
+      "energy": 0,
+      "tool_count": 0,
+      "my_tools": [],
+      "all_available_tools": [
+        "calculate",
+        "multiply",
+        "square",
+        "power",
+        "file_write",
+        "random_gen",
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine"
+      ],
+      "recent_actions": [
+        "build_tool",
+        "rest",
+        "build_tool",
+        "use_tool",
+        "build_tool"
+      ],
+      "step_count": 20,
+      "specialization": {
+        "primary_type": null,
+        "diversity_index": 0,
+        "tool_types": []
+      }
+    },
+    {
+      "agent_id": "Boid_03",
+      "energy": 1,
+      "tool_count": 0,
+      "my_tools": [],
+      "all_available_tools": [
+        "calculate",
+        "multiply",
+        "square",
+        "power",
+        "file_write",
+        "random_gen",
+        "Agent_04_Universal_Code_Interpreter",
+        "Agent_04_Universal_Data_Parser",
+        "Agent_03_Universal_Parser",
+        "Agent_03_Universal_Data_Formatter",
+        "Agent_03_CoreLogicEngine"
+      ],
+      "recent_actions": [
+        "build_tool",
+        "use_tool",
+        "rest",
+        "rest",
+        "build_tool"
+      ],
+      "step_count": 20,
+      "specialization": {
+        "primary_type": null,
+        "diversity_index": 0,
+        "tool_types": []
+      }
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "square"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 1,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              10,
+              10
+            ],
+            "neighbor_recent_actions": [
+              [],
+              []
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 1,
+          "energy_after": 8,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              10
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool"
+              ],
+              []
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_03",
+          "step": 1,
+          "energy_after": 11,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              8
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool"
+              ],
+              [
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 28,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 2,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              8,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool"
+              ],
+              [
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "Agent_03_Universal_Parser"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 2,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 2,
+          "energy_after": 11,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 27,
+        "tool_dependencies": 2,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 3,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              7,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_02",
+          "step": 3,
+          "energy_after": 8,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 3,
+          "energy_after": 11,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              8
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 28,
+        "tool_dependencies": 2,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 4,
+      "agent_results": [
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_01",
+          "step": 4,
+          "energy_after": 10,
+          "observations": {
+            "neighbor_energies": [
+              8,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_02",
+          "step": 4,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              10,
+              11
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 4,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              10,
+              9
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "build_tool",
+                "rest",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 28,
+        "tool_dependencies": 2,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 5,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 5,
+          "energy_after": 8,
+          "observations": {
+            "neighbor_energies": [
+              9,
+              9
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 5,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              8,
+              9
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 5,
+          "energy_after": 9,
+          "observations": {
+            "neighbor_energies": [
+              8,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "rest",
+                "rest",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 24,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 6,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 6,
+          "energy_after": 6,
+          "observations": {
+            "neighbor_energies": [
+              7,
+              9
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "Agent_04_Universal_Data_Parser"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 6,
+          "energy_after": 6,
+          "observations": {
+            "neighbor_energies": [
+              6,
+              9
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 6,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              6,
+              6
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 19,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 7,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 7,
+          "energy_after": 4,
+          "observations": {
+            "neighbor_energies": [
+              6,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "random_gen"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 7,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              4,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 7,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              4,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 16,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 8,
+      "agent_results": [
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_01",
+          "step": 8,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 8,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 8,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 13,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 9,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 9,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              3,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_02",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_02",
+          "step": 9,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_03",
+          "step": 9,
+          "energy_after": 6,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 14,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 10,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 10,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              3,
+              6
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_02",
+          "step": 10,
+          "energy_after": 4,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              6
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 10,
+          "energy_after": 6,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              4
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 15,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 11,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 11,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              4,
+              6
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "build_tool",
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_02",
+          "step": 11,
+          "energy_after": 4,
+          "observations": {
+            "neighbor_energies": [
+              3,
+              6
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_03",
+          "step": 11,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              3,
+              4
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 14,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 12,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 12,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              4,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_02",
+          "step": 12,
+          "energy_after": 4,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 12,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              4
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 12,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 13,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 13,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              4,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_02",
+          "step": 13,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 13,
+          "energy_after": 7,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 13,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 14,
+      "agent_results": [
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_01",
+          "step": 14,
+          "energy_after": 2,
+          "observations": {
+            "neighbor_energies": [
+              5,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 14,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              2,
+              7
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "use_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 14,
+          "energy_after": 5,
+          "observations": {
+            "neighbor_energies": [
+              2,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 10,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 15,
+      "agent_results": [
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_01",
+          "step": 15,
+          "energy_after": 2,
+          "observations": {
+            "neighbor_energies": [
+              3,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 15,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              2,
+              5
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 15,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              2,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "rest",
+                "use_tool"
+              ],
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 6,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 16,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 16,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 16,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "use_tool",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 16,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              0
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "use_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 1,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 17,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "Agent_03_Universal_Parser"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 17,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_02",
+          "step": 17,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_03"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_03",
+          "step": 17,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "use_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 2,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 18,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -1,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [
+            "power"
+          ],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 18,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_02",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.7,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 18,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              1
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_03",
+          "step": 18,
+          "energy_after": 2,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              0
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "rest",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 2,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 19,
+      "agent_results": [
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_01",
+          "step": 19,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              2
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "use_tool",
+          "success": false,
+          "energy_change": 0,
+          "new_tool": null,
+          "used_tool": null,
+          "error": "ToolExecutionContext.__init__() missing 2 required positional arguments: 'tool_registry' and 'calling_agent_id'",
+          "agent_id": "Boid_02",
+          "step": 19,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              2
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_01",
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "rest",
+          "success": true,
+          "energy_change": 1,
+          "new_tool": null,
+          "used_tool": null,
+          "agent_id": "Boid_03",
+          "step": 19,
+          "energy_after": 3,
+          "observations": {
+            "neighbor_energies": [
+              1,
+              0
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "build_tool",
+                "rest"
+              ],
+              [
+                "rest",
+                "build_tool",
+                "use_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 4,
+        "tool_dependencies": 1,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    },
+    {
+      "step": 20,
+      "agent_results": [
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_01_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_01",
+          "step": 20,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "rest",
+                "build_tool",
+                "use_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": []
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_02_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_02",
+          "step": 20,
+          "energy_after": 0,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              3
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "use_tool",
+                "rest",
+                "rest"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [
+              "Boid_03"
+            ],
+            "recent_tool_builders": [
+              "Boid_01"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        },
+        {
+          "action": "build_tool",
+          "success": true,
+          "energy_change": -2,
+          "new_tool": "Boid_03_logic_1",
+          "used_tool": null,
+          "tool_type": "logic",
+          "dependencies": [],
+          "code_generated": true,
+          "agent_id": "Boid_03",
+          "step": 20,
+          "energy_after": 1,
+          "observations": {
+            "neighbor_energies": [
+              0,
+              0
+            ],
+            "neighbor_recent_actions": [
+              [
+                "build_tool",
+                "rest",
+                "build_tool"
+              ],
+              [
+                "build_tool",
+                "use_tool",
+                "build_tool"
+              ]
+            ],
+            "neighbor_tools": [
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ],
+              [
+                "calculate",
+                "multiply",
+                "square",
+                "power",
+                "file_write",
+                "random_gen",
+                "Agent_04_Universal_Code_Interpreter",
+                "Agent_04_Universal_Data_Parser",
+                "Agent_03_Universal_Parser",
+                "Agent_03_Universal_Data_Formatter",
+                "Agent_03_CoreLogicEngine"
+              ]
+            ],
+            "neighbor_tool_types": [
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ],
+              [
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "utility",
+                "code",
+                "data",
+                "data",
+                "data",
+                "logic"
+              ]
+            ],
+            "successful_neighbors": [],
+            "recent_tool_builders": [
+              "Boid_01",
+              "Boid_02"
+            ]
+          },
+          "rule_preferences": {
+            "separation": {
+              "build_tool": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_tool": 0.4,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_tool": 0.3,
+              "use_tool": 0.6,
+              "rest": 0.1
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 0,
+        "tool_type_distribution": {},
+        "agent_specializations": {
+          "Boid_01": null,
+          "Boid_02": null,
+          "Boid_03": null
+        },
+        "total_energy": 1,
+        "tool_dependencies": 0,
+        "all_agent_tools": {
+          "Boid_01": [],
+          "Boid_02": [],
+          "Boid_03": []
+        }
+      }
+    }
+  ],
+  "created_tools": {
+    "Boid_01": {
+      "index": {
+        "tools": {
+          "Boid_01_logic_1": {
+            "name": "Boid_01_logic_1",
+            "description": "logic tool created by cognitive boids agent",
+            "parameters": {
+              "input": "any input data"
+            },
+            "file": "Boid_01_logic_1.py",
+            "created_by": "Boid_01",
+            "tool_type": "logic",
+            "depends_on": [],
+            "created_at": "2025-08-27T16:29:50.101135"
+          }
+        }
+      },
+      "code_files": {
+        "Boid_01_logic_1.py": "def execute(parameters, context=None):\n    \"\"\"Basic logic processing tool\"\"\"\n    input_data = parameters.get('input', 'default')\n    return {\"result\": f\"Logic result: {input_data}\", \"type\": \"logic\", \"creator\": \"Boid_01\"}\n"
+      }
+    },
+    "Boid_02": {
+      "index": {
+        "tools": {
+          "Boid_02_logic_1": {
+            "name": "Boid_02_logic_1",
+            "description": "logic tool created by cognitive boids agent",
+            "parameters": {
+              "input": "any input data"
+            },
+            "file": "Boid_02_logic_1.py",
+            "created_by": "Boid_02",
+            "tool_type": "logic",
+            "depends_on": [],
+            "created_at": "2025-08-27T16:29:50.101327"
+          }
+        }
+      },
+      "code_files": {
+        "Boid_02_logic_1.py": "def execute(parameters, context=None):\n    \"\"\"Basic logic processing tool\"\"\"\n    input_data = parameters.get('input', 'default')\n    return {\"result\": f\"Logic result: {input_data}\", \"type\": \"logic\", \"creator\": \"Boid_02\"}\n"
+      }
+    },
+    "Boid_03": {
+      "index": {
+        "tools": {
+          "Boid_03_logic_1": {
+            "name": "Boid_03_logic_1",
+            "description": "logic tool created by cognitive boids agent",
+            "parameters": {
+              "input": "any input data"
+            },
+            "file": "Boid_03_logic_1.py",
+            "created_by": "Boid_03",
+            "tool_type": "logic",
+            "depends_on": [],
+            "created_at": "2025-08-27T16:29:50.101510"
+          }
+        }
+      },
+      "code_files": {
+        "Boid_03_logic_1.py": "def execute(parameters, context=None):\n    \"\"\"Basic logic processing tool\"\"\"\n    input_data = parameters.get('input', 'default')\n    return {\"result\": f\"Logic result: {input_data}\", \"type\": \"logic\", \"creator\": \"Boid_03\"}\n"
+      }
+    }
+  }
+}
