@@ -1,0 +1,2670 @@
+{
+  "metadata": {
+    "simulation_type": "simple_boids",
+    "num_agents": 6,
+    "topology": "star",
+    "total_steps": 10
+  },
+  "final_state": {
+    "total_tools": 47,
+    "tool_type_distribution": {
+      "connector": 10,
+      "data": 11,
+      "logic": 11,
+      "utility": 15
+    },
+    "agent_specializations": {
+      "Agent_01": "logic",
+      "Agent_02": "utility",
+      "Agent_03": "connector",
+      "Agent_04": "data",
+      "Agent_05": "utility",
+      "Agent_06": "logic"
+    },
+    "agents_with_tools": 6,
+    "unique_tool_types": 4
+  },
+  "agent_states": [
+    {
+      "agent_id": "Agent_01",
+      "tools_created": 7,
+      "tool_type_distribution": {
+        "connector": 1,
+        "data": 1,
+        "logic": 3,
+        "utility": 2
+      },
+      "recent_actions": [
+        "use_tool",
+        "build_utility",
+        "build_logic"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    },
+    {
+      "agent_id": "Agent_02",
+      "tools_created": 8,
+      "tool_type_distribution": {
+        "data": 2,
+        "utility": 3,
+        "logic": 1,
+        "connector": 2
+      },
+      "recent_actions": [
+        "build_utility",
+        "build_connector",
+        "build_connector"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    },
+    {
+      "agent_id": "Agent_03",
+      "tools_created": 7,
+      "tool_type_distribution": {
+        "connector": 3,
+        "utility": 2,
+        "logic": 1,
+        "data": 1
+      },
+      "recent_actions": [
+        "build_data",
+        "use_tool",
+        "build_connector"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    },
+    {
+      "agent_id": "Agent_04",
+      "tools_created": 7,
+      "tool_type_distribution": {
+        "utility": 2,
+        "logic": 1,
+        "data": 3,
+        "connector": 1
+      },
+      "recent_actions": [
+        "build_connector",
+        "build_data",
+        "build_data"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    },
+    {
+      "agent_id": "Agent_05",
+      "tools_created": 9,
+      "tool_type_distribution": {
+        "utility": 3,
+        "logic": 2,
+        "data": 3,
+        "connector": 1
+      },
+      "recent_actions": [
+        "build_data",
+        "build_connector",
+        "build_data"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    },
+    {
+      "agent_id": "Agent_06",
+      "tools_created": 9,
+      "tool_type_distribution": {
+        "logic": 3,
+        "utility": 3,
+        "connector": 2,
+        "data": 1
+      },
+      "recent_actions": [
+        "build_connector",
+        "build_data",
+        "build_connector"
+      ],
+      "boids_weights": {
+        "separation": 0.4,
+        "alignment": 0.3,
+        "cohesion": 0.3
+      }
+    }
+  ],
+  "history": [
+    {
+      "step": 1,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_01",
+          "tools_count": 1,
+          "tools": [
+            "connector_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.2,
+              "build_logic": 0.2,
+              "build_utility": 0.2,
+              "build_connector": 0.2,
+              "use_tool": 0.5,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_02",
+          "tools_count": 1,
+          "tools": [
+            "data_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_03",
+          "tools_count": 1,
+          "tools": [
+            "connector_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "info": "used connector_tool_v1_Agent_01",
+          "tools_count": 0,
+          "tools": [],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_05",
+          "tools_count": 1,
+          "tools": [
+            "utility_tool_v1_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_06",
+          "tools_count": 1,
+          "tools": [
+            "logic_tool_v1_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 5,
+        "tool_type_distribution": {
+          "connector": 2,
+          "data": 1,
+          "utility": 1,
+          "logic": 1
+        },
+        "agent_specializations": {
+          "Agent_01": "connector",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": null,
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 5,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 2,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "info": "used logic_tool_v1_Agent_06",
+          "tools_count": 1,
+          "tools": [
+            "connector_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "info": "used connector_tool_v1_Agent_01",
+          "tools_count": 1,
+          "tools": [
+            "data_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_03",
+          "tools_count": 2,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "use_tool",
+          "info": "used connector_tool_v1_Agent_01",
+          "tools_count": 0,
+          "tools": [],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.55,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "use_tool",
+          "info": "used connector_tool_v1_Agent_01",
+          "tools_count": 1,
+          "tools": [
+            "utility_tool_v1_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_logic",
+          "info": "built logic_tool_v2_Agent_06",
+          "tools_count": 2,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 7,
+        "tool_type_distribution": {
+          "connector": 2,
+          "data": 1,
+          "utility": 2,
+          "logic": 2
+        },
+        "agent_specializations": {
+          "Agent_01": "connector",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": null,
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 5,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 3,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_01",
+          "tools_count": 2,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.8,
+              "build_utility": 0.55,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "use_tool",
+          "info": "used data_tool_v1_Agent_01",
+          "tools_count": 1,
+          "tools": [
+            "data_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "info": "used data_tool_v1_Agent_01",
+          "tools_count": 2,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_04",
+          "tools_count": 1,
+          "tools": [
+            "utility_tool_v1_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_05",
+          "tools_count": 2,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_06",
+          "tools_count": 3,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 11,
+        "tool_type_distribution": {
+          "connector": 2,
+          "data": 2,
+          "utility": 4,
+          "logic": 3
+        },
+        "agent_specializations": {
+          "Agent_01": "connector",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 4,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "rest",
+          "info": "rested",
+          "tools_count": 2,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0000000000000004e-06,
+              "build_utility": 1.0000000000000005e-08,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_02",
+          "tools_count": 2,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_03",
+          "tools_count": 3,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_04",
+          "tools_count": 2,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_logic",
+          "info": "built logic_tool_v2_Agent_05",
+          "tools_count": 3,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_06",
+          "tools_count": 4,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 1.0,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 16,
+        "tool_type_distribution": {
+          "connector": 2,
+          "data": 2,
+          "utility": 6,
+          "logic": 6
+        },
+        "agent_specializations": {
+          "Agent_01": "connector",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "logic",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 5,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_01",
+          "tools_count": 3,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 1.0000000000000006e-10,
+              "build_utility": 1.0000000000000006e-11,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.8,
+              "build_utility": 0.8,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_logic",
+          "info": "built logic_tool_v1_Agent_02",
+          "tools_count": 3,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_connector",
+          "info": "built connector_tool_v2_Agent_03",
+          "tools_count": 4,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_04",
+          "tools_count": 3,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.5
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_05",
+          "tools_count": 4,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "use_tool",
+          "info": "used data_tool_v1_Agent_01",
+          "tools_count": 4,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.010000000000000002,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0,
+              "build_connector": 0.5,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 21,
+        "tool_type_distribution": {
+          "connector": 3,
+          "data": 3,
+          "logic": 8,
+          "utility": 7
+        },
+        "agent_specializations": {
+          "Agent_01": "connector",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 6,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_logic",
+          "info": "built logic_tool_v2_Agent_01",
+          "tools_count": 4,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01",
+            "logic_tool_v2_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.0010000000000000002,
+              "build_logic": 1.0000000000000006e-11,
+              "build_utility": 1.0000000000000006e-11,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.8,
+              "build_utility": 0.8,
+              "build_connector": 0.55,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_02",
+          "tools_count": 4,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02",
+            "utility_tool_v2_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.8,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "rest",
+          "info": "rested",
+          "tools_count": 4,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_04",
+          "tools_count": 4,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04",
+            "utility_tool_v2_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.8,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_05",
+          "tools_count": 5,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05",
+            "data_tool_v1_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_utility",
+          "info": "built utility_tool_v3_Agent_06",
+          "tools_count": 5,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06",
+            "utility_tool_v3_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.5,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 1.0,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 26,
+        "tool_type_distribution": {
+          "connector": 3,
+          "data": 4,
+          "logic": 9,
+          "utility": 10
+        },
+        "agent_specializations": {
+          "Agent_01": "logic",
+          "Agent_02": "utility",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "utility"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 7,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_utility",
+          "info": "built utility_tool_v1_Agent_01",
+          "tools_count": 5,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01",
+            "logic_tool_v2_Agent_01",
+            "utility_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 0.00010000000000000003,
+              "build_logic": 1.0000000000000005e-08,
+              "build_utility": 1.0000000000000008e-14,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.25,
+              "build_utility": 0.8,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_data",
+          "info": "built data_tool_v2_Agent_02",
+          "tools_count": 5,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02",
+            "utility_tool_v2_Agent_02",
+            "data_tool_v2_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_03",
+          "tools_count": 5,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03",
+            "utility_tool_v2_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "rest",
+          "info": "rested",
+          "tools_count": 4,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04",
+            "utility_tool_v2_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_utility",
+          "info": "built utility_tool_v3_Agent_05",
+          "tools_count": 6,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05",
+            "data_tool_v1_Agent_05",
+            "utility_tool_v3_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_logic",
+          "info": "built logic_tool_v3_Agent_06",
+          "tools_count": 6,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06",
+            "utility_tool_v3_Agent_06",
+            "logic_tool_v3_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.00010000000000000003,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 31,
+        "tool_type_distribution": {
+          "connector": 3,
+          "data": 5,
+          "logic": 10,
+          "utility": 13
+        },
+        "agent_specializations": {
+          "Agent_01": "logic",
+          "Agent_02": "data",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 8,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "use_tool",
+          "info": "used utility_tool_v1_Agent_05",
+          "tools_count": 5,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01",
+            "logic_tool_v2_Agent_01",
+            "utility_tool_v1_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0000000000000004e-06,
+              "build_logic": 1.0000000000000004e-06,
+              "build_utility": 1.0000000000000007e-13,
+              "build_connector": 0.010000000000000002,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.55,
+              "build_logic": 0.55,
+              "build_utility": 0.8,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_utility",
+          "info": "built utility_tool_v3_Agent_02",
+          "tools_count": 6,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02",
+            "utility_tool_v2_Agent_02",
+            "data_tool_v2_Agent_02",
+            "utility_tool_v3_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.0010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_03",
+          "tools_count": 6,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03",
+            "utility_tool_v2_Agent_03",
+            "data_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.0010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_04",
+          "tools_count": 5,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04",
+            "utility_tool_v2_Agent_04",
+            "connector_tool_v1_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.0010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_data",
+          "info": "built data_tool_v2_Agent_05",
+          "tools_count": 7,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05",
+            "data_tool_v1_Agent_05",
+            "utility_tool_v3_Agent_05",
+            "data_tool_v2_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.0010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_06",
+          "tools_count": 7,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06",
+            "utility_tool_v3_Agent_06",
+            "logic_tool_v3_Agent_06",
+            "connector_tool_v1_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.0010000000000000002,
+              "build_utility": 0.010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 36,
+        "tool_type_distribution": {
+          "connector": 5,
+          "data": 7,
+          "logic": 10,
+          "utility": 14
+        },
+        "agent_specializations": {
+          "Agent_01": "logic",
+          "Agent_02": "utility",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 9,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_utility",
+          "info": "built utility_tool_v2_Agent_01",
+          "tools_count": 6,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01",
+            "logic_tool_v2_Agent_01",
+            "utility_tool_v1_Agent_01",
+            "utility_tool_v2_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0000000000000005e-09,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0000000000000006e-12,
+              "build_connector": 1.0000000000000004e-05,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.8,
+              "build_logic": 0.55,
+              "build_utility": 0.8,
+              "build_connector": 0.55,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_02",
+          "tools_count": 7,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02",
+            "utility_tool_v2_Agent_02",
+            "data_tool_v2_Agent_02",
+            "utility_tool_v3_Agent_02",
+            "connector_tool_v1_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.5,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "use_tool",
+          "info": "used connector_tool_v1_Agent_01",
+          "tools_count": 6,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03",
+            "utility_tool_v2_Agent_03",
+            "data_tool_v1_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.5,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_data",
+          "info": "built data_tool_v2_Agent_04",
+          "tools_count": 6,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04",
+            "utility_tool_v2_Agent_04",
+            "connector_tool_v1_Agent_04",
+            "data_tool_v2_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.5,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.7,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_connector",
+          "info": "built connector_tool_v1_Agent_05",
+          "tools_count": 8,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05",
+            "data_tool_v1_Agent_05",
+            "utility_tool_v3_Agent_05",
+            "data_tool_v2_Agent_05",
+            "connector_tool_v1_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.5,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_data",
+          "info": "built data_tool_v1_Agent_06",
+          "tools_count": 8,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06",
+            "utility_tool_v3_Agent_06",
+            "logic_tool_v3_Agent_06",
+            "connector_tool_v1_Agent_06",
+            "data_tool_v1_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.5,
+              "build_utility": 0.00010000000000000003,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 41,
+        "tool_type_distribution": {
+          "connector": 7,
+          "data": 9,
+          "logic": 10,
+          "utility": 15
+        },
+        "agent_specializations": {
+          "Agent_01": "logic",
+          "Agent_02": "utility",
+          "Agent_03": "connector",
+          "Agent_04": "utility",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    },
+    {
+      "step": 10,
+      "agent_results": [
+        {
+          "agent_id": "Agent_01",
+          "action": "build_logic",
+          "info": "built logic_tool_v3_Agent_01",
+          "tools_count": 7,
+          "tools": [
+            "connector_tool_v1_Agent_01",
+            "data_tool_v1_Agent_01",
+            "logic_tool_v1_Agent_01",
+            "logic_tool_v2_Agent_01",
+            "utility_tool_v1_Agent_01",
+            "utility_tool_v2_Agent_01",
+            "logic_tool_v3_Agent_01"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0000000000000006e-10,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 1.0000000000000005e-07,
+              "build_connector": 1.0000000000000005e-09,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.8,
+              "build_logic": 0.25,
+              "build_utility": 0.55,
+              "build_connector": 0.8,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_02",
+          "action": "build_connector",
+          "info": "built connector_tool_v2_Agent_02",
+          "tools_count": 8,
+          "tools": [
+            "data_tool_v1_Agent_02",
+            "utility_tool_v1_Agent_02",
+            "logic_tool_v1_Agent_02",
+            "utility_tool_v2_Agent_02",
+            "data_tool_v2_Agent_02",
+            "utility_tool_v3_Agent_02",
+            "connector_tool_v1_Agent_02",
+            "connector_tool_v2_Agent_02"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.0010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_03",
+          "action": "build_connector",
+          "info": "built connector_tool_v3_Agent_03",
+          "tools_count": 7,
+          "tools": [
+            "connector_tool_v1_Agent_03",
+            "utility_tool_v1_Agent_03",
+            "logic_tool_v1_Agent_03",
+            "connector_tool_v2_Agent_03",
+            "utility_tool_v2_Agent_03",
+            "data_tool_v1_Agent_03",
+            "connector_tool_v3_Agent_03"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.0010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_04",
+          "action": "build_data",
+          "info": "built data_tool_v3_Agent_04",
+          "tools_count": 7,
+          "tools": [
+            "utility_tool_v1_Agent_04",
+            "logic_tool_v1_Agent_04",
+            "data_tool_v1_Agent_04",
+            "utility_tool_v2_Agent_04",
+            "connector_tool_v1_Agent_04",
+            "data_tool_v2_Agent_04",
+            "data_tool_v3_Agent_04"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.0010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.55,
+              "build_utility": 0.55,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_05",
+          "action": "build_data",
+          "info": "built data_tool_v3_Agent_05",
+          "tools_count": 9,
+          "tools": [
+            "utility_tool_v1_Agent_05",
+            "logic_tool_v1_Agent_05",
+            "logic_tool_v2_Agent_05",
+            "utility_tool_v2_Agent_05",
+            "data_tool_v1_Agent_05",
+            "utility_tool_v3_Agent_05",
+            "data_tool_v2_Agent_05",
+            "connector_tool_v1_Agent_05",
+            "data_tool_v3_Agent_05"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.0010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        },
+        {
+          "agent_id": "Agent_06",
+          "action": "build_connector",
+          "info": "built connector_tool_v2_Agent_06",
+          "tools_count": 9,
+          "tools": [
+            "logic_tool_v1_Agent_06",
+            "logic_tool_v2_Agent_06",
+            "utility_tool_v1_Agent_06",
+            "utility_tool_v2_Agent_06",
+            "utility_tool_v3_Agent_06",
+            "logic_tool_v3_Agent_06",
+            "connector_tool_v1_Agent_06",
+            "data_tool_v1_Agent_06",
+            "connector_tool_v2_Agent_06"
+          ],
+          "rule_preferences": {
+            "separation": {
+              "build_data": 1.0,
+              "build_logic": 0.010000000000000002,
+              "build_utility": 0.0010000000000000002,
+              "build_connector": 1.0,
+              "use_tool": 0.3,
+              "rest": 0.2
+            },
+            "alignment": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.4,
+              "rest": 0.2
+            },
+            "cohesion": {
+              "build_data": 0.25,
+              "build_logic": 0.25,
+              "build_utility": 0.25,
+              "build_connector": 0.25,
+              "use_tool": 0.6,
+              "rest": 0.2
+            }
+          }
+        }
+      ],
+      "global_state": {
+        "total_tools": 47,
+        "tool_type_distribution": {
+          "connector": 10,
+          "data": 11,
+          "logic": 11,
+          "utility": 15
+        },
+        "agent_specializations": {
+          "Agent_01": "logic",
+          "Agent_02": "utility",
+          "Agent_03": "connector",
+          "Agent_04": "data",
+          "Agent_05": "utility",
+          "Agent_06": "logic"
+        },
+        "agents_with_tools": 6,
+        "unique_tool_types": 4
+      }
+    }
+  ]
+}
