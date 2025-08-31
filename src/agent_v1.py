@@ -14,14 +14,17 @@ from datetime import datetime
 # Handle imports for both standalone and module usage
 try:
     from .azure_client import AzureOpenAIClient
+    from .tools_v1 import ToolRegistryV1
 except ImportError:
     # Add parent directory to path for standalone execution
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
     try:
         from src.azure_client import AzureOpenAIClient
+        from src.tools_v1 import ToolRegistryV1
     except ImportError:
-        print("⚠️  Azure client not available - will use mock responses")
+        print("⚠️  Azure client or tools not available - will use mock responses")
         AzureOpenAIClient = None
+        ToolRegistryV1 = None
 
 
 class Agent:
@@ -243,26 +246,43 @@ Be concrete and practical."""
     
     def _generate_tool_code(self, tool_design: str, tool_name: str) -> str:
         """Generate Python code for the tool."""
-        system_prompt = f"""Generate Python code for this tool design:
+        
+        # Use Azure to generate actual implementation
+        system_prompt = f"""Generate a simple, complete Python function for this tool:
 
 {tool_design}
 
-Create a complete Python function with:
-1. def execute(parameters, context=None): as the main entry point
-2. Proper error handling
-3. Clear docstring
-4. Return a dictionary with results
-5. Real implementation, not just placeholders"""
+REQUIREMENTS:
+1. Output ONLY raw Python code (no markdown, no ```)
+2. Create ONE complete function: def execute(parameters, context=None):
+3. Keep it simple but functional
+4. Include basic error handling
+5. Return a dictionary with results
+6. Ensure all parentheses and brackets are closed
+7. Maximum 50 lines of code
 
-        user_prompt = f"""Write the complete Python code for {tool_name}.
-Make it actually functional."""
+Example structure:
+def execute(parameters, context=None):
+    \"\"\"Tool description\"\"\"
+    try:
+        # Get parameters
+        data = parameters.get('data')
+        # Do the work
+        result = process_data(data)
+        return {{"result": result}}
+    except Exception as e:
+        return {{"error": str(e)}}"""
+
+        user_prompt = f"""Write a simple, complete Python function for {tool_name}.
+Keep it under 50 lines.
+Output ONLY the Python code."""
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
         
-        code = self.azure_client.chat(messages, temperature=0.3)
+        code = self.azure_client.chat(messages, temperature=0.1, max_tokens=500)  # Lower tokens to prevent cutoff
         
         return code
     
@@ -291,34 +311,6 @@ Make it actually functional."""
             json.dump(index_data, f, indent=2)
 
 
-# Sample Tool Registry for testing
-class SampleToolRegistry:
-    """Sample tool registry for testing the agent."""
-    
-    def __init__(self):
-        self.sample_tools = {
-            "text_processor": {
-                "name": "text_processor",
-                "description": "Process and clean text data",
-                "type": "data"
-            },
-            "math_calculator": {
-                "name": "math_calculator", 
-                "description": "Perform mathematical calculations",
-                "type": "utility"
-            },
-            "file_manager": {
-                "name": "file_manager",
-                "description": "Manage file operations",
-                "type": "utility"
-            }
-        }
-    
-    def get_all_tools(self) -> Dict[str, Any]:
-        """Return all available tools."""
-        return self.sample_tools
-
-
 def main():
     """Test the Agent tool creation and reflection process."""
     
@@ -338,7 +330,7 @@ def main():
         return
     
     # Create sample tool registry
-    tool_registry = SampleToolRegistry()
+    tool_registry = ToolRegistryV1()
     print(f"✅ Tool registry created with {len(tool_registry.get_all_tools())} sample tools")
     
     # Create test agent

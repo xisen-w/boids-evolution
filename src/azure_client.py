@@ -52,7 +52,7 @@ class AzureOpenAIClient:
             print(f"Chat error: {e}")
             return f"Error: {str(e)}"
     
-    def chat_to_json(self, messages: List[Dict[str, str]], temperature: float = 0.1, max_tokens: int = 300) -> Dict[str, Any]:
+    def chat_to_json(self, messages: List[Dict[str, str]], temperature: float = 0.1, max_tokens: int = 300000) -> Dict[str, Any]:
         """
         Chat completion with JSON mode - forces structured output.
         
