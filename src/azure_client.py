@@ -1,14 +1,18 @@
 """
 Minimal Azure OpenAI client wrapper.
-Just the essentials: init, chat(), chat_to_json()
+Just the essentials: init, chat(), chat_to_json(), structured_output()
 """
 import os
 import json
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, TypeVar, Type
 from openai import AzureOpenAI
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 load_dotenv()
+
+# Type variable for structured output
+T = TypeVar('T', bound=BaseModel)
 
 
 class AzureOpenAIClient:
@@ -78,6 +82,70 @@ class AzureOpenAIClient:
         except Exception as e:
             print(f"Chat JSON error: {e}")
             return {"error": "api_error", "message": str(e)}
+    
+    def structured_output(self, messages: List[Dict[str, str]], response_model: Type[T], 
+                         temperature: float = 0.1, max_tokens: int = 300) -> T:
+        """
+        Chat completion with structured Pydantic output - guaranteed type safety.
+        
+        Args:
+            messages: List of messages 
+            response_model: Pydantic model class for the expected response
+            temperature: Lower for more consistent results
+            max_tokens: Max response length
+            
+        Returns:
+            Parsed Pydantic model instance
+        """
+        try:
+            response = self.client.beta.chat.completions.parse(
+                model=self.deployment_name,
+                messages=messages,
+                response_format=response_model,
+                max_tokens=max_tokens,
+                temperature=temperature
+            )
+            
+            return response.choices[0].message.parsed
+            
+        except Exception as e:
+            print(f"Structured output error: {e}")
+            # Return a default instance with error info
+            if hasattr(response_model, 'model_validate'):
+                try:
+                    # Try to create a minimal valid instance
+                    return response_model.model_validate({"error": str(e)})
+                except:
+                    # If that fails, let the exception bubble up
+                    raise e
+            else:
+                raise e
+
+
+# Pydantic models for common boids patterns
+class AgentDecision(BaseModel):
+    """Standard agent decision structure."""
+    action: str  # build_tool, use_tool, rest
+    tool_type: Optional[str] = None  # data, logic, utility, code
+    confidence: float  # 0.0-1.0
+    reason: str  # brief explanation
+    target_tool: Optional[str] = None  # for use_tool actions
+
+class ToolCreation(BaseModel):
+    """Tool creation specification."""
+    name: str
+    tool_type: str  # data, logic, utility, code
+    description: str
+    dependencies: List[str] = []
+    code_outline: str  # what the tool should do
+
+class NetworkAnalysis(BaseModel):
+    """Agent network analysis."""
+    agent_id: str
+    specialization: Optional[str] = None
+    energy: int
+    tool_count: int
+    collaboration_score: float  # 0.0-1.0
 
 
 def main():
@@ -109,8 +177,8 @@ def main():
     response = client.chat(messages)
     print(f"Response: {response}")
     
-    # Test 2: JSON mode
-    print("\n📝 Test 2: JSON Mode")
+    # Test 2: JSON mode (legacy)
+    print("\n📝 Test 2: JSON Mode (Legacy)")
     print("-" * 30)
     
     json_messages = [
@@ -127,17 +195,45 @@ def main():
     json_response = client.chat_to_json(json_messages)
     print(f"JSON Response: {json.dumps(json_response, indent=2)}")
     
-    # Test 3: Error handling
-    print("\n⚠️  Test 3: Error Handling")
+    # Test 3: Structured output (NEW!)
+    print("\n🎯 Test 3: Structured Output (Pydantic)")
     print("-" * 30)
     
-    bad_messages = [
-        {"role": "system", "content": "Respond with invalid JSON format."},
-        {"role": "user", "content": "Give me broken JSON"}
+    structured_messages = [
+        {"role": "system", "content": "You are a boids agent making decisions. Analyze the situation and decide what to do."},
+        {"role": "user", "content": "I see my neighbors building data processing tools. I have low energy. What should I do?"}
     ]
     
-    error_response = client.chat_to_json(bad_messages)
-    print(f"Error Response: {json.dumps(error_response, indent=2)}")
+    try:
+        structured_response = client.structured_output(structured_messages, AgentDecision)
+        print(f"Structured Response:")
+        print(f"  Action: {structured_response.action}")
+        print(f"  Tool Type: {structured_response.tool_type}")
+        print(f"  Confidence: {structured_response.confidence}")
+        print(f"  Reason: {structured_response.reason}")
+        print(f"  Target Tool: {structured_response.target_tool}")
+    except Exception as e:
+        print(f"Structured output failed: {e}")
+    
+    # Test 4: Tool creation specification
+    print("\n🔧 Test 4: Tool Creation Spec")
+    print("-" * 30)
+    
+    tool_messages = [
+        {"role": "system", "content": "You are designing a new computational tool. Specify exactly what it should do."},
+        {"role": "user", "content": "Create a tool that can analyze text sentiment and extract key phrases."}
+    ]
+    
+    try:
+        tool_spec = client.structured_output(tool_messages, ToolCreation)
+        print(f"Tool Specification:")
+        print(f"  Name: {tool_spec.name}")
+        print(f"  Type: {tool_spec.tool_type}")
+        print(f"  Description: {tool_spec.description}")
+        print(f"  Dependencies: {tool_spec.dependencies}")
+        print(f"  Code Outline: {tool_spec.code_outline}")
+    except Exception as e:
+        print(f"Tool creation spec failed: {e}")
     
     print("\n✅ All tests completed!")
 
