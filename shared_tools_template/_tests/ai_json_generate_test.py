@@ -18,6 +18,7 @@ def run_tests():
     # Import the tool
     try:
         sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+        print(f"Importing ai_json_generate from {os.path.dirname(os.path.dirname(__file__))}")
         import ai_json_generate
     except Exception as e:
         results["import_error"] = str(e)

@@ -692,19 +692,16 @@ Output ONLY the Python code."""
 TOOL NAME: {tool_name}
 TOOL DESIGN: {tool_design}
 
-CRITICAL REQUIREMENTS:
+REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
-2. Use the EXACT template structure provided below - DO NOT MODIFY THE IMPORT SECTION
-3. The import section MUST use the exact path manipulation code provided
-4. Create a complete test suite with multiple test cases
-5. Include positive tests, negative tests, and edge cases
+2. Create a complete test suite with multiple test cases
+3. Import the tool module and test its execute() function
+4. Include positive tests, negative tests, and edge cases
+5. Use try/except for error handling
 6. Return detailed test results as a dictionary
 7. Maximum 100 lines of code
 
-WARNING: If you change the import section, the tests will fail completely!
-
-CRITICAL: You MUST use this EXACT structure - do not modify the import section:
-
+Example structure:
 import sys
 import os
 import json
@@ -722,46 +719,16 @@ def run_tests():
         "all_passed": False
     }}
     
-    # CRITICAL: Use this EXACT import code - DO NOT CHANGE
+    # Import the tool
     try:
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
+        sys.path.append(os.path.dirname(__file__))
         import {tool_name}
     except Exception as e:
         results["import_error"] = str(e)
         return results
     
-    def record_result(test_name, passed, error_msg=None):
-        results["total_tests"] += 1
-        if passed:
-            results["passed_tests"] += 1
-        else:
-            results["failed_tests"] += 1
-        results["tests"].append({{
-            "test_name": test_name,
-            "passed": passed,
-            "error": error_msg
-        }})
+    # Test cases here...
     
-    # CRITICAL: Tools expect parameters as a dictionary!
-    # CORRECT: result = {tool_name}.execute({{'param1': value1, 'param2': value2}})
-    # WRONG: result = {tool_name}.execute(value1, value2)
-    
-    # Example test case - EXTREMELY LENIENT:
-    try:
-        # Call tool with basic parameters
-        result = {tool_name}.execute({{'data': [1, 2, 3]}})
-        # Accept ANY result that doesn't crash
-        if result is not None:
-            record_result("Basic functionality", True)
-        else:
-            record_result("Basic functionality", False, "Tool returned None")
-    except Exception as e:
-        record_result("Basic functionality", False, str(e))
-    
-    # Add more test cases following the same pattern...
-    results["all_passed"] = results["failed_tests"] == 0
     return results
 
 if __name__ == "__main__":
@@ -769,26 +736,12 @@ if __name__ == "__main__":
     print(json.dumps(test_results, indent=2))"""
 
         user_prompt = f"""Create comprehensive tests for {tool_name}.
+Generate at least 3-5 different test cases covering:
+- Normal usage
+- Edge cases  
+- Error conditions
+- Parameter validation
 
-CRITICAL IMPORT REQUIREMENT: Use the EXACT import template provided above. DO NOT change the import section or the tests will fail completely.
-
-CRITICAL: Tools use this calling convention:
-- result = {tool_name}.execute({{'param1': value1, 'param2': value2}})
-- NOT: result = {tool_name}.execute(value1, value2)
-
-Generate 3 EXTREMELY SIMPLE test cases:
-- Basic functionality with simple data like [1,2,3]
-- Empty input handling with []
-- One more basic case
-
-MAKE TESTS PASS EASILY:
-1. Call the tool with basic parameters like {{'data': [1,2,3]}}
-2. Accept ANY result that isn't None or an exception
-3. Don't check exact outputs - just that something reasonable happened
-4. Only fail if the tool crashes or returns None
-5. BE EXTREMELY GENEROUS - almost everything should pass
-
-REMINDER: Use the EXACT template structure above - especially the import section.
 Output ONLY the Python test code."""
 
         messages = [

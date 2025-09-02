@@ -189,7 +189,7 @@ class ExperimentRunner:
             "tests_passed": 0,
             "tests_failed": 0,
             "total_tools_in_system": 0,
-            "collaboration_events": 0
+            "collaboration_events": 0  # Removed neighbor testing - pure agent cycle
         }
         
         # Phase 1: Observe and Reflect
@@ -265,29 +265,7 @@ class ExperimentRunner:
             except Exception as e:
                 logger.error(f"   ❌ {agent.agent_id} tool building failed: {e}")
         
-        # Phase 4: Test Random Neighbor Tools (Optional exploration)
-        logger.info("\n🧪 Phase 4: Neighbor Tool Testing")
-        for agent in self.agents:
-            try:
-                # Get a random tool from the system to test
-                all_tools = self.tool_registry.get_all_tools()
-                available_tools = [name for name in all_tools.keys() if not name.startswith(agent.agent_id)]
-                
-                if available_tools:
-                    import random
-                    random_tool = random.choice(available_tools)
-                    
-                    logger.info(f"   {agent.agent_id}: Testing neighbor tool {random_tool}")
-                    test_result = agent.test_tool(random_tool)
-                    
-                    if test_result["success"]:
-                        round_results["collaboration_events"] += 1
-                        logger.info(f"   ✅ {agent.agent_id}: Successfully tested {random_tool}")
-                    else:
-                        logger.info(f"   ⚠️  {agent.agent_id}: Testing {random_tool} failed")
-                        
-            except Exception as e:
-                logger.warning(f"   ⚠️  {agent.agent_id} neighbor testing failed: {e}")
+        # Phase 4: Removed - Keep agent cycle pure (observe → reflect → build_tools → build_tests)
         
         # Get total tools in system
         all_tools = self.tool_registry.get_all_tools()
@@ -537,7 +515,7 @@ def main():
     runner = ExperimentRunner(
         experiment_name="enhanced_testing_demo",
         num_agents=1,
-        max_rounds=5,
+        max_rounds=3,
         shared_meta_prompt="You are in a collaborative tool-building ecosystem. Focus on creating high-quality, well-tested tools that can be used by other agents. Focus on building data science tools.",
         agent_specializations=specializations
     )

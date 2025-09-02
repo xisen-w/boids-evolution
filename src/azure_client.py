@@ -27,7 +27,7 @@ class AzureOpenAIClient:
         )
         self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4")
     
-    def chat(self, messages: List[Dict[str, str]], temperature: float = 0.7, max_tokens: int = 500) -> str:
+    def chat(self, messages: List[Dict[str, str]], temperature: float = 0.7, max_tokens: int = 30000) -> str:
         """
         Simple chat completion.
         
@@ -52,7 +52,7 @@ class AzureOpenAIClient:
             print(f"Chat error: {e}")
             return f"Error: {str(e)}"
     
-    def chat_to_json(self, messages: List[Dict[str, str]], temperature: float = 0.1, max_tokens: int = 300000) -> Dict[str, Any]:
+    def chat_to_json(self, messages: List[Dict[str, str]], temperature: float = 0.1, max_tokens: int = 30000) -> Dict[str, Any]:
         """
         Chat completion with JSON mode - forces structured output.
         
@@ -84,7 +84,7 @@ class AzureOpenAIClient:
             return {"error": "api_error", "message": str(e)}
     
     def structured_output(self, messages: List[Dict[str, str]], response_model: Type[T], 
-                         temperature: float = 0.1, max_tokens: int = 300) -> T:
+                         temperature: float = 0.1, max_tokens: int = 30000) -> T:
         """
         Chat completion with structured Pydantic output - guaranteed type safety.
         
