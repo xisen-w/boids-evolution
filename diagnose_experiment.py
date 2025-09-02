@@ -198,23 +198,33 @@ def plot_tci_breakdown_evolution(exp_dir: str, complexity_breakdown_data: list):
         logger.error("Data for TCI breakdown plot is malformed or missing columns.")
         return
 
+    # FIX: Apply the correct weights to each component for an accurate visualization
+    # These weights must match those used in the ExperimentRunner.
+    weights = {'alpha': 0.5, 'beta': 1.0, 'gamma': 10.0}
+    
+    weighted_code = df['avg_code_complexity'] * weights['alpha']
+    weighted_interface = df['avg_interface_complexity'] * weights['beta']
+    weighted_compositional = df['avg_compositional_complexity'] * weights['gamma']
+
     plt.figure(figsize=(12, 7))
     
     # We use a stacked area plot to show the components
-    labels = ['Code Complexity', 'Interface Complexity', 'Compositional Complexity']
+    labels = [f"Code Complexity (x{weights['alpha']})", 
+              f"Interface Complexity (x{weights['beta']})", 
+              f"Compositional Complexity (x{weights['gamma']})"]
     colors = ['skyblue', 'salmon', 'lightgreen']
     
     plt.stackplot(df['round'],
-                  df['avg_code_complexity'],
-                  df['avg_interface_complexity'],
-                  df['avg_compositional_complexity'],
+                  weighted_code,
+                  weighted_interface,
+                  weighted_compositional,
                   labels=labels,
                   colors=colors,
                   alpha=0.8)
 
-    plt.title(f'TCI Breakdown Evolution\n(Experiment: {os.path.basename(exp_dir)})', fontsize=16)
+    plt.title(f'Weighted TCI Breakdown Evolution\n(Experiment: {os.path.basename(exp_dir)})', fontsize=16)
     plt.xlabel('Round Number', fontsize=12)
-    plt.ylabel('Average TCI Component Score', fontsize=12)
+    plt.ylabel('Weighted Average TCI Component Score', fontsize=12)
     plt.xticks(np.arange(min(df['round']), max(df['round'])+1, 1.0))
     plt.legend(loc='upper left')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
