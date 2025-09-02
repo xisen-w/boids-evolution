@@ -1,42 +1,56 @@
 #!/usr/bin/env python3
 """
-Run Experiment - Agentic Society Simulation Runner
+Experiment Runner for Agent Society v1
+Enhanced with Comprehensive Testing Support!
 
-Manages the complete lifecycle of agentic society experiments:
-1. Initialize experiment environment
-2. Set up shared tools from template
-3. Create personal tool directories for each agent
-4. Run agent society simulation
-5. Log and analyze results
+Manages the complete experiment lifecycle:
+- Setup with testing infrastructure
+- Agent society simulation with testing
+- Result collection and analysis
 """
 
 import os
-import sys
-import json
 import shutil
+import json
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-# Add src to path
-sys.path.append('src')
-
-from src.agent_v1 import Agent
-from src.tools_v1 import ToolRegistryV1, initialize_tool_system
 from src.azure_client import AzureOpenAIClient
+from src.agent_v1 import Agent
+from src.tools_v1 import ToolRegistryV1
+from src.experiment_visualizer import ExperimentVisualizer
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('experiment.log'),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
 
 
 class ExperimentRunner:
     """
-    Manages agentic society experiments with complete lifecycle management.
+    Experiment Runner v1 - Enhanced with Testing Support
+    
+    Features:
+    - Self-contained experiment directories
+    - Comprehensive testing infrastructure
+    - Agent society simulation with testing phases
+    - Detailed result analysis and reporting
     """
     
     def __init__(self, 
-                 experiment_name: str,
-                 num_agents: int = 3,
-                 max_rounds: int = 10,
-                 shared_meta_prompt: str = "",
-                 agent_specializations: Optional[List[str]] = None):
+                 experiment_name: str, 
+                 num_agents: int, 
+                 max_rounds: int, 
+                 shared_meta_prompt: str,
+                 agent_specializations: List[str] = None):
         
         self.experiment_name = experiment_name
         self.num_agents = num_agents
@@ -45,427 +59,511 @@ class ExperimentRunner:
         self.agent_specializations = agent_specializations or []
         
         # Experiment paths - EVERYTHING goes inside the experiment directory
-        self.experiment_dir = f"experiments/{experiment_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        self.experiment_dir = f"experiments/{experiment_name}_{timestamp}"
         self.shared_tools_dir = os.path.join(self.experiment_dir, "shared_tools")
         self.personal_tools_dir = os.path.join(self.experiment_dir, "personal_tools")
-        self.template_dir = "shared_tools_template_legacy"  # Source template stays at root
+        self.template_dir = "shared_tools_template"  # Source template stays at root
         
-        # Components
+        # Results and logs
+        self.results_file = os.path.join(self.experiment_dir, "results.json")
+        self.summary_file = os.path.join(self.experiment_dir, "summary.txt")
+        self.metadata_file = os.path.join(self.experiment_dir, "experiment_metadata.json")
+        
+        # Initialize components
         self.azure_client = None
         self.tool_registry = None
         self.agents = []
-        self.experiment_log = []
+        self.round_results = []
+        self.visualizer = ExperimentVisualizer()
         
-        # Setup logging
-        self._setup_logging()
+        logger.info(f"🧪 Experiment initialized: {self.experiment_name}")
+        logger.info(f"📁 Experiment directory: {self.experiment_dir}")
     
-    def _setup_logging(self):
-        """Set up experiment logging."""
-        os.makedirs(self.experiment_dir, exist_ok=True)
-        
-        log_file = os.path.join(self.experiment_dir, "experiment.log")
-        
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(log_file),
-                logging.StreamHandler(sys.stdout)
-            ]
-        )
-        
-        self.logger = logging.getLogger(__name__)
-    
-    def initialize_experiment(self) -> bool:
-        """
-        Initialize the complete experiment environment.
-        
-        Returns:
-            bool: Success status
-        """
-        self.logger.info(f"🧬 Initializing Experiment: {self.experiment_name}")
-        self.logger.info("=" * 60)
-        
+    def _initialize_azure_client(self) -> bool:
+        """Initialize Azure OpenAI client."""
         try:
-            # Step 1: Initialize Azure client
-            self.logger.info("Step 1: Initialize Azure OpenAI client")
             self.azure_client = AzureOpenAIClient()
-            self.logger.info("✅ Azure client initialized")
-            
-            # Step 2: Initialize shared tools from template
-            self.logger.info("Step 2: Initialize shared tools")
-            success = self._initialize_shared_tools()
-            if not success:
-                self.logger.error("❌ Failed to initialize shared tools")
-                return False
-            
-            # Step 3: Initialize tool registry
-            self.logger.info("Step 3: Initialize tool registry")
-            self.tool_registry = ToolRegistryV1(self.shared_tools_dir)
-            self.logger.info("✅ Tool registry initialized")
-            
-            # Step 4: Create personal tool directories
-            self.logger.info("Step 4: Create personal tool directories")
-            self._create_personal_tool_directories()
-            
-            # Step 5: Create agents
-            self.logger.info("Step 5: Create agents")
-            self._create_agents()
-            
-            self.logger.info("🎯 Experiment initialization completed!")
+            logger.info("✅ Azure OpenAI client initialized")
             return True
-            
         except Exception as e:
-            self.logger.error(f"❌ Experiment initialization failed: {e}")
+            logger.error(f"❌ Azure client initialization failed: {e}")
             return False
     
     def _initialize_shared_tools(self) -> bool:
-        """Initialize shared tools by copying from template into experiment directory."""
-        
+        """Initialize shared tools from template."""
         try:
-            # Create experiment directory first
+            # Create experiment directory
             os.makedirs(self.experiment_dir, exist_ok=True)
             
-            # Create shared tools directory inside experiment
-            os.makedirs(self.shared_tools_dir, exist_ok=True)
+            # Initialize tool registry with experiment-specific paths
+            self.tool_registry = ToolRegistryV1(
+                shared_tools_dir=self.shared_tools_dir,
+                personal_tools_base_dir=self.personal_tools_dir
+            )
             
-            # Copy from template
-            if os.path.exists(self.template_dir):
-                self.logger.info(f"   📂 Copying tools from {self.template_dir} to {self.shared_tools_dir}")
-                
-                copied_files = 0
-                for item in os.listdir(self.template_dir):
-                    if item == "__pycache__":
-                        continue
-                        
-                    source_path = os.path.join(self.template_dir, item)
-                    dest_path = os.path.join(self.shared_tools_dir, item)
-                    
-                    if os.path.isfile(source_path):
-                        shutil.copy2(source_path, dest_path)
-                        copied_files += 1
-                        self.logger.info(f"      ✅ Copied {item}")
-                
-                self.logger.info(f"   🎯 Shared tools initialized with {copied_files} files")
-                return True
-                
-            else:
-                self.logger.warning(f"   ⚠️  Template {self.template_dir} not found, creating empty shared tools")
-                # Create empty index
-                empty_index = {"tools": {}}
-                with open(os.path.join(self.shared_tools_dir, "index.json"), 'w') as f:
-                    json.dump(empty_index, f, indent=2)
-                return True
-                
+            logger.info("✅ Shared tools initialized from template")
+            return True
+            
         except Exception as e:
-            self.logger.error(f"   ❌ Error initializing shared tools: {e}")
+            logger.error(f"❌ Shared tools initialization failed: {e}")
             return False
     
     def _create_personal_tool_directories(self):
-        """Create personal tool directories for each agent inside experiment directory."""
-        
-        # Create personal tools base directory inside experiment
-        os.makedirs(self.personal_tools_dir, exist_ok=True)
-        
-        # Create directory for each agent
-        for i in range(self.num_agents):
-            agent_id = f"Agent_{i+1:02d}"
-            agent_dir = os.path.join(self.personal_tools_dir, agent_id)
+        """Create personal tool directories for each agent."""
+        try:
+            os.makedirs(self.personal_tools_dir, exist_ok=True)
             
-            os.makedirs(agent_dir, exist_ok=True)
+            for i in range(1, self.num_agents + 1):
+                agent_id = f"Agent_{i:02d}"
+                agent_dir = os.path.join(self.personal_tools_dir, agent_id)
+                
+                # Create agent directory structure with testing support
+                os.makedirs(agent_dir, exist_ok=True)
+                os.makedirs(os.path.join(agent_dir, "_tests"), exist_ok=True)
+                os.makedirs(os.path.join(agent_dir, "_testResults"), exist_ok=True)
+                
+                # Initialize empty index
+                index_file = os.path.join(agent_dir, "index.json")
+                if not os.path.exists(index_file):
+                    with open(index_file, 'w') as f:
+                        json.dump({"tools": {}}, f, indent=2)
+                
+                logger.info(f"📁 Created agent directory: {agent_id}")
             
-            # Create empty index.json for each agent
-            empty_index = {
-                "tools": {},
-                "metadata": {
-                    "agent_id": agent_id,
-                    "total_tools": 0,
-                    "created_at": datetime.now().isoformat(),
-                    "experiment": self.experiment_name,
-                    "experiment_dir": self.experiment_dir
-                }
-            }
+            logger.info(f"✅ Personal tool directories created for {self.num_agents} agents")
             
-            index_file = os.path.join(agent_dir, "index.json")
-            with open(index_file, 'w') as f:
-                json.dump(empty_index, f, indent=2)
-            
-            self.logger.info(f"   📁 Created directory: {agent_dir}")
-        
-        self.logger.info(f"   🎯 Created {self.num_agents} personal tool directories in {self.personal_tools_dir}")
+        except Exception as e:
+            logger.error(f"❌ Personal tool directories creation failed: {e}")
+            raise
     
-    def _create_agents(self):
-        """Create agent instances with specializations."""
-        
-        self.agents = []
-        
-        for i in range(self.num_agents):
-            agent_id = f"Agent_{i+1:02d}"
+    def _initialize_agents(self):
+        """Initialize all agents with their specializations."""
+        try:
+            for i in range(1, self.num_agents + 1):
+                agent_id = f"Agent_{i:02d}"
+                
+                # Get specialization if available
+                if i <= len(self.agent_specializations):
+                    specialization = self.agent_specializations[i-1]
+                else:
+                    specialization = f"Focus on building practical tools for general use."
+                
+                # Create agent
+                agent = Agent(
+                    agent_id=agent_id,
+                    azure_client=self.azure_client,
+                    shared_tool_registry=self.tool_registry,
+                    meta_prompt=self.shared_meta_prompt,
+                    envs_available=["python", "file_system", "data_processing"],
+                    specific_prompt=specialization,
+                    personal_tool_base_dir=self.personal_tools_dir  # Use experiment-specific path
+                )
+                
+                self.agents.append(agent)
+                logger.info(f"🤖 Agent {agent_id} initialized with specialization: {specialization}")
             
-            # Get specialization for this agent
-            if i < len(self.agent_specializations):
-                specialization = self.agent_specializations[i]
-                specific_prompt = f"Your specialty is {specialization}. Focus on building tools related to {specialization}."
-            else:
-                specialization = "general"
-                specific_prompt = None
+            logger.info(f"✅ All {len(self.agents)} agents initialized")
             
-            # Create agent
-            agent = Agent(
-                agent_id=agent_id,
-                azure_client=self.azure_client,
-                shared_tool_registry=self.tool_registry,
-                meta_prompt=self.shared_meta_prompt,
-                envs_available=["python", "file_system", "data_processing"],
-                specific_prompt=specific_prompt,
-                personal_tool_base_dir=self.personal_tools_dir  # Use experiment-specific directory
-            )
-            
-            self.agents.append(agent)
-            self.logger.info(f"   🤖 Created {agent_id} (specialization: {specialization})")
-        
-        self.logger.info(f"   🎯 Created {len(self.agents)} agents")
+        except Exception as e:
+            logger.error(f"❌ Agent initialization failed: {e}")
+            raise
     
-    def run_experiment(self) -> Dict[str, Any]:
+    def _run_single_round(self, round_num: int) -> Dict[str, Any]:
         """
-        Run the complete agentic society experiment.
-        
-        Returns:
-            Dict with experiment results
+        Run a single round of the agent society simulation.
+        Enhanced with testing phases and beautiful visualization!
         """
-        self.logger.info(f"🚀 Starting Experiment Simulation")
-        self.logger.info("=" * 60)
+        logger.info(f"\n🔄 Starting Round {round_num}")
+        logger.info("=" * 50)
         
-        experiment_results = {
-            "experiment_name": self.experiment_name,
-            "num_agents": self.num_agents,
-            "max_rounds": self.max_rounds,
-            "start_time": datetime.now().isoformat(),
-            "rounds": []
-        }
-        
-        for round_num in range(1, self.max_rounds + 1):
-            self.logger.info(f"\n🔄 Round {round_num}/{self.max_rounds}")
-            self.logger.info("-" * 40)
-            
-            round_results = self._run_round(round_num)
-            experiment_results["rounds"].append(round_results)
-            
-            # Log round summary
-            self._log_round_summary(round_num, round_results)
-        
-        experiment_results["end_time"] = datetime.now().isoformat()
-        experiment_results["final_analysis"] = self._analyze_experiment_results()
-        
-        # Save results
-        self._save_experiment_results(experiment_results)
-        
-        self.logger.info(f"\n🎯 Experiment completed!")
-        return experiment_results
-    
-    def _run_round(self, round_num: int) -> Dict[str, Any]:
-        """Run a single round where each agent acts."""
+        # Show beautiful round header
+        self.visualizer.show_round_header(round_num, self.max_rounds)
         
         round_results = {
             "round": round_num,
             "timestamp": datetime.now().isoformat(),
-            "agent_actions": []
+            "agent_actions": [],
+            "tools_created": 0,
+            "tests_created": 0,
+            "tests_passed": 0,
+            "tests_failed": 0,
+            "total_tools_in_system": 0,
+            "collaboration_events": 0
         }
         
+        # Phase 1: Observe and Reflect
+        self.visualizer.show_phase_header("Phase 1: Agent Observation and Reflection", "🔍")
+        
         for agent in self.agents:
-            self.logger.info(f"   🤖 {agent.agent_id} acting...")
-            
             try:
-                # Agent observes, reflects, and acts
                 observation = agent.observe()
                 reflection = agent.reflect(observation)
-                build_result = agent.build_tools(reflection)
                 
-                action_result = {
-                    "agent_id": agent.agent_id,
-                    "observation_summary": {
-                        "visible_tools_count": len(observation["all_visible_tools"]),
-                        "neighbor_tools": observation["neighbor_tools"],
-                        "my_tools_count": len(observation["my_tools"])
-                    },
-                    "reflection": reflection[:200] + "..." if len(reflection) > 200 else reflection,
-                    "build_result": build_result,
-                    "success": build_result["success"]
-                }
+                # Show beautiful reflection visualization
+                self.visualizer.show_agent_reflection(agent.agent_id, reflection, observation)
                 
-                round_results["agent_actions"].append(action_result)
+                logger.info(f"   {agent.agent_id}: Observed {len(observation['all_visible_tools'])} tools")
+                logger.info(f"   {agent.agent_id}: Reflection generated")
                 
-                if build_result["success"]:
-                    self.logger.info(f"      ✅ Built tool: {agent.self_built_tools[-1] if agent.self_built_tools else 'unknown'}")
-                else:
-                    self.logger.info(f"      ❌ Tool building failed")
+            except Exception as e:
+                logger.error(f"   ❌ {agent.agent_id} observation/reflection failed: {e}")
+        
+        # Phase 2: Build Tools
+        self.visualizer.show_phase_header("Phase 2: Tool Building", "🔨")
+        
+        for agent in self.agents:
+            try:
+                # Get latest reflection
+                if agent.reflection_history:
+                    latest_reflection = agent.reflection_history[-1]["reflection"]
+                    build_result = agent.build_tools(latest_reflection)
+                    
+                    # Show beautiful tool creation visualization
+                    self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
+                    
+                    if build_result["success"]:
+                        round_results["tools_created"] += 1
+                        logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
+                        
+                        # Phase 3: Build Tests for the new tool
+                        logger.info(f"   🧪 Building tests for {agent.agent_id}'s new tool...")
+                        test_result = agent.build_tests(build_result["tool_info"])
+                        
+                        if test_result["success"]:
+                            round_results["tests_created"] += 1
+                            
+                            # Check test results
+                            test_results = test_result.get("test_results", {})
+                            tool_name = build_result["tool_info"].get("tool_name", "unknown")
+                            
+                            # Show beautiful test execution visualization
+                            self.visualizer.show_test_execution(agent.agent_id, tool_name, test_results)
+                            
+                            if test_results.get("all_passed"):
+                                round_results["tests_passed"] += 1
+                                logger.info(f"   ✅ {agent.agent_id}: Tests passed!")
+                            else:
+                                round_results["tests_failed"] += 1
+                                logger.info(f"   ❌ {agent.agent_id}: Tests failed")
+                        else:
+                            logger.warning(f"   ⚠️  {agent.agent_id}: Test creation failed")
+                    else:
+                        logger.warning(f"   ⚠️  {agent.agent_id}: Tool building failed")
+                        
+                    # Record agent action
+                    agent_action = {
+                        "agent_id": agent.agent_id,
+                        "tool_build_success": build_result["success"],
+                        "test_build_success": test_result.get("success", False) if build_result["success"] else False,
+                        "test_passed": test_result.get("test_results", {}).get("all_passed", False) if build_result["success"] else False,
+                        "tools_built_so_far": len(agent.self_built_tools),
+                        "tests_built_so_far": len(agent.self_built_tests)
+                    }
+                    round_results["agent_actions"].append(agent_action)
                     
             except Exception as e:
-                self.logger.error(f"      ❌ Error with {agent.agent_id}: {e}")
+                logger.error(f"   ❌ {agent.agent_id} tool building failed: {e}")
+        
+        # Phase 4: Test Random Neighbor Tools (Optional exploration)
+        logger.info("\n🧪 Phase 4: Neighbor Tool Testing")
+        for agent in self.agents:
+            try:
+                # Get a random tool from the system to test
+                all_tools = self.tool_registry.get_all_tools()
+                available_tools = [name for name in all_tools.keys() if not name.startswith(agent.agent_id)]
                 
-                action_result = {
-                    "agent_id": agent.agent_id,
-                    "error": str(e),
-                    "success": False
-                }
-                round_results["agent_actions"].append(action_result)
+                if available_tools:
+                    import random
+                    random_tool = random.choice(available_tools)
+                    
+                    logger.info(f"   {agent.agent_id}: Testing neighbor tool {random_tool}")
+                    test_result = agent.test_tool(random_tool)
+                    
+                    if test_result["success"]:
+                        round_results["collaboration_events"] += 1
+                        logger.info(f"   ✅ {agent.agent_id}: Successfully tested {random_tool}")
+                    else:
+                        logger.info(f"   ⚠️  {agent.agent_id}: Testing {random_tool} failed")
+                        
+            except Exception as e:
+                logger.warning(f"   ⚠️  {agent.agent_id} neighbor testing failed: {e}")
+        
+        # Get total tools in system
+        all_tools = self.tool_registry.get_all_tools()
+        round_results["total_tools_in_system"] = len(all_tools)
+        
+        # Show beautiful round summary
+        self.visualizer.show_round_summary(round_num, round_results)
+        
+        logger.info(f"\n📊 Round {round_num} Summary:")
+        logger.info(f"   Tools created: {round_results['tools_created']}")
+        logger.info(f"   Tests created: {round_results['tests_created']}")
+        logger.info(f"   Tests passed: {round_results['tests_passed']}")
+        logger.info(f"   Tests failed: {round_results['tests_failed']}")
+        logger.info(f"   Total tools in system: {round_results['total_tools_in_system']}")
+        logger.info(f"   Collaboration events: {round_results['collaboration_events']}")
         
         return round_results
     
-    def _log_round_summary(self, round_num: int, round_results: Dict[str, Any]):
-        """Log summary of the round."""
+    def run_experiment(self):
+        """Run the complete experiment with testing support."""
+        logger.info(f"🚀 Starting Experiment: {self.experiment_name}")
+        logger.info("=" * 60)
         
-        successful_actions = sum(1 for action in round_results["agent_actions"] if action.get("success", False))
-        total_actions = len(round_results["agent_actions"])
+        # Show beautiful experiment header
+        self.visualizer.show_experiment_header(self.experiment_name, self.num_agents, self.max_rounds)
         
-        self.logger.info(f"   📊 Round {round_num} Summary: {successful_actions}/{total_actions} successful actions")
-        
-        # Show what tools were built
-        for action in round_results["agent_actions"]:
-            if action.get("success") and "build_result" in action:
-                agent_id = action["agent_id"]
-                build_result = action["build_result"]
-                if "tool_design" in build_result:
-                    tool_info = build_result["tool_design"][:50] + "..."
-                    self.logger.info(f"      🔧 {agent_id}: {tool_info}")
-    
-    def _analyze_experiment_results(self) -> Dict[str, Any]:
-        """Analyze final experiment results."""
-        
-        # Get current tool ecosystem
-        all_tools = self.tool_registry.get_all_tools()
-        
-        # Analyze agent contributions
-        agent_contributions = {}
-        for agent in self.agents:
-            agent_contributions[agent.agent_id] = {
-                "tools_built": len(agent.self_built_tools),
-                "tool_names": agent.self_built_tools,
-                "reflection_count": len(agent.reflection_history)
-            }
-        
-        # Tool type analysis
-        tool_types = {}
-        personal_tools = 0
-        for tool_name, tool_data in all_tools.items():
-            if tool_data.get("type") == "personal":
-                personal_tools += 1
+        try:
+            # 1. Initialize Azure client
+            if not self._initialize_azure_client():
+                return False
+            
+            # 2. Initialize shared tools
+            if not self._initialize_shared_tools():
+                return False
+            
+            # 3. Create personal tool directories
+            self._create_personal_tool_directories()
+            
+            # 4. Initialize agents
+            self._initialize_agents()
+            
+            # 5. Run simulation rounds
+            logger.info(f"\n🔄 Running {self.max_rounds} rounds of agent society simulation")
+            
+            for round_num in range(1, self.max_rounds + 1):
+                round_result = self._run_single_round(round_num)
+                self.round_results.append(round_result)
                 
-        analysis = {
-            "total_tools": len(all_tools),
-            "personal_tools_created": personal_tools,
-            "shared_tools": len(all_tools) - personal_tools,
-            "agent_contributions": agent_contributions,
-            "successful_rounds": len([r for r in self.experiment_log if any(a.get("success", False) for a in r.get("agent_actions", []))]),
-            "total_rounds": len(self.experiment_log)
-        }
-        
-        return analysis
+                # Brief pause between rounds
+                import time
+                time.sleep(1)
+            
+            # 6. Save results and reflection histories
+            self._save_experiment_results()
+            self._save_all_reflection_histories()
+            
+            # Show beautiful experiment summary
+            final_stats = self._collect_final_statistics()
+            self.visualizer.show_experiment_summary(final_stats, self.experiment_dir)
+            
+            # Save visualization log
+            self.visualizer.save_visualization_log(self.experiment_dir)
+            
+            logger.info(f"\n✅ Experiment completed successfully!")
+            logger.info(f"📁 Results saved in: {self.experiment_dir}")
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Experiment failed: {e}")
+            return False
     
-    def _save_experiment_results(self, results: Dict[str, Any]):
-        """Save experiment results to files."""
+    def _save_experiment_results(self):
+        """Save comprehensive experiment results with testing analysis."""
+        
+        # Collect final statistics
+        final_stats = self._collect_final_statistics()
+        
+        # Save detailed results
+        results_data = {
+            "experiment_metadata": {
+                "name": self.experiment_name,
+                "num_agents": self.num_agents,
+                "max_rounds": self.max_rounds,
+                "shared_meta_prompt": self.shared_meta_prompt,
+                "agent_specializations": self.agent_specializations,
+                "experiment_dir": self.experiment_dir,
+                "timestamp": datetime.now().isoformat()
+            },
+            "round_results": self.round_results,
+            "final_statistics": final_stats,
+            "agent_summaries": self._get_agent_summaries()
+        }
         
         # Save JSON results
-        results_file = os.path.join(self.experiment_dir, "results.json")
-        with open(results_file, 'w') as f:
-            json.dump(results, f, indent=2, default=str)
+        with open(self.results_file, 'w') as f:
+            json.dump(results_data, f, indent=2)
+        
+        # Save human-readable summary
+        self._save_human_readable_summary(final_stats)
         
         # Save experiment metadata
-        metadata_file = os.path.join(self.experiment_dir, "experiment_metadata.json")
-        metadata = {
-            "experiment_name": self.experiment_name,
-            "experiment_dir": self.experiment_dir,
-            "num_agents": self.num_agents,
-            "max_rounds": self.max_rounds,
-            "shared_meta_prompt": self.shared_meta_prompt,
-            "agent_specializations": self.agent_specializations,
-            "directory_structure": {
-                "shared_tools": self.shared_tools_dir,
-                "personal_tools": self.personal_tools_dir,
-                "logs": os.path.join(self.experiment_dir, "experiment.log"),
-                "results": results_file,
-                "summary": os.path.join(self.experiment_dir, "summary.txt")
+        with open(self.metadata_file, 'w') as f:
+            json.dump(results_data["experiment_metadata"], f, indent=2)
+        
+        logger.info(f"💾 Results saved:")
+        logger.info(f"   📄 Detailed results: {self.results_file}")
+        logger.info(f"   📄 Summary: {self.summary_file}")
+        logger.info(f"   📄 Metadata: {self.metadata_file}")
+    
+    def _collect_final_statistics(self) -> Dict[str, Any]:
+        """Collect final experiment statistics with testing metrics."""
+        
+        # Get all tools with test status
+        tools_with_tests = self.tool_registry.get_all_tools_with_test_status()
+        
+        stats = {
+            "total_rounds": len(self.round_results),
+            "total_tools_created": sum(r["tools_created"] for r in self.round_results),
+            "total_tests_created": sum(r["tests_created"] for r in self.round_results),
+            "total_tests_passed": sum(r["tests_passed"] for r in self.round_results),
+            "total_tests_failed": sum(r["tests_failed"] for r in self.round_results),
+            "total_collaboration_events": sum(r["collaboration_events"] for r in self.round_results),
+            "final_tools_in_system": len(tools_with_tests),
+            "testing_coverage": {
+                "tools_with_tests": len([t for t in tools_with_tests.values() if t["has_test"]]),
+                "tools_with_results": len([t for t in tools_with_tests.values() if t["has_results"]]),
+                "tools_passed_tests": len([t for t in tools_with_tests.values() if t["test_passed"]]),
+                "tools_failed_tests": len([t for t in tools_with_tests.values() if t["has_results"] and not t["test_passed"]])
             },
-            "created_at": results["start_time"],
-            "completed_at": results["end_time"]
+            "agent_productivity": {
+                agent.agent_id: {
+                    "tools_built": len(agent.self_built_tools),
+                    "tests_built": len(agent.self_built_tests),
+                    "reflections": len(agent.reflection_history),
+                    "test_results": len(agent.test_results_history)
+                }
+                for agent in self.agents
+            }
         }
         
-        with open(metadata_file, 'w') as f:
-            json.dump(metadata, f, indent=2)
+        # Calculate rates
+        if stats["total_tests_created"] > 0:
+            stats["test_pass_rate"] = stats["total_tests_passed"] / stats["total_tests_created"]
+        else:
+            stats["test_pass_rate"] = 0.0
         
-        # Save summary
-        summary_file = os.path.join(self.experiment_dir, "summary.txt")
-        with open(summary_file, 'w') as f:
-            f.write(f"EXPERIMENT: {self.experiment_name}\n")
-            f.write(f"Directory: {self.experiment_dir}\n")
-            f.write(f"Agents: {self.num_agents}\n")
-            f.write(f"Rounds: {self.max_rounds}\n")
-            f.write(f"Start: {results['start_time']}\n")
-            f.write(f"End: {results['end_time']}\n\n")
-            
-            f.write(f"SPECIALIZATIONS:\n")
-            for i, spec in enumerate(self.agent_specializations):
-                f.write(f"Agent_{i+1:02d}: {spec}\n")
-            f.write(f"\n")
-            
-            analysis = results["final_analysis"]
-            f.write("FINAL ANALYSIS:\n")
-            f.write(f"Total tools: {analysis['total_tools']}\n")
-            f.write(f"Personal tools created: {analysis['personal_tools_created']}\n")
-            f.write(f"Successful rounds: {analysis['successful_rounds']}/{analysis['total_rounds']}\n\n")
-            
-            f.write("AGENT CONTRIBUTIONS:\n")
-            for agent_id, contrib in analysis["agent_contributions"].items():
-                f.write(f"{agent_id}: {contrib['tools_built']} tools - {contrib['tool_names']}\n")
-            
-            f.write(f"\nDIRECTORY STRUCTURE:\n")
-            f.write(f"📁 {self.experiment_dir}/\n")
-            f.write(f"   📁 shared_tools/     # Shared tools for this experiment\n")
-            f.write(f"   📁 personal_tools/   # Agent-created tools\n")
-            for i in range(self.num_agents):
-                f.write(f"      📁 Agent_{i+1:02d}/\n")
-            f.write(f"   📄 experiment.log    # Complete experiment log\n")
-            f.write(f"   📄 results.json      # Detailed results\n")
-            f.write(f"   📄 summary.txt       # This summary\n")
-            f.write(f"   📄 experiment_metadata.json  # Experiment configuration\n")
+        if stats["final_tools_in_system"] > 0:
+            stats["testing_coverage_rate"] = stats["testing_coverage"]["tools_with_tests"] / stats["final_tools_in_system"]
+        else:
+            stats["testing_coverage_rate"] = 0.0
         
-        self.logger.info(f"📁 Complete experiment saved to {self.experiment_dir}")
-        self.logger.info(f"   📄 Results: {results_file}")
-        self.logger.info(f"   📄 Summary: {summary_file}")
-        self.logger.info(f"   📄 Metadata: {metadata_file}")
+        return stats
+    
+    def _get_agent_summaries(self) -> Dict[str, Dict[str, Any]]:
+        """Get detailed summaries for each agent."""
+        summaries = {}
+        
+        for agent in self.agents:
+            summaries[agent.agent_id] = {
+                "specialization": agent.specific_prompt,
+                "tools_built": agent.self_built_tools,
+                "tests_built": agent.self_built_tests,
+                "reflection_count": len(agent.reflection_history),
+                "test_results_count": len(agent.test_results_history),
+                "personal_tool_dir": agent.personal_tool_dir,
+                "latest_reflection": agent.reflection_history[-1]["reflection"] if agent.reflection_history else None
+            }
+        
+        return summaries
+    
+    def _save_human_readable_summary(self, final_stats: Dict[str, Any]):
+        """Save a human-readable experiment summary."""
+        
+        with open(self.summary_file, 'w') as f:
+            f.write(f"🧪 EXPERIMENT SUMMARY: {self.experiment_name}\n")
+            f.write("=" * 60 + "\n\n")
+            
+            f.write(f"📊 OVERVIEW:\n")
+            f.write(f"   Experiment: {self.experiment_name}\n")
+            f.write(f"   Agents: {self.num_agents}\n")
+            f.write(f"   Rounds: {self.max_rounds}\n")
+            f.write(f"   Directory: {self.experiment_dir}\n")
+            f.write(f"   Timestamp: {datetime.now().isoformat()}\n\n")
+            
+            f.write(f"🔧 TOOL CREATION RESULTS:\n")
+            f.write(f"   Total tools created: {final_stats['total_tools_created']}\n")
+            f.write(f"   Final tools in system: {final_stats['final_tools_in_system']}\n")
+            f.write(f"   Tools per round: {final_stats['total_tools_created'] / self.max_rounds:.1f}\n\n")
+            
+            f.write(f"🧪 TESTING RESULTS:\n")
+            f.write(f"   Total tests created: {final_stats['total_tests_created']}\n")
+            f.write(f"   Tests passed: {final_stats['total_tests_passed']}\n")
+            f.write(f"   Tests failed: {final_stats['total_tests_failed']}\n")
+            f.write(f"   Test pass rate: {final_stats['test_pass_rate']:.2%}\n")
+            f.write(f"   Testing coverage: {final_stats['testing_coverage_rate']:.2%}\n\n")
+            
+            f.write(f"🤝 COLLABORATION:\n")
+            f.write(f"   Collaboration events: {final_stats['total_collaboration_events']}\n")
+            f.write(f"   Events per round: {final_stats['total_collaboration_events'] / self.max_rounds:.1f}\n\n")
+            
+            f.write(f"🤖 AGENT PRODUCTIVITY:\n")
+            for agent_id, productivity in final_stats['agent_productivity'].items():
+                f.write(f"   {agent_id}:\n")
+                f.write(f"     Tools: {productivity['tools_built']}\n")
+                f.write(f"     Tests: {productivity['tests_built']}\n")
+                f.write(f"     Reflections: {productivity['reflections']}\n")
+                f.write(f"     Test Results: {productivity['test_results']}\n")
+            
+            f.write(f"\n📁 EXPERIMENT FILES:\n")
+            f.write(f"   Shared tools: {self.shared_tools_dir}/\n")
+            f.write(f"   Personal tools: {self.personal_tools_dir}/\n")
+            f.write(f"   Results: {self.results_file}\n")
+            f.write(f"   Metadata: {self.metadata_file}\n")
+    
+    def _save_all_reflection_histories(self):
+        """Save reflection histories for all agents."""
+        logger.info("💭 Saving agent reflection histories...")
+        
+        for agent in self.agents:
+            try:
+                success = agent.save_reflection_history()
+                if success:
+                    logger.info(f"   ✅ {agent.agent_id}: {len(agent.reflection_history)} reflections saved")
+                else:
+                    logger.warning(f"   ⚠️  {agent.agent_id}: Failed to save reflections")
+            except Exception as e:
+                logger.error(f"   ❌ {agent.agent_id}: Error saving reflections: {e}")
+        
+        logger.info("💭 All reflection histories processing complete")
 
 
 def main():
-    """Run example experiments."""
+    """Run a sample experiment with testing support."""
     
-    print("🧬 Agentic Society Experiment Runner")
-    print("=" * 50)
+    print("🧪 Starting Enhanced Agent Society Experiment with Testing!")
+    print("=" * 70)
     
-    # Example 1: Sorting specialists
-    print("\n🎯 Example 1: Sorting Specialists Society")
+    # Define agent specializations
+    specializations = [
+        "Focus on building SORTING and ORDERING algorithms. Create tools for data organization.",
+        "Focus on building MATHEMATICAL and CALCULATION tools. Create tools for numerical operations.",
+        "Focus on building TEXT PROCESSING and STRING manipulation tools. Create tools for text analysis."
+    ]
     
-    sorting_experiment = ExperimentRunner(
-        experiment_name="sorting_specialists",
+    # Create experiment runner
+    runner = ExperimentRunner(
+        experiment_name="enhanced_testing_demo",
         num_agents=3,
         max_rounds=5,
-        shared_meta_prompt="You are in a collaborative tool-building environment focused on creating high-quality, reusable tools.",
-        agent_specializations=[
-            "SORTING and ORDERING algorithms",
-            "DATA PROCESSING and transformation", 
-            "UTILITY and helper functions"
-        ]
+        shared_meta_prompt="You are in a collaborative tool-building ecosystem. Focus on creating high-quality, well-tested tools that can be used by other agents.",
+        agent_specializations=specializations
     )
     
-    if sorting_experiment.initialize_experiment():
-        results = sorting_experiment.run_experiment()
-        print(f"✅ Sorting specialists experiment completed!")
-        print(f"📊 Results: {results['final_analysis']['personal_tools_created']} tools created")
-    else:
-        print("❌ Failed to initialize sorting specialists experiment")
+    # Run the experiment
+    success = runner.run_experiment()
     
-    print("\n" + "=" * 50)
-    print("🎯 Experiment runner demonstration completed!")
+    if success:
+        print(f"\n✅ Experiment completed successfully!")
+        print(f"📁 Check results in: {runner.experiment_dir}")
+        
+        # Show directory structure
+        print(f"\n📂 Experiment Directory Structure:")
+        for root, dirs, files in os.walk(runner.experiment_dir):
+            level = root.replace(runner.experiment_dir, '').count(os.sep)
+            indent = ' ' * 2 * level
+            print(f"{indent}{os.path.basename(root)}/")
+            subindent = ' ' * 2 * (level + 1)
+            for file in files:
+                print(f"{subindent}{file}")
+    else:
+        print(f"\n❌ Experiment failed!")
+        return 1
+    
+    return 0
 
 
 if __name__ == "__main__":
-    main() 
+    exit(main()) 

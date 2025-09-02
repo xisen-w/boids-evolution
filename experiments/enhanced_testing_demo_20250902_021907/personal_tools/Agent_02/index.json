@@ -1,0 +1,18 @@
+{
+  "tools": {
+    "tool_1": {
+      "name": "tool_1",
+      "description": "Tool Specification: \"calculate_mean\"\n\n**Description:**  \nA utility tool that computes the arithmetic mean (average) of a list of numerical values. It sums all the provided numbers and divides by the c...",
+      "file": "tool_1.py",
+      "created_by": "Agent_02",
+      "created_at": "2025-09-02T02:19:26.884011"
+    },
+    "statistical_summary": {
+      "name": "statistical_summary",
+      "description": "Tool Specification: statistical_summary\n\n**Unique Tool Name:** statistical_summary\n\n**Description:**  \nA utility tool that computes fundamental statistical metrics\u2014mean, median, variance, and standard...",
+      "file": "statistical_summary.py",
+      "created_by": "Agent_02",
+      "created_at": "2025-09-02T02:20:11.939565"
+    }
+  }
+}

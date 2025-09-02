@@ -10,13 +10,7 @@
       },
       "file": "calculate.py",
       "created_by": "system",
-      "usage_count": 21,
-      "has_test": false,
-      "test_file": "_tests/calculate_test.py",
-      "test_results_file": "_testResults/calculate_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      "usage_count": 21
     },
     "multiply": {
       "name": "multiply",
@@ -27,13 +21,7 @@
       },
       "file": "multiply.py",
       "created_by": "system",
-      "usage_count": 10,
-      "has_test": false,
-      "test_file": "_tests/multiply_test.py",
-      "test_results_file": "_testResults/multiply_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      "usage_count": 10
     },
     "square": {
       "name": "square",
@@ -46,13 +34,7 @@
       "usage_count": 10,
       "depends_on": [
         "multiply"
-      ],
-      "has_test": false,
-      "test_file": "_tests/square_test.py",
-      "test_results_file": "_testResults/square_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      ]
     },
     "power": {
       "name": "power",
@@ -66,13 +48,7 @@
       "usage_count": 11,
       "depends_on": [
         "multiply"
-      ],
-      "has_test": false,
-      "test_file": "_tests/power_test.py",
-      "test_results_file": "_testResults/power_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      ]
     },
     "file_write": {
       "name": "file_write",
@@ -83,13 +59,7 @@
       },
       "file": "file_write.py",
       "created_by": "system",
-      "usage_count": 13,
-      "has_test": false,
-      "test_file": "_tests/file_write_test.py",
-      "test_results_file": "_testResults/file_write_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      "usage_count": 13
     },
     "random_gen": {
       "name": "random_gen",
@@ -102,13 +72,7 @@
       },
       "file": "random_gen.py",
       "created_by": "system",
-      "usage_count": 15,
-      "has_test": false,
-      "test_file": "_tests/random_gen_test.py",
-      "test_results_file": "_testResults/random_gen_results.json",
-      "test_passed": null,
-      "last_tested": null,
-      "test_execution_success": null
+      "usage_count": 15
     }
   },
   "metadata": {

@@ -1,0 +1,18 @@
+{
+  "tools": {
+    "KeywordExtractor": {
+      "name": "KeywordExtractor",
+      "description": "Tool Specification: Keyword Extractor\n\n**Unique Tool Name:** KeywordExtractor\n\n**Description:**  \nA utility tool that processes input text to identify and extract the most significant keywords and key...",
+      "file": "KeywordExtractor.py",
+      "created_by": "Agent_03",
+      "created_at": "2025-09-02T02:19:35.258314"
+    },
+    "TextSummarizer": {
+      "name": "TextSummarizer",
+      "description": "Tool Specification: Text Summarizer\n\n**Unique Tool Name:** TextSummarizer\n\n**Description:**  \nA utility tool that takes a lengthy text input and generates a concise summary, capturing the main ideas a...",
+      "file": "TextSummarizer.py",
+      "created_by": "Agent_03",
+      "created_at": "2025-09-02T02:20:20.750379"
+    }
+  }
+}

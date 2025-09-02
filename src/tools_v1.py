@@ -3,6 +3,7 @@ Tool Registry v1 - Phase 1.0 Implementation
 
 Manages shared tools + personal tools with metadata and file storage.
 Initializes from shared_tools_template_legacy.
+Enhanced with comprehensive testing support!
 """
 
 import os
@@ -15,21 +16,29 @@ from typing import Dict, List, Any, Optional
 class ToolRegistryV1:
     """
     Tool Registry v1 - Real tool management with initialization from template
+    Enhanced with Testing Support!
     
     Features:
     - Initialize shared tools from shared_tools_template_legacy
     - Manage personal tools from all agents
     - Dynamic tool loading and execution
     - Tool metadata with JSON index files
+    - Comprehensive testing infrastructure with _tests and _testResults folders
     """
     
-    def __init__(self, shared_tools_dir: str = "shared_tools"):
+    def __init__(self, shared_tools_dir: str = "shared_tools", personal_tools_base_dir: str = "personal_tools"):
         self.shared_tools_dir = shared_tools_dir
-        self.personal_tools_base_dir = "personal_tools"
-        self.template_dir = "shared_tools_template_legacy"
+        self.personal_tools_base_dir = personal_tools_base_dir
+        self.template_dir = "shared_tools_template"
         
         # Initialize shared tools from template if needed
         self._initialize_shared_tools()
+        
+        # Create testing infrastructure
+        self._initialize_testing_infrastructure()
+        
+        # FIX: Add test status to shared tools
+        self._update_shared_tools_with_test_status()
         
     def _initialize_shared_tools(self):
         """Initialize shared tools directory from template."""
@@ -69,6 +78,53 @@ class ToolRegistryV1:
             with open(shared_index, 'w') as f:
                 json.dump(empty_index, f, indent=2)
     
+    def _initialize_testing_infrastructure(self):
+        """Initialize testing directories for shared tools."""
+        
+        # Create testing directories for shared tools
+        shared_tests_dir = os.path.join(self.shared_tools_dir, "_tests")
+        shared_test_results_dir = os.path.join(self.shared_tools_dir, "_testResults")
+        
+        os.makedirs(shared_tests_dir, exist_ok=True)
+        os.makedirs(shared_test_results_dir, exist_ok=True)
+        
+        print(f"🧪 Testing infrastructure initialized:")
+        print(f"   Shared tests: {shared_tests_dir}")
+        print(f"   Shared test results: {shared_test_results_dir}")
+    
+    def _update_shared_tools_with_test_status(self):
+        """Add test status fields to existing shared tools."""
+        shared_index = os.path.join(self.shared_tools_dir, "index.json")
+        
+        if not os.path.exists(shared_index):
+            return
+        
+        try:
+            with open(shared_index, 'r') as f:
+                index_data = json.load(f)
+            
+            updated = False
+            for tool_name, tool_data in index_data.get("tools", {}).items():
+                # Check if test status fields are missing
+                if "has_test" not in tool_data:
+                    # Add test status fields to shared tools
+                    tool_data["has_test"] = False
+                    tool_data["test_file"] = f"_tests/{tool_name}_test.py"
+                    tool_data["test_results_file"] = f"_testResults/{tool_name}_results.json"
+                    tool_data["test_passed"] = None
+                    tool_data["last_tested"] = None
+                    tool_data["test_execution_success"] = None
+                    updated = True
+            
+            if updated:
+                # Save updated index
+                with open(shared_index, 'w') as f:
+                    json.dump(index_data, f, indent=2)
+                print(f"✅ Added test status fields to shared tools")
+                
+        except Exception as e:
+            print(f"⚠️  Error updating shared tools with test status: {e}")
+    
     def get_all_tools(self) -> Dict[str, Dict[str, Any]]:
         """
         Get all available tools (shared + all personal tools).
@@ -105,6 +161,11 @@ class ToolRegistryV1:
                 tool_data_copy = tool_data.copy()
                 tool_data_copy["tool_path"] = os.path.join(self.shared_tools_dir, tool_data["file"])
                 tool_data_copy["type"] = "shared"
+                
+                # Add test information
+                test_info = self._get_tool_test_info(tool_name, "shared")
+                tool_data_copy.update(test_info)
+                
                 tools[tool_name] = tool_data_copy
             
             return tools
@@ -145,6 +206,10 @@ class ToolRegistryV1:
                     tool_data_copy["tool_path"] = os.path.join(agent_path, tool_data["file"])
                     tool_data_copy["type"] = "personal"
                     
+                    # Add test information
+                    test_info = self._get_tool_test_info(tool_name, "personal", agent_dir)
+                    tool_data_copy.update(test_info)
+                    
                     all_personal_tools[prefixed_name] = tool_data_copy
                     
             except Exception as e:
@@ -152,6 +217,50 @@ class ToolRegistryV1:
                 continue
         
         return all_personal_tools
+    
+    def _get_tool_test_info(self, tool_name: str, tool_type: str, agent_dir: str = None) -> Dict[str, Any]:
+        """Get test information for a tool."""
+        test_info = {
+            "has_test": False,
+            "has_test_results": False,
+            "test_path": None,
+            "test_results_path": None,
+            "last_tested": None,
+            "test_passed": None
+        }
+        
+        if tool_type == "shared":
+            tests_dir = os.path.join(self.shared_tools_dir, "_tests")
+            results_dir = os.path.join(self.shared_tools_dir, "_testResults")
+        elif tool_type == "personal" and agent_dir:
+            agent_path = os.path.join(self.personal_tools_base_dir, agent_dir)
+            tests_dir = os.path.join(agent_path, "_tests")
+            results_dir = os.path.join(agent_path, "_testResults")
+        else:
+            return test_info
+        
+        # Check for test file
+        test_file = os.path.join(tests_dir, f"{tool_name}_test.py")
+        if os.path.exists(test_file):
+            test_info["has_test"] = True
+            test_info["test_path"] = test_file
+        
+        # Check for test results
+        results_file = os.path.join(results_dir, f"{tool_name}_results.json")
+        if os.path.exists(results_file):
+            test_info["has_test_results"] = True
+            test_info["test_results_path"] = results_file
+            
+            # Load test results
+            try:
+                with open(results_file, 'r') as f:
+                    results = json.load(f)
+                test_info["last_tested"] = results.get("timestamp")
+                test_info["test_passed"] = results.get("all_passed", False)
+            except:
+                pass
+        
+        return test_info
     
     def execute_tool(self, tool_name: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -193,6 +302,76 @@ class ToolRegistryV1:
         except Exception as e:
             return {"error": f"Tool execution failed: {str(e)}"}
     
+    def execute_test(self, tool_name: str) -> Dict[str, Any]:
+        """
+        Execute tests for a specific tool.
+        
+        Args:
+            tool_name: Name of tool to test
+            
+        Returns:
+            Test execution results
+        """
+        all_tools = self.get_all_tools()
+        
+        if tool_name not in all_tools:
+            return {"error": f"Tool {tool_name} not found"}
+        
+        tool_metadata = all_tools[tool_name]
+        
+        if not tool_metadata.get("has_test"):
+            return {"error": f"No test found for tool {tool_name}"}
+        
+        test_file = tool_metadata.get("test_path")
+        
+        if not test_file or not os.path.exists(test_file):
+            return {"error": f"Test file not found: {test_file}"}
+        
+        try:
+            # Execute test file
+            import subprocess
+            import sys
+            
+            # Determine working directory based on tool type
+            if tool_metadata["type"] == "shared":
+                cwd = self.shared_tools_dir
+                relative_test_file = os.path.join("_tests", f"{tool_name}_test.py")
+            else:
+                agent_dir = tool_metadata.get("creator_agent")
+                cwd = os.path.join(self.personal_tools_base_dir, agent_dir)
+                relative_test_file = os.path.join("_tests", f"{tool_name}_test.py")
+            
+            result = subprocess.run(
+                [sys.executable, relative_test_file],
+                cwd=cwd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if result.returncode == 0:
+                try:
+                    test_results = json.loads(result.stdout)
+                except:
+                    test_results = {
+                        "tool_name": tool_name,
+                        "execution_success": True,
+                        "raw_output": result.stdout,
+                        "parse_error": "Could not parse test results as JSON"
+                    }
+            else:
+                test_results = {
+                    "tool_name": tool_name,
+                    "execution_success": False,
+                    "error": result.stderr,
+                    "stdout": result.stdout
+                }
+            
+            return {"success": True, "test_results": test_results}
+            
+        except Exception as e:
+            return {"error": f"Test execution failed: {str(e)}"}
+    
     def get_shared_tools_summary(self) -> Dict[str, Any]:
         """Get summary of shared tools for agent observation."""
         shared_tools = self._load_shared_tools()
@@ -201,7 +380,13 @@ class ToolRegistryV1:
             "total_shared_tools": len(shared_tools),
             "tool_names": list(shared_tools.keys()),
             "tool_types": {},
-            "tools_by_creator": {}
+            "tools_by_creator": {},
+            "testing_summary": {
+                "tools_with_tests": 0,
+                "tools_with_results": 0,
+                "passed_tests": 0,
+                "failed_tests": 0
+            }
         }
         
         for tool_name, tool_data in shared_tools.items():
@@ -212,8 +397,37 @@ class ToolRegistryV1:
             # Count by creator
             creator = tool_data.get("created_by", "unknown")
             summary["tools_by_creator"][creator] = summary["tools_by_creator"].get(creator, 0) + 1
+            
+            # Count testing stats
+            if tool_data.get("has_test"):
+                summary["testing_summary"]["tools_with_tests"] += 1
+            if tool_data.get("has_test_results"):
+                summary["testing_summary"]["tools_with_results"] += 1
+                if tool_data.get("test_passed"):
+                    summary["testing_summary"]["passed_tests"] += 1
+                else:
+                    summary["testing_summary"]["failed_tests"] += 1
         
         return summary
+    
+    def get_all_tools_with_test_status(self) -> Dict[str, Dict[str, Any]]:
+        """Get all tools with their test status for comprehensive overview."""
+        all_tools = self.get_all_tools()
+        
+        tools_with_tests = {}
+        for tool_name, tool_data in all_tools.items():
+            test_summary = {
+                "tool_name": tool_name,
+                "tool_type": tool_data.get("type", "unknown"),
+                "creator": tool_data.get("created_by", tool_data.get("creator_agent", "unknown")),
+                "has_test": tool_data.get("has_test", False),
+                "has_results": tool_data.get("has_test_results", False),
+                "test_passed": tool_data.get("test_passed"),
+                "last_tested": tool_data.get("last_tested")
+            }
+            tools_with_tests[tool_name] = test_summary
+        
+        return tools_with_tests
     
     def add_shared_tool(self, tool_name: str, tool_code: str, tool_metadata: Dict[str, Any]) -> bool:
         """
@@ -263,13 +477,13 @@ class ToolRegistryV1:
 
 def initialize_tool_system() -> ToolRegistryV1:
     """
-    Initialize the complete tool system.
+    Initialize the complete tool system with testing support.
     
     Returns:
         ToolRegistryV1: Initialized tool registry
     """
-    print("🔧 Initializing Tool System v1")
-    print("=" * 50)
+    print("🔧 Initializing Tool System v1 with Testing Support")
+    print("=" * 60)
     
     # Create tool registry
     registry = ToolRegistryV1()
@@ -282,6 +496,14 @@ def initialize_tool_system() -> ToolRegistryV1:
     print(f"   Tool types: {summary['tool_types']}")
     print(f"   Creators: {summary['tools_by_creator']}")
     
+    # Testing summary
+    testing = summary['testing_summary']
+    print(f"🧪 Testing Summary:")
+    print(f"   Tools with tests: {testing['tools_with_tests']}")
+    print(f"   Tools with results: {testing['tools_with_results']}")
+    print(f"   Passed tests: {testing['passed_tests']}")
+    print(f"   Failed tests: {testing['failed_tests']}")
+    
     # Test tool execution
     all_tools = registry.get_all_tools()
     if "calculate" in all_tools:
@@ -293,23 +515,25 @@ def initialize_tool_system() -> ToolRegistryV1:
         })
         print(f"   Result: {test_result}")
     
-    print(f"\n✅ Tool System v1 initialized!")
+    print(f"\n✅ Tool System v1 with Testing initialized!")
     return registry
 
 
 def main():
-    """Test the Tool Registry v1."""
+    """Test the Tool Registry v1 with testing capabilities."""
     registry = initialize_tool_system()
     
-    print(f"\n📋 All Available Tools:")
-    all_tools = registry.get_all_tools()
+    print(f"\n📋 All Available Tools with Test Status:")
+    tools_with_tests = registry.get_all_tools_with_test_status()
     
-    for tool_name, tool_data in all_tools.items():
-        tool_type = tool_data.get("type", "unknown")
-        creator = tool_data.get("created_by", "unknown")
-        description = tool_data.get("description", "No description")[:50]
-        print(f"   🔧 {tool_name} ({tool_type}) by {creator}")
-        print(f"      {description}...")
+    for tool_name, tool_info in tools_with_tests.items():
+        test_status = "✅ TESTED" if tool_info["test_passed"] else ("❌ FAILED" if tool_info["has_results"] else ("🔧 HAS TEST" if tool_info["has_test"] else "⚠️  NO TEST"))
+        creator = tool_info["creator"]
+        tool_type = tool_info["tool_type"]
+        
+        print(f"   🔧 {tool_name} ({tool_type}) by {creator} - {test_status}")
+        if tool_info["last_tested"]:
+            print(f"      Last tested: {tool_info['last_tested']}")
 
 
 if __name__ == "__main__":
