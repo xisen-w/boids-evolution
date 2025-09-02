@@ -309,19 +309,31 @@ class ExperimentRunner:
         """Calculate the average TCI of all tools in the system at the end of a round."""
         all_tools_metadata = self.tool_registry.get_all_tools()
         total_tci = 0
+        total_code_complexity = 0
+        total_interface_complexity = 0
+        total_compositional_complexity = 0
         tool_count = 0
         
         for tool_name, metadata in all_tools_metadata.items():
             complexity_data = metadata.get("complexity")
             if complexity_data and "tci_score" in complexity_data:
-                total_tci += complexity_data["tci_score"]
+                total_tci += complexity_data.get("tci_score", 0)
+                total_code_complexity += complexity_data.get("code_complexity", 0)
+                total_interface_complexity += complexity_data.get("interface_complexity", 0)
+                total_compositional_complexity += complexity_data.get("compositional_complexity", 0)
                 tool_count += 1
         
         average_tci = total_tci / tool_count if tool_count > 0 else 0
-        
+        avg_code = total_code_complexity / tool_count if tool_count > 0 else 0
+        avg_interface = total_interface_complexity / tool_count if tool_count > 0 else 0
+        avg_compositional = total_compositional_complexity / tool_count if tool_count > 0 else 0
+
         self.complexity_over_rounds.append({
             "round": round_num,
             "average_tci": average_tci,
+            "avg_code_complexity": avg_code,
+            "avg_interface_complexity": avg_interface,
+            "avg_compositional_complexity": avg_compositional,
             "tool_count": tool_count
         })
         logger.info(f"   📈 System Complexity: Avg TCI = {average_tci:.2f} across {tool_count} tools.")
@@ -345,10 +357,17 @@ class ExperimentRunner:
             os.makedirs(dest_test_dir, exist_ok=True)
             dest_test_file = os.path.join(dest_test_dir, f"{tool_name}_test.py")
 
-            # 2. Copy the tool and test files
+            src_results_file = os.path.join(agent.personal_test_results_dir, f"{tool_name}_results.json")
+            dest_results_dir = os.path.join(self.shared_tools_dir, "_testResults")
+            os.makedirs(dest_results_dir, exist_ok=True)
+            dest_results_file = os.path.join(dest_results_dir, f"{tool_name}_results.json")
+
+            # 2. Copy the tool, test, and results files
             shutil.copy2(src_tool_file, dest_tool_file)
             if os.path.exists(src_test_file):
                 shutil.copy2(src_test_file, dest_test_file)
+            if os.path.exists(src_results_file):
+                shutil.copy2(src_results_file, dest_results_file)
             
             # 3. Load metadata from the agent's personal index
             personal_index_data = self._load_index_json(personal_index_file)
@@ -363,6 +382,8 @@ class ExperimentRunner:
                 if os.path.exists(src_test_file):
                     tool_metadata["has_test"] = True
                     tool_metadata["test_file"] = f"_tests/{tool_name}_test.py"
+                if os.path.exists(src_results_file):
+                    tool_metadata["test_results_file"] = f"_testResults/{tool_name}_results.json"
                 
                 shared_index_data["tools"][tool_name] = tool_metadata
                 self._save_index_json(shared_index_file, shared_index_data)
@@ -466,6 +487,7 @@ class ExperimentRunner:
                 "timestamp": datetime.now().isoformat()
             },
             "round_results": self.round_results,
+            "complexity_over_rounds": self.complexity_over_rounds,  # Add breakdown data
             "final_statistics": final_stats,
             "agent_summaries": self._get_agent_summaries()
         }
