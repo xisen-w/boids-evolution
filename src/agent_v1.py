@@ -626,15 +626,41 @@ REQUIREMENTS:
 7. Maximum 50 lines of code
 8. Use only the available packages listed above
 
-Example structure:
+TOOL COMPOSITION:
+- To call other tools: context.call_tool('tool_name', {'param': value})
+- Always check: if context: before calling tools
+- Handle context=None case gracefully
+
+TOOL COMPOSITION - CALLING OTHER TOOLS:
+If your tool needs to use other tools, use the context object:
+- context.call_tool(tool_name, parameters) -> returns result dict
+- Check if context exists: if context:
+- Always handle the case where context is None
+
+Example structures:
+# Simple tool:
 def execute(parameters, context=None):
     \"\"\"Tool description\"\"\"
     try:
-        # Get parameters
         data = parameters.get('data')
-        # Do the work
         result = process_data(data)
         return {{"result": result}}
+    except Exception as e:
+        return {{"error": str(e)}}
+
+# Tool that calls other tools:
+def execute(parameters, context=None):
+    \"\"\"Tool that uses other tools\"\"\"
+    try:
+        if context:
+            # Call another tool
+            multiply_result = context.call_tool('multiply', {{'a': 5, 'b': 3}})
+            if multiply_result.get('success'):
+                value = multiply_result['result']['numeric_result']
+                return {{"result": f"Used multiply: {{value}}", "composition": "my_tool -> multiply"}}
+        
+        # Fallback if no context
+        return {{"error": "This tool requires other tools but no context provided"}}
     except Exception as e:
         return {{"error": str(e)}}"""
 

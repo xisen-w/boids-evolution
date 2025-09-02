@@ -10,7 +10,70 @@ import os
 import json
 import shutil
 import importlib.util
+import subprocess
 from typing import Dict, List, Any, Optional
+
+
+class ToolExecutionContext:
+    """
+    Context object passed to tools for calling other tools.
+    Enables tool composition and dependency tracking.
+    """
+    
+    def __init__(self, registry):
+        self.registry = registry
+        self.call_stack = []  # Track recursive calls
+        self.max_depth = 10   # Prevent infinite recursion
+        self.usage_stats = {}  # Track tool usage counts
+    
+    def call_tool(self, tool_name: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Call another tool from within a tool.
+        
+        Args:
+            tool_name: Name of tool to call
+            parameters: Parameters to pass to the tool
+            
+        Returns:
+            Tool execution result
+        """
+        # Check recursion depth
+        if len(self.call_stack) >= self.max_depth:
+            return {
+                "success": False,
+                "error": f"Maximum recursion depth ({self.max_depth}) exceeded",
+                "call_stack": self.call_stack.copy()
+            }
+        
+        # Check for circular dependencies
+        if tool_name in self.call_stack:
+            return {
+                "success": False,
+                "error": f"Circular dependency detected: {tool_name} already in call stack",
+                "call_stack": self.call_stack.copy()
+            }
+        
+        # Add to call stack
+        self.call_stack.append(tool_name)
+        
+        # Track usage
+        self.usage_stats[tool_name] = self.usage_stats.get(tool_name, 0) + 1
+        
+        try:
+            # Execute the tool through the registry
+            result = self.registry._execute_tool_internal(tool_name, parameters, self)
+            
+            # Add usage info to result
+            if isinstance(result, dict):
+                result["use_count"] = self.usage_stats[tool_name]
+                result["total_calls_in_session"] = sum(self.usage_stats.values())
+            
+            return result
+            
+        finally:
+            # Always remove from call stack
+            if self.call_stack and self.call_stack[-1] == tool_name:
+                self.call_stack.pop()
 
 
 class ToolRegistryV1:
@@ -264,7 +327,7 @@ class ToolRegistryV1:
     
     def execute_tool(self, tool_name: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Execute a tool by name with given parameters.
+        Execute a tool by name with given parameters (public interface).
         
         Args:
             tool_name: Name of tool to execute
@@ -273,10 +336,26 @@ class ToolRegistryV1:
         Returns:
             Tool execution result
         """
+        # Create context for tool composition
+        context = ToolExecutionContext(self)
+        return self._execute_tool_internal(tool_name, parameters, context)
+    
+    def _execute_tool_internal(self, tool_name: str, parameters: Dict[str, Any], context: ToolExecutionContext) -> Dict[str, Any]:
+        """
+        Internal tool execution with context support.
+        
+        Args:
+            tool_name: Name of tool to execute
+            parameters: Parameters to pass to tool
+            context: Execution context for tool composition
+            
+        Returns:
+            Tool execution result
+        """
         all_tools = self.get_all_tools()
         
         if tool_name not in all_tools:
-            return {"error": f"Tool {tool_name} not found"}
+            return {"success": False, "error": f"Tool {tool_name} not found"}
         
         tool_metadata = all_tools[tool_name]
         
@@ -285,22 +364,85 @@ class ToolRegistryV1:
             tool_file = tool_metadata["tool_path"]
             
             if not os.path.exists(tool_file):
-                return {"error": f"Tool file {tool_file} not found"}
+                return {"success": False, "error": f"Tool file {tool_file} not found"}
             
             # Dynamic import and execution
             spec = importlib.util.spec_from_file_location(tool_name, tool_file)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
             
-            # Execute the tool
+            # Execute the tool WITH CONTEXT
             if hasattr(module, 'execute'):
-                result = module.execute(parameters)
-                return {"success": True, "result": result, "tool_name": tool_name}
+                result = module.execute(parameters, context)  # Pass context!
+                
+                # Track usage in tool metadata
+                self._increment_tool_usage(tool_name)
+                
+                # Ensure result has success field
+                if isinstance(result, dict):
+                    if "success" not in result:
+                        result["success"] = True
+                    result["tool_name"] = tool_name
+                    # Add persistent usage count
+                    result["total_usage_count"] = self._get_tool_usage(tool_name)
+                    return result
+                else:
+                    return {"success": True, "result": result, "tool_name": tool_name, "total_usage_count": self._get_tool_usage(tool_name)}
             else:
-                return {"error": f"Tool {tool_name} has no execute function"}
+                return {"success": False, "error": f"Tool {tool_name} has no execute function"}
                 
         except Exception as e:
-            return {"error": f"Tool execution failed: {str(e)}"}
+            return {"success": False, "error": f"Tool execution failed: {str(e)}", "tool_name": tool_name}
+    
+    def _increment_tool_usage(self, tool_name: str):
+        """Increment usage count for a tool in its metadata."""
+        try:
+            all_tools = self.get_all_tools()
+            if tool_name in all_tools:
+                tool_metadata = all_tools[tool_name]
+                # Find the index.json file
+                if "shared" in tool_metadata.get("source", ""):
+                    index_path = os.path.join(self.shared_tools_dir, "index.json")
+                else:
+                    # Personal tool - find the agent directory
+                    tool_path = tool_metadata["tool_path"]
+                    agent_dir = os.path.dirname(tool_path)
+                    index_path = os.path.join(agent_dir, "index.json")
+                
+                if os.path.exists(index_path):
+                    with open(index_path, 'r') as f:
+                        index_data = json.load(f)
+                    
+                    # Increment usage count
+                    if tool_name in index_data.get("tools", {}):
+                        index_data["tools"][tool_name]["usage_count"] = index_data["tools"][tool_name].get("usage_count", 0) + 1
+                        
+                        with open(index_path, 'w') as f:
+                            json.dump(index_data, f, indent=2)
+        except Exception as e:
+            print(f"Warning: Could not update usage count for {tool_name}: {e}")
+    
+    def _get_tool_usage(self, tool_name: str) -> int:
+        """Get current usage count for a tool."""
+        try:
+            all_tools = self.get_all_tools()
+            if tool_name in all_tools:
+                tool_metadata = all_tools[tool_name]
+                if "shared" in tool_metadata.get("source", ""):
+                    index_path = os.path.join(self.shared_tools_dir, "index.json")
+                else:
+                    tool_path = tool_metadata["tool_path"]
+                    agent_dir = os.path.dirname(tool_path)
+                    index_path = os.path.join(agent_dir, "index.json")
+                
+                if os.path.exists(index_path):
+                    with open(index_path, 'r') as f:
+                        index_data = json.load(f)
+                    
+                    return index_data.get("tools", {}).get(tool_name, {}).get("usage_count", 0)
+        except Exception as e:
+            print(f"Warning: Could not get usage count for {tool_name}: {e}")
+        return 0
     
     def execute_test(self, tool_name: str) -> Dict[str, Any]:
         """

@@ -73,48 +73,16 @@
       "file": "random_gen.py",
       "created_by": "system",
       "usage_count": 15
-    },
-    "ai_text_generate": {
-      "name": "ai_text_generate",
-      "description": "Generate creative text using Azure OpenAI - stories, articles, content",
-      "parameters": {
-        "prompt": "string (required - what to generate)",
-        "temperature": "float (0.0-1.0, creativity level, default 0.7)",
-        "max_tokens": "integer (10-1000, response length, default 200)",
-        "style": "string (creative, professional, casual, technical, humorous)"
-      },
-      "file": "ai_text_generate.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "ai_powered": true,
-      "requires_api": "Azure OpenAI"
-    },
-    "ai_json_generate": {
-      "name": "ai_json_generate",
-      "description": "Generate structured JSON data using Azure OpenAI - configs, APIs, schemas",
-      "parameters": {
-        "prompt": "string (required - describe the JSON structure)",
-        "schema": "string (optional - example or schema to follow)",
-        "format_type": "string (object, array, config, data, api, schema)",
-        "temperature": "float (0.0-1.0, creativity level, default 0.1)"
-      },
-      "file": "ai_json_generate.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "ai_powered": true,
-      "requires_api": "Azure OpenAI"
     }
   },
   "metadata": {
-    "total_tools": 8,
-    "last_updated": "2025-09-02T03:00:00.000000",
-    "version": "2.1",
+    "total_tools": 6,
+    "last_updated": "2025-08-30T19:26:32.164712",
+    "version": "2.0",
     "features": [
       "tool_composition",
       "reward_propagation",
-      "recursive_calling",
-      "ai_integration",
-      "llm_powered_tools"
+      "recursive_calling"
     ]
   }
 }

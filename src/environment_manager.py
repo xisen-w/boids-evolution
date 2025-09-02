@@ -82,7 +82,7 @@ class EnvironmentManager:
         if ai_packages:
             ai_list = ", ".join(list(ai_packages.keys())[:6])
             summary_lines.append(f"🤖 AI/LLM: {ai_list}")
-            summary_lines.append("   → YOUR API KEYS ARE READY FOR OPENAI & AZURE!")
+            summary_lines.append("   → YOUR OPENAI API KEY IS READY!")
         
         # Search packages
         search_packages = self.packages_data.get("search_and_retrieval", {}).get("packages", {})

@@ -60,7 +60,6 @@
     "description": "🤖 AI, LLM, and machine learning capabilities - YOUR API KEYS AVAILABLE!",
     "packages": {
       "openai": "OpenAI API client - access to GPT-4, GPT-3.5, embeddings (YOUR KEY READY)",
-      "azure.cognitiveservices": "Azure OpenAI integration (YOUR KEY READY)",
       "anthropic": "Anthropic Claude API client (if you have key)",
       "scikit-learn": "Machine learning library - classification, regression, clustering",
       "scipy": "Scientific computing - optimization, statistics, signal processing",
@@ -68,7 +67,7 @@
       "langchain": "LLM application framework for chaining operations (optional)"
     },
     "capabilities": [
-      "Generate text with GPT models using your OpenAI/Azure keys",
+      "Generate text with GPT models using your OpenAI keys",
       "Create embeddings for semantic search",
       "Build chatbots and conversational tools",
       "Implement text classification and analysis",
@@ -154,7 +153,7 @@
     "examples": [
       "Build data analysis tools with pandas/numpy",
       "Create web scrapers with requests/beautifulsoup4", 
-      "Make LLM-powered tools with openai/azure-openai",
+      "Make LLM-powered tools with openai",
       "Build search tools with tavily/duckduckgo-search",
       "Create visualization tools with matplotlib/plotly",
       "Process text with nltk/textblob",
