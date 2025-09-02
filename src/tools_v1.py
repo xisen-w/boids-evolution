@@ -94,14 +94,11 @@ class ToolRegistryV1:
         self.personal_tools_base_dir = personal_tools_base_dir
         self.template_dir = "shared_tools_template"
         
-        # Initialize shared tools from template if needed
-        self._initialize_shared_tools()
-        
-        # Create testing infrastructure
-        self._initialize_testing_infrastructure()
-        
-        # FIX: Add test status to shared tools
-        self._update_shared_tools_with_test_status()
+        # This initialization logic is now primarily handled by the ExperimentRunner.
+        # The registry itself just needs to know the paths.
+        # self._initialize_shared_tools()
+        # self._initialize_testing_infrastructure()
+        # self._update_shared_tools_with_test_status()
         
     def _initialize_shared_tools(self):
         """Initialize shared tools directory from template."""
@@ -190,25 +187,17 @@ class ToolRegistryV1:
     
     def get_all_tools(self) -> Dict[str, Dict[str, Any]]:
         """
-        Get all available tools (shared + all personal tools).
+        Get all available tools from the single, evolving shared tools directory.
         
         Returns:
             Dict of {tool_name: tool_metadata}
         """
-        all_tools = {}
-        
-        # Load shared tools
-        shared_tools = self._load_shared_tools()
-        all_tools.update(shared_tools)
-        
-        # Load personal tools from all agents
-        personal_tools = self._load_all_personal_tools()
-        all_tools.update(personal_tools)
-        
-        return all_tools
+        # The registry now only needs to load tools from the shared directory,
+        # which is dynamically updated by the ExperimentRunner.
+        return self._load_shared_tools()
     
     def _load_shared_tools(self) -> Dict[str, Dict[str, Any]]:
-        """Load tools from shared_tools directory."""
+        """Load tools from the single shared_tools directory."""
         shared_index = os.path.join(self.shared_tools_dir, "index.json")
         
         if not os.path.exists(shared_index):
@@ -236,50 +225,6 @@ class ToolRegistryV1:
         except Exception as e:
             print(f"Error loading shared tools: {e}")
             return {}
-    
-    def _load_all_personal_tools(self) -> Dict[str, Dict[str, Any]]:
-        """Load personal tools from all agent directories."""
-        all_personal_tools = {}
-        
-        if not os.path.exists(self.personal_tools_base_dir):
-            return all_personal_tools
-        
-        # Iterate through agent directories
-        for agent_dir in os.listdir(self.personal_tools_base_dir):
-            agent_path = os.path.join(self.personal_tools_base_dir, agent_dir)
-            
-            if not os.path.isdir(agent_path):
-                continue
-                
-            index_file = os.path.join(agent_path, "index.json")
-            
-            if not os.path.exists(index_file):
-                continue
-            
-            try:
-                with open(index_file, 'r') as f:
-                    agent_index = json.load(f)
-                
-                # Add agent prefix to tool names to avoid conflicts
-                for tool_name, tool_data in agent_index.get("tools", {}).items():
-                    prefixed_name = f"{agent_dir}_{tool_name}"
-                    tool_data_copy = tool_data.copy()
-                    tool_data_copy["original_name"] = tool_name
-                    tool_data_copy["creator_agent"] = agent_dir
-                    tool_data_copy["tool_path"] = os.path.join(agent_path, tool_data["file"])
-                    tool_data_copy["type"] = "personal"
-                    
-                    # Add test information
-                    test_info = self._get_tool_test_info(tool_name, "personal", agent_dir)
-                    tool_data_copy.update(test_info)
-                    
-                    all_personal_tools[prefixed_name] = tool_data_copy
-                    
-            except Exception as e:
-                print(f"Error loading tools from {agent_dir}: {e}")
-                continue
-        
-        return all_personal_tools
     
     def _get_tool_test_info(self, tool_name: str, tool_type: str, agent_dir: str = None) -> Dict[str, Any]:
         """Get test information for a tool."""

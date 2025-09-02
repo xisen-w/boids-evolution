@@ -259,6 +259,8 @@ class ExperimentRunner:
                             if test_results.get("all_passed"):
                                 round_results["tests_passed"] += 1
                                 logger.info(f"   ✅ {agent.agent_id}: Tests passed!")
+                                # Promote the successful tool to the shared directory
+                                self._promote_tool_to_shared(agent, tool_name)
                             else:
                                 round_results["tests_failed"] += 1
                                 logger.info(f"   ❌ {agent.agent_id}: Tests failed")
@@ -323,6 +325,74 @@ class ExperimentRunner:
             "tool_count": tool_count
         })
         logger.info(f"   📈 System Complexity: Avg TCI = {average_tci:.2f} across {tool_count} tools.")
+
+    def _promote_tool_to_shared(self, agent, tool_name: str):
+        """
+        Copies a successful and tested tool from an agent's personal directory
+        to the experiment's shared tools directory for all agents to use.
+        """
+        logger.info(f"   🤝 Promoting successful tool '{tool_name}' from {agent.agent_id} to shared library...")
+        try:
+            # 1. Define source and destination paths
+            personal_index_file = os.path.join(agent.personal_tool_dir, "index.json")
+            shared_index_file = os.path.join(self.shared_tools_dir, "index.json")
+
+            src_tool_file = os.path.join(agent.personal_tool_dir, f"{tool_name}.py")
+            dest_tool_file = os.path.join(self.shared_tools_dir, f"{tool_name}.py")
+
+            src_test_file = os.path.join(agent.personal_tests_dir, f"{tool_name}_test.py")
+            dest_test_dir = os.path.join(self.shared_tools_dir, "_tests")
+            os.makedirs(dest_test_dir, exist_ok=True)
+            dest_test_file = os.path.join(dest_test_dir, f"{tool_name}_test.py")
+
+            # 2. Copy the tool and test files
+            shutil.copy2(src_tool_file, dest_tool_file)
+            if os.path.exists(src_test_file):
+                shutil.copy2(src_test_file, dest_test_file)
+            
+            # 3. Load metadata from the agent's personal index
+            personal_index_data = self._load_index_json(personal_index_file)
+            tool_metadata = personal_index_data.get("tools", {}).get(tool_name)
+
+            if tool_metadata:
+                # 4. Add the tool's metadata to the shared index
+                shared_index_data = self._load_index_json(shared_index_file)
+                
+                # Ensure paths in metadata are relative to the shared directory
+                tool_metadata["file"] = f"{tool_name}.py"
+                if os.path.exists(src_test_file):
+                    tool_metadata["has_test"] = True
+                    tool_metadata["test_file"] = f"_tests/{tool_name}_test.py"
+                
+                shared_index_data["tools"][tool_name] = tool_metadata
+                self._save_index_json(shared_index_file, shared_index_data)
+                logger.info(f"   ✅ Promoted '{tool_name}' to the shared tool index.")
+            else:
+                logger.warning(f"   ⚠️  Could not find metadata for '{tool_name}' in personal index during promotion.")
+
+        except Exception as e:
+            logger.error(f"   ❌ Failed to promote tool '{tool_name}': {e}")
+            
+    def _load_index_json(self, index_file: str) -> Dict[str, Any]:
+        """DRY: Load index JSON with error handling."""
+        if os.path.exists(index_file):
+            try:
+                with open(index_file, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                logger.warning(f"   ⚠️  Error loading {index_file}: {e}")
+                return {"tools": {}}
+        return {"tools": {}}
+    
+    def _save_index_json(self, index_file: str, index_data: Dict[str, Any]) -> bool:
+        """DRY: Save index JSON with error handling."""
+        try:
+            with open(index_file, 'w') as f:
+                json.dump(index_data, f, indent=2)
+            return True
+        except Exception as e:
+            logger.warning(f"   ⚠️  Error saving {index_file}: {e}")
+            return False
 
     def run_experiment(self):
         """Run the complete experiment with testing support."""

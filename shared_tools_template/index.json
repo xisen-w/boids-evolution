@@ -36,6 +36,14 @@
         "multiply"
       ]
     },
+    "ai_web_search": {
+      "name": "ai_web_search",
+      "description": "Performs a web search using the Tavily API to find up-to-date information on a given query.",
+      "file": "ai_web_search.py",
+      "created_by": "system",
+      "usage_count": 0,
+      "created_at": "2025-09-02T10:20:00Z"
+    },
     "power": {
       "name": "power",
       "description": "Calculate power using repeated multiplication (complex composition)",

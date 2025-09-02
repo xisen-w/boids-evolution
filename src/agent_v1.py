@@ -73,236 +73,57 @@ class Agent:
     
     def observe(self) -> Dict[str, Any]:
         """
-        Observe current state - get neighbor tools and all visible tools with enhanced test visibility.
-        
-        Returns:
-            Observation dict with tools seen and comprehensive test status
+        Observe current state from the single, evolving shared tool registry.
+        Agents now see a unified tool ecosystem and distinguish tools by creator.
         """
-        # Get all tools from registry
         all_visible_tools = self.shared_tool_registry.get_all_tools()
         
-        # Get neighbor tools (from personal_tools directories)
-        neighbor_tools = self._get_neighbor_tools()
+        # Categorize tools based on their metadata
+        my_tools_status = {}
+        shared_tools_status = {}
+        neighbor_tools_status = {}
         
-        # Get comprehensive test status for all tool categories
-        my_test_status = self._get_test_status()
-        shared_test_status = self._get_shared_tool_test_status()
-        neighbor_test_status = self._get_neighbor_tool_test_status()
-        
+        for tool_name, tool_data in all_visible_tools.items():
+            creator = tool_data.get("created_by")
+            status_summary = self._summarize_test_status(tool_data)
+            
+            if creator == self.agent_id:
+                my_tools_status[tool_name] = status_summary
+            elif creator is None or "Agent" not in creator:
+                shared_tools_status[tool_name] = status_summary
+            else:
+                if creator not in neighbor_tools_status:
+                    neighbor_tools_status[creator] = {}
+                neighbor_tools_status[creator][tool_name] = status_summary
+
         observation = {
             "all_visible_tools": all_visible_tools,
-            "neighbor_tools": neighbor_tools,
-            "my_tools": self.self_built_tools,
-            "my_tests": self.self_built_tests,
-            "my_test_status": my_test_status,
-            "shared_test_status": shared_test_status,
-            "neighbor_test_status": neighbor_test_status,
-            # Legacy field for backward compatibility
-            "test_status": my_test_status
+            "my_tools": list(my_tools_status.keys()),
+            "my_test_status": my_tools_status,
+            "shared_test_status": shared_tools_status,
+            "neighbor_test_status": neighbor_tools_status,
         }
         
         return observation
     
-    def _get_neighbor_tools(self) -> Dict[str, List[str]]:
-        """Get tools built by other agents (neighbors)."""
-        neighbor_tools = {}
+    def _summarize_test_status(self, tool_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Creates a consistent summary of a tool's test status."""
+        test_passed = tool_data.get("test_passed")
+        has_test = tool_data.get("has_test", False)
         
-        if not os.path.exists("personal_tools"):
-            return neighbor_tools
-        
-        # Look at all agent directories
-        for agent_dir in os.listdir("personal_tools"):
-            if agent_dir == self.agent_id:
-                continue  # Skip myself
-                
-            agent_path = os.path.join("personal_tools", agent_dir)
-            if not os.path.isdir(agent_path):
-                continue
-                
-            index_file = os.path.join(agent_path, "index.json")
-            if os.path.exists(index_file):
-                try:
-                    with open(index_file, 'r') as f:
-                        agent_index = json.load(f)
-                    neighbor_tools[agent_dir] = list(agent_index.get("tools", {}).keys())
-                except:
-                    neighbor_tools[agent_dir] = []
-            else:
-                neighbor_tools[agent_dir] = []
-        
-        return neighbor_tools
-    
-    def _get_test_status(self) -> Dict[str, Dict[str, Any]]:
-        """Get detailed test status for all my tools."""
-        test_status = {}
-        
-        for tool_name in self.self_built_tools:
-            test_file = os.path.join(self.personal_tests_dir, f"{tool_name}_test.py")
-            results_file = os.path.join(self.personal_test_results_dir, f"{tool_name}_results.json")
-            
-            status = {
-                "has_test": os.path.exists(test_file),
-                "has_results": os.path.exists(results_file),
-                "last_tested": None,
-                "test_passed": None,
-                "total_tests": 0,
-                "passed_tests": 0,
-                "failed_tests": [],
-                "test_errors": [],
-                "test_summary": "No test results available"
-            }
-            
-            # Get detailed test results
-            if os.path.exists(results_file):
-                try:
-                    with open(results_file, 'r') as f:
-                        results = json.load(f)
-                    
-                    status["last_tested"] = results.get("timestamp")
-                    status["test_passed"] = results.get("all_passed", False)
-                    status["total_tests"] = results.get("total_tests", 0)
-                    status["passed_tests"] = results.get("passed_tests", 0)
-                    
-                    # Extract failed test details
-                    failed_tests = []
-                    test_errors = []
-                    for test in results.get("tests", []):
-                        if not test.get("passed", True):
-                            failed_tests.append(test.get("name", "unknown"))
-                            if "error" in test:
-                                test_errors.append(f"{test['name']}: {test['error']}")
-                    
-                    status["failed_tests"] = failed_tests
-                    status["test_errors"] = test_errors
-                    
-                    # Generate test summary
-                    if status["test_passed"]:
-                        status["test_summary"] = f"✅ All {status['total_tests']} tests passing"
-                    else:
-                        failed_count = status["total_tests"] - status["passed_tests"]
-                        status["test_summary"] = f"⚠️ {failed_count}/{status['total_tests']} tests failing: {', '.join(failed_tests[:3])}"
-                        if len(failed_tests) > 3:
-                            status["test_summary"] += "..."
-                            
-                except Exception as e:
-                    status["test_summary"] = f"❌ Error reading test results: {str(e)}"
-                    
-            test_status[tool_name] = status
-        
-        return test_status
-    
-    def _get_shared_tool_test_status(self) -> Dict[str, Dict[str, Any]]:
-        """Get test status for all shared tools."""
-        shared_test_status = {}
-        
-        # Get shared tools from registry
-        all_tools = self.shared_tool_registry.get_all_tools()
-        shared_tools = {name: tool for name, tool in all_tools.items() if tool.get("type") == "shared"}
-        
-        for tool_name, tool_data in shared_tools.items():
-            # Use the tool registry's test info if available
-            test_info = tool_data.get("test_info", {})
-            
-            status = {
-                "has_test": test_info.get("has_test", False),
-                "has_results": test_info.get("has_results", False),
-                "last_tested": test_info.get("last_tested"),
-                "test_passed": test_info.get("test_passed"),
-                "total_tests": 0,
-                "passed_tests": 0,
-                "failed_tests": [],
-                "test_errors": [],
-                "test_summary": "No test information available"
-            }
-            
-            # Get detailed results if test results file exists
-            if test_info.get("test_results_file") and os.path.exists(test_info["test_results_file"]):
-                try:
-                    with open(test_info["test_results_file"], 'r') as f:
-                        results = json.load(f)
-                    
-                    status["total_tests"] = results.get("total_tests", 0)
-                    status["passed_tests"] = results.get("passed_tests", 0)
-                    
-                    # Extract failed test details
-                    failed_tests = []
-                    test_errors = []
-                    for test in results.get("tests", []):
-                        if not test.get("passed", True):
-                            failed_tests.append(test.get("name", "unknown"))
-                            if "error" in test:
-                                test_errors.append(f"{test['name']}: {test['error']}")
-                    
-                    status["failed_tests"] = failed_tests
-                    status["test_errors"] = test_errors
-                    
-                    # Generate test summary
-                    if status["test_passed"]:
-                        status["test_summary"] = f"✅ All {status['total_tests']} tests passing"
-                    else:
-                        failed_count = status["total_tests"] - status["passed_tests"]
-                        status["test_summary"] = f"⚠️ {failed_count}/{status['total_tests']} tests failing: {', '.join(failed_tests[:3])}"
-                        if len(failed_tests) > 3:
-                            status["test_summary"] += "..."
-                            
-                except Exception as e:
-                    status["test_summary"] = f"❌ Error reading shared tool test results: {str(e)}"
-            
-            shared_test_status[tool_name] = status
-        
-        return shared_test_status
-    
-    def _get_neighbor_tool_test_status(self) -> Dict[str, Dict[str, Dict[str, Any]]]:
-        """Get test status for all neighbor tools, organized by agent."""
-        neighbor_test_status = {}
-        
-        # Get all personal tools from registry
-        all_tools = self.shared_tool_registry.get_all_tools()
-        personal_tools = {name: tool for name, tool in all_tools.items() if tool.get("type") == "personal"}
-        
-        for tool_name, tool_data in personal_tools.items():
-            creator_agent = tool_data.get("creator_agent")
-            if creator_agent == self.agent_id:
-                continue  # Skip my own tools
-            
-            if creator_agent not in neighbor_test_status:
-                neighbor_test_status[creator_agent] = {}
-            
-            # Use the tool registry's test info if available
-            test_info = tool_data.get("test_info", {})
-            
-            status = {
-                "has_test": test_info.get("has_test", False),
-                "has_results": test_info.get("has_results", False),
-                "last_tested": test_info.get("last_tested"),
-                "test_passed": test_info.get("test_passed"),
-                "test_summary": "No test information available"
-            }
-            
-            # Get basic test results if available
-            if test_info.get("test_results_file") and os.path.exists(test_info["test_results_file"]):
-                try:
-                    with open(test_info["test_results_file"], 'r') as f:
-                        results = json.load(f)
-                    
-                    total_tests = results.get("total_tests", 0)
-                    passed_tests = results.get("passed_tests", 0)
-                    
-                    # Generate summary (less detailed than own tools)
-                    if results.get("all_passed", False):
-                        status["test_summary"] = f"✅ All {total_tests} tests passing"
-                    else:
-                        failed_count = total_tests - passed_tests
-                        status["test_summary"] = f"⚠️ {failed_count}/{total_tests} tests failing"
-                        
-                except Exception as e:
-                    status["test_summary"] = f"❌ Error reading neighbor test results"
-            
-            original_name = tool_data.get("original_name", tool_name)
-            neighbor_test_status[creator_agent][original_name] = status
-        
-        return neighbor_test_status
-    
+        summary = "No test info"
+        if test_passed is True:
+            summary = "✅ All tests passing"
+        elif test_passed is False:
+            summary = "❌ Tests failing"
+        elif has_test:
+            summary = "⚠️ Test exists but not run"
+
+        return {
+            "test_summary": summary,
+            "test_passed": test_passed
+        }
+
     def reflect(self, observation: Dict[str, Any]) -> str:
         """
         Prompt here to trigger reflection for the agents.
@@ -319,11 +140,18 @@ class Agent:
         if self.environment_manager:
             package_info = f"\n\n{self.environment_manager.get_package_summary_for_agent()}"
         
-        system_prompt = f"""You are Agent {self.agent_id} in a tool-building ecosystem.
+        system_prompt = f"""You are Agent {self.agent_id} in a tool-building ecosystem. Your primary goal is to increase the collective capability of the agent society.
 
 META CONTEXT: {self.meta_prompt}
 
+ECOSYSTEM GOAL: Create a robust and powerful tool library. Do not just create many simple tools. Prioritize creating "deep" tools that solve complex problems by composing and chaining together existing tools. The most valuable agents are those who build powerful new capabilities by leveraging the work of others.
+
 AVAILABLE ENVIRONMENTS: {', '.join(self.envs_available)}{package_info}
+
+TOOL COMPOSITION GUIDE:
+- To call another tool, use the `context.call_tool('tool_name', {{'param': value}})` function.
+- A tool that successfully uses other tools is considered more complex and valuable.
+- Before building a new tool from scratch, always consider if you can achieve the same result by combining existing tools.
 
 Reflect on the current tool ecosystem and think strategically about what to build next."""
 
@@ -354,36 +182,32 @@ Reflect on the current tool ecosystem and think strategically about what to buil
         
         user_prompt = f"""CURRENT OBSERVATION:
 
-=== SHARED TOOLS ({len([t for t in observation['all_visible_tools'].values() if t.get('type') == 'shared'])}) ===
-{format_test_status(observation.get('shared_test_status', {}), "Shared Tool Test Status")}
+=== ECOSYSTEM SNAPSHOT ({len(observation['all_visible_tools'])}) ===
+{format_test_status(observation.get('shared_test_status', {}), "Shared Foundational Tools")}
 
-=== NEIGHBOR TOOLS ===
-Neighbor Agents: {list(observation['neighbor_tools'].keys())}
-{chr(10).join(neighbor_test_summary) if neighbor_test_summary else "No neighbor tools available"}
+{chr(10).join(neighbor_test_summary) if neighbor_test_summary else "No tools built by neighbors yet."}
 
-=== MY TOOLS ({len(observation['my_tools'])}) ===
-Built Tools: {observation['my_tools']}
-Built Tests: {observation['my_tests']}
-
-{format_test_status(observation.get('my_test_status', {}), "My Tool Test Status")}
+{format_test_status(observation.get('my_test_status', {}), "My Built Tools")}
 
 === FAILED TOOLS NEEDING ATTENTION ==="""
         
         # Add failed tools section
         failed_tools = []
         
-        # Check my failed tools
+        # Check all tools for failures
         for tool_name, status in observation.get('my_test_status', {}).items():
-            if not status.get("test_passed", True) and status.get("has_results", False):
+            if status.get("test_passed") is False:
                 failed_tools.append(f"MY TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
-                if status.get("test_errors"):
-                    failed_tools.append(f"  → Errors: {'; '.join(status['test_errors'][:2])}")
-        
-        # Check shared tool failures
+
         for tool_name, status in observation.get('shared_test_status', {}).items():
-            if not status.get("test_passed", True) and status.get("has_results", False):
+            if status.get("test_passed") is False:
                 failed_tools.append(f"SHARED TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
         
+        for agent, tools in observation.get('neighbor_test_status', {}).items():
+            for tool_name, status in tools.items():
+                if status.get("test_passed") is False:
+                    failed_tools.append(f"NEIGHBOR TOOL ({agent}) - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
+
         if failed_tools:
             user_prompt += f"\n{chr(10).join(failed_tools)}"
         else:
@@ -393,13 +217,13 @@ Built Tests: {observation['my_tests']}
 
 === STRATEGIC REFLECTION ===
 Reflect on:
-1. What gaps do you see in the current tool ecosystem?
-2. What would be most valuable to build next?
-3. Should you fix failing tools or build new ones?
-4. Which tools are reliable enough to build upon?
-5. What specific tool should you create?
+1. What is the most significant capability missing from the ecosystem right now?
+2. How can I combine existing tools to create a new, more powerful, "deeper" tool?
+3. Which existing tools are the most reliable and useful building blocks? Otherwise, should I create a new tool to bridge the gap first?
+4. Instead of a simple tool, what composite tool could I build that solves a multi-step problem?
+5. What specific, high-impact composite tool should I create next?
 
-Consider tool reliability in your decisions. Prioritize building on top of well-tested, reliable tools."""
+Consider tool reliability and composition in your decisions. Your goal is to build powerful tools that leverage the existing ecosystem."""
 
         messages = [
             {"role": "system", "content": system_prompt},
@@ -411,14 +235,11 @@ Consider tool reliability in your decisions. Prioritize building on top of well-
         # Store in reflection history with comprehensive test information
         reflection_entry = {
             "tools_seen": list(observation['all_visible_tools'].keys()),
-            "neighbor_tools": observation['neighbor_tools'],
             "my_test_status": observation.get('my_test_status', {}),
             "shared_test_status": observation.get('shared_test_status', {}),
             "neighbor_test_status": observation.get('neighbor_test_status', {}),
             "reflection": reflection,
             "timestamp": datetime.now().isoformat(),
-            # Legacy field for backward compatibility
-            "test_status": observation['test_status']
         }
         
         self.reflection_history.append(reflection_entry)
@@ -1047,9 +868,9 @@ def main():
     observation = agent.observe()
     print(f"   Visible tools: {len(observation['all_visible_tools'])}")
     print(f"   Tool names: {list(observation['all_visible_tools'].keys())}")
-    print(f"   Neighbor tools: {observation['neighbor_tools']}")
+    print(f"   Neighbor tools: {observation['neighbor_test_status']}")
     print(f"   My tools: {observation['my_tools']}")
-    print(f"   My tests: {observation['my_tests']}")
+    print(f"   My tests: {observation['my_test_status']}")
     print(f"   Test status: {observation['test_status']}")
     
     # Test 2: Reflect
