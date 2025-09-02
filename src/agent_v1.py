@@ -66,10 +66,10 @@ class Agent:
     
     def observe(self) -> Dict[str, Any]:
         """
-        Observe current state - get neighbor tools and all visible tools.
+        Observe current state - get neighbor tools and all visible tools with enhanced test visibility.
         
         Returns:
-            Observation dict with tools seen
+            Observation dict with tools seen and comprehensive test status
         """
         # Get all tools from registry
         all_visible_tools = self.shared_tool_registry.get_all_tools()
@@ -77,15 +77,21 @@ class Agent:
         # Get neighbor tools (from personal_tools directories)
         neighbor_tools = self._get_neighbor_tools()
         
-        # Get test status for tools
-        test_status = self._get_test_status()
+        # Get comprehensive test status for all tool categories
+        my_test_status = self._get_test_status()
+        shared_test_status = self._get_shared_tool_test_status()
+        neighbor_test_status = self._get_neighbor_tool_test_status()
         
         observation = {
             "all_visible_tools": all_visible_tools,
             "neighbor_tools": neighbor_tools,
             "my_tools": self.self_built_tools,
             "my_tests": self.self_built_tests,
-            "test_status": test_status
+            "my_test_status": my_test_status,
+            "shared_test_status": shared_test_status,
+            "neighbor_test_status": neighbor_test_status,
+            # Legacy field for backward compatibility
+            "test_status": my_test_status
         }
         
         return observation
@@ -120,7 +126,7 @@ class Agent:
         return neighbor_tools
     
     def _get_test_status(self) -> Dict[str, Dict[str, Any]]:
-        """Get test status for all my tools."""
+        """Get detailed test status for all my tools."""
         test_status = {}
         
         for tool_name in self.self_built_tools:
@@ -131,22 +137,164 @@ class Agent:
                 "has_test": os.path.exists(test_file),
                 "has_results": os.path.exists(results_file),
                 "last_tested": None,
-                "test_passed": None
+                "test_passed": None,
+                "total_tests": 0,
+                "passed_tests": 0,
+                "failed_tests": [],
+                "test_errors": [],
+                "test_summary": "No test results available"
             }
             
-            # Get latest test results
+            # Get detailed test results
             if os.path.exists(results_file):
                 try:
                     with open(results_file, 'r') as f:
                         results = json.load(f)
+                    
                     status["last_tested"] = results.get("timestamp")
                     status["test_passed"] = results.get("all_passed", False)
-                except:
-                    pass
+                    status["total_tests"] = results.get("total_tests", 0)
+                    status["passed_tests"] = results.get("passed_tests", 0)
+                    
+                    # Extract failed test details
+                    failed_tests = []
+                    test_errors = []
+                    for test in results.get("tests", []):
+                        if not test.get("passed", True):
+                            failed_tests.append(test.get("name", "unknown"))
+                            if "error" in test:
+                                test_errors.append(f"{test['name']}: {test['error']}")
+                    
+                    status["failed_tests"] = failed_tests
+                    status["test_errors"] = test_errors
+                    
+                    # Generate test summary
+                    if status["test_passed"]:
+                        status["test_summary"] = f"✅ All {status['total_tests']} tests passing"
+                    else:
+                        failed_count = status["total_tests"] - status["passed_tests"]
+                        status["test_summary"] = f"⚠️ {failed_count}/{status['total_tests']} tests failing: {', '.join(failed_tests[:3])}"
+                        if len(failed_tests) > 3:
+                            status["test_summary"] += "..."
+                            
+                except Exception as e:
+                    status["test_summary"] = f"❌ Error reading test results: {str(e)}"
                     
             test_status[tool_name] = status
         
         return test_status
+    
+    def _get_shared_tool_test_status(self) -> Dict[str, Dict[str, Any]]:
+        """Get test status for all shared tools."""
+        shared_test_status = {}
+        
+        # Get shared tools from registry
+        all_tools = self.shared_tool_registry.get_all_tools()
+        shared_tools = {name: tool for name, tool in all_tools.items() if tool.get("type") == "shared"}
+        
+        for tool_name, tool_data in shared_tools.items():
+            # Use the tool registry's test info if available
+            test_info = tool_data.get("test_info", {})
+            
+            status = {
+                "has_test": test_info.get("has_test", False),
+                "has_results": test_info.get("has_results", False),
+                "last_tested": test_info.get("last_tested"),
+                "test_passed": test_info.get("test_passed"),
+                "total_tests": 0,
+                "passed_tests": 0,
+                "failed_tests": [],
+                "test_errors": [],
+                "test_summary": "No test information available"
+            }
+            
+            # Get detailed results if test results file exists
+            if test_info.get("test_results_file") and os.path.exists(test_info["test_results_file"]):
+                try:
+                    with open(test_info["test_results_file"], 'r') as f:
+                        results = json.load(f)
+                    
+                    status["total_tests"] = results.get("total_tests", 0)
+                    status["passed_tests"] = results.get("passed_tests", 0)
+                    
+                    # Extract failed test details
+                    failed_tests = []
+                    test_errors = []
+                    for test in results.get("tests", []):
+                        if not test.get("passed", True):
+                            failed_tests.append(test.get("name", "unknown"))
+                            if "error" in test:
+                                test_errors.append(f"{test['name']}: {test['error']}")
+                    
+                    status["failed_tests"] = failed_tests
+                    status["test_errors"] = test_errors
+                    
+                    # Generate test summary
+                    if status["test_passed"]:
+                        status["test_summary"] = f"✅ All {status['total_tests']} tests passing"
+                    else:
+                        failed_count = status["total_tests"] - status["passed_tests"]
+                        status["test_summary"] = f"⚠️ {failed_count}/{status['total_tests']} tests failing: {', '.join(failed_tests[:3])}"
+                        if len(failed_tests) > 3:
+                            status["test_summary"] += "..."
+                            
+                except Exception as e:
+                    status["test_summary"] = f"❌ Error reading shared tool test results: {str(e)}"
+            
+            shared_test_status[tool_name] = status
+        
+        return shared_test_status
+    
+    def _get_neighbor_tool_test_status(self) -> Dict[str, Dict[str, Dict[str, Any]]]:
+        """Get test status for all neighbor tools, organized by agent."""
+        neighbor_test_status = {}
+        
+        # Get all personal tools from registry
+        all_tools = self.shared_tool_registry.get_all_tools()
+        personal_tools = {name: tool for name, tool in all_tools.items() if tool.get("type") == "personal"}
+        
+        for tool_name, tool_data in personal_tools.items():
+            creator_agent = tool_data.get("creator_agent")
+            if creator_agent == self.agent_id:
+                continue  # Skip my own tools
+            
+            if creator_agent not in neighbor_test_status:
+                neighbor_test_status[creator_agent] = {}
+            
+            # Use the tool registry's test info if available
+            test_info = tool_data.get("test_info", {})
+            
+            status = {
+                "has_test": test_info.get("has_test", False),
+                "has_results": test_info.get("has_results", False),
+                "last_tested": test_info.get("last_tested"),
+                "test_passed": test_info.get("test_passed"),
+                "test_summary": "No test information available"
+            }
+            
+            # Get basic test results if available
+            if test_info.get("test_results_file") and os.path.exists(test_info["test_results_file"]):
+                try:
+                    with open(test_info["test_results_file"], 'r') as f:
+                        results = json.load(f)
+                    
+                    total_tests = results.get("total_tests", 0)
+                    passed_tests = results.get("passed_tests", 0)
+                    
+                    # Generate summary (less detailed than own tools)
+                    if results.get("all_passed", False):
+                        status["test_summary"] = f"✅ All {total_tests} tests passing"
+                    else:
+                        failed_count = total_tests - passed_tests
+                        status["test_summary"] = f"⚠️ {failed_count}/{total_tests} tests failing"
+                        
+                except Exception as e:
+                    status["test_summary"] = f"❌ Error reading neighbor test results"
+            
+            original_name = tool_data.get("original_name", tool_name)
+            neighbor_test_status[creator_agent][original_name] = status
+        
+        return neighbor_test_status
     
     def reflect(self, observation: Dict[str, Any]) -> str:
         """
@@ -170,28 +318,76 @@ Reflect on the current tool ecosystem and think strategically about what to buil
         if self.specific_prompt:
             system_prompt += f"\n\nSPECIFIC GUIDANCE: {self.specific_prompt}"
         
+        # Helper function to format test status for readability
+        def format_test_status(test_status_dict, title):
+            if not test_status_dict:
+                return f"{title}: None available"
+            
+            lines = [f"{title}:"]
+            for tool_name, status in test_status_dict.items():
+                summary = status.get("test_summary", "No test info")
+                lines.append(f"  • {tool_name}: {summary}")
+                if status.get("test_errors") and len(status["test_errors"]) > 0:
+                    lines.append(f"    Errors: {'; '.join(status['test_errors'][:2])}")
+            return "\n".join(lines)
+        
+        # Format neighbor test status
+        neighbor_test_summary = []
+        for agent, tools in observation.get('neighbor_test_status', {}).items():
+            if tools:
+                tool_summaries = []
+                for tool_name, status in tools.items():
+                    tool_summaries.append(f"{tool_name}: {status.get('test_summary', 'No info')}")
+                neighbor_test_summary.append(f"  {agent}: {'; '.join(tool_summaries[:3])}")
+        
         user_prompt = f"""CURRENT OBSERVATION:
 
-All Visible Tools: {len(observation['all_visible_tools'])} tools
-{list(observation['all_visible_tools'].keys())[:10]}  # Show first 10
+=== SHARED TOOLS ({len([t for t in observation['all_visible_tools'].values() if t.get('type') == 'shared'])}) ===
+{format_test_status(observation.get('shared_test_status', {}), "Shared Tool Test Status")}
 
-Neighbor Tools:
-{observation['neighbor_tools']}
+=== NEIGHBOR TOOLS ===
+Neighbor Agents: {list(observation['neighbor_tools'].keys())}
+{chr(10).join(neighbor_test_summary) if neighbor_test_summary else "No neighbor tools available"}
 
-My Tools Built: {len(observation['my_tools'])} tools
-{observation['my_tools']}
+=== MY TOOLS ({len(observation['my_tools'])}) ===
+Built Tools: {observation['my_tools']}
+Built Tests: {observation['my_tests']}
 
-My Tests Built: {len(observation['my_tests'])} tests
-{observation['my_tests']}
+{format_test_status(observation.get('my_test_status', {}), "My Tool Test Status")}
 
-Test Status:
-{observation['test_status']}
+=== FAILED TOOLS NEEDING ATTENTION ==="""
+        
+        # Add failed tools section
+        failed_tools = []
+        
+        # Check my failed tools
+        for tool_name, status in observation.get('my_test_status', {}).items():
+            if not status.get("test_passed", True) and status.get("has_results", False):
+                failed_tools.append(f"MY TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
+                if status.get("test_errors"):
+                    failed_tools.append(f"  → Errors: {'; '.join(status['test_errors'][:2])}")
+        
+        # Check shared tool failures
+        for tool_name, status in observation.get('shared_test_status', {}).items():
+            if not status.get("test_passed", True) and status.get("has_results", False):
+                failed_tools.append(f"SHARED TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
+        
+        if failed_tools:
+            user_prompt += f"\n{chr(10).join(failed_tools)}"
+        else:
+            user_prompt += "\nNo critical tool failures detected"
+        
+        user_prompt += f"""
 
+=== STRATEGIC REFLECTION ===
 Reflect on:
 1. What gaps do you see in the current tool ecosystem?
 2. What would be most valuable to build next?
-3. Do any of your tools need testing?
-4. What specific tool should you create?"""
+3. Should you fix failing tools or build new ones?
+4. Which tools are reliable enough to build upon?
+5. What specific tool should you create?
+
+Consider tool reliability in your decisions. Prioritize building on top of well-tested, reliable tools."""
 
         messages = [
             {"role": "system", "content": system_prompt},
@@ -200,13 +396,17 @@ Reflect on:
         
         reflection = self.azure_client.chat(messages, temperature=0.7)
         
-        # Store in reflection history
+        # Store in reflection history with comprehensive test information
         reflection_entry = {
             "tools_seen": list(observation['all_visible_tools'].keys()),
             "neighbor_tools": observation['neighbor_tools'],
-            "test_status": observation['test_status'],
+            "my_test_status": observation.get('my_test_status', {}),
+            "shared_test_status": observation.get('shared_test_status', {}),
+            "neighbor_test_status": observation.get('neighbor_test_status', {}),
             "reflection": reflection,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            # Legacy field for backward compatibility
+            "test_status": observation['test_status']
         }
         
         self.reflection_history.append(reflection_entry)

@@ -531,14 +531,14 @@ def main():
         "Focus on building SORTING and ORDERING algorithms. Create tools for data organization.",
         "Focus on building MATHEMATICAL and CALCULATION tools. Create tools for numerical operations.",
         "Focus on building TEXT PROCESSING and STRING manipulation tools. Create tools for text analysis."
-    ]
+    ]# optional 
     
     # Create experiment runner
     runner = ExperimentRunner(
         experiment_name="enhanced_testing_demo",
-        num_agents=3,
+        num_agents=1,
         max_rounds=5,
-        shared_meta_prompt="You are in a collaborative tool-building ecosystem. Focus on creating high-quality, well-tested tools that can be used by other agents.",
+        shared_meta_prompt="You are in a collaborative tool-building ecosystem. Focus on creating high-quality, well-tested tools that can be used by other agents. Focus on building data science tools.",
         agent_specializations=specializations
     )
     

@@ -1,0 +1,38 @@
+🧪 EXPERIMENT SUMMARY: enhanced_testing_demo
+============================================================
+
+📊 OVERVIEW:
+   Experiment: enhanced_testing_demo
+   Agents: 1
+   Rounds: 5
+   Directory: experiments/enhanced_testing_demo_20250902_031303
+   Timestamp: 2025-09-02T03:14:27.220592
+
+🔧 TOOL CREATION RESULTS:
+   Total tools created: 5
+   Final tools in system: 11
+   Tools per round: 1.0
+
+🧪 TESTING RESULTS:
+   Total tests created: 5
+   Tests passed: 0
+   Tests failed: 5
+   Test pass rate: 0.00%
+   Testing coverage: 45.45%
+
+🤝 COLLABORATION:
+   Collaboration events: 5
+   Events per round: 1.0
+
+🤖 AGENT PRODUCTIVITY:
+   Agent_01:
+     Tools: 5
+     Tests: 5
+     Reflections: 5
+     Test Results: 10
+
+📁 EXPERIMENT FILES:
+   Shared tools: experiments/enhanced_testing_demo_20250902_031303/shared_tools/
+   Personal tools: experiments/enhanced_testing_demo_20250902_031303/personal_tools/
+   Results: experiments/enhanced_testing_demo_20250902_031303/results.json
+   Metadata: experiments/enhanced_testing_demo_20250902_031303/experiment_metadata.json
