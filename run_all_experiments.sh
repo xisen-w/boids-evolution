@@ -9,6 +9,9 @@
 # Standard Configuration: 20 Agents, 15 Rounds
 # ==============================================================================
 
+# Activate the project's virtual environment to ensure correct dependencies
+source venv/bin/activate
+
 echo "🚀 Launching all 10 experiments in parallel..."
 echo "Standard Configuration: 20 Agents, 15 Rounds"
 echo "Monitor individual experiment logs for progress. This will take a while."
@@ -36,7 +39,7 @@ SCENARIOS=(
 for SCENARIO_ID in "${SCENARIOS[@]}"
 do
     echo "   ▶️  Starting experiment for scenario: $SCENARIO_ID"
-    python run_real_experiment.py \
+    python3 run_real_experiment.py \
         --meta_prompt_id "$SCENARIO_ID" \
         --num_agents $NUM_AGENTS \
         --num_rounds $NUM_ROUNDS &
