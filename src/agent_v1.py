@@ -15,16 +15,19 @@ from datetime import datetime
 try:
     from .azure_client import AzureOpenAIClient
     from .tools_v1 import ToolRegistryV1
+    from .environment_manager import EnvironmentManager
 except ImportError:
     # Add parent directory to path for standalone execution
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
     try:
         from src.azure_client import AzureOpenAIClient
         from src.tools_v1 import ToolRegistryV1
+        from src.environment_manager import EnvironmentManager
     except ImportError:
-        print("⚠️  Azure client or tools not available - will use mock responses")
+        print("⚠️  Azure client, tools, or environment manager not available - will use mock responses")
         AzureOpenAIClient = None
         ToolRegistryV1 = None
+        EnvironmentManager = None
 
 
 class Agent:
@@ -46,6 +49,7 @@ class Agent:
         self.agent_id = agent_id
         self.azure_client = azure_client
         self.shared_tool_registry = shared_tool_registry  # All tools it can see
+        self.environment_manager = EnvironmentManager() if EnvironmentManager else None
         self.self_built_tools = []  # Tools I built
         self.self_built_tests = []  # Tests I built
         self.reflection_history = []  # Tools seen each time + reflections
@@ -63,6 +67,9 @@ class Agent:
         os.makedirs(self.personal_tool_dir, exist_ok=True)
         os.makedirs(self.personal_tests_dir, exist_ok=True)
         os.makedirs(self.personal_test_results_dir, exist_ok=True)
+
+        # Initialize EnvironmentManager
+        self.environment_manager = EnvironmentManager(self.personal_tool_dir)
     
     def observe(self) -> Dict[str, Any]:
         """
@@ -307,11 +314,16 @@ class Agent:
             Reflection text from agent
         """
         # Build complete reflection prompt
+        # Get package information from environment manager
+        package_info = ""
+        if self.environment_manager:
+            package_info = f"\n\n{self.environment_manager.get_package_summary_for_agent()}"
+        
         system_prompt = f"""You are Agent {self.agent_id} in a tool-building ecosystem.
 
 META CONTEXT: {self.meta_prompt}
 
-AVAILABLE ENVIRONMENTS: {', '.join(self.envs_available)}
+AVAILABLE ENVIRONMENTS: {', '.join(self.envs_available)}{package_info}
 
 Reflect on the current tool ecosystem and think strategically about what to build next."""
 
@@ -592,10 +604,17 @@ Be concrete and practical."""
     def _generate_tool_code(self, tool_design: str, tool_name: str) -> str:
         """Generate Python code for the tool."""
         
+        # Get available packages info
+        package_examples = ""
+        if self.environment_manager:
+            examples = self.environment_manager.get_import_examples()
+            if examples:
+                package_examples = f"\n\nAVAILABLE PACKAGES (use these imports):\n" + "\n".join(examples[:8])
+        
         # Use Azure to generate actual implementation
         system_prompt = f"""Generate a simple, complete Python function for this tool:
 
-{tool_design}
+{tool_design}{package_examples}
 
 REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
@@ -605,6 +624,7 @@ REQUIREMENTS:
 5. Return a dictionary with results
 6. Ensure all parentheses and brackets are closed
 7. Maximum 50 lines of code
+8. Use only the available packages listed above
 
 Example structure:
 def execute(parameters, context=None):
@@ -628,6 +648,12 @@ Output ONLY the Python code."""
         ]
         
         code = self.azure_client.chat(messages, temperature=0.1, max_tokens=500)  # Lower tokens to prevent cutoff
+        
+        # Validate package usage if environment manager is available
+        if self.environment_manager:
+            validation = self.environment_manager.validate_package_usage(code)
+            if not validation["all_valid"] and validation["invalid_packages"]:
+                print(f"⚠️  Tool {tool_name} uses unavailable packages: {validation['invalid_packages']}")
         
         return code
     

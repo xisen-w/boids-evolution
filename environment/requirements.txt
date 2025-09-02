@@ -1,0 +1,41 @@
+# Core AI/LLM packages
+openai==1.102.0
+azure-openai
+anthropic
+
+# Search and retrieval
+tavily-python
+duckduckgo-search
+wikipedia-api
+beautifulsoup4==4.12.0
+requests==2.31.0
+
+# Data processing
+pandas==2.0.3
+numpy==1.24.3
+scipy==1.11.0
+scikit-learn==1.3.0
+
+# File formats
+PyYAML==6.0.1
+
+# Text processing
+nltk==3.8.1
+textblob==0.17.1
+
+# Visualization
+matplotlib==3.7.2
+plotly==5.15.0
+seaborn==0.12.2
+
+# Utilities
+pydantic==2.11.7
+python-dotenv==1.0.0
+tqdm==4.65.0
+colorama==0.4.6
+
+# Optional advanced packages (comment out if not needed)
+# transformers==4.30.0
+# langchain==0.0.200
+# spacy==3.6.0
+# selenium==4.10.0 
