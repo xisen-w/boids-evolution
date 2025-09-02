@@ -1,37 +1,59 @@
 {
   "tools": {
-    "pattern_finder_1": {
-      "name": "pattern_finder_1",
-      "description": "Finds patterns in sequences",
-      "energy_reward": 5,
-      "parameters": {},
-      "file": "pattern_finder_1.py",
+    "multi_sorter": {
+      "name": "multi_sorter",
+      "description": "Tool Specification:\n\n- **Unique Tool Name:** multi_sorter\n\n- **Description:**  \nA versatile sorting utility that accepts a list of data and a specified sorting algorithm, then returns the sorted list....",
+      "file": "multi_sorter.py",
       "created_by": "Agent_01",
-      "usage_count": 2
+      "created_at": "2025-09-02T00:00:03.348851"
     },
-    "text_encoder_1": {
-      "name": "text_encoder_1",
-      "description": "Encodes text using Caesar cipher",
-      "energy_reward": 5,
-      "parameters": {},
-      "file": "text_encoder_1.py",
+    "advanced_sorter": {
+      "name": "advanced_sorter",
+      "description": "Tool Specification:\n\n**Tool Name:** advanced_sorter\n\n**Description:**  \nA flexible and configurable sorting utility that implements multiple sorting algorithms\u2014including quicksort, mergesort, and heap...",
+      "file": "advanced_sorter.py",
       "created_by": "Agent_01",
-      "usage_count": 2
+      "created_at": "2025-09-02T00:00:22.838594"
     },
-    "boolean_evaluator_1": {
-      "name": "boolean_evaluator_1",
-      "description": "Evaluates boolean expressions",
-      "energy_reward": 5,
-      "parameters": {},
-      "file": "boolean_evaluator_1.py",
+    "adaptive_sorter": {
+      "name": "adaptive_sorter",
+      "description": "Tool Specification: Adaptive Sorter\n\n**Unique Tool Name:** adaptive_sorter\n\n**Description:**  \nThe adaptive_sorter is a flexible, modular sorting utility designed to handle complex data ordering tasks...",
+      "file": "adaptive_sorter.py",
       "created_by": "Agent_01",
-      "usage_count": 2
+      "created_at": "2025-09-02T00:00:41.800390"
+    },
+    "multi_criteria_sorter": {
+      "name": "multi_criteria_sorter",
+      "description": "Tool Specification:\n\n**Tool Name:** multi_criteria_sorter\n\n**Description:**  \nA versatile sorting tool that orders a list of data items based on multiple keys, each with an assigned priority. It allow...",
+      "file": "multi_criteria_sorter.py",
+      "created_by": "Agent_01",
+      "created_at": "2025-09-02T00:01:06.669319"
+    },
+    "hybrid_sorter": {
+      "name": "hybrid_sorter",
+      "description": "Tool Specification\n\n- **Tool Name:** hybrid_sorter\n\n- **Description:**  \nA versatile sorting utility that dynamically selects and combines multiple sorting algorithms (such as insertion sort, merge so...",
+      "file": "hybrid_sorter.py",
+      "created_by": "Agent_01",
+      "created_at": "2025-09-02T00:01:28.863352"
+    },
+    "tool_1": {
+      "name": "tool_1",
+      "description": "Tool Specification: test_case_generator\n\n**Unique Tool Name:**  \ntest_case_generator\n\n**Description:**  \nA utility tool that automatically generates diverse test cases, including edge cases and invali...",
+      "file": "tool_1.py",
+      "created_by": "Agent_01",
+      "created_at": "2025-09-02T01:39:17.223763"
+    },
+    "DataTestSuite": {
+      "name": "DataTestSuite",
+      "description": "Tool Specification\n\n**Tool Name:** DataTestSuite\n\n**Description:**  \nDataTestSuite is an automated testing framework designed to validate data transformation processes, code modules, and algorithms wi...",
+      "file": "DataTestSuite.py",
+      "created_by": "Agent_01",
+      "created_at": "2025-09-02T01:39:29.892514"
     }
   },
   "metadata": {
     "agent_id": "Agent_01",
-    "total_tools": 3,
-    "last_updated": "2025-08-30T19:26:32.164416",
-    "version": "1.0"
+    "total_tools": 0,
+    "created_at": "2025-09-01T23:59:55.928756",
+    "experiment": "sorting_specialists"
   }
 }

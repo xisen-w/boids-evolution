@@ -1,0 +1,30 @@
+EXPERIMENT: fixed_self_contained
+Directory: experiments/fixed_self_contained_20250902_014149
+Agents: 2
+Rounds: 1
+Start: 2025-09-02T01:41:50.046530
+End: 2025-09-02T01:42:01.492475
+
+SPECIALIZATIONS:
+Agent_01: TESTING tools
+Agent_02: VALIDATION utilities
+
+FINAL ANALYSIS:
+Total tools: 25
+Personal tools created: 19
+Successful rounds: 0/0
+
+AGENT CONTRIBUTIONS:
+Agent_01: 1 tools - ['TestCaseExecutor']
+Agent_02: 1 tools - ['data_validate']
+
+DIRECTORY STRUCTURE:
+📁 experiments/fixed_self_contained_20250902_014149/
+   📁 shared_tools/     # Shared tools for this experiment
+   📁 personal_tools/   # Agent-created tools
+      📁 Agent_01/
+      📁 Agent_02/
+   📄 experiment.log    # Complete experiment log
+   📄 results.json      # Detailed results
+   📄 summary.txt       # This summary
+   📄 experiment_metadata.json  # Experiment configuration

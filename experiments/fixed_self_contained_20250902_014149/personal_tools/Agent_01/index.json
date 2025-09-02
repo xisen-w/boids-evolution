@@ -1,0 +1,18 @@
+{
+  "tools": {
+    "TestCaseExecutor": {
+      "name": "TestCaseExecutor",
+      "description": "Tool Specification\n\n- **Unique Tool Name:** TestCaseExecutor\n\n- **Description:**  \nA utility tool designed to execute predefined test cases by running specified functions or data processing workflows ...",
+      "file": "TestCaseExecutor.py",
+      "created_by": "Agent_01",
+      "created_at": "2025-09-02T01:41:55.641480"
+    }
+  },
+  "metadata": {
+    "agent_id": "Agent_01",
+    "total_tools": 0,
+    "created_at": "2025-09-02T01:41:50.045801",
+    "experiment": "fixed_self_contained",
+    "experiment_dir": "experiments/fixed_self_contained_20250902_014149"
+  }
+}

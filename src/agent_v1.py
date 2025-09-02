@@ -40,7 +40,8 @@ class Agent:
                  shared_tool_registry,  # All visible tools
                  meta_prompt: str = "",  # Shared across agents
                  envs_available: List[str] = None,
-                 specific_prompt: Optional[str] = None):
+                 specific_prompt: Optional[str] = None,
+                 personal_tool_base_dir: str = "personal_tools"):  # Allow custom base directory
         
         self.agent_id = agent_id
         self.azure_client = azure_client
@@ -51,8 +52,8 @@ class Agent:
         self.envs_available = envs_available or ["python", "file_system"]
         self.specific_prompt = specific_prompt  # Leave as blank and render complete prompt
         
-        # Create personal tool directory
-        self.personal_tool_dir = f"personal_tools/{self.agent_id}"
+        # Create personal tool directory (can be experiment-specific)
+        self.personal_tool_dir = os.path.join(personal_tool_base_dir, self.agent_id)
         os.makedirs(self.personal_tool_dir, exist_ok=True)
     
     def observe(self) -> Dict[str, Any]:

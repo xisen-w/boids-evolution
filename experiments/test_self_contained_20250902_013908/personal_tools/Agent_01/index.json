@@ -1,0 +1,10 @@
+{
+  "tools": {},
+  "metadata": {
+    "agent_id": "Agent_01",
+    "total_tools": 0,
+    "created_at": "2025-09-02T01:39:08.863899",
+    "experiment": "test_self_contained",
+    "experiment_dir": "experiments/test_self_contained_20250902_013908"
+  }
+}

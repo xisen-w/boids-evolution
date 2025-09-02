@@ -1,0 +1,20 @@
+{
+  "experiment_name": "fixed_self_contained",
+  "experiment_dir": "experiments/fixed_self_contained_20250902_014149",
+  "num_agents": 2,
+  "max_rounds": 1,
+  "shared_meta_prompt": "Test experiment with fixed directory structure",
+  "agent_specializations": [
+    "TESTING tools",
+    "VALIDATION utilities"
+  ],
+  "directory_structure": {
+    "shared_tools": "experiments/fixed_self_contained_20250902_014149/shared_tools",
+    "personal_tools": "experiments/fixed_self_contained_20250902_014149/personal_tools",
+    "logs": "experiments/fixed_self_contained_20250902_014149/experiment.log",
+    "results": "experiments/fixed_self_contained_20250902_014149/results.json",
+    "summary": "experiments/fixed_self_contained_20250902_014149/summary.txt"
+  },
+  "created_at": "2025-09-02T01:41:50.046530",
+  "completed_at": "2025-09-02T01:42:01.492475"
+}
