@@ -1,0 +1,58 @@
+================================================================================
+TOOL COMPLEXITY INDEX (TCI) ANALYSIS REPORT
+================================================================================
+📊 Analyzed 3 tools
+⚖️  Weights: α=1.0 (code), β=1.0 (interface), γ=1.0 (composition)
+
+📈 COMPLEXITY RANKINGS:
+----------------------------------------
+ 1. tool_3               TCI:   5.62 (Code:  4.7, Interface:  0.9, Composition:  0.0)
+ 2. DataSorter           TCI:   4.42 (Code:  3.5, Interface:  0.9, Composition:  0.0)
+ 3. tool_2               TCI:   4.39 (Code:  3.5, Interface:  0.9, Composition:  0.0)
+
+📊 COMPLEXITY DISTRIBUTION:
+----------------------------------------
+TCI Scores     - Mean:  4.81, Std:  0.70, Range: [ 4.4,  5.6]
+Code Scores    - Mean:  3.92, Std:  0.70, Range: [ 3.5,  4.7]
+Interface      - Mean:  0.89, Std:  0.00, Range: [ 0.9,  0.9]
+Compositional  - Mean:  0.00, Std:  0.00, Range: [ 0.0,  0.0]
+
+🔍 DETAILED ANALYSIS:
+----------------------------------------
+
+🏆 #1 MOST COMPLEX: tool_3
+   TCI Score: 5.62 (normalized: 1.00)
+   Code Complexity: 4.73
+     - Cyclomatic: 7
+     - Lines of Code: 19
+     - Nesting Depth: 3
+   Interface Complexity: 0.89
+   Compositional Complexity: 0.00
+     - Fan-in: 0
+     - Fan-out: 0
+     - Dependency Depth: 0
+
+🏆 #2 MOST COMPLEX: DataSorter
+   TCI Score: 4.42 (normalized: 0.79)
+   Code Complexity: 3.53
+     - Cyclomatic: 6
+     - Lines of Code: 19
+     - Nesting Depth: 2
+   Interface Complexity: 0.89
+   Compositional Complexity: 0.00
+     - Fan-in: 0
+     - Fan-out: 0
+     - Dependency Depth: 0
+
+🏆 #3 MOST COMPLEX: tool_2
+   TCI Score: 4.39 (normalized: 0.78)
+   Code Complexity: 3.50
+     - Cyclomatic: 6
+     - Lines of Code: 17
+     - Nesting Depth: 2
+   Interface Complexity: 0.89
+   Compositional Complexity: 0.00
+     - Fan-in: 0
+     - Fan-out: 0
+     - Dependency Depth: 0
+================================================================================

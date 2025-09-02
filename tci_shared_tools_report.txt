@@ -1,0 +1,63 @@
+================================================================================
+TOOL COMPLEXITY INDEX (TCI) ANALYSIS REPORT
+================================================================================
+📊 Analyzed 8 tools
+⚖️  Weights: α=1.0 (code), β=1.0 (interface), γ=1.0 (composition)
+
+📈 COMPLEXITY RANKINGS:
+----------------------------------------
+ 1. calculate            TCI:   8.26 (Code:  7.3, Interface:  0.9, Composition:  0.0)
+ 2. power                TCI:   7.57 (Code:  5.9, Interface:  1.0, Composition:  0.7)
+ 3. ai_json_generate     TCI:   6.40 (Code:  5.4, Interface:  1.0, Composition:  0.0)
+ 4. ai_text_generate     TCI:   4.54 (Code:  3.5, Interface:  1.0, Composition:  0.0)
+ 5. square               TCI:   4.50 (Code:  2.7, Interface:  1.1, Composition:  0.7)
+ 6. random_gen           TCI:   4.13 (Code:  3.1, Interface:  1.0, Composition:  0.0)
+ 7. file_write           TCI:   2.85 (Code:  1.9, Interface:  0.9, Composition:  0.0)
+ 8. multiply             TCI:   2.62 (Code:  1.0, Interface:  1.0, Composition:  0.6)
+
+📊 COMPLEXITY DISTRIBUTION:
+----------------------------------------
+TCI Scores     - Mean:  5.11, Std:  2.09, Range: [ 2.6,  8.3]
+Code Scores    - Mean:  3.88, Std:  2.14, Range: [ 1.0,  7.3]
+Interface      - Mean:  0.98, Std:  0.05, Range: [ 0.9,  1.1]
+Compositional  - Mean:  0.25, Std:  0.35, Range: [ 0.0,  0.7]
+
+🔍 DETAILED ANALYSIS:
+----------------------------------------
+
+🏆 #1 MOST COMPLEX: calculate
+   TCI Score: 8.26 (normalized: 1.00)
+   Code Complexity: 7.35
+     - Cyclomatic: 7
+     - Lines of Code: 50
+     - Nesting Depth: 5
+   Interface Complexity: 0.91
+   Compositional Complexity: 0.00
+     - Fan-in: 0
+     - Fan-out: 0
+     - Dependency Depth: 0
+
+🏆 #2 MOST COMPLEX: power
+   TCI Score: 7.57 (normalized: 0.92)
+   Code Complexity: 5.91
+     - Cyclomatic: 8
+     - Lines of Code: 77
+     - Nesting Depth: 2
+   Interface Complexity: 0.97
+   Compositional Complexity: 0.70
+     - Fan-in: 0
+     - Fan-out: 1
+     - Dependency Depth: 1
+
+🏆 #3 MOST COMPLEX: ai_json_generate
+   TCI Score: 6.40 (normalized: 0.77)
+   Code Complexity: 5.39
+     - Cyclomatic: 8
+     - Lines of Code: 106
+     - Nesting Depth: 1
+   Interface Complexity: 1.01
+   Compositional Complexity: 0.00
+     - Fan-in: 0
+     - Fan-out: 0
+     - Dependency Depth: 0
+================================================================================

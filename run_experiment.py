@@ -20,6 +20,7 @@ from src.azure_client import AzureOpenAIClient
 from src.agent_v1 import Agent
 from src.tools_v1 import ToolRegistryV1
 from src.experiment_visualizer import ExperimentVisualizer
+from src.complexity_analyzer import TCIAnalyzer
 
 # Configure logging
 logging.basicConfig(
@@ -75,7 +76,9 @@ class ExperimentRunner:
         self.tool_registry = None
         self.agents = []
         self.round_results = []
+        self.complexity_over_rounds = []  # Track average TCI per round
         self.visualizer = ExperimentVisualizer()
+        self.tci_analyzer = TCIAnalyzer()
         
         logger.info(f"🧪 Experiment initialized: {self.experiment_name}")
         logger.info(f"📁 Experiment directory: {self.experiment_dir}")
@@ -225,8 +228,21 @@ class ExperimentRunner:
                     if build_result["success"]:
                         round_results["tools_created"] += 1
                         logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
+
+                        # Phase 3a: Analyze Tool Complexity
+                        logger.info(f"   🔬 Analyzing complexity for new tool...")
+                        tool_name = build_result["tool_info"].get("tool_name")
+                        if tool_name:
+                            agent_tool_dir = agent.personal_tool_dir
+                            # Analyze the entire directory to update compositional scores
+                            tci_results = self.tci_analyzer.analyze_tools_directory(agent_tool_dir)
+                            
+                            # Update all tools for the agent with new scores
+                            if tci_results:
+                                for t_name, tci_data in tci_results.items():
+                                    agent.update_tool_complexity(t_name, tci_data)
                         
-                        # Phase 3: Build Tests for the new tool
+                        # Phase 3b: Build Tests for the new tool
                         logger.info(f"   🧪 Building tests for {agent.agent_id}'s new tool...")
                         test_result = agent.build_tests(build_result["tool_info"])
                         
@@ -267,6 +283,9 @@ class ExperimentRunner:
         
         # Phase 4: Removed - Keep agent cycle pure (observe → reflect → build_tools → build_tests)
         
+        # Phase 5: Calculate and Record System Complexity
+        self._calculate_and_record_system_complexity(round_num)
+
         # Get total tools in system
         all_tools = self.tool_registry.get_all_tools()
         round_results["total_tools_in_system"] = len(all_tools)
@@ -284,6 +303,27 @@ class ExperimentRunner:
         
         return round_results
     
+    def _calculate_and_record_system_complexity(self, round_num: int):
+        """Calculate the average TCI of all tools in the system at the end of a round."""
+        all_tools_metadata = self.tool_registry.get_all_tools()
+        total_tci = 0
+        tool_count = 0
+        
+        for tool_name, metadata in all_tools_metadata.items():
+            complexity_data = metadata.get("complexity")
+            if complexity_data and "tci_score" in complexity_data:
+                total_tci += complexity_data["tci_score"]
+                tool_count += 1
+        
+        average_tci = total_tci / tool_count if tool_count > 0 else 0
+        
+        self.complexity_over_rounds.append({
+            "round": round_num,
+            "average_tci": average_tci,
+            "tool_count": tool_count
+        })
+        logger.info(f"   📈 System Complexity: Avg TCI = {average_tci:.2f} across {tool_count} tools.")
+
     def run_experiment(self):
         """Run the complete experiment with testing support."""
         logger.info(f"🚀 Starting Experiment: {self.experiment_name}")

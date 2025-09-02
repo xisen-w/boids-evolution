@@ -136,19 +136,29 @@ class ExperimentVisualizer:
         passed_tests = test_results.get('passed_tests', 0)
         failed_tests = test_results.get('failed_tests', 0)
         
-        if execution_success and all_passed:
+        # FIX: Prioritize test pass/fail status over execution status for a clearer report.
+        if all_passed:
             icon = "✅"
             status_color = self.COLORS['GREEN']
             status = "ALL PASSED"
-        elif execution_success and not all_passed:
+        elif passed_tests > 0 and failed_tests > 0:
             icon = "⚠️"
             status_color = self.COLORS['YELLOW']
             status = "SOME FAILED"
-        else:
+        elif failed_tests > 0 and passed_tests == 0:
             icon = "❌"
             status_color = self.COLORS['RED']
-            status = "EXEC FAILED"
-        
+            status = "ALL FAILED"
+        elif not execution_success:
+            icon = "🔥"
+            status_color = self.COLORS['RED']
+            status = "EXECUTION ERROR"
+        else:
+            # Catch-all for unusual cases, like no tests found but execution was ok
+            icon = "❓"
+            status_color = self.COLORS['WHITE']
+            status = "UNKNOWN STATUS"
+
         print(f"\n{color}🧪 {self.COLORS['BOLD']}{agent_id} TESTING{self.COLORS['RESET']}")
         print(f"{color}{'─'*40}{self.COLORS['RESET']}")
         print(f"   {icon} Tool: {self.COLORS['BOLD']}{tool_name}{self.COLORS['RESET']}")

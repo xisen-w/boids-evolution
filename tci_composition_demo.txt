@@ -1,0 +1,61 @@
+================================================================================
+TOOL COMPLEXITY INDEX (TCI) ANALYSIS REPORT
+================================================================================
+📊 Analyzed 6 tools
+⚖️  Weights: α=1.0 (code), β=1.0 (interface), γ=1.0 (composition)
+
+📈 COMPLEXITY RANKINGS:
+----------------------------------------
+ 1. advanced_calculator  TCI:  12.80 (Code:  9.6, Interface:  0.9, Composition:  2.3)
+ 2. calculate            TCI:   8.56 (Code:  7.3, Interface:  0.9, Composition:  0.3)
+ 3. power                TCI:   7.87 (Code:  5.9, Interface:  1.0, Composition:  1.0)
+ 4. ai_text_generate     TCI:   4.84 (Code:  3.5, Interface:  1.0, Composition:  0.3)
+ 5. square               TCI:   4.80 (Code:  2.7, Interface:  1.1, Composition:  1.0)
+ 6. multiply             TCI:   2.92 (Code:  1.0, Interface:  1.0, Composition:  0.9)
+
+📊 COMPLEXITY DISTRIBUTION:
+----------------------------------------
+TCI Scores     - Mean:  6.96, Std:  3.55, Range: [ 2.9, 12.8]
+Code Scores    - Mean:  5.03, Std:  3.18, Range: [ 1.0,  9.6]
+Interface      - Mean:  0.97, Std:  0.07, Range: [ 0.9,  1.1]
+Compositional  - Mean:  0.97, Std:  0.73, Range: [ 0.3,  2.3]
+
+🔍 DETAILED ANALYSIS:
+----------------------------------------
+
+🏆 #1 MOST COMPLEX: advanced_calculator
+   TCI Score: 12.80 (normalized: 1.00)
+   Code Complexity: 9.61
+     - Cyclomatic: 12
+     - Lines of Code: 64
+     - Nesting Depth: 3
+   Interface Complexity: 0.89
+   Compositional Complexity: 2.30
+     - Fan-in: 0
+     - Fan-out: 5
+     - Dependency Depth: 2
+
+🏆 #2 MOST COMPLEX: calculate
+   TCI Score: 8.56 (normalized: 0.67)
+   Code Complexity: 7.35
+     - Cyclomatic: 7
+     - Lines of Code: 50
+     - Nesting Depth: 5
+   Interface Complexity: 0.91
+   Compositional Complexity: 0.30
+     - Fan-in: 1
+     - Fan-out: 0
+     - Dependency Depth: 0
+
+🏆 #3 MOST COMPLEX: power
+   TCI Score: 7.87 (normalized: 0.62)
+   Code Complexity: 5.91
+     - Cyclomatic: 8
+     - Lines of Code: 77
+     - Nesting Depth: 2
+   Interface Complexity: 0.97
+   Compositional Complexity: 1.00
+     - Fan-in: 1
+     - Fan-out: 1
+     - Dependency Depth: 1
+================================================================================

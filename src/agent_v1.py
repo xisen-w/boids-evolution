@@ -943,6 +943,28 @@ Output ONLY the Python test code."""
         index_data["tools"][tool_name] = tool_entry
         self._save_index_json(index_file, index_data)
     
+    def update_tool_complexity(self, tool_name: str, tci_data: Dict[str, Any]):
+        """Update the tool index with its TCI complexity score."""
+        index_file = os.path.join(self.personal_tool_dir, "index.json")
+        index_data = self._load_index_json(index_file)
+        
+        if tool_name in index_data.get("tools", {}):
+            # Ensure complexity key exists
+            if "complexity" not in index_data["tools"][tool_name]:
+                index_data["tools"][tool_name]["complexity"] = {}
+            
+            # Update with TCI data
+            index_data["tools"][tool_name]["complexity"].update({
+                "tci_score": tci_data.get("tci_score"),
+                "tci_normalized": tci_data.get("tci_normalized"),
+                "code_complexity": tci_data.get("code_complexity"),
+                "interface_complexity": tci_data.get("interface_complexity"),
+                "compositional_complexity": tci_data.get("compositional_complexity")
+            })
+            
+            if self._save_index_json(index_file, index_data):
+                print(f"   🔬 Updated complexity for {tool_name} in index.json")
+    
     def _update_tool_test_status(self, tool_name: str, test_results: Dict[str, Any]):
         """Update tool index with test execution results."""
         index_file = f"{self.personal_tool_dir}/index.json"

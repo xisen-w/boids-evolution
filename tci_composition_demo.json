@@ -1,0 +1,200 @@
+{
+  "calculate": {
+    "tci_score": 8.556000000000001,
+    "code_complexity": 7.35,
+    "interface_complexity": 0.906,
+    "compositional_complexity": 0.30000000000000004,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 7.35,
+        "cyclomatic_complexity": 7,
+        "cognitive_complexity": 15,
+        "nesting_depth": 5,
+        "lines_of_code": 50,
+        "num_functions": 1,
+        "num_branches": 5,
+        "num_loops": 0
+      },
+      "interface": {
+        "interface_complexity_score": 0.906,
+        "param_complexity": 1.19,
+        "return_complexity": 1.1,
+        "error_handling": 0.5,
+        "context_usage": 0.0
+      },
+      "composition": {
+        "compositional_complexity_score": 0.30000000000000004,
+        "dependency_depth": 0,
+        "fan_out": 0,
+        "fan_in": 1,
+        "reuse_frequency": 1
+      }
+    },
+    "tci_normalized": 0.6686464520162552
+  },
+  "multiply": {
+    "tci_score": 2.9160000000000004,
+    "code_complexity": 1.0499999999999998,
+    "interface_complexity": 0.966,
+    "compositional_complexity": 0.9000000000000001,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 1.0499999999999998,
+        "cyclomatic_complexity": 2,
+        "cognitive_complexity": 0,
+        "nesting_depth": 0,
+        "lines_of_code": 30,
+        "num_functions": 1,
+        "num_branches": 0,
+        "num_loops": 0
+      },
+      "interface": {
+        "interface_complexity_score": 0.966,
+        "param_complexity": 1.19,
+        "return_complexity": 1.3,
+        "error_handling": 0.5,
+        "context_usage": 0.0
+      },
+      "composition": {
+        "compositional_complexity_score": 0.9000000000000001,
+        "dependency_depth": 0,
+        "fan_out": 0,
+        "fan_in": 3,
+        "reuse_frequency": 3
+      }
+    },
+    "tci_normalized": 0.22788371366051896
+  },
+  "advanced_calculator": {
+    "tci_score": 12.796,
+    "code_complexity": 9.61,
+    "interface_complexity": 0.8859999999999999,
+    "compositional_complexity": 2.3,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 9.61,
+        "cyclomatic_complexity": 12,
+        "cognitive_complexity": 18,
+        "nesting_depth": 3,
+        "lines_of_code": 64,
+        "num_functions": 1,
+        "num_branches": 8,
+        "num_loops": 1
+      },
+      "interface": {
+        "interface_complexity_score": 0.8859999999999999,
+        "param_complexity": 1.19,
+        "return_complexity": 0.7,
+        "error_handling": 1.0,
+        "context_usage": 0.0
+      },
+      "composition": {
+        "compositional_complexity_score": 2.3,
+        "dependency_depth": 2,
+        "fan_out": 5,
+        "fan_in": 0,
+        "reuse_frequency": 0
+      }
+    },
+    "tci_normalized": 1.0
+  },
+  "ai_text_generate": {
+    "tci_score": 4.836,
+    "code_complexity": 3.5300000000000002,
+    "interface_complexity": 1.006,
+    "compositional_complexity": 0.30000000000000004,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 3.5300000000000002,
+        "cyclomatic_complexity": 5,
+        "cognitive_complexity": 2,
+        "nesting_depth": 1,
+        "lines_of_code": 82,
+        "num_functions": 1,
+        "num_branches": 2,
+        "num_loops": 0
+      },
+      "interface": {
+        "interface_complexity_score": 1.006,
+        "param_complexity": 1.19,
+        "return_complexity": 1.1,
+        "error_handling": 1.0,
+        "context_usage": 0.0
+      },
+      "composition": {
+        "compositional_complexity_score": 0.30000000000000004,
+        "dependency_depth": 0,
+        "fan_out": 0,
+        "fan_in": 1,
+        "reuse_frequency": 1
+      }
+    },
+    "tci_normalized": 0.3779306033135355
+  },
+  "square": {
+    "tci_score": 4.801,
+    "code_complexity": 2.7350000000000003,
+    "interface_complexity": 1.066,
+    "compositional_complexity": 0.9999999999999999,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 2.7350000000000003,
+        "cyclomatic_complexity": 4,
+        "cognitive_complexity": 2,
+        "nesting_depth": 1,
+        "lines_of_code": 49,
+        "num_functions": 1,
+        "num_branches": 2,
+        "num_loops": 0
+      },
+      "interface": {
+        "interface_complexity_score": 1.066,
+        "param_complexity": 1.19,
+        "return_complexity": 1.3,
+        "error_handling": 0.5,
+        "context_usage": 1.0
+      },
+      "composition": {
+        "compositional_complexity_score": 0.9999999999999999,
+        "dependency_depth": 1,
+        "fan_out": 1,
+        "fan_in": 1,
+        "reuse_frequency": 1
+      }
+    },
+    "tci_normalized": 0.3751953735542357
+  },
+  "power": {
+    "tci_score": 7.871,
+    "code_complexity": 5.905,
+    "interface_complexity": 0.966,
+    "compositional_complexity": 0.9999999999999999,
+    "detailed_metrics": {
+      "code": {
+        "code_complexity_score": 5.905,
+        "cyclomatic_complexity": 8,
+        "cognitive_complexity": 7,
+        "nesting_depth": 2,
+        "lines_of_code": 77,
+        "num_functions": 1,
+        "num_branches": 5,
+        "num_loops": 1
+      },
+      "interface": {
+        "interface_complexity_score": 0.966,
+        "param_complexity": 1.19,
+        "return_complexity": 1.3,
+        "error_handling": 0.5,
+        "context_usage": 0.0
+      },
+      "composition": {
+        "compositional_complexity_score": 0.9999999999999999,
+        "dependency_depth": 1,
+        "fan_out": 1,
+        "fan_in": 1,
+        "reuse_frequency": 1
+      }
+    },
+    "tci_normalized": 0.6151140981556737
+  }
+}
