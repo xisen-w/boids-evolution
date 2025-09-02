@@ -78,7 +78,9 @@ class ExperimentRunner:
         self.round_results = []
         self.complexity_over_rounds = []  # Track average TCI per round
         self.visualizer = ExperimentVisualizer()
-        self.tci_analyzer = TCIAnalyzer()
+        # Re-weight TCI to prioritize composition
+        # alpha (code) = 0.5, beta (interface) = 1.0, gamma (composition) = 2.0
+        self.tci_analyzer = TCIAnalyzer(alpha=0.5, beta=1.0, gamma=2.0)
         
         logger.info(f"🧪 Experiment initialized: {self.experiment_name}")
         logger.info(f"📁 Experiment directory: {self.experiment_dir}")

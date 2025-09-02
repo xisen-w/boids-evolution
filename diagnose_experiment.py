@@ -75,25 +75,105 @@ def get_complexity_breakdown_over_rounds(results_data: dict) -> list:
     # requires a change in the data collection process.
     return results_data.get("complexity_over_rounds", [])
 
+def get_complexity_of_new_tools_per_round(results_data: dict, exp_dir: str) -> list:
+    """
+    Calculates the average TCI of only the NEW tools created in each round.
+    """
+    # Load the final state of the shared tool index, which contains all complexity scores
+    shared_index_file = os.path.join(exp_dir, "shared_tools", "index.json")
+    if not os.path.exists(shared_index_file):
+        logger.error(f"Cannot find final shared tool index at: {shared_index_file}")
+        return []
+    
+    with open(shared_index_file, 'r') as f:
+        final_tool_index = json.load(f).get("tools", {})
 
-def plot_overall_tci_evolution(exp_dir: str, complexity_data: list):
-    """Plots the primary 'Average TCI vs. Round Number' curve."""
+    tools_by_round = {}
+    for round_data in results_data.get("round_results", []):
+        round_num = round_data.get("round")
+        if round_num is None:
+            continue
+        
+        tools_by_round[round_num] = []
+        for agent_action in round_data.get("agent_actions", []):
+            if agent_action.get("tool_build_success"):
+                # This part is tricky. The tool_info is not in the results.json
+                # We need to find another way to get the tool name.
+                # Let's check the promotion log messages. This is a hack for now.
+                # A proper fix would be to save the tool name in agent_actions.
+                pass 
+
+    # We need a reliable way to know which tool was created each round.
+    # The best source is the `created_at` timestamp in the index and round timestamps.
+    # Let's try to map tools to rounds based on timestamps.
+
+    round_timestamps = {r['round']: r['timestamp'] for r in results_data.get("round_results", [])}
+    tools_created_in_round = {r: [] for r in round_timestamps.keys()}
+
+    for tool_name, metadata in final_tool_index.items():
+        created_at_str = metadata.get("created_at")
+        if not created_at_str:
+            continue
+        
+        # Find which round this tool belongs to
+        best_round = -1
+        for round_num, round_time_str in round_timestamps.items():
+            if created_at_str >= round_time_str:
+                best_round = round_num
+        
+        if best_round != -1:
+            tools_created_in_round[best_round].append(tool_name)
+
+    # Now calculate the average TCI for new tools in each round
+    new_tools_tci_per_round = []
+    for round_num, tool_names in tools_created_in_round.items():
+        if not tool_names:
+            avg_tci = 0
+            # Carry over the last non-zero TCI to avoid a misleading drop to zero
+            if new_tools_tci_per_round:
+                avg_tci = new_tools_tci_per_round[-1]['average_tci_new_tools']
+        else:
+            total_tci = 0
+            for tool_name in tool_names:
+                total_tci += final_tool_index.get(tool_name, {}).get("complexity", {}).get("tci_score", 0)
+            avg_tci = total_tci / len(tool_names)
+        
+        new_tools_tci_per_round.append({
+            "round": round_num,
+            "average_tci_new_tools": avg_tci,
+            "new_tools_count": len(tool_names)
+        })
+
+    return new_tools_tci_per_round
+
+
+def plot_overall_tci_evolution(exp_dir: str, complexity_data: list, new_tools_tci_data: list):
+    """Plots both the overall average and the average of new tools."""
     if not complexity_data:
         logger.warning("No complexity data found to plot overall TCI evolution.")
         return
 
-    df = pd.DataFrame(complexity_data)
-    if 'round' not in df.columns or 'average_tci' not in df.columns:
-        logger.error("Data for overall TCI plot is malformed.")
-        return
+    df_overall = pd.DataFrame(complexity_data)
+    df_new = pd.DataFrame(new_tools_tci_data)
 
     plt.figure(figsize=(12, 7))
-    plt.plot(df['round'], df['average_tci'], marker='o', linestyle='-', color='royalblue', label='Average TCI')
-    plt.title(f'Overall Tool Complexity Evolution\n(Experiment: {os.path.basename(exp_dir)})', fontsize=16)
+    
+    # Plot overall average TCI
+    if 'average_tci' in df_overall.columns:
+        plt.plot(df_overall['round'], df_overall['average_tci'], marker='o', linestyle='-', color='royalblue', label='Avg. TCI of ALL Tools (Ecosystem Health)')
+
+    # Plot average TCI of NEW tools
+    if 'average_tci_new_tools' in df_new.columns:
+        plt.plot(df_new['round'], df_new['average_tci_new_tools'], marker='s', linestyle='--', color='firebrick', label='Avg. TCI of NEW Tools (Innovation Rate)')
+
+    plt.title(f'Tool Complexity Evolution\n(Experiment: {os.path.basename(exp_dir)})', fontsize=16)
     plt.xlabel('Round Number', fontsize=12)
-    plt.ylabel('Average Tool Complexity Index (TCI)', fontsize=12)
+    plt.ylabel('Tool Complexity Index (TCI)', fontsize=12)
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    plt.xticks(np.arange(min(df['round']), max(df['round'])+1, 1.0))
+    
+    all_rounds = np.union1d(df_overall['round'], df_new['round'])
+    plt.xticks(np.arange(min(all_rounds), max(all_rounds)+1, 1.0))
+    
     plt.legend()
     plt.tight_layout()
 
@@ -160,14 +240,11 @@ def main():
         return 1
     
     # --- Plotting ---
-    # NOTE: As designed, we first need to modify the runner to save the breakdown.
-    # The complexity_over_rounds in the results file needs to be enhanced.
-    # For now, only the first plot will work if the data is present.
-    
     complexity_data = results_data.get("complexity_over_rounds", [])
+    new_tools_tci_data = get_complexity_of_new_tools_per_round(results_data, args.exp_dir)
     
-    # Plot 1: Overall TCI Evolution
-    plot_overall_tci_evolution(args.exp_dir, complexity_data)
+    # Plot 1: Overall and New Tool TCI Evolution
+    plot_overall_tci_evolution(args.exp_dir, complexity_data, new_tools_tci_data)
 
     # Plot 2: TCI Breakdown (will be enabled once data is available)
     plot_tci_breakdown_evolution(args.exp_dir, complexity_data)
