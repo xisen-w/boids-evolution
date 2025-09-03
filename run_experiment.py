@@ -104,9 +104,8 @@ class ExperimentRunner:
         self.complexity_over_rounds = []  # Track average TCI per round
         self.center_history = [] # Track the global summary over rounds
         self.visualizer = ExperimentVisualizer()
-        # Re-weight TCI to prioritize composition
-        # alpha (code) = 0.5, beta (interface) = 1.0, gamma (composition) = 10.0
-        self.tci_analyzer = TCIAnalyzer(alpha=0.5, beta=1.0, gamma=10.0)
+        # TCI-Lite v4: No weights needed, uses absolute 10-point scale
+        self.tci_analyzer = TCIAnalyzer()
         
         # Initialize evolutionary algorithm if enabled
         self.evolutionary_algorithm = None

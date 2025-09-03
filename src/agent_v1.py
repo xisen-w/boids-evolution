@@ -684,10 +684,15 @@ Output ONLY the Python test code."""
             # Update with TCI data
             index_data["tools"][tool_name]["complexity"].update({
                 "tci_score": tci_data.get("tci_score"),
-                "tci_normalized": tci_data.get("tci_normalized"),
+                "tci_raw": tci_data.get("tci_raw"),
                 "code_complexity": tci_data.get("code_complexity"),
                 "interface_complexity": tci_data.get("interface_complexity"),
-                "compositional_complexity": tci_data.get("compositional_complexity")
+                "compositional_complexity": tci_data.get("compositional_complexity"),
+                # Detailed metrics for analysis
+                "lines_of_code": tci_data.get("lines_of_code"),
+                "param_count": tci_data.get("param_count"),
+                "tool_calls": tci_data.get("tool_calls"),
+                "external_imports": tci_data.get("external_imports")
             })
             
             if self._save_index_json(index_file, index_data):
