@@ -15,6 +15,7 @@ import json
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
+import re
 
 from src.azure_client import AzureOpenAIClient
 from src.agent_v1 import Agent
@@ -59,7 +60,8 @@ class ExperimentRunner:
                  boids_sep_threshold: float = 0.45,
                  evolution_enabled: bool = False,
                  evolution_frequency: int = 5,
-                 evolution_selection_rate: float = 0.2):
+                 evolution_selection_rate: float = 0.2,
+                 self_reflection_enabled: bool = False):
         
         self.experiment_name = experiment_name
         self.num_agents = num_agents
@@ -69,6 +71,7 @@ class ExperimentRunner:
         self.boids_enabled = boids_enabled
         self.boids_k_neighbors = boids_k_neighbors if boids_enabled else 0
         self.boids_sep_threshold = boids_sep_threshold if boids_enabled else 0
+        self.self_reflection_enabled = self_reflection_enabled
         
         # Evolution parameters
         self.evolution_enabled = evolution_enabled
@@ -264,6 +267,11 @@ class ExperimentRunner:
                     separation_prompt = boids_rules.prepare_separation_prompt(neighbor_tools_meta, self.shared_tools_dir)
                     cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
                     
+                    # Add self-reflection if enabled
+                    self_reflection_prompt = ""
+                    if self.self_reflection_enabled:
+                        self_reflection_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
+
                     # 2. Assemble the final prompt, ensuring the meta_prompt is central
                     system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society.
 
@@ -279,6 +287,7 @@ Your strategy is guided by Boids rules. You must reflect on your local neighborh
 Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to the BOIDS RULES methodology."""
                     
                     user_prompt = "\n\n".join(filter(None, [
+                        self_reflection_prompt,
                         alignment_prompt,
                         separation_prompt,
                         cohesion_prompt,
@@ -358,9 +367,9 @@ Reflect on:
                 
                 self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
                     
-                    if build_result["success"]:
-                        round_results["tools_created"] += 1
-                        logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
+                if build_result["success"]:
+                    round_results["tools_created"] += 1
+                    logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
 
                     # Add tool info to this round's summary data
                     tool_info = build_result.get("tool_info", {})
@@ -372,32 +381,32 @@ Reflect on:
                     })
 
                     # --- 3. Build Tests ---
-                        logger.info(f"   🧪 Building tests for {agent.agent_id}'s new tool...")
-                        test_result = agent.build_tests(build_result["tool_info"])
+                    logger.info(f"   🧪 Building tests for {agent.agent_id}'s new tool...")
+                    test_result = agent.build_tests(build_result["tool_info"])
+                    
+                    if test_result["success"]:
+                        round_results["tests_created"] += 1
+                        test_results = test_result.get("test_results", {})
+                        tool_name = build_result["tool_info"].get("tool_name", "unknown")
+                        self.visualizer.show_test_execution(agent.agent_id, tool_name, test_results)
                         
-                        if test_result["success"]:
-                            round_results["tests_created"] += 1
-                            test_results = test_result.get("test_results", {})
-                            tool_name = build_result["tool_info"].get("tool_name", "unknown")
-                            self.visualizer.show_test_execution(agent.agent_id, tool_name, test_results)
-                            
-                            if test_results.get("all_passed"):
-                                round_results["tests_passed"] += 1
-                                self._promote_tool_to_shared(agent, tool_name)
-                            else:
-                                round_results["tests_failed"] += 1
-                    else:
-                        logger.warning(f"   ⚠️  {agent.agent_id}: Tool building failed")
-                        
-                    # Record agent action
-                    agent_action = {
-                        "agent_id": agent.agent_id,
-                        "tool_build_success": build_result["success"],
-                        "test_build_success": test_result.get("success", False) if build_result["success"] else False,
-                        "test_passed": test_result.get("test_results", {}).get("all_passed", False) if build_result["success"] else False,
+                        if test_results.get("all_passed"):
+                            round_results["tests_passed"] += 1
+                            self._promote_tool_to_shared(agent, tool_name)
+                        else:
+                            round_results["tests_failed"] += 1
+                else:
+                    logger.warning(f"   ⚠️  {agent.agent_id}: Tool building failed")
+                    
+                # Record agent action
+                agent_action = {
+                    "agent_id": agent.agent_id,
+                    "tool_build_success": build_result["success"],
+                    "test_build_success": test_result.get("success", False) if build_result["success"] else False,
+                    "test_passed": test_result.get("test_results", {}).get("all_passed", False) if build_result["success"] else False,
                     "tools_built_so_far": len(agent.self_built_tools)
-                    }
-                    round_results["agent_actions"].append(agent_action)
+                }
+                round_results["agent_actions"].append(agent_action)
                     
             except Exception as e:
                 logger.error(f"   ❌ {agent.agent_id} turn failed: {e}", exc_info=True)
@@ -407,6 +416,9 @@ Reflect on:
             current_global_summary = self._summarize_global_activity(round_num, round_actions_for_summary)
             self.center_history.append(current_global_summary)
             logger.info(f"🌍 Global Summary for Round {round_num}: {current_global_summary}")
+            
+            # Update adoption counts at the very end of the round
+            self._update_adoption_counts()
             
         # Calculate and Record System Complexity
         self._calculate_and_record_system_complexity(round_num)
@@ -425,6 +437,53 @@ Reflect on:
         
         return round_results
     
+    def _update_adoption_counts(self):
+        """
+        Scans all shared tools at the end of a round and updates their adoption counts.
+        """
+        logger.info("📊 Updating tool adoption counts...")
+        all_tools_meta = self.tool_registry.get_all_tools()
+        tool_names = list(all_tools_meta.keys())
+        
+        # Reset current counts to avoid double-counting
+        for tool_name in tool_names:
+            if "adoption_count" in all_tools_meta[tool_name]:
+                all_tools_meta[tool_name]["adoption_count"] = 0
+
+        # Regex to find context.call_tool('tool_name', ...)
+        call_pattern = re.compile(r"context\.call_tool\(['\"](.*?)['\"],")
+
+        # Iterate through each tool and scan its code for calls to other tools
+        for tool_name, metadata in all_tools_meta.items():
+            tool_path = os.path.join(self.shared_tools_dir, metadata['file'])
+            if os.path.exists(tool_path):
+                try:
+                    with open(tool_path, 'r', encoding='utf-8') as f:
+                        code = f.read()
+                        found_calls = call_pattern.findall(code)
+                        for called_tool in found_calls:
+                            if called_tool in all_tools_meta:
+                                if "adoption_count" not in all_tools_meta[called_tool]:
+                                    all_tools_meta[called_tool]["adoption_count"] = 0
+                                all_tools_meta[called_tool]["adoption_count"] += 1
+                except Exception as e:
+                    logger.error(f"Error reading or parsing {tool_path}: {e}")
+
+        # Save the updated metadata back to the shared index
+        shared_index_file = os.path.join(self.shared_tools_dir, "index.json")
+        if os.path.exists(shared_index_file):
+            try:
+                with open(shared_index_file, 'r') as f:
+                    shared_index_data = json.load(f)
+                
+                shared_index_data["tools"] = all_tools_meta
+                
+                with open(shared_index_file, 'w') as f:
+                    json.dump(shared_index_data, f, indent=2)
+                logger.info("✅ Tool adoption counts updated successfully.")
+            except Exception as e:
+                logger.error(f"❌ Failed to save updated adoption counts to {shared_index_file}: {e}")
+
     def _summarize_global_activity(self, round_num: int, round_actions: List[Dict]) -> str:
         """
         Uses an LLM to act as a "senior architect" summarizing the collective activity of a round.
@@ -846,7 +905,8 @@ def main():
         boids_sep_threshold=0.45,
         evolution_enabled=False,  # Set to True to enable evolution
         evolution_frequency=5,    # Evolve every 5 rounds
-        evolution_selection_rate=0.2  # Remove bottom 20%
+        evolution_selection_rate=0.2,  # Remove bottom 20%
+        self_reflection_enabled=True # Enable self-reflection
     )
     
     # Run the experiment

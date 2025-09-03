@@ -92,7 +92,7 @@ def plot_complexity_evolution(experiment_dir: str, complexity_data: List[Dict[st
         logger.error(f"Failed to plot complexity evolution: {e}")
 
 
-def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int, boids_enabled: bool, boids_k: int, boids_sep: float):
+def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int, boids_enabled: bool, boids_k: int, boids_sep: float, self_reflection: bool):
     """
     Configures and runs a single experiment.
     """
@@ -114,7 +114,8 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
         agent_specializations=agent_specializations,
         boids_enabled=boids_enabled,
         boids_k_neighbors=boids_k,
-        boids_sep_threshold=boids_sep
+        boids_sep_threshold=boids_sep,
+        self_reflection=self_reflection
     )
     
     success = runner.run_experiment()
@@ -139,6 +140,7 @@ def main():
     parser.add_argument("--boids_enabled", action='store_true', help="Enable Boids rules for agent behavior.")
     parser.add_argument("--boids_k", type=int, default=2, help="Number of neighbors for Boids rules (k).")
     parser.add_argument("--boids_sep", type=float, default=0.45, help="Separation threshold for Boids rules.")
+    parser.add_argument("--self_reflection", action='store_true', help="Enable agent's self-reflection awareness.")
     
     args = parser.parse_args()
     
@@ -165,7 +167,8 @@ def main():
         num_rounds=args.num_rounds,
         boids_enabled=args.boids_enabled,
         boids_k=args.boids_k,
-        boids_sep=args.boids_sep
+        boids_sep=args.boids_sep,
+        self_reflection=args.self_reflection
     )
     
     return 0

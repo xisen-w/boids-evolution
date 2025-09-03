@@ -661,7 +661,8 @@ Output ONLY the Python test code."""
             "file": f"{tool_name}.py",
             "created_by": self.agent_id,
             "created_at": datetime.now().isoformat(),
-            "created_in_round": round_num
+            "created_in_round": round_num,
+            "adoption_count": 0
         }
         # DRY: Add test status fields
         tool_entry.update(self._get_default_test_status_fields(tool_name))

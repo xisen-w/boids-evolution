@@ -1,0 +1,1 @@
+{'duplicates_found': [], 'organized_files': [], 'archived_files': [], 'deleted_files': []}
