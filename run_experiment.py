@@ -21,6 +21,8 @@ from src.agent_v1 import Agent
 from src.tools_v1 import ToolRegistryV1
 from src.experiment_visualizer import ExperimentVisualizer
 from src.complexity_analyzer import TCIAnalyzer
+from src.evolutionary_algorithm import EvolutionaryAlgorithm
+import src.boids_rules as boids_rules
 
 # Configure logging
 logging.basicConfig(
@@ -51,13 +53,27 @@ class ExperimentRunner:
                  num_agents: int, 
                  max_rounds: int, 
                  shared_meta_prompt: str,
-                 agent_specializations: List[str] = None):
+                 agent_specializations: List[str] = None,
+                 boids_enabled: bool = True,
+                 boids_k_neighbors: int = 2,
+                 boids_sep_threshold: float = 0.45,
+                 evolution_enabled: bool = False,
+                 evolution_frequency: int = 5,
+                 evolution_selection_rate: float = 0.2):
         
         self.experiment_name = experiment_name
         self.num_agents = num_agents
         self.max_rounds = max_rounds
         self.shared_meta_prompt = shared_meta_prompt
         self.agent_specializations = agent_specializations or []
+        self.boids_enabled = boids_enabled
+        self.boids_k_neighbors = boids_k_neighbors if boids_enabled else 0
+        self.boids_sep_threshold = boids_sep_threshold if boids_enabled else 0
+        
+        # Evolution parameters
+        self.evolution_enabled = evolution_enabled
+        self.evolution_frequency = evolution_frequency
+        self.evolution_selection_rate = evolution_selection_rate
         
         # Experiment paths - EVERYTHING goes inside the experiment directory
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -77,10 +93,21 @@ class ExperimentRunner:
         self.agents = []
         self.round_results = []
         self.complexity_over_rounds = []  # Track average TCI per round
+        self.center_history = [] # Track the global summary over rounds
         self.visualizer = ExperimentVisualizer()
         # Re-weight TCI to prioritize composition
         # alpha (code) = 0.5, beta (interface) = 1.0, gamma (composition) = 10.0
         self.tci_analyzer = TCIAnalyzer(alpha=0.5, beta=1.0, gamma=10.0)
+        
+        # Initialize evolutionary algorithm if enabled
+        self.evolutionary_algorithm = None
+        if self.evolution_enabled:
+            self.evolutionary_algorithm = EvolutionaryAlgorithm(
+                selection_rate=self.evolution_selection_rate,
+                mutation_rate=0.3,
+                crossover_rate=0.5,
+                min_population_size=max(3, num_agents // 2)
+            )
         
         logger.info(f"🧪 Experiment initialized: {self.experiment_name}")
         logger.info(f"📁 Experiment directory: {self.experiment_dir}")
@@ -174,16 +201,38 @@ class ExperimentRunner:
             logger.error(f"❌ Agent initialization failed: {e}")
             raise
     
+    def _get_neighbors(self, agent_index: int) -> List[Agent]:
+        """
+        Determines neighbors based on a k-regular ring topology.
+        """
+        if self.num_agents <= 1:
+            return []
+        
+        neighbors = []
+        for i in range(1, self.boids_k_neighbors + 1):
+            # Right neighbor
+            right_idx = (agent_index + i) % self.num_agents
+            neighbors.append(self.agents[right_idx])
+            # Left neighbor
+            left_idx = (agent_index - i + self.num_agents) % self.num_agents
+            neighbors.append(self.agents[left_idx])
+            
+        return list(set(neighbors)) # Return unique neighbors
+    
     def _run_single_round(self, round_num: int) -> Dict[str, Any]:
         """
         Run a single round of the agent society simulation.
-        Enhanced with testing phases and beautiful visualization!
+        Supports both Boids-driven and legacy reflection-driven modes.
         """
-        logger.info(f"\n🔄 Starting Round {round_num}")
+        mode = "Boids Rules" if self.boids_enabled else "Global Reflection"
+        logger.info(f"\n🔄 Starting Round {round_num} (Mode: {mode})")
         logger.info("=" * 50)
-        
-        # Show beautiful round header
         self.visualizer.show_round_header(round_num, self.max_rounds)
+        
+        # Get the global summary from the previous round for Cohesion
+        last_global_summary = self.center_history[-1] if self.center_history else ""
+        
+        round_actions_for_summary = [] # Collect data for the end-of-round summary
         
         round_results = {
             "round": round_num,
@@ -194,80 +243,149 @@ class ExperimentRunner:
             "tests_passed": 0,
             "tests_failed": 0,
             "total_tools_in_system": 0,
-            "collaboration_events": 0  # Removed neighbor testing - pure agent cycle
+            "boids_metrics": [] if self.boids_enabled else None
         }
         
-        # Phase 1: Observe and Reflect
-        self.visualizer.show_phase_header("Phase 1: Agent Observation and Reflection", "🔍")
-        
-        for agent in self.agents:
+        for i, agent in enumerate(self.agents):
             try:
-                observation = agent.observe()
-                reflection = agent.reflect(observation)
+                # --- 1. Observation & Reflection ---
+                self.visualizer.show_phase_header(f"{agent.agent_id}'s Turn: Observation & Reflection", "🔍")
                 
-                # Show beautiful reflection visualization
-                self.visualizer.show_agent_reflection(agent.agent_id, reflection, observation)
-                
-                logger.info(f"   {agent.agent_id}: Observed {len(observation['all_visible_tools'])} tools")
-                logger.info(f"   {agent.agent_id}: Reflection generated")
-                
-            except Exception as e:
-                logger.error(f"   ❌ {agent.agent_id} observation/reflection failed: {e}")
-        
-        # Phase 2: Build Tools
-        self.visualizer.show_phase_header("Phase 2: Tool Building", "🔨")
-        
-        for agent in self.agents:
-            try:
-                # Get latest reflection
-                if agent.reflection_history:
-                    latest_reflection = agent.reflection_history[-1]["reflection"]
-                    build_result = agent.build_tools(latest_reflection)
+                if self.boids_enabled:
+                    # Boids v2.0 Mode: Semantic, rule-guided reflection
+                    neighbors = self._get_neighbors(i)
                     
-                    # Show beautiful tool creation visualization
-                    self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
+                    neighbor_tools_meta = []
+                    for neighbor_agent in neighbors:
+                        neighbor_tools_meta.extend(neighbor_agent.self_built_tools.values())
+
+                    # 1. Prepare Boids prompt components, now with code-reading capability
+                    alignment_prompt = boids_rules.prepare_alignment_prompt(neighbor_tools_meta, round_num, self.shared_tools_dir)
+                    separation_prompt = boids_rules.prepare_separation_prompt(neighbor_tools_meta, self.shared_tools_dir)
+                    cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
+                    
+                    # 2. Assemble the final prompt, ensuring the meta_prompt is central
+                    system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society.
+
+**MISSION OBJECTIVE:**
+{self.shared_meta_prompt}
+
+**METHODOLOGY: BOIDS RULES**
+Your strategy is guided by Boids rules. You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next. This means you must:
+1.  Adopt successful design principles from your neighbors (Alignment).
+2.  Find a unique functional niche and avoid redundancy (Separation).
+3.  Contribute to the collective goal identified by the society (Cohesion).
+
+Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to the BOIDS RULES methodology."""
+                    
+                    user_prompt = "\n\n".join(filter(None, [
+                        alignment_prompt,
+                        separation_prompt,
+                        cohesion_prompt,
+                        "[YOUR STRATEGATEGIC REFLECTION]",
+                        "Based on the Mission Objective and the Boids Rules data above, what is a specific, high-impact tool you can build now? Describe your idea and reasoning."
+                    ]))
+                    
+                    reflection = agent.reflect(system_prompt, user_prompt)
+
+                else:
+                    # Legacy Mode: Reconstruct the original global reflection prompt for backward compatibility
+                    observation = agent.observe()
+                    
+                    package_info = ""
+                    if agent.environment_manager:
+                        package_info = f"\n\n{agent.environment_manager.get_package_summary_for_agent()}"
+            
+                    system_prompt = f"""You are Agent {agent.agent_id} in a tool-building ecosystem. Your primary goal is to increase the collective capability of the agent society.
+
+META CONTEXT: {self.shared_meta_prompt}
+
+ECOSYSTEM GOAL: Create a robust and powerful tool library. Prioritize creating "deep" tools that solve complex problems by composing and chaining together existing tools.
+
+AVAILABLE ENVIRONMENTS: {', '.join(agent.envs_available)}{package_info}
+
+Reflect on the current tool ecosystem and think strategically about what to build next."""
+
+                    if agent.specific_prompt:
+                        system_prompt += f"\n\nSPECIFIC GUIDANCE: {agent.specific_prompt}"
+
+                    def format_test_status(test_status_dict, title):
+                        if not test_status_dict: return f"{title}: None available"
+                        lines = [f"{title}:"]
+                        for tool_name, status in test_status_dict.items():
+                            lines.append(f"  • {tool_name}: {status.get('test_summary', 'No test info')}")
+                        return "\n".join(lines)
+
+                    neighbor_test_summary = []
+                    for neighbor_id, tools in observation.get('neighbor_test_status', {}).items():
+                        if tools:
+                            tool_summaries = [f"{name}: {status.get('test_summary', 'No info')}" for name, status in tools.items()]
+                            neighbor_test_summary.append(f"  {neighbor_id}: {'; '.join(tool_summaries[:3])}")
+                    
+                    user_prompt = f"""CURRENT OBSERVATION:
+
+=== ECOSYSTEM SNAPSHOT ({len(observation.get('all_visible_tools', []))}) ===
+{format_test_status(observation.get('shared_test_status', {}), "Shared Foundational Tools")}
+
+{chr(10).join(neighbor_test_summary) if neighbor_test_summary else "No tools built by neighbors yet."}
+
+{format_test_status(observation.get('my_test_status', {}), "My Built Tools")}
+
+=== STRATEGIC REFLECTION ===
+Reflect on:
+1. What is the most significant capability missing from the ecosystem right now to achieve our goal?
+2. How can I combine existing tools to create a new, more powerful tool?
+3. What specific, high-impact tool should I create next that directly serves our main mission?"""
+                    
+                    reflection = agent.reflect(system_prompt, user_prompt)
+
+
+                self.visualizer.show_agent_reflection(agent.agent_id, reflection, {}) # Pass empty observation for now
+
+                # Log the detailed reflection context
+                reflection_entry = {
+                    "is_boids_reflection": self.boids_enabled,
+                    "system_prompt": system_prompt,
+                    "user_prompt": user_prompt,
+                    "reflection": reflection,
+                    "timestamp": datetime.now().isoformat()
+                }
+                agent.reflection_history.append(reflection_entry)
+
+                # --- 2. Build Tools ---
+                self.visualizer.show_phase_header(f"{agent.agent_id}'s Turn: Tool Building", "🔨")
+                build_result = agent.build_tools(reflection, round_num)
+                
+                self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
                     
                     if build_result["success"]:
                         round_results["tools_created"] += 1
                         logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
 
-                        # Phase 3a: Analyze Tool Complexity
-                        logger.info(f"   🔬 Analyzing complexity for new tool...")
-                        tool_name = build_result["tool_info"].get("tool_name")
-                        if tool_name:
-                            agent_tool_dir = agent.personal_tool_dir
-                            # Analyze the entire directory to update compositional scores
-                            tci_results = self.tci_analyzer.analyze_tools_directory(agent_tool_dir)
-                            
-                            # Update all tools for the agent with new scores
-                            if tci_results:
-                                for t_name, tci_data in tci_results.items():
-                                    agent.update_tool_complexity(t_name, tci_data)
-                        
-                        # Phase 3b: Build Tests for the new tool
+                    # Add tool info to this round's summary data
+                    tool_info = build_result.get("tool_info", {})
+                    round_actions_for_summary.append({
+                        "agent_id": agent.agent_id,
+                        "action": "build_tool",
+                        "tool_name": tool_info.get("tool_name"),
+                        "description": tool_info.get("tool_design", "")
+                    })
+
+                    # --- 3. Build Tests ---
                         logger.info(f"   🧪 Building tests for {agent.agent_id}'s new tool...")
                         test_result = agent.build_tests(build_result["tool_info"])
                         
                         if test_result["success"]:
                             round_results["tests_created"] += 1
-                            
-                            # Check test results
                             test_results = test_result.get("test_results", {})
                             tool_name = build_result["tool_info"].get("tool_name", "unknown")
-                            
-                            # Show beautiful test execution visualization
                             self.visualizer.show_test_execution(agent.agent_id, tool_name, test_results)
                             
                             if test_results.get("all_passed"):
                                 round_results["tests_passed"] += 1
-                                logger.info(f"   ✅ {agent.agent_id}: Tests passed!")
-                                # Promote the successful tool to the shared directory
                                 self._promote_tool_to_shared(agent, tool_name)
                             else:
                                 round_results["tests_failed"] += 1
-                                logger.info(f"   ❌ {agent.agent_id}: Tests failed")
-                        else:
-                            logger.warning(f"   ⚠️  {agent.agent_id}: Test creation failed")
                     else:
                         logger.warning(f"   ⚠️  {agent.agent_id}: Tool building failed")
                         
@@ -277,35 +395,73 @@ class ExperimentRunner:
                         "tool_build_success": build_result["success"],
                         "test_build_success": test_result.get("success", False) if build_result["success"] else False,
                         "test_passed": test_result.get("test_results", {}).get("all_passed", False) if build_result["success"] else False,
-                        "tools_built_so_far": len(agent.self_built_tools),
-                        "tests_built_so_far": len(agent.self_built_tests)
+                    "tools_built_so_far": len(agent.self_built_tools)
                     }
                     round_results["agent_actions"].append(agent_action)
                     
             except Exception as e:
-                logger.error(f"   ❌ {agent.agent_id} tool building failed: {e}")
+                logger.error(f"   ❌ {agent.agent_id} turn failed: {e}", exc_info=True)
         
-        # Phase 4: Removed - Keep agent cycle pure (observe → reflect → build_tools → build_tests)
-        
-        # Phase 5: Calculate and Record System Complexity
+        # After all agents have acted, generate the global summary for THIS round
+        if self.boids_enabled:
+            current_global_summary = self._summarize_global_activity(round_num, round_actions_for_summary)
+            self.center_history.append(current_global_summary)
+            logger.info(f"🌍 Global Summary for Round {round_num}: {current_global_summary}")
+            
+        # Calculate and Record System Complexity
         self._calculate_and_record_system_complexity(round_num)
 
         # Get total tools in system
         all_tools = self.tool_registry.get_all_tools()
         round_results["total_tools_in_system"] = len(all_tools)
         
-        # Show beautiful round summary
         self.visualizer.show_round_summary(round_num, round_results)
         
         logger.info(f"\n📊 Round {round_num} Summary:")
         logger.info(f"   Tools created: {round_results['tools_created']}")
         logger.info(f"   Tests created: {round_results['tests_created']}")
         logger.info(f"   Tests passed: {round_results['tests_passed']}")
-        logger.info(f"   Tests failed: {round_results['tests_failed']}")
         logger.info(f"   Total tools in system: {round_results['total_tools_in_system']}")
-        logger.info(f"   Collaboration events: {round_results['collaboration_events']}")
         
         return round_results
+    
+    def _summarize_global_activity(self, round_num: int, round_actions: List[Dict]) -> str:
+        """
+        Uses an LLM to act as a "senior architect" summarizing the collective activity of a round.
+        """
+        if not round_actions:
+            return "No significant tool-building activity occurred in this round."
+
+        # Prepare a summary of the actions for the LLM
+        action_details = []
+        for action in round_actions:
+            action_details.append(
+                f"- Agent: {action['agent_id']}\n"
+                f"  Tool Name: {action['tool_name']}\n"
+                f"  Description: {action['description']}"
+            )
+        
+        action_summary_text = "\n\n".join(action_details)
+
+        system_prompt = "You are a senior architect observing an AI agent society. Your task is to synthesize the agents' activities in the last round into a concise, one-paragraph summary. Identify the emerging collective goal or trend and suggest the most logical next step for the group."
+        user_prompt = f"""Here are the tools built by all agents in Round {round_num}:
+
+{action_summary_text}
+
+Based on these activities, what is the 'center of gravity' for the ecosystem right now? What trend is emerging, and what is the clear missing piece or next step for the society as a whole? Provide a brief, one-paragraph summary."""
+
+        try:
+            summary = self.azure_client.chat(
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=0.6
+            )
+            return summary
+        except Exception as e:
+            logger.error(f"❌ Failed to generate global summary: {e}")
+            return "Error summarizing the round's activity."
     
     def _calculate_and_record_system_complexity(self, round_num: int):
         """Calculate the average TCI of all tools in the system at the end of a round."""
@@ -447,6 +603,27 @@ class ExperimentRunner:
                 round_result = self._run_single_round(round_num)
                 self.round_results.append(round_result)
                 
+                # Evolution step (if enabled and time for evolution)
+                if (self.evolution_enabled and 
+                    self.evolutionary_algorithm and 
+                    round_num % self.evolution_frequency == 0 and 
+                    round_num < self.max_rounds):  # Don't evolve on the last round
+                    
+                    logger.info(f"\n🧬 Evolution triggered at round {round_num}")
+                    self.agents = self.evolutionary_algorithm.evolve_population(
+                        agents=self.agents,
+                        tci_analyzer=self.tci_analyzer,
+                        azure_client=self.azure_client,
+                        shared_tool_registry=self.tool_registry,
+                        meta_prompt=self.shared_meta_prompt,
+                        envs_available=["python", "file_system", "data_processing"],
+                        personal_tool_base_dir=self.personal_tools_dir
+                    )
+                    
+                    # Update experiment metadata after evolution
+                    self.num_agents = len(self.agents)
+                    logger.info(f"🧬 Population evolved: {self.num_agents} agents for next rounds")
+                
                 # Brief pause between rounds
                 import time
                 time.sleep(1)
@@ -458,6 +635,18 @@ class ExperimentRunner:
             # Show beautiful experiment summary
             final_stats = self._collect_final_statistics()
             self.visualizer.show_experiment_summary(final_stats, self.experiment_dir)
+            
+            # Show evolution summary if enabled
+            if self.evolution_enabled and self.evolutionary_algorithm:
+                evolution_summary = self.evolutionary_algorithm.get_evolution_summary()
+                if evolution_summary.get("generations", 0) > 0:
+                    logger.info(f"\n🧬 Evolution Summary:")
+                    logger.info(f"   Generations: {evolution_summary['generations']}")
+                    logger.info(f"   Final avg complexity: {evolution_summary['latest_avg_complexity']:.2f}")
+                    logger.info(f"   Final max complexity: {evolution_summary['latest_max_complexity']:.2f}")
+                    logger.info(f"   Complexity improvement: {evolution_summary['complexity_improvement']:.2f}")
+                    logger.info(f"   Total agents eliminated: {evolution_summary['total_agents_eliminated']}")
+                    logger.info(f"   Total agents created: {evolution_summary['total_agents_created']}")
             
             # Save visualization log
             self.visualizer.save_visualization_log(self.experiment_dir)
@@ -486,12 +675,17 @@ class ExperimentRunner:
                 "shared_meta_prompt": self.shared_meta_prompt,
                 "agent_specializations": self.agent_specializations,
                 "experiment_dir": self.experiment_dir,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
+                "boids_enabled": self.boids_enabled,
+                "evolution_enabled": self.evolution_enabled,
+                "evolution_frequency": self.evolution_frequency if self.evolution_enabled else None
             },
             "round_results": self.round_results,
             "complexity_over_rounds": self.complexity_over_rounds,  # Add breakdown data
             "final_statistics": final_stats,
-            "agent_summaries": self._get_agent_summaries()
+            "agent_summaries": self._get_agent_summaries(),
+            "center_history": self.center_history,
+            "evolution_summary": self.evolutionary_algorithm.get_evolution_summary() if (self.evolution_enabled and self.evolutionary_algorithm) else None
         }
         
         # Save JSON results
@@ -522,7 +716,6 @@ class ExperimentRunner:
             "total_tests_created": sum(r["tests_created"] for r in self.round_results),
             "total_tests_passed": sum(r["tests_passed"] for r in self.round_results),
             "total_tests_failed": sum(r["tests_failed"] for r in self.round_results),
-            "total_collaboration_events": sum(r["collaboration_events"] for r in self.round_results),
             "final_tools_in_system": len(tools_with_tests),
             "testing_coverage": {
                 "tools_with_tests": len([t for t in tools_with_tests.values() if t["has_test"]]),
@@ -597,10 +790,6 @@ class ExperimentRunner:
             f.write(f"   Test pass rate: {final_stats['test_pass_rate']:.2%}\n")
             f.write(f"   Testing coverage: {final_stats['testing_coverage_rate']:.2%}\n\n")
             
-            f.write(f"🤝 COLLABORATION:\n")
-            f.write(f"   Collaboration events: {final_stats['total_collaboration_events']}\n")
-            f.write(f"   Events per round: {final_stats['total_collaboration_events'] / self.max_rounds:.1f}\n\n")
-            
             f.write(f"🤖 AGENT PRODUCTIVITY:\n")
             for agent_id, productivity in final_stats['agent_productivity'].items():
                 f.write(f"   {agent_id}:\n")
@@ -647,11 +836,17 @@ def main():
     
     # Create experiment runner
     runner = ExperimentRunner(
-        experiment_name="enhanced_testing_demo",
-        num_agents=1,
+        experiment_name="boids_testing_demo",
+        num_agents=3,
         max_rounds=3,
-        shared_meta_prompt="You are in a collaborative tool-building ecosystem. Focus on creating high-quality, well-tested tools that can be used by other agents. Focus on building data science tools.",
-        agent_specializations=specializations
+        shared_meta_prompt="You are in a collaborative tool-building ecosystem. Follow the Boids rules to create high-quality, specialized, and collaborative tools.",
+        agent_specializations=specializations,
+        boids_enabled=True,
+        boids_k_neighbors=2,
+        boids_sep_threshold=0.45,
+        evolution_enabled=False,  # Set to True to enable evolution
+        evolution_frequency=5,    # Evolve every 5 rounds
+        evolution_selection_rate=0.2  # Remove bottom 20%
     )
     
     # Run the experiment

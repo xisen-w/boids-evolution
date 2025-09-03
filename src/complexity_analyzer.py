@@ -411,6 +411,65 @@ class TCIAnalyzer:
         
         return results
     
+    def calculate_tci_lite(self, tool_file_path: str) -> Dict[str, Any]:
+        """
+        Calculates the TCI-lite score based on the simple P+D+G+L formula.
+        P: Parameters (0-5)
+        D: Dependencies (0-2)
+        G: Guards (0-2)
+        L: Lines of Code (0-3)
+        Total score: 0-12 (will be scaled to 0-10)
+        """
+        try:
+            with open(tool_file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            tree = ast.parse(content)
+        except Exception as e:
+            print(f"Error parsing {tool_file_path} for TCI-lite: {e}")
+            return {"tci_lite_score": 0, "P": 0, "D": 0, "G": 0, "L": 0}
+
+        # L (LoC): Lines of Code
+        loc = len([line for line in content.split('\n') if line.strip() and not line.strip().startswith('#')])
+        if loc <= 60: L = 1
+        elif loc <= 200: L = 2
+        else: L = 3
+
+        # D (Deps): Dependencies
+        deps_count = len([node for node in ast.walk(tree) if isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom)])
+        D = min(deps_count, 2)
+
+        # P (Parameters) and G (Guards)
+        params_count = 0
+        guards_count = 0
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                # Heuristic: find the main 'execute' or public function
+                if not node.name.startswith('_'):
+                    params_count = len(node.args.args)
+            if isinstance(node, ast.If):
+                # Heuristic for guards: check for 'error', 'exception', 'invalid' in condition
+                condition_str = ast.dump(node.test).lower()
+                if any(kw in condition_str for kw in ['error', 'exception', 'invalid', 'none']):
+                    guards_count += 1
+            if isinstance(node, ast.Try):
+                guards_count += len(node.handlers)
+        
+        P = min(params_count, 5)
+        G = min(guards_count, 2)
+
+        # Calculate raw TCI-lite score (0-12)
+        raw_score = P + D + G + L
+        # Scale to 0-10 for final score
+        scaled_score = round((raw_score / 12) * 10, 2)
+
+        return {
+            "tci_lite_score": scaled_score,
+            "P": P,
+            "D": D,
+            "G": G,
+            "L": L
+        }
+
     def generate_report(self, results: Dict[str, Dict[str, Any]], output_file: Optional[str] = None) -> str:
         """Generate a comprehensive TCI analysis report."""
         if not results:

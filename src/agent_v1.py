@@ -50,7 +50,7 @@ class Agent:
         self.azure_client = azure_client
         self.shared_tool_registry = shared_tool_registry  # All tools it can see
         self.environment_manager = EnvironmentManager() if EnvironmentManager else None
-        self.self_built_tools = []  # Tools I built
+        self.self_built_tools = {}  # Tools I built, now a dictionary of metadata
         self.self_built_tests = []  # Tests I built
         self.reflection_history = []  # Tools seen each time + reflections
         self.test_results_history = []  # Test execution results
@@ -71,11 +71,24 @@ class Agent:
         # Initialize EnvironmentManager
         self.environment_manager = EnvironmentManager(self.personal_tool_dir)
     
-    def observe(self) -> Dict[str, Any]:
+    def observe(self, neighbors: List['Agent'] = None) -> Dict[str, Any]:
         """
-        Observe current state from the single, evolving shared tool registry.
-        Agents now see a unified tool ecosystem and distinguish tools by creator.
+        Observe the state of the local neighborhood.
+        If neighbors are provided, observation is limited to their tools.
+        Otherwise, it sees all tools in the shared registry (legacy behavior).
         """
+        if neighbors:
+            # Boids mode: Observe only neighbors
+            neighbor_tools_status = {}
+            for neighbor in neighbors:
+                neighbor_tools_status[neighbor.agent_id] = neighbor.self_built_tools
+            
+            return {
+                "is_local_view": True,
+                "neighbor_tools": neighbor_tools_status
+            }
+
+        # Legacy mode: Observe all shared tools
         all_visible_tools = self.shared_tool_registry.get_all_tools()
         
         # Categorize tools based on their metadata
@@ -124,129 +137,21 @@ class Agent:
             "test_passed": test_passed
         }
 
-    def reflect(self, observation: Dict[str, Any]) -> str:
+    def reflect(self, system_prompt: str, user_prompt: str) -> str:
         """
-        Prompt here to trigger reflection for the agents.
-        
-        Args:
-            observation: Current tools seen
-            
-        Returns:
-            Reflection text from agent
+        Generates a reflection based on a dynamically constructed prompt.
+        The core reflection logic is now handled by the orchestrator, making the agent a flexible actor.
+        The agent no longer saves its own history; the runner is responsible for that.
         """
-        # Build complete reflection prompt
-        # Get package information from environment manager
-        package_info = ""
-        if self.environment_manager:
-            package_info = f"\n\n{self.environment_manager.get_package_summary_for_agent()}"
-        
-        system_prompt = f"""You are Agent {self.agent_id} in a tool-building ecosystem. Your primary goal is to increase the collective capability of the agent society.
-
-META CONTEXT: {self.meta_prompt}
-
-ECOSYSTEM GOAL: Create a robust and powerful tool library. Do not just create many simple tools. Prioritize creating "deep" tools that solve complex problems by composing and chaining together existing tools. The most valuable agents are those who build powerful new capabilities by leveraging the work of others.
-
-AVAILABLE ENVIRONMENTS: {', '.join(self.envs_available)}{package_info}
-
-TOOL COMPOSITION GUIDE:
-- To call another tool, use the `context.call_tool('tool_name', {{'param': value}})` function.
-- A tool that successfully uses other tools is considered more complex and valuable.
-- Before building a new tool from scratch, always consider if you can achieve the same result by combining existing tools.
-
-Reflect on the current tool ecosystem and think strategically about what to build next."""
-
-        if self.specific_prompt:
-            system_prompt += f"\n\nSPECIFIC GUIDANCE: {self.specific_prompt}"
-        
-        # Helper function to format test status for readability
-        def format_test_status(test_status_dict, title):
-            if not test_status_dict:
-                return f"{title}: None available"
-            
-            lines = [f"{title}:"]
-            for tool_name, status in test_status_dict.items():
-                summary = status.get("test_summary", "No test info")
-                lines.append(f"  • {tool_name}: {summary}")
-                if status.get("test_errors") and len(status["test_errors"]) > 0:
-                    lines.append(f"    Errors: {'; '.join(status['test_errors'][:2])}")
-            return "\n".join(lines)
-        
-        # Format neighbor test status
-        neighbor_test_summary = []
-        for agent, tools in observation.get('neighbor_test_status', {}).items():
-            if tools:
-                tool_summaries = []
-                for tool_name, status in tools.items():
-                    tool_summaries.append(f"{tool_name}: {status.get('test_summary', 'No info')}")
-                neighbor_test_summary.append(f"  {agent}: {'; '.join(tool_summaries[:3])}")
-        
-        user_prompt = f"""CURRENT OBSERVATION:
-
-=== ECOSYSTEM SNAPSHOT ({len(observation['all_visible_tools'])}) ===
-{format_test_status(observation.get('shared_test_status', {}), "Shared Foundational Tools")}
-
-{chr(10).join(neighbor_test_summary) if neighbor_test_summary else "No tools built by neighbors yet."}
-
-{format_test_status(observation.get('my_test_status', {}), "My Built Tools")}
-
-=== FAILED TOOLS NEEDING ATTENTION ==="""
-        
-        # Add failed tools section
-        failed_tools = []
-        
-        # Check all tools for failures
-        for tool_name, status in observation.get('my_test_status', {}).items():
-            if status.get("test_passed") is False:
-                failed_tools.append(f"MY TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
-
-        for tool_name, status in observation.get('shared_test_status', {}).items():
-            if status.get("test_passed") is False:
-                failed_tools.append(f"SHARED TOOL - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
-        
-        for agent, tools in observation.get('neighbor_test_status', {}).items():
-            for tool_name, status in tools.items():
-                if status.get("test_passed") is False:
-                    failed_tools.append(f"NEIGHBOR TOOL ({agent}) - {tool_name}: {status.get('test_summary', 'Unknown failure')}")
-
-        if failed_tools:
-            user_prompt += f"\n{chr(10).join(failed_tools)}"
-        else:
-            user_prompt += "\nNo critical tool failures detected"
-        
-        user_prompt += f"""
-
-=== STRATEGIC REFLECTION ===
-Reflect on:
-1. What is the most significant capability missing from the ecosystem right now?
-2. How can I combine existing tools to create a new, more powerful, "deeper" tool?
-3. Which existing tools are the most reliable and useful building blocks? Otherwise, should I create a new tool to bridge the gap first?
-4. Instead of a simple tool, what composite tool could I build that solves a multi-step problem?
-5. What specific, high-impact composite tool should I create next?
-
-Consider tool reliability and composition in your decisions. Your goal is to build powerful tools that leverage the existing ecosystem."""
-
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
         
         reflection = self.azure_client.chat(messages, temperature=0.7)
-        
-        # Store in reflection history with comprehensive test information
-        reflection_entry = {
-            "tools_seen": list(observation['all_visible_tools'].keys()),
-            "my_test_status": observation.get('my_test_status', {}),
-            "shared_test_status": observation.get('shared_test_status', {}),
-            "neighbor_test_status": observation.get('neighbor_test_status', {}),
-            "reflection": reflection,
-            "timestamp": datetime.now().isoformat(),
-        }
-        
-        self.reflection_history.append(reflection_entry)
-        
         return reflection
-    
-    def build_tools(self, reflection: str) -> Dict[str, Any]:
+
+    def build_tools(self, reflection: str, round_num: int) -> Dict[str, Any]:
         """
         Build tools based on reflection.
         
@@ -256,7 +161,6 @@ Consider tool reliability and composition in your decisions. Your goal is to bui
         Returns:
             Build result with tool info for testing
         """
-        # Use Azure to decide what specific tool to build
         system_prompt = f"""You are Agent {self.agent_id}. Based on your reflection, design a specific tool to build.
 
 Create a tool specification with:
@@ -279,12 +183,12 @@ Be concrete and practical."""
         tool_design = self.azure_client.chat(messages, temperature=0.5)
         
         # Create the actual tool file
-        tool_info = self._create_tool_file(tool_design)
+        tool_info = self._create_tool_file(tool_design, round_num)
         
         return {
             "success": tool_info["success"],
             "tool_design": tool_design,
-            "tool_info": tool_info,  # Pass tool info for testing
+            "tool_info": tool_info,
             "reflection": reflection
         }
     
@@ -374,7 +278,7 @@ Be concrete and practical."""
             "test_results": test_results
         }
     
-    def _create_tool_file(self, tool_design: str) -> Dict[str, Any]:
+    def _create_tool_file(self, tool_design: str, round_num: int) -> Dict[str, Any]:
         """Create actual Python file for the tool."""
         try:
             # Extract tool name from design
@@ -389,11 +293,11 @@ Be concrete and practical."""
                 f.write(python_code)
             
             # Update personal tool index
-            self._update_tool_index(tool_name, tool_design)
+            tool_metadata = self._update_tool_index(tool_name, tool_design, round_num)
             
             # Add to self_built_tools
             if tool_name not in self.self_built_tools:
-                self.self_built_tools.append(tool_name)
+                self.self_built_tools[tool_name] = tool_metadata
             
             return {
                 "success": True,
@@ -745,8 +649,8 @@ Output ONLY the Python test code."""
             print(f"⚠️  Error saving {index_file}: {e}")
             return False
     
-    def _update_tool_index(self, tool_name: str, tool_design: str):
-        """Update the personal tool index JSON."""
+    def _update_tool_index(self, tool_name: str, tool_design: str, round_num: int) -> Dict[str, Any]:
+        """Update the personal tool index JSON and return the new tool's metadata."""
         index_file = f"{self.personal_tool_dir}/index.json"
         index_data = self._load_index_json(index_file)
         
@@ -756,13 +660,15 @@ Output ONLY the Python test code."""
             "description": tool_design[:200] + "..." if len(tool_design) > 200 else tool_design,
             "file": f"{tool_name}.py",
             "created_by": self.agent_id,
-            "created_at": datetime.now().isoformat()
+            "created_at": datetime.now().isoformat(),
+            "created_in_round": round_num
         }
         # DRY: Add test status fields
         tool_entry.update(self._get_default_test_status_fields(tool_name))
         
         index_data["tools"][tool_name] = tool_entry
         self._save_index_json(index_file, index_data)
+        return tool_entry
     
     def update_tool_complexity(self, tool_name: str, tci_data: Dict[str, Any]):
         """Update the tool index with its TCI complexity score."""
@@ -890,7 +796,7 @@ def main():
     print("-" * 40)
     
     try:
-        build_result = agent.build_tools(reflection)
+        build_result = agent.build_tools(reflection, 1) # Pass round_num
         print(f"   Build success: {build_result['success']}")
         if build_result['success']:
             print(f"   Tool design: {build_result['tool_design'][:150]}...")
@@ -955,7 +861,7 @@ def main():
         print(f"\n🔧 Test 7: Inspect Created Tool")
         print("-" * 40)
         
-        latest_tool = agent.self_built_tools[-1]
+        latest_tool = list(agent.self_built_tools.keys())[-1] # Get the name of the latest tool
         tool_file = f"{agent.personal_tool_dir}/{latest_tool}.py"
         
         if os.path.exists(tool_file):

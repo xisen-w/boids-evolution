@@ -92,7 +92,7 @@ def plot_complexity_evolution(experiment_dir: str, complexity_data: List[Dict[st
         logger.error(f"Failed to plot complexity evolution: {e}")
 
 
-def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int):
+def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int, boids_enabled: bool, boids_k: int, boids_sep: float):
     """
     Configures and runs a single experiment.
     """
@@ -100,6 +100,7 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
     logger.info(f"🚀 Launching Experiment: {exp_name}")
     logger.info(f"🎯 Meta-Prompt: {meta_prompt[:100]}...")
     logger.info(f"👥 Agents: {num_agents}, 🔄 Rounds: {num_rounds}")
+    logger.info(f"🐦 Boids Enabled: {boids_enabled} (k={boids_k}, sep={boids_sep})")
     logger.info("=" * 70)
     
     # In this experiment, agents have no specific specializations
@@ -110,7 +111,10 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
         num_agents=num_agents,
         max_rounds=num_rounds,
         shared_meta_prompt=meta_prompt,
-        agent_specializations=agent_specializations
+        agent_specializations=agent_specializations,
+        boids_enabled=boids_enabled,
+        boids_k_neighbors=boids_k,
+        boids_sep_threshold=boids_sep
     )
     
     success = runner.run_experiment()
@@ -118,7 +122,7 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
     if success:
         logger.info("✅ Experiment run completed successfully.")
         # Plot complexity at the end using the tracked data
-        plot_complexity_evolution(runner.experiment_dir, runner.complexity_over_rounds)
+        # plot_complexity_evolution(runner.experiment_dir, runner.complexity_over_rounds)
     else:
         logger.error("❌ Experiment run failed.")
     
@@ -132,6 +136,9 @@ def main():
     parser.add_argument("--meta_prompt_id", required=True, help="The ID of the meta-prompt to use from meta_prompts.json")
     parser.add_argument("--num_agents", type=int, default=3, help="Number of agents in the society.")
     parser.add_argument("--num_rounds", type=int, default=10, help="Number of simulation rounds.")
+    parser.add_argument("--boids_enabled", action='store_true', help="Enable Boids rules for agent behavior.")
+    parser.add_argument("--boids_k", type=int, default=2, help="Number of neighbors for Boids rules (k).")
+    parser.add_argument("--boids_sep", type=float, default=0.45, help="Separation threshold for Boids rules.")
     
     args = parser.parse_args()
     
@@ -147,14 +154,18 @@ def main():
         return 1
         
     # Define the experiment name
-    exp_name = f"exp1_baseline_emergence_{args.meta_prompt_id}"
+    mode = "boids" if args.boids_enabled else "global"
+    exp_name = f"exp_{mode}_{args.meta_prompt_id}"
     
     # Run the experiment
     run_single_experiment(
         exp_name=exp_name,
         meta_prompt=selected_prompt,
         num_agents=args.num_agents,
-        num_rounds=args.num_rounds
+        num_rounds=args.num_rounds,
+        boids_enabled=args.boids_enabled,
+        boids_k=args.boids_k,
+        boids_sep=args.boids_sep
     )
     
     return 0
