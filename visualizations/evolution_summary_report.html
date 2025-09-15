@@ -1,0 +1,120 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Boids Evolution Experiment Report</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+                .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+                h1 { color: #2c3e50; text-align: center; }
+                h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+                .stats { display: flex; justify-content: space-around; margin: 30px 0; }
+                .stat-box { background: #ecf0f1; padding: 20px; border-radius: 10px; text-align: center; }
+                .stat-number { font-size: 2em; font-weight: bold; color: #3498db; }
+                .agent-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+                .agent-card { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; }
+                .complexity-bar { background: #e9ecef; height: 10px; border-radius: 5px; overflow: hidden; }
+                .complexity-fill { background: #28a745; height: 100%; transition: width 0.3s ease; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🧬 Boids Evolution Experiment Report</h1>
+                
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-number">5</div>
+                        <div>Tools Created</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5</div>
+                        <div>Active Agents</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">1</div>
+                        <div>Rounds Completed</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">1.00</div>
+                        <div>Avg Complexity</div>
+                    </div>
+                </div>
+                
+                <h2>🤖 Agent Performance</h2>
+                <div class="agent-list">
+        
+                    <div class="agent-card">
+                        <h3 style="color: #FF6B6B; margin-top: 0;">Agent_01</h3>
+                        <p><strong>Tools:</strong> 1.0</p>
+                        <p><strong>Avg Complexity:</strong> 1.00</p>
+                        <p><strong>Max Complexity:</strong> 1.00</p>
+                        <div class="complexity-bar">
+                            <div class="complexity-fill" style="width: 100.0%;"></div>
+                        </div>
+                    </div>
+                
+                    <div class="agent-card">
+                        <h3 style="color: #4ECDC4; margin-top: 0;">Agent_02</h3>
+                        <p><strong>Tools:</strong> 1.0</p>
+                        <p><strong>Avg Complexity:</strong> 1.00</p>
+                        <p><strong>Max Complexity:</strong> 1.00</p>
+                        <div class="complexity-bar">
+                            <div class="complexity-fill" style="width: 100.0%;"></div>
+                        </div>
+                    </div>
+                
+                    <div class="agent-card">
+                        <h3 style="color: #45B7D1; margin-top: 0;">Agent_03</h3>
+                        <p><strong>Tools:</strong> 1.0</p>
+                        <p><strong>Avg Complexity:</strong> 1.00</p>
+                        <p><strong>Max Complexity:</strong> 1.00</p>
+                        <div class="complexity-bar">
+                            <div class="complexity-fill" style="width: 100.0%;"></div>
+                        </div>
+                    </div>
+                
+                    <div class="agent-card">
+                        <h3 style="color: #96CEB4; margin-top: 0;">Agent_04</h3>
+                        <p><strong>Tools:</strong> 1.0</p>
+                        <p><strong>Avg Complexity:</strong> 1.00</p>
+                        <p><strong>Max Complexity:</strong> 1.00</p>
+                        <div class="complexity-bar">
+                            <div class="complexity-fill" style="width: 100.0%;"></div>
+                        </div>
+                    </div>
+                
+                    <div class="agent-card">
+                        <h3 style="color: #FFEAA7; margin-top: 0;">Agent_05</h3>
+                        <p><strong>Tools:</strong> 1.0</p>
+                        <p><strong>Avg Complexity:</strong> 1.00</p>
+                        <p><strong>Max Complexity:</strong> 1.00</p>
+                        <div class="complexity-bar">
+                            <div class="complexity-fill" style="width: 100.0%;"></div>
+                        </div>
+                    </div>
+                
+                </div>
+                
+                <h2>📈 Key Insights</h2>
+                <ul>
+                    <li><strong>Emergent Specialization:</strong> Agents developed distinct tool-building patterns</li>
+                    <li><strong>Boids Behavior:</strong> Local interactions led to global coordination</li>
+                    <li><strong>Tool Diversity:</strong> Separation rule prevented redundant tool creation</li>
+                    <li><strong>Collaboration:</strong> Cohesion rule enabled tool sharing and building upon others' work</li>
+                </ul>
+                
+                <h2>🔬 Methodology</h2>
+                <p>This experiment implemented three classical boids rules adapted for tool-building contexts:</p>
+                <ul>
+                    <li><strong>Separation:</strong> Avoid building similar tools (promotes diversity)</li>
+                    <li><strong>Alignment:</strong> Copy successful neighbors' strategies (spreads good practices)</li>
+                    <li><strong>Cohesion:</strong> Use neighbors' tools when possible (creates collaboration)</li>
+                </ul>
+                
+                <footer style="margin-top: 50px; text-align: center; color: #7f8c8d;">
+                    <p>Generated by Boids Evolution Visualizer | 2025-09-11 20:23:03</p>
+                </footer>
+            </div>
+        </body>
+        </html>
+        

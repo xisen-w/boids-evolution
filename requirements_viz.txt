@@ -1,0 +1,15 @@
+# Visualization Requirements for Boids Evolution Demo
+# Install with: pip install -r requirements_viz.txt
+
+matplotlib>=3.5.0
+networkx>=2.6.0
+plotly>=5.0.0
+pandas>=1.3.0
+numpy>=1.21.0
+kaleido>=0.2.1  # For static image export in plotly
+pillow>=8.0.0   # For GIF creation
+scikit-learn>=1.0.0  # For similarity calculations (if needed)
+
+# Optional: For better animations
+ffmpeg-python>=0.2.0  # For video export (optional)
+
