@@ -324,7 +324,7 @@ class TCIAnalyzer:
         
         if not all_scores:
             return {'error': 'No valid TCI scores found'}
-        
+
         return {
             'total_tools': len(all_scores),
             'tci_mean': round(sum(all_scores) / len(all_scores), 3),
