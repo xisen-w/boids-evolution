@@ -541,21 +541,35 @@ Based on these activities, what is the 'center of gravity' for the ecosystem rig
     
     def _calculate_and_record_system_complexity(self, round_num: int):
         """Calculate the average TCI of all tools in the system at the end of a round."""
-        all_tools_metadata = self.tool_registry.get_all_tools()
         total_tci = 0
         total_code_complexity = 0
         total_interface_complexity = 0
         total_compositional_complexity = 0
         tool_count = 0
         
-        for tool_name, metadata in all_tools_metadata.items():
-            complexity_data = metadata.get("complexity")
-            if complexity_data and "tci_score" in complexity_data:
-                total_tci += complexity_data.get("tci_score", 0)
-                total_code_complexity += complexity_data.get("code_complexity", 0)
-                total_interface_complexity += complexity_data.get("interface_complexity", 0)
-                total_compositional_complexity += complexity_data.get("compositional_complexity", 0)
-                tool_count += 1
+        # Collect complexity data from all agent tools
+        for agent in self.agents:
+            for tool_name, tool_metadata in agent.self_built_tools.items():
+                complexity_data = tool_metadata.get("complexity", {})
+                if complexity_data and complexity_data.get("tci_score", 0) > 0:
+                    total_tci += complexity_data.get("tci_score", 0)
+                    total_code_complexity += complexity_data.get("code_complexity", 0)
+                    total_interface_complexity += complexity_data.get("interface_complexity", 0)
+                    total_compositional_complexity += complexity_data.get("compositional_complexity", 0)
+                    tool_count += 1
+        
+        # Also check shared tools if they exist
+        shared_index_file = os.path.join(self.shared_tools_dir, "index.json")
+        if os.path.exists(shared_index_file):
+            shared_index_data = self._load_index_json(shared_index_file)
+            for tool_name, tool_metadata in shared_index_data.get("tools", {}).items():
+                complexity_data = tool_metadata.get("complexity", {})
+                if complexity_data and complexity_data.get("tci_score", 0) > 0:
+                    total_tci += complexity_data.get("tci_score", 0)
+                    total_code_complexity += complexity_data.get("code_complexity", 0)
+                    total_interface_complexity += complexity_data.get("interface_complexity", 0)
+                    total_compositional_complexity += complexity_data.get("compositional_complexity", 0)
+                    tool_count += 1
         
         average_tci = total_tci / tool_count if tool_count > 0 else 0
         avg_code = total_code_complexity / tool_count if tool_count > 0 else 0

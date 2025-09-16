@@ -8,7 +8,6 @@ Enhanced with comprehensive testing capabilities!
 import os
 import sys
 import json
-import logging
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 
@@ -293,13 +292,8 @@ Be concrete and practical."""
             with open(tool_file, 'w') as f:
                 f.write(python_code)
             
-            # 🆕 NEW: Analyze tool for TCI complexity
-            complexity_data = self._analyze_tool_complexity(tool_file, tool_name)
-            print(f"   🔍 DEBUG: complexity_data = {complexity_data}")
-            
-            # Update personal tool index (with complexity data)
-            tool_metadata = self._update_tool_index(tool_name, tool_design, round_num, complexity_data)
-            print(f"   🔍 DEBUG: tool_metadata complexity = {tool_metadata.get('complexity', 'MISSING')}")
+            # Update personal tool index
+            tool_metadata = self._update_tool_index(tool_name, tool_design, round_num)
             
             # Add to self_built_tools
             if tool_name not in self.self_built_tools:
@@ -316,87 +310,6 @@ Be concrete and practical."""
             print(f"Error creating tool: {e}")
             return {"success": False, "error": str(e)}
     
-    
-    def _analyze_tool_complexity(self, tool_file: str, tool_name: str) -> Dict[str, Any]:
-        """Analyze tool for TCI complexity immediately after creation."""
-        try:
-            # Import TCI analyzer
-            from src.complexity_analyzer import TCILiteAnalyzer
-            
-            analyzer = TCILiteAnalyzer()
-            
-            # Analyze the specific tool file directory
-            tool_dir = os.path.dirname(tool_file)
-            results = analyzer.analyze_tools_directory(tool_dir)
-            
-            # Extract TCI data for this specific tool
-            tool_filename = os.path.splitext(os.path.basename(tool_file))[0]
-            tci_data = results.get(tool_filename, {})
-            
-            if tci_data and isinstance(tci_data, dict):
-                complexity_data = {
-                    "tci_score": tci_data.get("tci_score", 0.0),
-                    "code_complexity": tci_data.get("code_complexity", 0.0),
-                    "interface_complexity": tci_data.get("interface_complexity", 0.0),
-                    "compositional_complexity": tci_data.get("compositional_complexity", 0.0),
-                    "lines_of_code": tci_data.get("lines_of_code", 0),
-                    "param_count": tci_data.get("param_count", 0),
-                    "tool_calls": tci_data.get("tool_calls", 0),
-                    "external_imports": tci_data.get("external_imports", 0)
-                }
-                print(f"   📊 TCI Analysis: {tool_name} = {complexity_data['tci_score']:.2f}")
-                return complexity_data
-            else:
-                print(f"   ⚠️ TCI Analysis: No data for {tool_name}")
-                return {"tci_score": 0.0, "code_complexity": 0.0, "interface_complexity": 0.0, "compositional_complexity": 0.0}
-                
-        except Exception as e:
-            print(f"   ❌ TCI analysis failed for {tool_name}: {e}")
-            return {"tci_score": 0.0, "code_complexity": 0.0, "interface_complexity": 0.0, "compositional_complexity": 0.0}
-
-    
-    def _update_tool_index(self, tool_name: str, tool_design: str, round_num: int, complexity_data: Dict = None) -> Dict[str, Any]:
-        """Update the agent's tool index with new tool (including complexity)."""
-        
-        tool_metadata = {
-            "name": tool_name,
-            "description": tool_design,
-            "file": f"{tool_name}.py",
-            "created_by": self.agent_id,
-            "created_at": datetime.now().isoformat(),
-            "created_in_round": round_num,
-            "adoption_count": 0,
-            "has_test": False,
-            "test_file": f"_tests/{tool_name}_test.py",
-            "test_results_file": f"_testResults/{tool_name}_results.json",
-            "test_passed": None,
-            "last_tested": None,
-            "test_execution_success": None,
-            "complexity": complexity_data or {}  # 🆕 NEW: Add complexity data
-        }
-        
-        # Update the index.json file
-        index_file = os.path.join(self.personal_tool_dir, "index.json")
-        
-        # Load existing index or create new one
-        if os.path.exists(index_file):
-            try:
-                with open(index_file, 'r') as f:
-                    index_data = json.load(f)
-            except:
-                index_data = {"tools": {}}
-        else:
-            index_data = {"tools": {}}
-        
-        # Add the tool to the index
-        index_data["tools"][tool_name] = tool_metadata
-        
-        # Save updated index
-        with open(index_file, 'w') as f:
-            json.dump(index_data, f, indent=2)
-        
-        return tool_metadata
-
     def _extract_tool_name(self, tool_design: str) -> str:
         """Extract tool name from design text."""
         # Simple extraction - look for "name:" or similar patterns
@@ -712,8 +625,7 @@ Output ONLY the Python test code."""
             "test_results_file": f"_testResults/{tool_name}_results.json",
             "test_passed": None,
             "last_tested": None,
-            "test_execution_success": None,
-            "complexity": {}  # Default empty complexity data
+            "test_execution_success": None
         }
     
     def _load_index_json(self, index_file: str) -> Dict[str, Any]:
@@ -737,7 +649,7 @@ Output ONLY the Python test code."""
             print(f"⚠️  Error saving {index_file}: {e}")
             return False
     
-    def _update_tool_index(self, tool_name: str, tool_design: str, round_num: int, complexity_data: Dict = None) -> Dict[str, Any]:
+    def _update_tool_index(self, tool_name: str, tool_design: str, round_num: int) -> Dict[str, Any]:
         """Update the personal tool index JSON and return the new tool's metadata."""
         index_file = f"{self.personal_tool_dir}/index.json"
         index_data = self._load_index_json(index_file)
@@ -754,9 +666,6 @@ Output ONLY the Python test code."""
         }
         # DRY: Add test status fields
         tool_entry.update(self._get_default_test_status_fields(tool_name))
-        # Preserve provided complexity data (do this AFTER adding defaults so we don't overwrite)
-        if complexity_data is not None:
-            tool_entry["complexity"] = complexity_data
         
         index_data["tools"][tool_name] = tool_entry
         self._save_index_json(index_file, index_data)
