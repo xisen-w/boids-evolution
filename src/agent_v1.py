@@ -424,24 +424,27 @@ Be concrete and practical."""
                 package_examples = f"\n\nAVAILABLE PACKAGES (use these imports):\n" + "\n".join(examples[:8])
         
         # Use Azure to generate actual implementation
-        system_prompt = f"""Generate a simple, complete Python function for this tool:
+        system_prompt = f"""Generate a complete Python implementation for this tool:
 
 {tool_design}{package_examples}
 
 REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
-2. Create ONE complete function: def execute(parameters, context=None):
-3. Keep it simple but functional
-4. Include basic error handling
-5. Return a dictionary with results
+2. Entry point must be: def execute(parameters, context=None):
+3. You MAY define small helper functions to keep code readable and modular
+4. Include robust error handling
+5. Return a dictionary with at least THREE keys (e.g., result, details, meta)
 6. Ensure all parentheses and brackets are closed
-7. Maximum 50 lines of code
-8. Use only the available packages listed above
+7. Try to build more complex tools (more lines). Aim for more lines total (helpers allowed) when appropriate for clarity
+8. Prefer available packages listed above
+9. If useful, try to call other tools for building your own tool. 
 
 TOOL COMPOSITION:
 - To call other tools: context.call_tool('tool_name', {{'param': value}})
 - Always check: if context: before calling tools
 - Handle context=None case gracefully
+- If context is provided and relevant shared tools exist, call at least TWO tools in sequence and aggregate their outputs
+- Include a 'composition' field in the returned dict summarizing the chain (e.g., "my_tool -> multiply -> power")
 
 TOOL COMPOSITION - CALLING OTHER TOOLS:
 If your tool needs to use other tools, use the context object:

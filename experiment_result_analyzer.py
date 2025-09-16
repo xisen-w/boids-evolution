@@ -249,21 +249,32 @@ class ExperimentAnalyzer:
             except SyntaxError:
                 pass  # Handle malformed code gracefully
             
-            # TCI Analysis using our complexity analyzer
-            try:
-                # Create a temporary directory structure for TCI analysis
-                temp_dir = tool_file.parent
-                tci_results = self.tci_analyzer.analyze_tools_directory(str(temp_dir))
-                
-                tool_tci = tci_results.get(agent_id, {}).get(metrics.name, {})
-                if tool_tci:
-                    metrics.tci_score = tool_tci.get('tci_score', 0.0)
-                    metrics.code_complexity = tool_tci.get('code_complexity', 0.0)
-                    metrics.interface_complexity = tool_tci.get('interface_complexity', 0.0)
-                    metrics.compositional_complexity = tool_tci.get('compositional_complexity', 0.0)
-            
-            except Exception as e:
-                print(f"⚠️ TCI analysis failed for {metrics.name}: {e}")
+            # Prefer stored TCI complexity in tool metadata, fall back to recalculation
+            # 1) Use stored complexity from index.json if available
+            stored_complexity = tool_info.get('complexity', {})
+            if isinstance(stored_complexity, dict) and stored_complexity.get('tci_score') is not None:
+                try:
+                    metrics.tci_score = float(stored_complexity.get('tci_score', 0.0))
+                    metrics.code_complexity = float(stored_complexity.get('code_complexity', 0.0))
+                    metrics.interface_complexity = float(stored_complexity.get('interface_complexity', 0.0))
+                    metrics.compositional_complexity = float(stored_complexity.get('compositional_complexity', 0.0))
+                except Exception:
+                    pass
+
+            # 2) If still zero or missing, recalc using TCILiteAnalyzer with correct lookup
+            if metrics.tci_score <= 0.0:
+                try:
+                    temp_dir = tool_file.parent
+                    tci_results = self.tci_analyzer.analyze_tools_directory(str(temp_dir))
+                    # analyze_tools_directory returns {tool_stem: metrics}
+                    tool_tci = tci_results.get(tool_file.stem, {})
+                    if tool_tci:
+                        metrics.tci_score = tool_tci.get('tci_score', 0.0)
+                        metrics.code_complexity = tool_tci.get('code_complexity', 0.0)
+                        metrics.interface_complexity = tool_tci.get('interface_complexity', 0.0)
+                        metrics.compositional_complexity = tool_tci.get('compositional_complexity', 0.0)
+                except Exception as e:
+                    print(f"⚠️ TCI analysis failed for {metrics.name}: {e}")
             
         except Exception as e:
             print(f"⚠️ Failed to analyze {tool_file}: {e}")
