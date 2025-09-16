@@ -85,7 +85,8 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
     prompt_lines.append("\nYOUR GOAL: Do not just copy their code. Instead, adopt their successful DESIGN PRINCIPLES like modularity, composition, and robustness in your own unique tool.")
     return "\n".join(prompt_lines)
 
-def prepare_separation_prompt(neighbor_tools_meta: List[Dict], tools_base_dir: str, top_n: int = 2) -> str:
+def prepare_separation_prompt(neighbor_tools_meta: List[Dict], tools_base_dir: str, 
+                            similarity_threshold: float = 0.3, top_n: int = 2) -> str:
     """
     Generates a prompt snippet for the SEPARATION rule, warning about functionally similar tools.
     Now includes code snippets and is dynamic.
@@ -117,7 +118,7 @@ def prepare_separation_prompt(neighbor_tools_meta: List[Dict], tools_base_dir: s
     top_tools_indices = []
     seen_indices = set()
     for (idx1, idx2), sim in sorted_sim:
-        if sim < 0.3: # Ignore pairs with low similarity
+        if sim < similarity_threshold: # Use parameter instead of hardcoded value
             break
         if idx1 not in seen_indices:
             top_tools_indices.append((idx1, sim))

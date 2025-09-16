@@ -37,7 +37,6 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
 class ExperimentRunner:
     """
     Experiment Runner v1 - Enhanced with Testing Support
@@ -58,6 +57,10 @@ class ExperimentRunner:
                  boids_enabled: bool = True,
                  boids_k_neighbors: int = 2,
                  boids_sep_threshold: float = 0.45,
+                 # NEW: Individual rule controls (like self_reflection_enabled)
+                 boids_separation_enabled: bool = True,
+                 boids_alignment_enabled: bool = True,
+                 boids_cohesion_enabled: bool = True,
                  evolution_enabled: bool = False,
                  evolution_frequency: int = 5,
                  evolution_selection_rate: float = 0.2,
@@ -71,6 +74,9 @@ class ExperimentRunner:
         self.boids_enabled = boids_enabled
         self.boids_k_neighbors = boids_k_neighbors if boids_enabled else 0
         self.boids_sep_threshold = boids_sep_threshold if boids_enabled else 0
+        self.boids_separation_enabled = boids_separation_enabled
+        self.boids_alignment_enabled = boids_alignment_enabled
+        self.boids_cohesion_enabled = boids_cohesion_enabled
         self.self_reflection_enabled = self_reflection_enabled
         
         # Evolution parameters
@@ -262,10 +268,22 @@ class ExperimentRunner:
                     for neighbor_agent in neighbors:
                         neighbor_tools_meta.extend(neighbor_agent.self_built_tools.values())
 
-                    # 1. Prepare Boids prompt components, now with code-reading capability
-                    alignment_prompt = boids_rules.prepare_alignment_prompt(neighbor_tools_meta, round_num, self.shared_tools_dir)
-                    separation_prompt = boids_rules.prepare_separation_prompt(neighbor_tools_meta, self.shared_tools_dir)
-                    cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
+                    # 1. Prepare Boids prompt components (tunable like self-reflection)
+                    alignment_prompt = ""
+                    if self.boids_alignment_enabled:
+                        alignment_prompt = boids_rules.prepare_alignment_prompt(neighbor_tools_meta, round_num, self.shared_tools_dir)
+
+                    separation_prompt = ""
+                    if self.boids_separation_enabled:
+                        separation_prompt = boids_rules.prepare_separation_prompt(
+                            neighbor_tools_meta, 
+                            self.shared_tools_dir, 
+                            similarity_threshold=self.boids_sep_threshold  # Fix the bug!
+                        )
+
+                    cohesion_prompt = ""
+                    if self.boids_cohesion_enabled:
+                        cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
                     
                     # Add self-reflection if enabled
                     self_reflection_prompt = ""
@@ -893,7 +911,7 @@ def main():
         "Focus on building TEXT PROCESSING and STRING manipulation tools. Create tools for text analysis."
     ]# optional 
     
-    # Create experiment runner
+    # Create experiment runner with tunable boids rules
     runner = ExperimentRunner(
         experiment_name="boids_testing_demo",
         num_agents=3,
@@ -903,11 +921,21 @@ def main():
         boids_enabled=True,
         boids_k_neighbors=2,
         boids_sep_threshold=0.45,
+        # NEW: Individual rule controls (like self_reflection_enabled)
+        boids_separation_enabled=True,   # Enable separation rule
+        boids_alignment_enabled=True,    # Enable alignment rule  
+        boids_cohesion_enabled=True,     # Enable cohesion rule
         evolution_enabled=False,  # Set to True to enable evolution
         evolution_frequency=5,    # Evolve every 5 rounds
         evolution_selection_rate=0.2,  # Remove bottom 20%
         self_reflection_enabled=True # Enable self-reflection
     )
+    
+    # For testing different configurations, you can easily switch:
+    # - Only separation: boids_separation_enabled=True, others=False
+    # - Only alignment: boids_alignment_enabled=True, others=False  
+    # - Only cohesion: boids_cohesion_enabled=True, others=False
+    # - No boids rules: boids_enabled=False
     
     # Run the experiment
     success = runner.run_experiment()

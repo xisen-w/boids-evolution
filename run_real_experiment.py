@@ -92,15 +92,29 @@ def plot_complexity_evolution(experiment_dir: str, complexity_data: List[Dict[st
         logger.error(f"Failed to plot complexity evolution: {e}")
 
 
-def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int, boids_enabled: bool, boids_k: int, boids_sep: float, self_reflection: bool):
+def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_rounds: int, 
+                         boids_enabled: bool, boids_k: int, boids_sep: float, 
+                         boids_separation_enabled: bool = True,
+                         boids_alignment_enabled: bool = True, 
+                         boids_cohesion_enabled: bool = True,
+                         evolution_enabled: bool = False,
+                         evolution_frequency: int = 5,
+                         evolution_selection_rate: float = 0.2,
+                         self_reflection: bool = False):
     """
-    Configures and runs a single experiment.
+    Configures and runs a single experiment with full ablation support.
     """
     logger.info("=" * 70)
     logger.info(f"🚀 Launching Experiment: {exp_name}")
     logger.info(f"🎯 Meta-Prompt: {meta_prompt[:100]}...")
     logger.info(f"👥 Agents: {num_agents}, 🔄 Rounds: {num_rounds}")
     logger.info(f"🐦 Boids Enabled: {boids_enabled} (k={boids_k}, sep={boids_sep})")
+    if boids_enabled:
+        logger.info(f"   ├─ Separation: {boids_separation_enabled}")
+        logger.info(f"   ├─ Alignment: {boids_alignment_enabled}")
+        logger.info(f"   └─ Cohesion: {boids_cohesion_enabled}")
+    logger.info(f"🧬 Evolution: {evolution_enabled} (freq={evolution_frequency}, rate={evolution_selection_rate})")
+    logger.info(f"🤔 Self-Reflection: {self_reflection}")
     logger.info("=" * 70)
     
     # In this experiment, agents have no specific specializations
@@ -115,7 +129,15 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
         boids_enabled=boids_enabled,
         boids_k_neighbors=boids_k,
         boids_sep_threshold=boids_sep,
-        self_reflection=self_reflection
+        # NEW: Individual rule controls
+        boids_separation_enabled=boids_separation_enabled,
+        boids_alignment_enabled=boids_alignment_enabled,
+        boids_cohesion_enabled=boids_cohesion_enabled,
+        # NEW: Evolution controls
+        evolution_enabled=evolution_enabled,
+        evolution_frequency=evolution_frequency,
+        evolution_selection_rate=evolution_selection_rate,
+        self_reflection_enabled=self_reflection
     )
     
     success = runner.run_experiment()
@@ -132,15 +154,140 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
     logger.info("=" * 70)
 
 
+def run_ablation_study(meta_prompt: str, num_agents: int, num_rounds: int, 
+                      boids_k: int = 2, boids_sep: float = 0.45, 
+                      evolution_frequency: int = 5, evolution_selection_rate: float = 0.2):
+    """
+    Runs a complete ablation study with all 6 experiment configurations.
+    """
+    logger.info("🧪 Starting Complete Ablation Study")
+    logger.info("=" * 70)
+    
+    experiments = [
+        # 1. Single Loop (baseline)
+        {
+            "name": "single_loop",
+            "boids_enabled": False,
+            "boids_separation_enabled": False,
+            "boids_alignment_enabled": False,
+            "boids_cohesion_enabled": False,
+            "evolution_enabled": False,
+            "self_reflection": False
+        },
+        # 2. Single Loop + Boids - R1 (Separation only)
+        {
+            "name": "single_loop_boids_r1_separation",
+            "boids_enabled": True,
+            "boids_separation_enabled": True,
+            "boids_alignment_enabled": False,
+            "boids_cohesion_enabled": False,
+            "evolution_enabled": False,
+            "self_reflection": False
+        },
+        # 3. Single Loop + Boids - R2 (Alignment only)
+        {
+            "name": "single_loop_boids_r2_alignment",
+            "boids_enabled": True,
+            "boids_separation_enabled": False,
+            "boids_alignment_enabled": True,
+            "boids_cohesion_enabled": False,
+            "evolution_enabled": False,
+            "self_reflection": False
+        },
+        # 4. Single Loop + Boids - R3 (Cohesion only)
+        {
+            "name": "single_loop_boids_r3_cohesion",
+            "boids_enabled": True,
+            "boids_separation_enabled": False,
+            "boids_alignment_enabled": False,
+            "boids_cohesion_enabled": True,
+            "evolution_enabled": False,
+            "self_reflection": False
+        },
+        # 5. Single Loop + Boids - All (All rules)
+        {
+            "name": "single_loop_boids_all_rules",
+            "boids_enabled": True,
+            "boids_separation_enabled": True,
+            "boids_alignment_enabled": True,
+            "boids_cohesion_enabled": True,
+            "evolution_enabled": False,
+            "self_reflection": True  # Default with self-reflection
+        },
+        # 6. Single Loop + Boids - All + Evolutionary
+        {
+            "name": "single_loop_boids_all_evolution",
+            "boids_enabled": True,
+            "boids_separation_enabled": True,
+            "boids_alignment_enabled": True,
+            "boids_cohesion_enabled": True,
+            "evolution_enabled": True,
+            "self_reflection": False
+        },
+        # 7. Single Loop + Boids - All + Self-Reflection
+        {
+            "name": "single_loop_boids_all_self_reflection",
+            "boids_enabled": True,
+            "boids_separation_enabled": True,
+            "boids_alignment_enabled": True,
+            "boids_cohesion_enabled": True,
+            "evolution_enabled": False,
+            "self_reflection": True
+        }
+    ]
+    
+    for i, exp_config in enumerate(experiments, 1):
+        logger.info(f"\n🔄 Running Experiment {i}/7: {exp_config['name']}")
+        
+        run_single_experiment(
+            exp_name=exp_config['name'],
+            meta_prompt=meta_prompt,
+            num_agents=num_agents,
+            num_rounds=num_rounds,
+            boids_enabled=exp_config['boids_enabled'],
+            boids_k=boids_k,
+            boids_sep=boids_sep,
+            boids_separation_enabled=exp_config['boids_separation_enabled'],
+            boids_alignment_enabled=exp_config['boids_alignment_enabled'],
+            boids_cohesion_enabled=exp_config['boids_cohesion_enabled'],
+            evolution_enabled=exp_config['evolution_enabled'],
+            evolution_frequency=evolution_frequency,
+            evolution_selection_rate=evolution_selection_rate,
+            self_reflection=exp_config['self_reflection']
+        )
+    
+    logger.info("\n🎉 Ablation Study Complete!")
+    logger.info("=" * 70)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Run Formal Emergent Intelligence Experiments")
     parser.add_argument("--meta_prompt_id", required=True, help="The ID of the meta-prompt to use from meta_prompts.json")
     parser.add_argument("--num_agents", type=int, default=3, help="Number of agents in the society.")
     parser.add_argument("--num_rounds", type=int, default=10, help="Number of simulation rounds.")
+    
+    # Experiment mode selection
+    parser.add_argument("--mode", choices=['single', 'ablation'], default='single', 
+                       help="Run single experiment or complete ablation study")
+    
+    # Boids configuration
     parser.add_argument("--boids_enabled", action='store_true', help="Enable Boids rules for agent behavior.")
     parser.add_argument("--boids_k", type=int, default=2, help="Number of neighbors for Boids rules (k).")
     parser.add_argument("--boids_sep", type=float, default=0.45, help="Separation threshold for Boids rules.")
-    parser.add_argument("--self_reflection", action='store_true', help="Enable agent's self-reflection awareness.")
+    
+    # Individual boids rules (for single mode)
+    parser.add_argument("--boids_separation", action='store_true', help="Enable separation rule")
+    parser.add_argument("--boids_alignment", action='store_true', help="Enable alignment rule")
+    parser.add_argument("--boids_cohesion", action='store_true', help="Enable cohesion rule")
+    
+    # Evolution configuration
+    parser.add_argument("--evolution_enabled", action='store_true', help="Enable evolutionary algorithm")
+    parser.add_argument("--evolution_frequency", type=int, default=5, help="Evolution frequency (rounds)")
+    parser.add_argument("--evolution_selection_rate", type=float, default=0.2, help="Evolution selection rate")
+    
+    # Other features
+    parser.add_argument("--self_reflection", action='store_true', help="Enable agent's self-reflection awareness (default: True)")
+    parser.add_argument("--no_self_reflection", action='store_true', help="Disable agent's self-reflection awareness")
     
     args = parser.parse_args()
     
@@ -154,22 +301,52 @@ def main():
         logger.error(f"Meta-prompt ID '{args.meta_prompt_id}' not found in meta_prompts.json.")
         logger.info(f"Available IDs: {list(meta_prompts.keys())}")
         return 1
-        
-    # Define the experiment name
-    mode = "boids" if args.boids_enabled else "global"
-    exp_name = f"exp_{mode}_{args.meta_prompt_id}"
     
-    # Run the experiment
-    run_single_experiment(
-        exp_name=exp_name,
-        meta_prompt=selected_prompt,
-        num_agents=args.num_agents,
-        num_rounds=args.num_rounds,
-        boids_enabled=args.boids_enabled,
-        boids_k=args.boids_k,
-        boids_sep=args.boids_sep,
-        self_reflection=args.self_reflection
-    )
+    if args.mode == 'ablation':
+        # Run complete ablation study
+        run_ablation_study(
+            meta_prompt=selected_prompt,
+            num_agents=args.num_agents,
+            num_rounds=args.num_rounds,
+            boids_k=args.boids_k,
+            boids_sep=args.boids_sep,
+            evolution_frequency=args.evolution_frequency,
+            evolution_selection_rate=args.evolution_selection_rate
+        )
+    else:
+        # Run single experiment
+        # For single mode, if boids is enabled but no individual rules specified, enable all
+        if args.boids_enabled and not any([args.boids_separation, args.boids_alignment, args.boids_cohesion]):
+            boids_separation = boids_alignment = boids_cohesion = True
+        else:
+            boids_separation = args.boids_separation
+            boids_alignment = args.boids_alignment
+            boids_cohesion = args.boids_cohesion
+        
+        # Handle self-reflection: default to True unless explicitly disabled
+        self_reflection = not args.no_self_reflection
+        
+        # Define the experiment name
+        mode = "boids" if args.boids_enabled else "global"
+        exp_name = f"exp_{mode}_{args.meta_prompt_id}"
+        
+        # Run the experiment
+        run_single_experiment(
+            exp_name=exp_name,
+            meta_prompt=selected_prompt,
+            num_agents=args.num_agents,
+            num_rounds=args.num_rounds,
+            boids_enabled=args.boids_enabled,
+            boids_k=args.boids_k,
+            boids_sep=args.boids_sep,
+            boids_separation_enabled=boids_separation,
+            boids_alignment_enabled=boids_alignment,
+            boids_cohesion_enabled=boids_cohesion,
+            evolution_enabled=args.evolution_enabled,
+            evolution_frequency=args.evolution_frequency,
+            evolution_selection_rate=args.evolution_selection_rate,
+            self_reflection=self_reflection
+        )
     
     return 0
 
