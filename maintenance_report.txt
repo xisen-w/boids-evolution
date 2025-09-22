@@ -1,5 +1,0 @@
-File System Maintenance Report
-Duplicates Found: 0
-Files Moved: 0
-Files Archived: 0
-Files Deleted: 0
