@@ -86,12 +86,12 @@ class EcosystemMetrics:
     """System-level emergent intelligence metrics."""
     total_tools: int = 0
     category_entropy: float = 0.0
-    loc_consistency: float = 0.0
+    loc_consistency: float = 0.0  # Now represents Modularity Q score (network modularity)
     redundancy_rate: float = 0.0
     collaboration_density: float = 0.0
     unique_pattern_ratio: float = 0.0
     agent_complexity_variance: float = 0.0
-    category_concentration: float = 0.0
+    category_concentration: float = 0.0  # Now represents NMI (Normalized Mutual Information)
     center_drift_rate: float = 0.0
 
 
@@ -109,6 +109,7 @@ class ExperimentAnalyzer:
         self.temporal_data: Dict[str, List] = defaultdict(list)
         
         # Semantic categorization patterns
+        # #TODO: expand across other meta prompts, now only for data science 
         self.category_patterns = {
             'data_profiling': ['profile', 'summary', 'describe', 'explore', 'analyze'],
             'data_cleaning': ['clean', 'preprocess', 'transform', 'normalize', 'validate'],
@@ -404,12 +405,94 @@ class ExperimentAnalyzer:
         duplicates = sum(count - 1 for count in name_counts.values() if count > 1)
         metrics.redundancy_rate = duplicates / len(tool_names) if tool_names else 0
         
-        # Modularity index (inverse coefficient of variation of LOC)
-        loc_values = [t.lines_of_code for t in self.tool_metrics if t.lines_of_code > 0]
-        if loc_values:
-            loc_variance = statistics.variance(loc_values)
-            loc_mean = statistics.mean(loc_values)
-            metrics.loc_consistency = 1.0 / (1.0 + (loc_variance / loc_mean)) if loc_mean > 0 else 0
+        # PHASE 1: Modularity based on tool dependencies (replacing LOC consistency)
+        # Build dependency graph from tool imports and calls
+        try:
+            import networkx as nx
+            dependency_graph = nx.Graph()
+            tool_imports = {}  # tool_name -> set of imported/called tools
+            
+            # Create a mapping of tool names for quick lookup
+            tool_name_set = {t.name.lower() for t in self.tool_metrics}
+            
+            # Analyze each tool's imports to find dependencies
+            personal_tools_dir = self.exp_dir / 'personal_tools'
+            for tool in self.tool_metrics:
+                tool_file = personal_tools_dir / tool.agent_id / f"{tool.name}.py"
+                if tool_file.exists():
+                    try:
+                        with open(tool_file, 'r', encoding='utf-8') as f:
+                            code = f.read()
+                            tree = ast.parse(code)
+                        
+                        # Find imports and calls to other tools
+                        imports = set()
+                        for node in ast.walk(tree):
+                            # Check imports
+                            if isinstance(node, ast.Import):
+                                for alias in node.names:
+                                    name_lower = alias.name.lower()
+                                    if name_lower in tool_name_set:
+                                        imports.add(name_lower)
+                            elif isinstance(node, ast.ImportFrom):
+                                if node.module:
+                                    module_lower = node.module.lower()
+                                    if module_lower in tool_name_set:
+                                        imports.add(module_lower)
+                            # Check function calls (potential tool usage)
+                            elif isinstance(node, ast.Call):
+                                if isinstance(node.func, ast.Name):
+                                    call_name = node.func.id.lower()
+                                    if call_name in tool_name_set:
+                                        imports.add(call_name)
+                        
+                        tool_imports[tool.name.lower()] = imports
+                        dependency_graph.add_node(tool.name.lower(), agent=tool.agent_id)
+                        
+                        # Add edges for dependencies
+                        for imported in imports:
+                            dependency_graph.add_edge(tool.name.lower(), imported)
+                            
+                    except Exception:
+                        # If can't parse, just add the node without edges
+                        dependency_graph.add_node(tool.name.lower(), agent=tool.agent_id)
+            
+            # Calculate modularity Q using community detection
+            if dependency_graph.number_of_edges() > 0:
+                from networkx.algorithms import community
+                # Detect communities (modules) in the dependency graph
+                communities = list(community.greedy_modularity_communities(dependency_graph))
+                
+                # Calculate modularity score
+                modularity_q = community.modularity(dependency_graph, communities)
+                metrics.loc_consistency = max(0, modularity_q)  # Ensure non-negative
+            else:
+                # Fallback: if no dependencies, use category-based cohesion as proxy
+                agent_category_cohesion = []
+                for agent_id in set(t.agent_id for t in self.tool_metrics):
+                    agent_tools = [t for t in self.tool_metrics if t.agent_id == agent_id]
+                    if len(agent_tools) > 1:
+                        agent_categories = [t.semantic_category for t in agent_tools]
+                        unique_categories = len(set(agent_categories))
+                        # Higher cohesion when agent focuses on fewer categories
+                        cohesion = 1.0 - (unique_categories - 1) / len(agent_categories)
+                        agent_category_cohesion.append(cohesion)
+                
+                metrics.loc_consistency = statistics.mean(agent_category_cohesion) if agent_category_cohesion else 0.5
+                
+        except ImportError:
+            # If networkx not available, fall back to simple category cohesion
+            print("⚠️ NetworkX not available, using category cohesion for modularity")
+            agent_category_cohesion = []
+            for agent_id in set(t.agent_id for t in self.tool_metrics):
+                agent_tools = [t for t in self.tool_metrics if t.agent_id == agent_id]
+                if len(agent_tools) > 1:
+                    agent_categories = [t.semantic_category for t in agent_tools]
+                    unique_categories = len(set(agent_categories))
+                    cohesion = 1.0 - (unique_categories - 1) / len(agent_categories)
+                    agent_category_cohesion.append(cohesion)
+            
+            metrics.loc_consistency = statistics.mean(agent_category_cohesion) if agent_category_cohesion else 0.5
         
         # Innovation rate (tools with unique semantic fingerprints)
         semantic_fingerprints = set()
@@ -437,22 +520,70 @@ class ExperimentAnalyzer:
         else:
             metrics.agent_complexity_variance = 1.0
         
-        # Emergent specialization (concentration of agents in dominant categories)
+        # PHASE 2: Emergent specialization using Normalized Mutual Information (NMI)
+        # This distinguishes true specialization from all agents doing the same thing
         agent_categories = {}
         for tool in self.tool_metrics:
             if tool.agent_id not in agent_categories:
                 agent_categories[tool.agent_id] = []
             agent_categories[tool.agent_id].append(tool.semantic_category)
         
-        specialization_scores = []
-        for agent_id, categories in agent_categories.items():
-            if categories:
-                category_counts = Counter(categories)
-                max_count = max(category_counts.values())
-                specialization = max_count / len(categories)
-                specialization_scores.append(specialization)
-        
-        metrics.category_concentration = statistics.mean(specialization_scores) if specialization_scores else 0
+        # Calculate Normalized Mutual Information between agents and categories
+        if len(agent_categories) > 1 and any(len(cats) > 0 for cats in agent_categories.values()):
+            # Build contingency table for MI calculation
+            all_agents = list(agent_categories.keys())
+            all_categories = list(set(cat for cats in agent_categories.values() for cat in cats))
+            
+            if len(all_categories) > 0:
+                # Create frequency matrix
+                contingency = [[0] * len(all_categories) for _ in range(len(all_agents))]
+                for i, agent in enumerate(all_agents):
+                    for cat in agent_categories[agent]:
+                        j = all_categories.index(cat)
+                        contingency[i][j] += 1
+                
+                # Calculate mutual information manually
+                total = sum(sum(row) for row in contingency)
+                
+                if total > 0:
+                    # Marginal probabilities
+                    p_agent = [sum(row)/total for row in contingency]
+                    p_cat = [sum(contingency[i][j] for i in range(len(all_agents)))/total 
+                            for j in range(len(all_categories))]
+                    
+                    # Joint probabilities and MI
+                    mi = 0.0
+                    for i in range(len(all_agents)):
+                        for j in range(len(all_categories)):
+                            if contingency[i][j] > 0:
+                                p_joint = contingency[i][j] / total
+                                if p_agent[i] > 0 and p_cat[j] > 0:
+                                    mi += p_joint * math.log2(p_joint / (p_agent[i] * p_cat[j]))
+                    
+                    # Calculate entropies for normalization
+                    h_agent = -sum(p * math.log2(p) for p in p_agent if p > 0)
+                    h_cat = -sum(p * math.log2(p) for p in p_cat if p > 0)
+                    
+                    # Normalized MI (0 = independent, 1 = perfect correlation)
+                    if min(h_agent, h_cat) > 0:
+                        nmi = mi / min(h_agent, h_cat)
+                        metrics.category_concentration = nmi
+                    else:
+                        # Fall back to simple concentration if entropy is 0
+                        specialization_scores = []
+                        for agent_id, categories in agent_categories.items():
+                            if categories:
+                                category_counts = Counter(categories)
+                                max_count = max(category_counts.values())
+                                specialization = max_count / len(categories)
+                                specialization_scores.append(specialization)
+                        metrics.category_concentration = statistics.mean(specialization_scores) if specialization_scores else 0
+                else:
+                    metrics.category_concentration = 0
+            else:
+                metrics.category_concentration = 0
+        else:
+            metrics.category_concentration = 0
         
         # Adaptive learning (based on center history evolution)
         if self.center_history and len(self.center_history) > 1:
@@ -895,8 +1026,8 @@ class ExperimentAnalyzer:
         fig, axes = plt.subplots(2, 3, figsize=(18, 10))
         
         # Radar chart for ecosystem metrics
-        categories = ['Functional\nDiversity', 'Modularity\nIndex', 'Innovation\nRate', 
-                     'Complexity\nCoherence', 'Emergent\nSpecialization', 'Adaptive\nLearning']
+        categories = ['Category\nEntropy', 'Modularity Q\n(Network)', 'Unique\nPattern\nRatio', 
+                     'Agent\nComplexity\nVariance', 'Specialization\n(NMI)', 'Center\nDrift\nRate']
         values = [metrics.category_entropy, metrics.loc_consistency, metrics.unique_pattern_ratio,
                  metrics.agent_complexity_variance, metrics.category_concentration, metrics.center_drift_rate]
         
@@ -1214,10 +1345,10 @@ class ExperimentAnalyzer:
         md_content += f"""
 ## Emergent Intelligence Metrics
 - **Category Entropy**: {report['ecosystem_intelligence']['category_entropy']:.3f}
-- **LOC Consistency**: {report['ecosystem_intelligence']['loc_consistency']:.3f}
+- **Modularity Q (Network)**: {report['ecosystem_intelligence']['loc_consistency']:.3f}
 - **Unique Pattern Ratio**: {report['ecosystem_intelligence']['unique_pattern_ratio']:.3f}
 - **Complexity Coherence**: {report['ecosystem_intelligence']['agent_complexity_variance']:.3f}
-- **Category Concentration**: {report['ecosystem_intelligence']['category_concentration']:.3f}
+- **Specialization (NMI)**: {report['ecosystem_intelligence']['category_concentration']:.3f}
 - **Center Drift Score**: {report['ecosystem_intelligence']['center_drift_rate']:.3f}
 
 ## Emergent Intelligence Indicators
