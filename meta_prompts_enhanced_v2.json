@@ -1,0 +1,94 @@
+{
+  "meta_prompts": [
+    {
+      "id": "crocodile_conservation_intelligence",
+      "description": "**Resource**: `resources/task_1_crocodile_dataset.csv` - Global crocodile species dataset with 1,002 observations across all recognized species, including taxonomic data, physical measurements, geographic distribution, habitat types, and conservation status. **Your Mission**: Build tools that can reveal hidden patterns in crocodile ecology, predict conservation risks, and uncover unexpected relationships between species characteristics and survival. What conservation insights are we missing? **Encourage Tool Composition**: Create analysis pipelines where habitat analyzers call species predictors → conservation assessors → risk calculators → intervention recommenders. How do ecological tools compound to reveal conservation strategies?",
+      "category": "Data Science - Conservation Biology",
+      "resource_location": "resources/task_1_crocodile_dataset.csv",
+      "concrete_element": "1,002 crocodile observations withs taxonomic, physical, and conservation data",
+      "open_question": "What hidden ecological patterns could revolutionize crocodile conservation?",
+      "composition_focus": "Conservation pipeline: habitat analysis → species prediction → risk assessment → intervention planning"
+    },
+    {
+      "id": "healthcare_cost_prediction_system",
+      "description": "**Resource**: `resources/task_2_insurance.csv` - Medical insurance dataset with 1,338 individuals including age, BMI, smoking status, region, and insurance charges. **Your Mission**: Build tools that can predict healthcare costs, identify cost drivers, and uncover hidden factors affecting medical expenses. What patterns in healthcare spending are insurance companies missing? **Encourage Tool Composition**: Create cost intelligence systems where demographic analyzers call health risk predictors → cost estimators → policy optimizers → affordability assessors. How do healthcare analysis tools enhance each other for better coverage decisions?",
+      "category": "Data Science - Healthcare Economics",
+      "resource_location": "resources/task_2_insurance.csv",
+      "concrete_element": "1,338 medical insurance records with demographics and cost data",
+      "open_question": "What hidden healthcare cost patterns could transform insurance pricing?",
+      "composition_focus": "Healthcare pipeline: demographic analysis → risk prediction → cost estimation → policy optimization"
+    },
+    {
+      "id": "global_economic_intelligence",
+      "description": "**Resource**: `resources/task_3_GDP.csv` - Global GDP data for all countries from 2020-2025 (including estimates), covering economic performance through COVID, recovery, and beyond. **Your Mission**: Build tools that can predict economic trends, identify growth opportunities, and uncover hidden relationships between countries' economic trajectories. What economic patterns are economists missing in the post-pandemic world? **Encourage Tool Composition**: Create economic intelligence systems where GDP analyzers call trend predictors → growth identifiers → risk assessors → opportunity mappers. How do economic analysis tools compound for better forecasting?",
+      "category": "Data Science - Global Economics",
+      "resource_location": "resources/task_3_GDP.csv",
+      "concrete_element": "Global GDP data (2020-2025) covering pandemic recovery period",
+      "open_question": "What hidden economic patterns could predict the next global shifts?",
+      "composition_focus": "Economic pipeline: GDP analysis → trend prediction → growth identification → opportunity mapping"
+    },
+    {
+      "id": "educational_performance_optimization",
+      "description": "**Resource**: `resources/task_4_bi.csv` - Student performance dataset (77 students) with demographics, study habits, and Python/Database course scores, requiring significant data cleaning. **Your Mission**: Build tools that can predict student success, optimize learning strategies, and identify factors affecting academic performance in technical subjects. What learning patterns could revolutionize computer science education? **Encourage Tool Composition**: Create educational intelligence systems where data cleaners call performance predictors → learning optimizers → intervention suggesters → outcome trackers. How do educational analysis tools enhance each other for personalized learning?",
+      "category": "Data Science - Educational Analytics",
+      "resource_location": "resources/task_4_bi.csv",
+      "concrete_element": "77 student records with demographics, study patterns, and technical course performance",
+      "open_question": "What learning patterns could transform technical education outcomes?",
+      "composition_focus": "Educational pipeline: data cleaning → performance prediction → learning optimization → intervention planning"
+    },
+    {
+      "id": "fraud_detection_intelligence",
+      "description": "**Resource**: `resources/task_5_creditcard.csv` - Credit card fraud dataset with 284,807 transactions (492 frauds, highly imbalanced) from European cardholders, featuring PCA-transformed variables plus Time and Amount. **Your Mission**: Build tools that can detect fraudulent patterns, predict fraud risk, and optimize detection systems for highly imbalanced data. What fraud patterns are current systems missing? **Encourage Tool Composition**: Create fraud intelligence systems where anomaly detectors call pattern analyzers → risk scorers → alert generators → response optimizers. How do fraud detection tools compound for better security?",
+      "category": "Data Science - Financial Security",
+      "resource_location": "resources/task_5_creditcard.csv",
+      "concrete_element": "284,807 credit card transactions with 492 fraud cases (highly imbalanced dataset)",
+      "open_question": "What hidden fraud patterns could revolutionize financial security?",
+      "composition_focus": "Fraud pipeline: anomaly detection → pattern analysis → risk scoring → alert optimization"
+    },
+    {
+      "id": "statistical_inference_exploration",
+      "description": "**Resource**: `resources/task_6_maths_notes.pdf` - Oxford Statistical Inference foundations notes (SB2.1), comprehensive mathematical treatment of statistical theory and methods. **Your Mission**: Build tools that can extract mathematical concepts, generate algorithm implementations, and create interactive statistical learning aids. What computational approaches could make statistical inference more accessible? **Encourage Tool Composition**: Create statistical learning systems where concept extractors call algorithm generators → visualization creators → interactive demos → assessment builders. How do mathematical analysis tools compound for better statistical education?",
+      "category": "Mathematical Analysis - Statistical Learning",
+      "resource_location": "resources/task_6_maths_notes.pdf",
+      "concrete_element": "Oxford Statistical Inference textbook with comprehensive mathematical foundations",
+      "open_question": "What computational tools could revolutionize statistical inference learning?",
+      "composition_focus": "Statistical pipeline: concept extraction → algorithm generation → visualization → interactive learning"
+    },
+    {
+      "id": "classical_literature_deep_analysis",
+      "description": "**Resource**: `resources/task_7_journey_to_the_west.pdf` - Complete 1,400-page Journey to the West classic, rich in cultural themes, character development, and narrative structure. **Your Mission**: Build tools that can analyze narrative patterns, extract cultural insights, and reveal hidden thematic connections across this epic tale. What literary insights have scholars missed in this masterpiece? **Encourage Tool Composition**: Create literary intelligence systems where text analyzers call character trackers → theme extractors → cultural mappers → narrative pattern identifiers. How do literary analysis tools compound for deeper textual understanding?",
+      "category": "Literary Analysis - Classical Texts",
+      "resource_location": "resources/task_7_journey_to_the_west.pdf",
+      "concrete_element": "Complete Journey to the West (1,400 pages) with rich cultural and narrative content",
+      "open_question": "What hidden literary patterns could revolutionize classical text analysis?",
+      "composition_focus": "Literary pipeline: text analysis → character tracking → theme extraction → cultural mapping"
+    },
+    {
+      "id": "shakespeare_sonnet_linguistic_analysis",
+      "description": "**Resource**: `resources/task_8_sonnets_18.pdf` - Shakespeare's Sonnet 18 ('Shall I compare thee to a summer's day?') with detailed linguistic and literary analysis. **Your Mission**: Build tools that can analyze poetic structure, extract linguistic patterns, and generate insights into Shakespeare's techniques. What poetic innovations in this famous sonnet could inform modern creative writing? **Encourage Tool Composition**: Create poetic analysis systems where structure analyzers call linguistic pattern extractors → meter analyzers → metaphor identifiers → style generators. How do poetic analysis tools compound for creative writing assistance?",
+      "category": "Literary Analysis - Poetry",
+      "resource_location": "resources/task_8_sonnets_18.pdf",
+      "concrete_element": "Shakespeare's Sonnet 18 with comprehensive linguistic and literary analysis",
+      "open_question": "What poetic techniques could inspire modern creative writing tools?",
+      "composition_focus": "Poetic pipeline: structure analysis → linguistic pattern extraction → meter analysis → creative generation"
+    },
+    {
+      "id": "game_development_system_design",
+      "description": "**Resource**: `resources/task_9_grid_runner_PRD.pdf` - Complete Product Requirements Document for Grid Runner game, including gameplay mechanics, technical specifications, and user experience design. **Your Mission**: Build tools that can extract requirements, generate game components, and create development workflows from PRD specifications. What development patterns could streamline game creation from requirements documents? **Encourage Tool Composition**: Create game development systems where requirement extractors call component generators → workflow creators → testing frameworks → deployment optimizers. How do development tools compound for efficient game creation?",
+      "category": "Software Development - Game Design",
+      "resource_location": "resources/task_9_grid_runner_PRD.pdf",
+      "concrete_element": "Complete Grid Runner game PRD with technical and design specifications",
+      "open_question": "What development tools could revolutionize game creation from requirements?",
+      "composition_focus": "Game dev pipeline: requirement extraction → component generation → workflow creation → testing automation"
+    },
+    {
+      "id": "minimalist_app_development_framework",
+      "description": "**Resource**: `resources/task_10_to_do_lite_PRD.pdf` - Product Requirements Document for a minimalist todo application, focusing on simplicity, user experience, and core functionality. **Your Mission**: Build tools that can analyze minimalist design principles, generate clean code architectures, and create development frameworks for simple yet powerful applications. What development approaches could perfect the art of minimalist software design? **Encourage Tool Composition**: Create minimalist development systems where design analyzers call architecture generators → code optimizers → UX validators → simplicity assessors. How do development tools compound for elegant, minimal applications?",
+      "category": "Software Development - Minimalist Design",
+      "resource_location": "resources/task_10_to_do_lite_PRD.pdf",
+      "concrete_element": "Complete Todo Lite PRD emphasizing minimalist design and core functionality",
+      "open_question": "What development tools could master minimalist application design?",
+      "composition_focus": "Minimalist dev pipeline: design analysis → architecture generation → code optimization → UX validation"
+    }
+  ]
+}

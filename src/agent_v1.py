@@ -439,12 +439,12 @@ REQUIREMENTS:
 8. Prefer available packages listed above
 9. If useful, try to call other tools for building your own tool. 
 
-TOOL COMPOSITION:
+TOOL COMPOSITION (Optional but Encouraged):
 - To call other tools: context.call_tool('tool_name', {{'param': value}})
 - Always check: if context: before calling tools
 - Handle context=None case gracefully
-- If context is provided and relevant shared tools exist, call at least TWO tools in sequence and aggregate their outputs
-- Include a 'composition' field in the returned dict summarizing the chain (e.g., "my_tool -> multiply -> power")
+- When context is available, you may leverage existing tools to build more sophisticated functionality
+- If you use other tools, include a 'composition' field in the returned dict (e.g., "my_tool -> data_cleaner -> validator")
 
 TOOL COMPOSITION - CALLING OTHER TOOLS:
 If your tool needs to use other tools, use the context object:
@@ -453,7 +453,7 @@ If your tool needs to use other tools, use the context object:
 - Always handle the case where context is None
 
 Example structures:
-# Simple tool:
+# Standalone tool:
 def execute(parameters, context=None):
     \"\"\"Tool description\"\"\"
     try:
@@ -463,24 +463,33 @@ def execute(parameters, context=None):
     except Exception as e:
         return {{"error": str(e)}}
 
-# Tool that calls other tools:
+# Compositional tool:
 def execute(parameters, context=None):
-    \"\"\"Tool that uses other tools\"\"\"
+    \"\"\"Tool that leverages other tools\"\"\"
     try:
-        if context:
-            # Call another tool
-            multiply_result = context.call_tool('multiply', {{'a': 5, 'b': 3}})
-            if multiply_result.get('success'):
-                value = multiply_result['result']['numeric_result']
-                return {{"result": "Used multiply: " + str(value), "composition": "my_tool -> multiply"}}
+        data = parameters.get('data')
         
-        # Fallback if no context
-        return {{"error": "This tool requires other tools but no context provided"}}
+        if context:
+            # Clean the data first
+            clean_result = context.call_tool('DataQualityInspector', {{'df': data}})
+            if clean_result.get('success'):
+                # Then transform it
+                transform_result = context.call_tool('DataTransformer', {{'df': data, 'config': {{}}}})
+                if transform_result.get('success'):
+                    return {{
+                        "result": transform_result['result'], 
+                        "quality_score": clean_result['overall_score'],
+                        "composition": "my_tool -> DataQualityInspector -> DataTransformer"
+                    }}
+        
+        # Fallback: process directly
+        processed_data = process_data_directly(data)
+        return {{"result": processed_data, "composition": "standalone"}}
     except Exception as e:
         return {{"error": str(e)}}"""
 
-        user_prompt = f"""Write a simple, complete Python function for {tool_name}.
-Keep it under 50 lines.
+        user_prompt = f"""Write a complete Python function for {tool_name}.
+Consider using context.call_tool() to leverage existing tools when appropriate.
 Output ONLY the Python code."""
 
         messages = [

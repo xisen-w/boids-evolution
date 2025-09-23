@@ -11,6 +11,8 @@ experiments/
 .env
 .env.example
 
+resources/
+
 # Distribution / packaging
 .Python
 build/
