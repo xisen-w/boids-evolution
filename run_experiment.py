@@ -116,7 +116,7 @@ class ExperimentRunner:
                 crossover_rate=0.5,
                 min_population_size=max(3, num_agents // 2)
             )
-        
+
         logger.info(f"🧪 Experiment initialized: {self.experiment_name}")
         logger.info(f"📁 Experiment directory: {self.experiment_dir}")
     
@@ -226,7 +226,7 @@ class ExperimentRunner:
             neighbors.append(self.agents[left_idx])
             
         return list(set(neighbors)) # Return unique neighbors
-    
+
     def _run_single_round(self, round_num: int) -> Dict[str, Any]:
         """
         Run a single round of the agent society simulation.
@@ -383,7 +383,7 @@ Reflect on:
                 build_result = agent.build_tools(reflection, round_num)
                 
                 self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
-                    
+
                 if build_result["success"]:
                     round_results["tools_created"] += 1
                     logger.info(f"   ✅ {agent.agent_id}: Built tool successfully")
@@ -424,7 +424,7 @@ Reflect on:
                     "tools_built_so_far": len(agent.self_built_tools)
                 }
                 round_results["agent_actions"].append(agent_action)
-                    
+
             except Exception as e:
                 logger.error(f"   ❌ {agent.agent_id} turn failed: {e}", exc_info=True)
         
@@ -436,7 +436,7 @@ Reflect on:
             
             # Update adoption counts at the very end of the round
             self._update_adoption_counts()
-            
+        
         # Calculate and Record System Complexity
         self._calculate_and_record_system_complexity(round_num)
 
@@ -700,7 +700,7 @@ Based on these activities, what is the 'center of gravity' for the ecosystem rig
                     round_num < self.max_rounds):  # Don't evolve on the last round
                     
                     logger.info(f"\n🧬 Evolution triggered at round {round_num}")
-                    self.agents = self.evolutionary_algorithm.evolve_population(
+                    self.agents = self.evolutionary_algorithm.evolve_population_with_discovery(
                         agents=self.agents,
                         tci_analyzer=self.tci_analyzer,
                         azure_client=self.azure_client,
