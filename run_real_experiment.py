@@ -40,18 +40,62 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_meta_prompts(file_path: str = 'meta_prompts.json') -> Dict[str, str]:
-    """Loads the meta-prompts from the JSON file."""
+def load_meta_prompts(file_path: str = 'meta_prompts_enhanced_v2.json') -> Dict[str, str]:
+    """Loads the enhanced meta-prompts from the JSON file."""
     try:
         with open(file_path, 'r') as f:
             data = json.load(f)
         return {prompt['id']: prompt['description'] for prompt in data['meta_prompts']}
     except FileNotFoundError:
-        logger.error(f"Meta prompts file not found at: {file_path}")
-        return {}
+        logger.error(f"Enhanced meta prompts file not found at: {file_path}")
+        # Fallback to original meta_prompts.json
+        try:
+            with open('meta_prompts.json', 'r') as f:
+                data = json.load(f)
+            logger.info("Using fallback meta_prompts.json")
+            return {prompt['id']: prompt['description'] for prompt in data['meta_prompts']}
+        except:
+            logger.error("Both enhanced and original meta prompts files failed to load")
+            return {}
     except (KeyError, json.JSONDecodeError):
         logger.error(f"Invalid format in meta prompts file: {file_path}")
         return {}
+
+
+def verify_resources() -> bool:
+    """Verify that required resource files are accessible."""
+    logger.info("🔍 Verifying resource files...")
+    
+    required_resources = [
+        "resources/task_1_crocodile_dataset.csv",
+        "resources/task_2_insurance.csv", 
+        "resources/task_3_GDP.csv",
+        "resources/task_4_bi.csv",
+        "resources/task_5_creditcard.csv",
+        "resources/task_6_maths_notes.pdf",
+        "resources/task_7_journey_to_the_west.pdf",
+        "resources/task_8_sonnets_18.pdf",
+        "resources/task_9_grid_runner_PRD.pdf",
+        "resources/task_10_to_do_lite_PRD.pdf"
+    ]
+    
+    missing_resources = []
+    for resource in required_resources:
+        if not os.path.exists(resource):
+            missing_resources.append(resource)
+        else:
+            # Check file size to ensure it's not empty
+            size = os.path.getsize(resource)
+            logger.info(f"   ✅ {resource} ({size:,} bytes)")
+    
+    if missing_resources:
+        logger.error("❌ Missing resources:")
+        for resource in missing_resources:
+            logger.error(f"   - {resource}")
+        return False
+    
+    logger.info("✅ All resources verified successfully!")
+    return True
 
 
 def plot_complexity_evolution(experiment_dir: str, complexity_data: List[Dict[str, Any]]):
@@ -291,7 +335,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Load meta-prompts
+    # Verify resources are accessible
+    if not verify_resources():
+        logger.error("❌ Resource verification failed. Please ensure all resource files are present.")
+        return 1
+    
+    # Load enhanced meta-prompts
     meta_prompts = load_meta_prompts()
     if not meta_prompts:
         return 1

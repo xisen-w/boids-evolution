@@ -110,10 +110,14 @@ class Agent:
                     neighbor_tools_status[creator] = {}
                 neighbor_tools_status[creator][tool_name] = status_summary
 
+        # Add detailed test results for learning from failures
+        my_test_details = self._get_detailed_test_results()
+        
         observation = {
             "all_visible_tools": all_visible_tools,
             "my_tools": list(my_tools_status.keys()),
             "my_test_status": my_tools_status,
+            "my_test_details": my_test_details,  # NEW: Detailed test results for learning
             "shared_test_status": shared_tools_status,
             "neighbor_test_status": neighbor_tools_status,
         }
@@ -137,6 +141,38 @@ class Agent:
             "test_summary": summary,
             "test_passed": test_passed
         }
+    
+    def _get_detailed_test_results(self) -> Dict[str, Any]:
+        """Get detailed test results for learning from failures."""
+        detailed_results = {}
+        
+        for tool_name in self.self_built_tools.keys():
+            results_file = os.path.join(self.personal_test_results_dir, f"{tool_name}_results.json")
+            if os.path.exists(results_file):
+                try:
+                    with open(results_file, 'r') as f:
+                        test_data = json.load(f)
+                    
+                    # Extract key information for learning
+                    detailed_results[tool_name] = {
+                        "execution_success": test_data.get("execution_success", False),
+                        "all_passed": test_data.get("all_passed", False),
+                        "error_message": test_data.get("error", ""),
+                        "failed_tests": [
+                            test for test in test_data.get("tests", []) 
+                            if not test.get("passed", True)
+                        ],
+                        "test_count": test_data.get("total_tests", 0),
+                        "passed_count": test_data.get("passed_tests", 0)
+                    }
+                except Exception as e:
+                    detailed_results[tool_name] = {
+                        "execution_success": False,
+                        "error_message": f"Could not read test results: {e}",
+                        "all_passed": False
+                    }
+        
+        return detailed_results
 
     def reflect(self, system_prompt: str, user_prompt: str) -> str:
         """
@@ -428,7 +464,7 @@ Be concrete and practical."""
 
 {tool_design}{package_examples}
 
-REQUIREMENTS:
+CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
 2. Entry point must be: def execute(parameters, context=None):
 3. You MAY define small helper functions to keep code readable and modular
@@ -437,7 +473,15 @@ REQUIREMENTS:
 6. Ensure all parentheses and brackets are closed
 7. Try to build more complex tools (more lines). Aim for more lines total (helpers allowed) when appropriate for clarity
 8. Prefer available packages listed above
-9. If useful, try to call other tools for building your own tool. 
+9. If useful, try to call other tools for building your own tool.
+
+🚫 ABSOLUTELY NO PLACEHOLDERS:
+- NO "# TODO: implement this"
+- NO "# placeholder for X"  
+- NO "pass" statements as implementation
+- NO "raise NotImplementedError"
+- EVERY function must have complete, working implementation
+- ALL logic must be fully implemented with actual code 
 
 TOOL COMPOSITION (Optional but Encouraged):
 - To call other tools: context.call_tool('tool_name', {{'param': value}})
@@ -508,13 +552,51 @@ Output ONLY the Python code."""
         
         return code
     
+    def _extract_resource_info(self) -> str:
+        """Extract resource information from meta_prompt for test generation."""
+        if not self.meta_prompt:
+            return ""
+        
+        # Look for resource references in meta_prompt
+        resource_patterns = [
+            "resources/task_1_crocodile_dataset.csv",
+            "resources/task_2_insurance.csv", 
+            "resources/task_3_GDP.csv",
+            "resources/task_4_bi.csv",
+            "resources/task_5_creditcard.csv",
+            "resources/task_6_maths_notes.pdf",
+            "resources/task_7_journey_to_the_west.pdf",
+            "resources/task_8_sonnets_18.pdf",
+            "resources/task_9_grid_runner_PRD.pdf",
+            "resources/task_10_to_do_lite_PRD.pdf"
+        ]
+        
+        detected_resource = None
+        for pattern in resource_patterns:
+            if pattern in self.meta_prompt:
+                detected_resource = pattern
+                break
+        
+        if detected_resource:
+            return f"""RESOURCE CONTEXT:
+This tool is designed to work with the specific resource: {detected_resource}
+Your tests MUST use this actual resource file for realistic testing.
+Tests should load and work with real data from this resource, not mock data."""
+        else:
+            return ""
+    
     def _generate_test_code(self, tool_name: str, tool_design: str) -> str:
         """Generate comprehensive test code for a tool."""
+        
+        # Extract resource information from meta_prompt
+        resource_info = self._extract_resource_info()
         
         system_prompt = f"""Generate comprehensive Python test code for this tool:
 
 TOOL NAME: {tool_name}
 TOOL DESIGN: {tool_design}
+
+{resource_info}
 
 CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
@@ -592,7 +674,7 @@ if __name__ == "__main__":
     test_results = run_tests()
     print(json.dumps(test_results, indent=2))"""
 
-        user_prompt = f"""Create comprehensive tests for {tool_name}.
+        user_prompt = f"""Create comprehensive, resource-aware tests for {tool_name}.
 
 CRITICAL IMPORT REQUIREMENT: Use the EXACT import template provided above. DO NOT change the import section or the tests will fail completely.
 
@@ -600,17 +682,23 @@ CRITICAL: Tools use this calling convention:
 - result = {tool_name}.execute({{'param1': value1, 'param2': value2}})
 - NOT: result = {tool_name}.execute(value1, value2)
 
-Generate 3 EXTREMELY SIMPLE test cases:
-- Basic functionality with simple data like [1,2,3]
-- Empty input handling with []
-- One more basic case
+RESOURCE-FOCUSED TESTING REQUIREMENTS:
+1. If a resource file is specified, your tests MUST attempt to load and use real data from that resource
+2. Design tests to be modular and minimal but use actual resource data when available
+3. Test realistic scenarios that the tool would encounter with the actual resource
+4. Include error handling tests for resource access issues
+5. Validate that the tool produces meaningful results with real data
 
-MAKE TESTS PASS EASILY:
-1. Call the tool with basic parameters like {{'data': [1,2,3]}}
-2. Accept ANY result that isn't None or an exception
-3. Don't check exact outputs - just that something reasonable happened
-4. Only fail if the tool crashes or returns None
-5. BE EXTREMELY GENEROUS - almost everything should pass
+GENERATE 3 COMPREHENSIVE TEST CASES:
+1. **Resource Integration Test**: Load actual data from the specified resource and test core functionality
+2. **Error Handling Test**: Test behavior when resource is unavailable or malformed
+3. **Edge Case Test**: Test with boundary conditions from the actual resource data
+
+TESTING PHILOSOPHY:
+- Use real data when possible, not just mock data
+- Test meaningful functionality, not just basic execution
+- Validate that results make sense for the specific domain/resource
+- Ensure tests help identify actual issues with tool implementation
 
 REMINDER: Use the EXACT template structure above - especially the import section.
 Output ONLY the Python test code."""

@@ -289,6 +289,9 @@ class ExperimentRunner:
                     if self.self_reflection_enabled:
                         self_reflection_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
 
+                    # Add test failure information for learning
+                    test_failure_prompt = self._prepare_test_failure_prompt(agent)
+
                     # 2. Assemble the final prompt, ensuring the meta_prompt is central
                     system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society.
 
@@ -304,6 +307,7 @@ Your strategy is guided by Boids rules. You must reflect on your local neighborh
 Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to the BOIDS RULES methodology."""
                     
                     user_prompt = "\n\n".join(filter(None, [
+                        test_failure_prompt,  # NEW: Add test failure information first
                         self_reflection_prompt,
                         alignment_prompt,
                         separation_prompt,
@@ -317,6 +321,9 @@ Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adherin
                 else:
                     # Legacy Mode: Reconstruct the original global reflection prompt for backward compatibility
                     observation = agent.observe()
+                    
+                    # Add test failure information for learning
+                    test_failure_prompt = self._prepare_test_failure_prompt(agent)
                     
                     package_info = ""
                     if agent.environment_manager:
@@ -348,7 +355,9 @@ Reflect on the current tool ecosystem and think strategically about what to buil
                             tool_summaries = [f"{name}: {status.get('test_summary', 'No info')}" for name, status in tools.items()]
                             neighbor_test_summary.append(f"  {neighbor_id}: {'; '.join(tool_summaries[:3])}")
                     
-                    user_prompt = f"""CURRENT OBSERVATION:
+                    user_prompt = f"""{test_failure_prompt}
+
+CURRENT OBSERVATION:
 
 === ECOSYSTEM SNAPSHOT ({len(observation.get('all_visible_tools', []))}) ===
 {format_test_status(observation.get('shared_test_status', {}), "Shared Foundational Tools")}
@@ -853,6 +862,42 @@ Based on these activities, what is the 'center of gravity' for the ecosystem rig
             }
         
         return summaries
+    
+    def _prepare_test_failure_prompt(self, agent) -> str:
+        """Prepare test failure information for agent learning."""
+        observation = agent.observe()
+        test_details = observation.get('my_test_details', {})
+        
+        if not test_details:
+            return ""
+        
+        failed_tools = []
+        for tool_name, details in test_details.items():
+            if not details.get('execution_success', True) or not details.get('all_passed', True):
+                error_msg = details.get('error_message', 'Unknown error')
+                failed_tests = details.get('failed_tests', [])
+                
+                failure_info = f"🔥 {tool_name}: "
+                if not details.get('execution_success', True):
+                    failure_info += f"EXECUTION ERROR - {error_msg}"
+                else:
+                    failure_info += f"TEST FAILURES - {len(failed_tests)} failed tests"
+                    if failed_tests:
+                        failure_info += f" ({', '.join([test.get('test_name', 'unknown') for test in failed_tests[:2]])})"
+                
+                failed_tools.append(failure_info)
+        
+        if failed_tools:
+            return f"""🚨 CRITICAL: TOOL FAILURES DETECTED
+Your previous tools have failures that need immediate attention:
+
+{chr(10).join(failed_tools)}
+
+PRIORITY: Before building new tools, you should focus on fixing these failures. 
+Failed tools indicate implementation issues that need to be resolved for the ecosystem to function properly.
+Consider building simpler, more reliable tools or fixing the root causes of these failures."""
+        
+        return ""
     
     def _save_human_readable_summary(self, final_stats: Dict[str, Any]):
         """Save a human-readable experiment summary."""
