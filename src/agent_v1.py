@@ -816,13 +816,17 @@ def execute(parameters, context=None):
             available_tools_info = f"\n\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):\n"
             for tool_name, tool_info in available_tools.items():
                 available_tools_info += f"- {tool_name}: {tool_info['description'][:100]}...\n"
-                available_tools_info += f"  Parameters: {list(tool_info['parameters'].keys())}\n"
+                param_details = []
+                for param, type_info in tool_info['parameters'].items():
+                    param_details.append(f"{param}: {type_info}")
+                available_tools_info += f"  Parameters: {param_details}\n"
                 available_tools_info += f"  TCI Score: {tool_info['tci_score']}\n"
-                available_tools_info += f"  🚨 CALL AS: context.call_tool('{tool_name}', {{'param': value}})\n\n"
+                example_params = {param: f"<{param}>" for param in tool_info['parameters'].keys()}
+                available_tools_info += f"  🚨 CALL AS: context.call_tool('{tool_name}', {example_params})\n\n"
         else:
             available_tools_info = "\n\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!\n🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!"
 
-        user_prompt = f"""Write a complete Python function for {tool_name}.
+        user_prompt = f"""Write a complete Python function for the designs above.
 Consider using context.call_tool() to leverage existing tools when appropriate.
 {available_tools_info}
 Output ONLY the Python code."""

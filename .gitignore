@@ -8,6 +8,8 @@ __pycache__/
 
 experiments/
 
+debug_logs/
+
 .env
 .env.example
 

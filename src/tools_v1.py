@@ -11,6 +11,7 @@ import json
 import shutil
 import importlib.util
 import subprocess
+from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 
@@ -224,6 +225,35 @@ class ToolRegistryV1:
                     test_info["test_execution_success"] = tool_data_copy.get("test_execution_success")
                 
                 tool_data_copy.update(test_info)
+                
+                # Add complexity analysis if missing
+                if "complexity" not in tool_data_copy:
+                    try:
+                        from .complexity_analyzer import TCILiteAnalyzer
+                        analyzer = TCILiteAnalyzer()
+                        tool_file_path = os.path.join(self.shared_tools_dir, tool_data["file"])
+                        if os.path.exists(tool_file_path):
+                            tool_path = Path(tool_file_path)
+                            complexity = analyzer.analyze_single_tool(tool_path, {tool_path.stem})
+                            if isinstance(complexity, dict):
+                                tool_data_copy["complexity"] = {
+                                    "tci_score": complexity.get("tci_score", 0.0),
+                                    "code_complexity": complexity.get("code_complexity", 0.0),
+                                    "interface_complexity": complexity.get("interface_complexity", 0.0),
+                                    "compositional_complexity": complexity.get("compositional_complexity", 0.0),
+                                    "lines_of_code": complexity.get("lines_of_code"),
+                                    "param_count": complexity.get("param_count"),
+                                    "tool_calls": complexity.get("tool_calls"),
+                                    "external_imports": complexity.get("external_imports")
+                                }
+                    except Exception:
+                        # Fallback to default complexity if analysis fails
+                        tool_data_copy["complexity"] = {
+                            "tci_score": 1.0,
+                            "code_complexity": 0.5,
+                            "interface_complexity": 0.3,
+                            "compositional_complexity": 0.2
+                        }
                 
                 tools[tool_name] = tool_data_copy
             

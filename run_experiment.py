@@ -1006,7 +1006,7 @@ Your previous tools have failures that need immediate attention:
 
 {chr(10).join(failed_tools)}
 
-PRIORITY: Before building new tools, you should focus on fixing these failures. 
+PRIORITY: Before building new tools, you could also work on fixing these failures. 
 Failed tools indicate implementation issues that need to be resolved for the ecosystem to function properly.
 Consider building simpler, more reliable tools or fixing the root causes of these failures."""
         
