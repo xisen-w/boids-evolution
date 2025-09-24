@@ -35,18 +35,16 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
         return ""
 
     # 2. Find "success" exemplars.
-    # Complexity Leader
-    complexity_leader = max(recent_tools, key=lambda t: t.get("complexity", {}).get("tci_score", 0), default=None)
-    print(f"Complexity Leader: {complexity_leader}")
-    print(f"Complexity Leader TCI Score: {complexity_leader.get('complexity', {}).get('tci_score', 0)}")
-    print(f"Complexity Leader Code: {_read_tool_code(complexity_leader, tools_base_dir)}")
-
-    # Quality Leader 
+    # Quality Leader (top-complexity neighbor that has passed tests)
     quality_leader = max(
         (t for t in recent_tools if t.get("test_passed") is True),
-        key=lambda t: t.get("complexity", {}).get("tci_score", 0), # Tie-break with complexity
+        key=lambda t: t.get("complexity", {}).get("tci_score", 0),
         default=None
-    ) #TODO Quality Leader = Complexity leader that passed tests. Hence remove complexity leader altogehter. 
+    )
+    
+    # Fallback to untested complexity leader if no tested tools exist
+    if quality_leader is None:
+        quality_leader = max(recent_tools, key=lambda t: t.get("complexity", {}).get("tci_score", 0), default=None) 
 
     # Adoption Leader
     adoption_leader = max(
@@ -59,20 +57,13 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
     prompt_lines = ["[🎯 ALIGNMENT: Learn from Successful Neighbors]",
                     "Your neighbors have recently built some remarkable tools. Learn from their strategies:"]
 
-    if complexity_leader:
-        tci_score = complexity_leader.get("complexity", {}).get("tci_score", 0)
-        code_snippet = _read_tool_code(complexity_leader, tools_base_dir)
-        prompt_lines.append(f"\nComplexity Leader (TCI Score: {tci_score:.2f}):")
-        prompt_lines.append(f"- Tool: '{complexity_leader['name']}' by {complexity_leader['created_by']}")
-        prompt_lines.append(f"- Strategy: This tool achieves high complexity. Analyze its code for composition and depth.")
-        prompt_lines.append(f"  - Code:\n```python\n{code_snippet}\n```")
-
     if quality_leader:
         tci_score = quality_leader.get("complexity", {}).get("tci_score", 0)
         code_snippet = _read_tool_code(quality_leader, tools_base_dir)
-        prompt_lines.append(f"\nQuality Leader (TCI Score: {tci_score:.2f}):")
+        test_status = "PASSED TESTS" if quality_leader.get("test_passed") else "HIGH COMPLEXITY"
+        prompt_lines.append(f"\nQuality Exemplar (TCI Score: {tci_score:.2f}, {test_status}):")
         prompt_lines.append(f"- Tool: '{quality_leader['name']}' by {quality_leader['created_by']}")
-        prompt_lines.append(f"- Strategy: This tool achieves high complexity with reliablility.  Analyze its code for composition and depth (i.e. how it uses other tools or writes more complex lines). Analyze its code for robust error handling and clear functionality.")
+        prompt_lines.append(f"- Strategy: This tool achieves high complexity with reliability. Analyze its code for composition and depth (i.e. how it uses other tools or writes more complex lines). Analyze its code for robust error handling and clear functionality.")
         prompt_lines.append(f"  - Code:\n```python\n{code_snippet}\n```")
 
     if adoption_leader:
@@ -83,7 +74,7 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
         prompt_lines.append(f"- Strategy: This tool is the most widely used by others. Analyze its simple API and focused functionality to understand why it's so effective.")
         prompt_lines.append(f"  - Code:\n```python\n{code_snippet}\n```")
 
-    if not complexity_leader and not quality_leader and not adoption_leader:
+    if not quality_leader and not adoption_leader:
         return "" # No exemplars to learn from
 
     prompt_lines.append("\nYOUR GOAL: Do not just copy their code. Instead, adopt their successful DESIGN PRINCIPLES like modularity, composition, and robustness in your own unique tool.")

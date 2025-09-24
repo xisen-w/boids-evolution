@@ -191,8 +191,8 @@ class Agent:
                 if tool_data.get("created_by") == self.agent_id:
                     continue
                 
-                # Only include tools that have passed tests (working tools)
-                if tool_data.get("test_passed", False):
+                # Include tools that have passed tests OR haven't been tested yet (assume they work)
+                if tool_data.get("test_passed", False) or tool_data.get("test_passed") is None:
                     available_tools[tool_name] = {
                         "description": tool_data.get("description", "No description available"),
                         "created_by": tool_data.get("created_by", "Unknown"),
@@ -206,32 +206,102 @@ class Agent:
         
         return available_tools
 
-    def _infer_tool_parameters(self, tool_name: str, tool_data: Dict[str, Any]) -> Dict[str, Any]: #TODO THis is too ugly and almost useless. For parameters. opbviously the functions themselves have had them well!! 
-        """Infer tool parameters from description and metadata."""
-        description = tool_data.get("description", "")
+    def _infer_tool_parameters(self, tool_name: str, tool_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Infer tool parameters using AST parsing of the actual tool file."""
+        import ast
+        import os
         
-        # Simple parameter inference based on common patterns
-        params = {}
+        # First, try to get explicit parameters from metadata
+        if 'parameters' in tool_data and tool_data['parameters']:
+            return tool_data['parameters']
         
-        if "data" in description.lower():
-            params["data"] = "Any data input (list, dict, or DataFrame)"
-        if "parameters" in description.lower():
-            params["parameters"] = "Dictionary of tool-specific parameters"
-        if "context" in description.lower():
-            params["context"] = "Optional context dictionary"
-        if "file" in description.lower() or "path" in description.lower():
-            params["file_path"] = "Path to input file"
-        if "model" in description.lower():
-            params["model_params"] = "Model parameters dictionary"
+        # Try to parse the actual tool file
+        tool_file = tool_data.get('file', f"{tool_name}.py")
+        if not os.path.isabs(tool_file):
+            # Assume it's in the personal tools directory
+            tool_file = os.path.join(self.personal_tool_dir, tool_file)
         
-        # Default parameters if none inferred
-        if not params:
-            params = {
-                "data": "Input data for processing",
-                "parameters": "Tool-specific parameters"
-            }
+        if not os.path.exists(tool_file):
+            return self._get_default_parameters()
+        
+        try:
+            with open(tool_file, 'r', encoding='utf-8') as f:
+                source_code = f.read()
+            
+            tree = ast.parse(source_code)
+            
+            # Find the execute function
+            for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef) and node.name == 'execute':
+                    params = {}
+                    
+                    # Parse function arguments
+                    for arg in node.args.args:
+                        if arg.arg == 'self':
+                            continue
+                        param_name = arg.arg
+                        
+                        # Get type annotation if available
+                        if arg.annotation:
+                            if isinstance(arg.annotation, ast.Name):
+                                param_type = arg.annotation.id
+                            elif isinstance(arg.annotation, ast.Constant):
+                                param_type = str(arg.annotation.value)
+                            else:
+                                param_type = "Any"
+                        else:
+                            param_type = "Any"
+                        
+                        # Check if it has a default value
+                        has_default = len(node.args.defaults) > 0 and node.args.args.index(arg) >= len(node.args.args) - len(node.args.defaults)
+                        default_info = " (optional)" if has_default else " (required)"
+                        
+                        params[param_name] = f"{param_type}{default_info}"
+                    
+                    # Parse docstring for parameter descriptions
+                    if node.body and isinstance(node.body[0], ast.Expr) and isinstance(node.body[0].value, ast.Constant):
+                        docstring = node.body[0].value.value
+                        params = self._extract_params_from_docstring(docstring, params)
+                    
+                    return params if params else self._get_default_parameters()
+        
+        except Exception as e:
+            print(f"Error parsing tool {tool_name}: {e}")
+            return self._get_default_parameters()
+    
+    def _extract_params_from_docstring(self, docstring: str, params: Dict[str, str]) -> Dict[str, str]:
+        """Extract parameter descriptions from docstring."""
+        lines = docstring.split('\n')
+        current_param = None
+        
+        for line in lines:
+            line = line.strip()
+            if line.startswith('Args:') or line.startswith('Parameters:'):
+                continue
+            elif line.startswith('Returns:') or line.startswith('Returns'):
+                break
+            elif line and not line.startswith(' ') and ':' in line:
+                # This looks like a parameter definition
+                param_name = line.split(':')[0].strip()
+                if param_name in params:
+                    current_param = param_name
+                    # Extract description
+                    desc = line.split(':', 1)[1].strip()
+                    if desc:
+                        params[param_name] = f"{params[param_name]} - {desc}"
+            elif current_param and line.startswith(' '):
+                # Continuation of parameter description
+                if current_param in params:
+                    params[current_param] += f" {line.strip()}"
         
         return params
+    
+    def _get_default_parameters(self) -> Dict[str, str]:
+        """Get default parameters when parsing fails."""
+        return {
+            "parameters": "Dictionary of tool-specific parameters (required)",
+            "context": "Optional context dictionary (optional)"
+        }
 
     def reflect(self, system_prompt: str, user_prompt: str) -> str:
         """
@@ -288,6 +358,118 @@ Be concrete and practical."""
             "tool_design": tool_design,
             "tool_info": tool_info,
             "reflection": reflection
+        }
+    
+    def build_tools_with_context(self, strategic_context: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Build tools with rich strategic context from reflection phase.
+        
+        Args:
+            strategic_context: Dictionary containing reflection, Boids context, and mission data
+            
+        Returns:
+            Build result with tool info for testing
+        """
+        reflection = strategic_context["reflection"]
+        round_num = strategic_context["round_num"]
+        boids_enabled = strategic_context["boids_enabled"]
+        
+        # Build enhanced system prompt with strategic scaffolding
+        system_prompt = f"""You are Agent {self.agent_id}. Based on your reflection and strategic context, design a specific tool to build.
+
+Create a tool specification with:
+- Unique tool name
+- Clear description  
+- Tool type (data, logic, utility, code)
+- Implementation outline
+- Expected parameters and return format
+
+CRITICAL REQUIREMENTS:
+1. Output ONLY raw Python code (no markdown, no ```)
+2. Function must be named 'execute(parameters, context=None)'
+3. Include comprehensive docstring with Args and Returns sections
+4. Handle errors gracefully with try/except blocks
+5. Return results in a consistent format
+
+🚫 ABSOLUTELY NO PLACEHOLDERS:
+- NO "# TODO: implement this"
+- NO "# placeholder for X"  
+- NO "pass" statements as implementation
+- NO "raise NotImplementedError"
+- EVERY function must have complete, working implementation
+- ALL logic must be fully implemented with actual code
+
+TOOL COMPOSITION (HIGHLY ENCOURAGED!):
+- To call other tools: context.call_tool('tool_name', {{'param': value}})
+- Always check: if context: before calling tools
+- Example: result = context.call_tool('DataProcessor', {{'data': my_data}})
+- Example: analysis = context.call_tool('Analyzer', {{'input': processed_data}})
+- Build upon existing tools rather than duplicating functionality
+- Create tool pipelines: Tool A → Tool B → Tool C
+- This increases your TCI score and creates more valuable tools!
+
+🚨 CRITICAL: ONLY CALL TOOLS THAT ACTUALLY EXIST!
+- Check the AVAILABLE TOOLS list below - only call tools listed there
+- If no tools are available, build your own complete implementation
+- Do NOT call tools that don't exist (like 'PoetryStructureAnalyzer' if not listed)
+- If you need functionality that doesn't exist, implement it yourself"""
+
+        # Build enhanced user prompt with strategic context
+        user_prompt_parts = [f"REFLECTION: {reflection}"]
+        
+        # Add Boids context if enabled
+        if boids_enabled:
+            if strategic_context.get("alignment_prompt"):
+                user_prompt_parts.append(f"ALIGNMENT GUIDANCE: {strategic_context['alignment_prompt']}")
+            
+            if strategic_context.get("separation_prompt"):
+                user_prompt_parts.append(f"SEPARATION GUIDANCE: {strategic_context['separation_prompt']}")
+            
+            if strategic_context.get("cohesion_prompt"):
+                user_prompt_parts.append(f"COHESION GUIDANCE: {strategic_context['cohesion_prompt']}")
+            
+            if strategic_context.get("self_reflection_memory_prompt"):
+                user_prompt_parts.append(f"SELF-REFLECTION MEMORY: {strategic_context['self_reflection_memory_prompt']}")
+            
+            if strategic_context.get("test_failure_prompt"):
+                user_prompt_parts.append(f"TEST FAILURE GUIDANCE: {strategic_context['test_failure_prompt']}")
+            
+            if strategic_context.get("global_summary"):
+                user_prompt_parts.append(f"GLOBAL ECOSYSTEM SUMMARY: {strategic_context['global_summary']}")
+        
+        # Add available tools for composition
+        available_tools = self._discover_available_tools_for_calling()
+        if available_tools:
+            user_prompt_parts.append("\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):")
+            for tool_name, tool_info in available_tools.items():
+                user_prompt_parts.append(f"- {tool_name}: {tool_info['description'][:100]}...")
+                user_prompt_parts.append(f"  Parameters: {list(tool_info['parameters'].keys())}")
+                user_prompt_parts.append(f"  TCI Score: {tool_info['tci_score']}")
+                user_prompt_parts.append(f"  🚨 CALL AS: context.call_tool('{tool_name}', {{'param': value}})\n")
+        else:
+            user_prompt_parts.append("\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!")
+            user_prompt_parts.append("🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!")
+        
+        user_prompt_parts.append("\nBased on this comprehensive context, design ONE specific tool to build. Be concrete, practical, and leverage the strategic guidance provided.")
+        
+        user_prompt = "\n\n".join(user_prompt_parts)
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+        
+        tool_design = self.azure_client.chat(messages, temperature=0.7)
+        
+        # Create the actual tool file
+        tool_info = self._create_tool_file(tool_design, round_num)
+        
+        return {
+            "success": tool_info["success"],
+            "tool_design": tool_design,
+            "tool_info": tool_info,
+            "reflection": reflection,
+            "strategic_context": strategic_context
         }
     
     def build_tests(self, tool_info: Dict[str, Any]) -> Dict[str, Any]:
@@ -558,6 +740,12 @@ TOOL COMPOSITION (HIGHLY ENCOURAGED!):
 - When context is available, you may leverage existing tools to build more sophisticated functionality
 - If you use other tools, include a 'composition' field in the returned dict (e.g., "my_tool -> data_cleaner -> validator")
 
+🚨 CRITICAL: ONLY CALL TOOLS THAT ACTUALLY EXIST!
+- Check the AVAILABLE TOOLS list below - only call tools listed there
+- If no tools are available, build your own complete implementation
+- Do NOT call tools that don't exist (like 'PoetryStructureAnalyzer' if not listed)
+- If you need functionality that doesn't exist, implement it yourself
+
 TOOL COMPOSITION - CALLING OTHER TOOLS:
 If your tool needs to use other tools, use the context object:
 - context.call_tool(tool_name, parameters) -> returns result dict
@@ -604,13 +792,14 @@ def execute(parameters, context=None):
         available_tools = self._discover_available_tools_for_calling()
         available_tools_info = ""
         if available_tools:
-            available_tools_info = f"\n\nAVAILABLE TOOLS FOR COMPOSITION:\n"
+            available_tools_info = f"\n\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):\n"
             for tool_name, tool_info in available_tools.items():
                 available_tools_info += f"- {tool_name}: {tool_info['description'][:100]}...\n"
                 available_tools_info += f"  Parameters: {list(tool_info['parameters'].keys())}\n"
-                available_tools_info += f"  TCI Score: {tool_info['tci_score']}\n\n"
+                available_tools_info += f"  TCI Score: {tool_info['tci_score']}\n"
+                available_tools_info += f"  🚨 CALL AS: context.call_tool('{tool_name}', {{'param': value}})\n\n"
         else:
-            available_tools_info = "\n\nNo other tools available for composition yet."
+            available_tools_info = "\n\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!\n🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!"
 
         user_prompt = f"""Write a complete Python function for {tool_name}.
 Consider using context.call_tool() to leverage existing tools when appropriate.
@@ -665,8 +854,8 @@ Your tests MUST use this actual resource file for realistic testing.
 Tests should load and work with real data from this resource, not mock data.
 
 CRITICAL RESOURCE PATH: Use this EXACT path in your tests:
-resource_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '{detected_resource}')
-This points to the correct resources directory in the project root."""
+resource_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))), '{detected_resource}')
+This points to the correct resources directory in the project root (6 levels up from _tests directory)."""
         else:
             return ""
     

@@ -136,6 +136,13 @@ class ExperimentRunner:
             # Create experiment directory
             os.makedirs(self.experiment_dir, exist_ok=True)
             
+            # Copy default shared tools to experiment directory
+            if os.path.exists("shared_tools"):
+                shutil.copytree("shared_tools", self.shared_tools_dir, dirs_exist_ok=True)
+                logger.info("✅ Copied default shared tools to experiment directory")
+            else:
+                logger.warning("⚠️ No default shared tools found, using empty shared tools directory")
+            
             # Initialize tool registry with experiment-specific paths
             self.tool_registry = ToolRegistryV1(
                 shared_tools_dir=self.shared_tools_dir,
@@ -300,8 +307,11 @@ class ExperimentRunner:
                     if self.boids_cohesion_enabled:
                         active_boids_rules.append("Contribute to the collective goal identified by the society (Cohesion).")
 
+                    # Shared methodology base
+                    base_methodology = "You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next."
+                    
                     boids_methodology_lines = [
-                        "Your strategy is guided by Boids rules. You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next." #TODO AGain, not aligned with the boids-free approach below, where it should. 
+                        f"Your strategy is guided by Boids rules. {base_methodology}"
                     ]
 
                     if active_boids_rules:
@@ -329,7 +339,7 @@ Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adherin
                     
                     user_prompt = "\n\n".join(filter(None, [
                         test_failure_prompt,  # NEW: Add test failure information first
-                        self_reflection_prompt,
+                        self_reflection_memory_prompt,
                         alignment_prompt,
                         separation_prompt,
                         cohesion_prompt,
@@ -358,7 +368,7 @@ ECOSYSTEM GOAL: Create a robust and powerful tool library. Prioritize creating "
 
 AVAILABLE ENVIRONMENTS: {', '.join(agent.envs_available)}{package_info}
 
-Reflect on the current tool ecosystem and think strategically about what to build next.""" # TODO This sohuld align with the base prompts in BOIDS!! Now they couldn't compare. 
+Your strategy is guided by core strategic heuristics. {base_methodology}""" 
 
                     if agent.specific_prompt:
                         system_prompt += f"\n\nSPECIFIC GUIDANCE: {agent.specific_prompt}"
@@ -410,7 +420,22 @@ Reflect on:
 
                 # --- 2. Build Tools ---
                 self.visualizer.show_phase_header(f"{agent.agent_id}'s Turn: Tool Building", "🔨")
-                build_result = agent.build_tools(reflection, round_num) # This is the code for tool building, which has NO differentiation between boids and boids-free approach. So currently it is only impacting the 'reflection' part. 
+                
+                # Prepare strategic context for tool building
+                strategic_context = {
+                    "reflection": reflection,
+                    "round_num": round_num,
+                    "boids_enabled": self.boids_enabled,
+                    "alignment_prompt": alignment_prompt if self.boids_enabled else "",
+                    "separation_prompt": separation_prompt if self.boids_enabled else "",
+                    "cohesion_prompt": cohesion_prompt if self.boids_enabled else "",
+                    "self_reflection_memory_prompt": self_reflection_memory_prompt if self.boids_enabled else "",
+                    "test_failure_prompt": test_failure_prompt if self.boids_enabled else "",
+                    "global_summary": last_global_summary if self.boids_enabled else "",
+                    "neighbor_tools_meta": neighbor_tools_meta if self.boids_enabled else []
+                }
+                
+                build_result = agent.build_tools_with_context(strategic_context) 
                 
                 self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
 

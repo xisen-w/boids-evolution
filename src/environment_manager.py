@@ -156,6 +156,16 @@ class EnvironmentManager:
         """
         import re
         
+        # Built-in Python modules that are always available
+        builtin_modules = {
+            'os', 'sys', 'json', 'datetime', 'time', 'random', 'math', 're', 'collections',
+            'itertools', 'functools', 'operator', 'string', 'io', 'base64', 'hashlib',
+            'urllib', 'http', 'socket', 'threading', 'multiprocessing', 'subprocess',
+            'pathlib', 'tempfile', 'shutil', 'glob', 'fnmatch', 'csv', 'xml', 'html',
+            'sqlite3', 'pickle', 'copy', 'types', 'inspect', 'traceback', 'logging',
+            'warnings', 'contextlib', 'abc', 'enum', 'dataclasses', 'typing'
+        }
+        
         # Extract import statements
         import_pattern = r'(?:from\s+(\w+)|import\s+(\w+))'
         imports = re.findall(import_pattern, code)
@@ -163,7 +173,7 @@ class EnvironmentManager:
         
         for from_pkg, import_pkg in imports:
             pkg = from_pkg or import_pkg
-            if pkg:
+            if pkg and pkg not in builtin_modules:
                 used_packages.add(pkg)
         
         available_packages = set(self.get_all_available_packages())
