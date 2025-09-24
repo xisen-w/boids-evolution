@@ -24,51 +24,49 @@ def run_tests():
         return results
     
     test_cases = [
-        {"name": "test_basic_power", "params": {"base": 2, "exponent": 3}, "expected": 8},
-        {"name": "test_power_of_one", "params": {"base": 5, "exponent": 1}, "expected": 5},
-        {"name": "test_power_of_zero", "params": {"base": 10, "exponent": 0}, "expected": 1},
-        {"name": "test_zero_base", "params": {"base": 0, "exponent": 5}, "expected": 0},
-        {"name": "test_negative_base", "params": {"base": -2, "exponent": 2}, "expected": 4},
-        {"name": "test_negative_base_odd", "params": {"base": -2, "exponent": 3}, "expected": -8},
+        {"name": "test_basic_power", "params": {"base": 2, "exponent": 3}, "expected": 8.0},
+        {"name": "test_power_of_one", "params": {"base": 5, "exponent": 1}, "expected": 5.0},
+        {"name": "test_power_of_zero", "params": {"base": 10, "exponent": 0}, "expected": 1.0},
+        {"name": "test_zero_base", "params": {"base": 0, "exponent": 5}, "expected": 0.0},
+        {"name": "test_negative_base", "params": {"base": -2, "exponent": 2}, "expected": 4.0},
+        {"name": "test_negative_base_odd", "params": {"base": -2, "exponent": 3}, "expected": -8.0},
         {"name": "test_decimal_base", "params": {"base": 2.5, "exponent": 2}, "expected": 6.25},
-        {"name": "test_large_exponent", "params": {"base": 2, "exponent": 10}, "expected": 1024},
-        {"name": "test_negative_exponent", "params": {"base": 2, "exponent": -1}, "expected": "error"},
+        {"name": "test_large_exponent", "params": {"base": 2, "exponent": 10}, "expected": 1024.0},
+        {"name": "test_negative_exponent", "params": {"base": 2, "exponent": -1}, "expect_error": ValueError},
     ]
     
     for test_case in test_cases:
         results["total_tests"] += 1
+        params = test_case["params"]
+        expected_error = test_case.get("expect_error")
+
         try:
-            result = power.execute(test_case["params"])
-            
-            if test_case["expected"] == "error":
-                passed = not result.get("success", True)
+            result = power.execute(params["base"], params["exponent"])
+            if expected_error:
+                passed = False
+                actual = result
             else:
-                # Check numeric_result field
-                passed = (result.get("success") and 
-                         abs(result.get("numeric_result", 0) - test_case["expected"]) < 0.001)
-            
-            # Clean result by removing outdated energy_gain
-            clean_result = {k: v for k, v in result.items() if k != "energy_gain"}
-            
-            results["tests"].append({
-                "name": test_case["name"],
-                "passed": passed,
-                "expected": test_case["expected"],
-                "actual": clean_result
-            })
-            
-            if passed:
-                results["passed_tests"] += 1
+                passed = abs(result - test_case["expected"]) < 1e-6
+                actual = result
+        except Exception as exc:
+            if expected_error and isinstance(exc, expected_error):
+                passed = True
+                actual = str(exc)
             else:
-                results["failed_tests"] += 1
-                
-        except Exception as e:
-            results["tests"].append({
-                "name": test_case["name"],
-                "passed": False,
-                "error": str(e)
-            })
+                passed = False
+                actual = str(exc)
+
+        if passed:
+            results["passed_tests"] += 1
+        else:
             results["failed_tests"] += 1
+
+        results["tests"].append({
+            "name": test_case["name"],
+            "passed": passed,
+            "expected": test_case.get("expected", str(expected_error)),
+            "actual": actual
+        })
     
     results["all_passed"] = results["failed_tests"] == 0
     return results

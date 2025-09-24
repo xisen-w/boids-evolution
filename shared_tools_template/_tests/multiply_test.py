@@ -24,31 +24,27 @@ def run_tests():
         return results
     
     test_cases = [
-        {"name": "test_positive_numbers", "params": {"a": 6, "b": 7}, "expected": 42},
-        {"name": "test_negative_numbers", "params": {"a": -4, "b": 5}, "expected": -20},
-        {"name": "test_zero_multiplication", "params": {"a": 0, "b": 100}, "expected": 0},
+        {"name": "test_positive_numbers", "params": {"a": 6, "b": 7}, "expected": 42.0},
+        {"name": "test_negative_numbers", "params": {"a": -4, "b": 5}, "expected": -20.0},
+        {"name": "test_zero_multiplication", "params": {"a": 0, "b": 100}, "expected": 0.0},
         {"name": "test_decimal_numbers", "params": {"a": 2.5, "b": 4}, "expected": 10.0},
-        {"name": "test_string_numbers", "params": {"a": "3", "b": "4"}, "expected": 12},
-        {"name": "test_large_numbers", "params": {"a": 1000, "b": 1000}, "expected": 1000000},
+        {"name": "test_string_numbers", "params": {"a": "3", "b": "4"}, "expected": 12.0},
+        {"name": "test_large_numbers", "params": {"a": 1000, "b": 1000}, "expected": 1000000.0},
     ]
     
     for test_case in test_cases:
         results["total_tests"] += 1
         try:
-            result = multiply.execute(test_case["params"])
-            
-            # Check numeric_result field instead of parsing result string
-            passed = (result.get("success") and 
-                     abs(result.get("numeric_result", 0) - test_case["expected"]) < 0.001)
-            
-            # Clean result by removing outdated energy_gain
-            clean_result = {k: v for k, v in result.items() if k != "energy_gain"}
+            params = test_case["params"]
+            result = multiply.execute(params["a"], params["b"])
+
+            passed = abs(result - test_case["expected"]) < 1e-6
             
             results["tests"].append({
                 "name": test_case["name"],
                 "passed": passed,
                 "expected": test_case["expected"],
-                "actual": clean_result
+                "actual": result
             })
             
             if passed:
