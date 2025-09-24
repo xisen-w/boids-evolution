@@ -1,0 +1,283 @@
+=== TOOL DESIGN DEBUG ===Agent: Agent_01Timestamp: 20250924_183006=== STRATEGIC CONTEXT ==={'reflection': 'Given the mission to uncover hidden ecological patterns in crocodile species, predict conservation risks, and identify unexpected relationships, I propose building a **"Multi-Layered Crocodile Ecological Insight Engine" (MLEE)**. This comprehensive tool would integrate multiple analytical modules to deliver deep, actionable insights.\n\n**Key Components and Reasoning:**\n\n1. **Species Characteristic Predictor:**  \n   - Uses physical measurements, habitat data, and geographic distribution to model species-specific traits.\n   - Employs advanced machine learning (e.g., Random Forests, Gradient Boosting) for trait prediction and pattern recognition.\n\n2. **Habitat and Distribution Analyzer:**  \n   - Analyzes spatial and habitat data to identify ecological niches and potential undiscovered or underrepresented habitats.\n   - Uses clustering and spatial statistics to reveal habitat associations.\n\n3. **Conservation Risk Assessor:**  \n   - Combines species traits, habitat data, and conservation status to generate a risk score.\n   - Incorporates factors like habitat loss, climate change impacts, and human activity.\n\n4. **Hidden Pattern Discovery Module:**  \n   - Applies unsupervised learning (e.g., PCA, t-SNE, clustering) to find unexpected relationships between physical traits, geographic ranges, and conservation outcomes.\n   - Can reveal, for example, that certain morphological features correlate with resilience in specific habitats.\n\n5. **Intervention Recommendation System:**  \n   - Based on the above analyses, suggests targeted conservation actions, habitat protections, or breeding programs.\n\n**Why this tool?**  \n- It embodies deep, layered analysis, chaining predictive models, spatial analytics, and pattern recognition.\n- It aligns with Boids principles by collaborating with existing data processing tools, differentiating by focusing on multi-modal, integrated insights, and contributing significantly to conservation science.\n- It can uncover elusive ecological patterns—like trait-environment interactions—that could revolutionize crocodile conservation strategies.\n\n**Next Step:**  \nBuild auxiliary functions for data cleaning, feature engineering, and model evaluation that can be reused within each module, ensuring modularity and composability.\n\n**In summary:**  \nThe **Multi-Layered Crocodile Ecological Insight Engine** is a high-impact, complex tool chain designed to uncover hidden ecological patterns and inform conservation with sophisticated, layered analyses.', 'round_num': 1, 'boids_enabled': True, 'alignment_prompt': '', 'separation_prompt': '', 'cohesion_prompt': '', 'self_reflection_memory_prompt': '', 'test_failure_prompt': '', 'global_summary': '', 'neighbor_tools_meta': []}=== SYSTEM PROMPT ===You are Agent Agent_01. Use the strategic context to craft a detailed tool DESIGN SPECIFICATION.
+
+Your blueprint must include:
+- Unique, Python-import-safe tool name (snake_case preferred)
+- Mission-aligned problem statement and expected outcome
+- Tool type classification (data, logic, utility, orchestration, etc.)
+- Step-by-step implementation outline, highlighting helper functions and external tool calls
+- Composition plan that names any existing tools you will call (or explicitly state none)
+- Expected parameters with types, validation, and defaults where appropriate
+- Expected return structure with keys, data types, and semantic meaning
+- Testing and risk considerations (edge cases, failure modes, evaluation strategy)
+
+Do NOT write implementation code. Produce a structured design document that a downstream code generator can follow precisely.
+
+Composition rules:
+- Only plan to call tools listed in the AVAILABLE TOOLS section
+- When separation guidance warns about overlap, explain how your tool stays unique
+- If no tools are available, design a self-contained implementation=== USER PROMPT ===REFLECTION: Given the mission to uncover hidden ecological patterns in crocodile species, predict conservation risks, and identify unexpected relationships, I propose building a **"Multi-Layered Crocodile Ecological Insight Engine" (MLEE)**. This comprehensive tool would integrate multiple analytical modules to deliver deep, actionable insights.
+
+**Key Components and Reasoning:**
+
+1. **Species Characteristic Predictor:**  
+   - Uses physical measurements, habitat data, and geographic distribution to model species-specific traits.
+   - Employs advanced machine learning (e.g., Random Forests, Gradient Boosting) for trait prediction and pattern recognition.
+
+2. **Habitat and Distribution Analyzer:**  
+   - Analyzes spatial and habitat data to identify ecological niches and potential undiscovered or underrepresented habitats.
+   - Uses clustering and spatial statistics to reveal habitat associations.
+
+3. **Conservation Risk Assessor:**  
+   - Combines species traits, habitat data, and conservation status to generate a risk score.
+   - Incorporates factors like habitat loss, climate change impacts, and human activity.
+
+4. **Hidden Pattern Discovery Module:**  
+   - Applies unsupervised learning (e.g., PCA, t-SNE, clustering) to find unexpected relationships between physical traits, geographic ranges, and conservation outcomes.
+   - Can reveal, for example, that certain morphological features correlate with resilience in specific habitats.
+
+5. **Intervention Recommendation System:**  
+   - Based on the above analyses, suggests targeted conservation actions, habitat protections, or breeding programs.
+
+**Why this tool?**  
+- It embodies deep, layered analysis, chaining predictive models, spatial analytics, and pattern recognition.
+- It aligns with Boids principles by collaborating with existing data processing tools, differentiating by focusing on multi-modal, integrated insights, and contributing significantly to conservation science.
+- It can uncover elusive ecological patterns—like trait-environment interactions—that could revolutionize crocodile conservation strategies.
+
+**Next Step:**  
+Build auxiliary functions for data cleaning, feature engineering, and model evaluation that can be reused within each module, ensuring modularity and composability.
+
+**In summary:**  
+The **Multi-Layered Crocodile Ecological Insight Engine** is a high-impact, complex tool chain designed to uncover hidden ecological patterns and inform conservation with sophisticated, layered analyses.
+
+
+✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):
+
+- calculate: Perform mathematical calculations (add, subtract, multiply, divide)...
+
+  Parameters: ['operation', 'a', 'b']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('calculate', {'param': value})
+
+
+- multiply: Basic multiplication - foundational tool for composition...
+
+  Parameters: ['a', 'b']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('multiply', {'param': value})
+
+
+- square: Square a number using the multiply tool (demonstrates composition)...
+
+  Parameters: ['number']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('square', {'param': value})
+
+
+- ai_web_search: Performs a web search using the Tavily API to find up-to-date information on a given query....
+
+  Parameters: ['parameters', 'context']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('ai_web_search', {'param': value})
+
+
+- power: Calculate power using repeated multiplication (complex composition)...
+
+  Parameters: ['base', 'exponent']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('power', {'param': value})
+
+
+- file_write: Write content to a file in the agent_outputs directory...
+
+  Parameters: ['filename', 'content']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('file_write', {'param': value})
+
+
+- ai_text_generate: Generate creative text using Azure OpenAI - stories, articles, content...
+
+  Parameters: ['prompt', 'temperature', 'max_tokens', 'style']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('ai_text_generate', {'param': value})
+
+
+- ai_json_generate: Generate structured JSON data using Azure OpenAI - configs, APIs, schemas...
+
+  Parameters: ['prompt', 'schema', 'format_type', 'temperature']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('ai_json_generate', {'param': value})
+
+
+- prompt_engineer: Advanced prompt engineering tool that wraps ai_text_generate with sophisticated prompting techniques...
+
+  Parameters: ['base_prompt', 'technique', 'examples', 'temperature', 'max_tokens']
+
+  TCI Score: 0
+
+  🚨 CALL AS: context.call_tool('prompt_engineer', {'param': value})
+
+
+
+Based on this comprehensive context, design ONE specific tool to build. Provide a rigorous blueprint that adheres to the methodology and leverages the guidance above.=== TOOL DESIGN RESPONSE ===# Tool Design Specification for **species_characteristic_predictor**
+
+---
+
+## 1. Tool Name
+```python
+species_characteristic_predictor
+```
+*(Python-import-safe snake_case name)*
+
+---
+
+## 2. Problem Statement and Expected Outcome
+### Problem Statement:
+Efficiently model and predict ecological and physical traits of crocodile species based on available datasets such as physical measurements, habitat characteristics, and geographic distribution data. The goal is to uncover species-specific traits that could reveal hidden ecological patterns and inform conservation strategies.
+
+### Expected Outcome:
+Generate a structured dataset containing predicted species traits (e.g., size, weight, habitat preference indices) with associated confidence scores, enabling downstream analysis such as clustering, risk assessment, and pattern discovery.
+
+---
+
+## 3. Tool Type Classification
+**Type:** Data Processing & Model Prediction
+
+This tool processes input data, performs feature engineering, applies predictive models, and outputs structured trait predictions. It acts as a core data transformation and prediction module.
+
+---
+
+## 4. Implementation Outline
+
+### Step 1: Data Validation & Cleaning
+- Validate input data schema.
+- Handle missing values (e.g., imputation).
+- Normalize or standardize features as needed.
+
+*Helper functions:* `validate_and_clean_data()`
+
+---
+
+### Step 2: Feature Engineering
+- Derive additional features (e.g., ratios, categorical encodings).
+- Prepare data in a format compatible with ML models.
+
+*Helper functions:* `engineer_features()`
+
+---
+
+### Step 3: Model Selection & Loading
+- Select an appropriate pre-trained or to-be-trained model (e.g., Random Forest, Gradient Boosting).
+- Load existing models or initialize new ones.
+
+*Helper functions:* `load_model()`
+
+---
+
+### Step 4: Trait Prediction
+- Apply the model to predict traits.
+- Generate confidence scores or probability estimates.
+
+*Helper functions:* `predict_traits()`
+
+---
+
+### Step 5: Compile Results
+- Structure predictions into a JSON-like format.
+- Include metadata such as prediction confidence.
+
+*Helper functions:* `compile_predictions()`
+
+---
+
+### Step 6: Return Output
+- Return structured data with predicted traits and confidence levels.
+
+---
+
+## 5. Composition Plan
+- Call only from available tools: `calculate`, `multiply`, `square`, `power`, `ai_json_generate`, `ai_text_generate`, etc.
+- Use `ai_json_generate` to assist in generating or validating JSON schema if needed.
+- Use `calculate`, `multiply`, etc., for any complex mathematical feature engineering.
+
+*Note:* No external ML libraries are invoked; assume models are pre-trained and stored locally or can be loaded via code.
+
+---
+
+## 6. Parameters
+
+| Name                         | Type             | Validation / Defaults                                                   | Description                                           |
+|------------------------------|------------------|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `input_data`                 | `dict`           | Must contain keys for raw data fields; required                            | Raw input data for species (measurements, habitat info) |
+| `model_path`                 | `str`            | Defaults to a predefined model location (`"models/crocodile_traits.pkl"`) | Path to the ML model file                            |
+| `include_confidence`         | `bool`           | Defaults to `True`                                                         | Whether to include prediction confidence scores     |
+| `features_list`              | `list of str`    | Defaults to list of feature names used in training (`["length", "weight", "habitat_type", ...]`) | Features to engineer and predict on                 |
+
+*Validation:* Ensure `input_data` contains required fields, handle missing/invalid entries.
+
+---
+
+## 7. Return Structure
+
+```json
+{
+  "species_traits": {
+    "species_id": "string",
+    "predicted_traits": {
+      "trait_name": "value",
+      ...
+    },
+    "confidence_scores": {
+      "trait_name": "score (float between 0 and 1)"
+    } (optional, only if include_confidence=True)
+  }
+}
+```
+
+**Keys:**
+- `species_id`: Unique identifier for the species.
+- `predicted_traits`: Dict of trait names and predicted values.
+- `confidence_scores`: Optional dict detailing the confidence level for each trait.
+
+---
+
+## 8. Testing & Risk Considerations
+### Edge Cases:
+- Missing or incomplete input data.
+- Unexpected data types or invalid entries.
+- Outlier feature values.
+
+### Failure Modes:
+- Model loading failure.
+- Prediction errors due to data incompatibility.
+- Inconsistent or malformed output.
+
+### Evaluation Strategy:
+- Validate input data schema before processing.
+- Include unit tests for each helper function.
+- Test with synthetic data covering normal, edge, and invalid cases.
+- Implement error handling to report issues without crashing.
+
+---
+
+## 9. Summary
+The **species_characteristic_predictor** is a self-contained, modular component fundamental for modeling crocodile species traits based on ecological data. It ensures data validation, feature engineering, model inference, and structured output, serving as a core building block for the broader **Multi-Layered Crocodile Ecological Insight Engine**.
+
+---
+
+*This detailed design enables downstream implementation by code generators, ensuring clarity, modularity, and integration compatibility.*

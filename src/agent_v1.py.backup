@@ -351,25 +351,8 @@ Be concrete and practical."""
         
         tool_design = self.azure_client.chat(messages, temperature=0.7)
         
-        # 🔍 DEBUG: Log tool design
-        print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
-        
-        # 🔍 DEBUG: Save tool design to file
-        debug_dir = f"debug_logs/{self.agent_id}"
-        os.makedirs(debug_dir, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        with open(f"{debug_dir}/tool_design_{timestamp}.txt", 'w') as f:
-            f.write(f"=== TOOL DESIGN DEBUG ===")
-            f.write(f"Agent: {self.agent_id}")
-            f.write(f"Timestamp: {timestamp}")
-            f.write(f"=== STRATEGIC CONTEXT ==={strategic_context}")
-            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
-            f.write(f"=== USER PROMPT ==={user_prompt}")
-            f.write(f"=== TOOL DESIGN RESPONSE ==={tool_design}")
-        
         # Create the actual tool file
-        tool_info = self._create_tool_file(tool_design, round_num, strategic_context)
+        tool_info = self._create_tool_file(tool_design, round_num)
         
         return {
             "success": tool_info["success"],
@@ -451,24 +434,8 @@ Composition rules:
         
         tool_design = self.azure_client.chat(messages, temperature=0.7)
         
-        # 🔍 DEBUG: Log tool design
-        print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
-        
-        # 🔍 DEBUG: Save tool design to file
-        debug_dir = f"debug_logs/{self.agent_id}"
-        os.makedirs(debug_dir, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        with open(f"{debug_dir}/tool_design_{timestamp}.txt", 'w') as f:
-            f.write(f"=== TOOL DESIGN DEBUG ===")
-            f.write(f"Agent: {self.agent_id}")
-            f.write(f"Timestamp: {timestamp}")
-            f.write(f"=== STRATEGIC CONTEXT ==={strategic_context}")
-            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
-            f.write(f"=== USER PROMPT ==={user_prompt}")
-            f.write(f"=== TOOL DESIGN RESPONSE ==={tool_design}")      
         # Create the actual tool file
-        tool_info = self._create_tool_file(tool_design, round_num, strategic_context)
+        tool_info = self._create_tool_file(tool_design, round_num)
         
         return {
             "success": tool_info["success"],
@@ -564,14 +531,14 @@ Composition rules:
             "test_results": test_results
         }
     
-    def _create_tool_file(self, tool_design: str, round_num: int, strategic_context: Dict[str, Any] = None) -> Dict[str, Any]:
+    def _create_tool_file(self, tool_design: str, round_num: int) -> Dict[str, Any]:
         """Create actual Python file for the tool."""
         try:
             # Extract tool name from design
             tool_name = self._extract_tool_name(tool_design)
             
-            # Generate Python code with strategic context
-            python_code = self._generate_tool_code(tool_design, tool_name, strategic_context)
+            # Generate Python code
+            python_code = self._generate_tool_code(tool_design, tool_name)
             
             # Write tool file
             tool_file = f"{self.personal_tool_dir}/{tool_name}.py"
@@ -700,7 +667,7 @@ Composition rules:
         # Fallback to generic name
         return f"tool_{len(self.self_built_tools) + 1}"
     
-    def _generate_tool_code(self, tool_design: str, tool_name: str, strategic_context: Dict[str, Any] = None) -> str:
+    def _generate_tool_code(self, tool_design: str, tool_name: str) -> str:
         """Generate Python code for the tool."""
         
         # Get available packages info
@@ -710,22 +677,10 @@ Composition rules:
             if examples:
                 package_examples = f"\n\nAVAILABLE PACKAGES (use these imports):\n" + "\n".join(examples[:8])
         
-        # Add reflection and mission context to system prompt
-        reflection_context = ""
-        if strategic_context:
-            reflection = strategic_context.get("reflection", "")
-            if reflection:
-                reflection_context = f"""
-
-🎯 MISSION CONTEXT & REFLECTION:
-{reflection}
-
-This reflection shows what the agent actually wants to build. Use this context to ensure your tool implementation aligns with the agent's sophisticated analysis and mission goals."""
-        
         # Use Azure to generate actual implementation
         system_prompt = f"""Generate a complete Python implementation for this tool:
 
-{tool_design}{package_examples}{reflection_context}
+{tool_design}{package_examples}
 
 CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
@@ -806,9 +761,6 @@ def execute(parameters, context=None):
     except Exception as e:
         return {{"error": str(e)}}"""
 
-        # 🔍 DEBUG: Log system prompt
-        print(f"🔍 DEBUG: SYSTEM PROMPT = {system_prompt[:500]}...")
-        
         # Get available tools for composition
         available_tools = self._discover_available_tools_for_calling()
         available_tools_info = ""
@@ -827,37 +779,13 @@ Consider using context.call_tool() to leverage existing tools when appropriate.
 {available_tools_info}
 Output ONLY the Python code."""
 
-        # 🔍 DEBUG: Log user prompt
-        print(f"🔍 DEBUG: USER PROMPT = {user_prompt[:500]}...")
-
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
         
-        # 🔍 DEBUG: Log full messages
-        print(f"🔍 DEBUG: FULL MESSAGES = {messages}")
-        
         code = self.azure_client.chat(messages, temperature=0.1, max_tokens=30000)  # Lower tokens to prevent cutoff
         
-        # 🔍 DEBUG: Log LLM response
-        print(f"🔍 DEBUG: LLM RESPONSE = {code[:500]}...")
-        
-        # 🔍 DEBUG: Save all prompts and responses to file
-        debug_dir = f"debug_logs/{self.agent_id}"
-        os.makedirs(debug_dir, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        with open(f"{debug_dir}/tool_generation_{timestamp}.txt", 'w') as f:
-            f.write(f"=== TOOL GENERATION DEBUG ===")
-            f.write(f"Agent: {self.agent_id}")
-            f.write(f"Tool Name: {tool_name}")
-            f.write(f"Timestamp: {timestamp}")
-            f.write(f"=== TOOL DESIGN ==={tool_design}")
-            f.write(f"=== STRATEGIC CONTEXT ==={strategic_context}")
-            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
-            f.write(f"=== USER PROMPT ==={user_prompt}")
-            f.write(f"=== LLM RESPONSE ==={code}")
         
         # Validate package usage if environment manager is available
         if self.environment_manager:
