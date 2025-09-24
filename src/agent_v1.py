@@ -191,8 +191,8 @@ class Agent:
                 if tool_data.get("created_by") == self.agent_id:
                     continue
                 
-                # Include tools that have passed tests OR haven't been tested yet (assume they work)
-                if tool_data.get("test_passed", False) or tool_data.get("test_passed") is None:
+                # Only include tools that have actually passed tests
+                if tool_data.get("test_passed", False):
                     available_tools[tool_name] = {
                         "description": tool_data.get("description", "No description available"),
                         "created_by": tool_data.get("created_by", "Unknown"),

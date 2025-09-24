@@ -136,10 +136,16 @@ class ExperimentRunner:
             # Create experiment directory
             os.makedirs(self.experiment_dir, exist_ok=True)
             
-            # Copy default shared tools to experiment directory
-            if os.path.exists("shared_tools"):
+            # Copy default shared tools from template to experiment directory
+            if os.path.exists("shared_tools_template"):
+                shutil.copytree("shared_tools_template", self.shared_tools_dir, dirs_exist_ok=True)
+                logger.info("✅ Copied default shared tools from template to experiment directory")
+            elif os.path.exists("shared_tools"):
                 shutil.copytree("shared_tools", self.shared_tools_dir, dirs_exist_ok=True)
                 logger.info("✅ Copied default shared tools to experiment directory")
+                
+                # Update test status for tools that have passed tests
+                self._update_shared_tools_test_status()
             else:
                 logger.warning("⚠️ No default shared tools found, using empty shared tools directory")
             
@@ -155,6 +161,46 @@ class ExperimentRunner:
         except Exception as e:
             logger.error(f"❌ Shared tools initialization failed: {e}")
             return False
+    
+    def _update_shared_tools_test_status(self):
+        """Update test status for shared tools that have passed tests."""
+        try:
+            # Load the experiment's shared tools index
+            index_file = os.path.join(self.shared_tools_dir, "index.json")
+            if not os.path.exists(index_file):
+                return
+            
+            with open(index_file, 'r') as f:
+                index_data = json.load(f)
+            
+            # Load the original shared tools index to get test status
+            # First try shared_tools (working directory), then shared_tools_template
+            original_index_file = "shared_tools/index.json"
+            if not os.path.exists(original_index_file):
+                original_index_file = "shared_tools_template/index.json"
+            
+            if os.path.exists(original_index_file):
+                with open(original_index_file, 'r') as f:
+                    original_data = json.load(f)
+                
+                # Update test status for tools that have passed in the original
+                for tool_name, tool_data in index_data.get("tools", {}).items():
+                    if tool_name in original_data.get("tools", {}):
+                        original_tool = original_data["tools"][tool_name]
+                        if original_tool.get("test_passed") is True or original_tool.get("test_passed") == "true":
+                            tool_data["test_passed"] = True
+                            tool_data["last_tested"] = original_tool.get("last_tested")
+                            tool_data["test_execution_success"] = original_tool.get("test_execution_success")
+                            print(f"Updated {tool_name} test status to True")
+                
+                # Save the updated index
+                with open(index_file, 'w') as f:
+                    json.dump(index_data, f, indent=2)
+                
+                logger.info("✅ Updated shared tools test status from original")
+            
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to update shared tools test status: {e}")
     
     def _create_personal_tool_directories(self):
         """Create personal tool directories for each agent."""

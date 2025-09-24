@@ -20,7 +20,15 @@ def execute(parameters, context=None):
         import sys
         import os
         import json
-        sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+        # Add project root to path - dynamic calculation based on location
+        current_file = os.path.abspath(__file__)
+        if 'shared_tools_template' in current_file:
+            # Running from template directory - 1 level up
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        else:
+            # Running from experiment directory - 3 levels up
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        sys.path.append(project_root)
         
         try:
             from src.azure_client import AzureOpenAIClient
@@ -134,4 +142,26 @@ Rules:
             "success": False,
             "error": f"Tool execution error: {str(e)}",
             "result": "Failed to generate JSON"
-        } 
+        }
+
+# Add main function for testing
+if __name__ == "__main__":
+    print("🧪 Testing ai_json_generate directly...")
+    
+    # Test basic functionality
+    test_params = {
+        "prompt": "Create a JSON object with information about a robot learning to paint",
+        "temperature": 0.7,
+        "max_tokens": 200,
+        "style": "structured"
+    }
+    
+    print(f"Testing with parameters: {test_params}")
+    result = execute(test_params)
+    print(f"Result: {result}")
+    
+    # Test error handling
+    print("\n🧪 Testing error handling...")
+    error_params = {"prompt": ""}
+    error_result = execute(error_params)
+    print(f"Error test result: {error_result}") 

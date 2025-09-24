@@ -19,7 +19,22 @@ def execute(parameters, context=None):
         # Import Azure client
         import sys
         import os
-        sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+        from dotenv import load_dotenv
+        
+        # Add project root to path - dynamic calculation based on location
+        current_file = os.path.abspath(__file__)
+        if 'shared_tools_template' in current_file:
+            # Running from template directory - 1 level up
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        else:
+            # Running from experiment directory - 3 levels up
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        
+        # Load environment variables
+        load_dotenv()  # Try current directory first
+        load_dotenv(os.path.join(project_root, '.env'))  # Try project root
+        
+        sys.path.append(project_root)
         
         try:
             from src.azure_client import AzureOpenAIClient
@@ -59,14 +74,28 @@ def execute(parameters, context=None):
         system_content = system_prompts.get(style.lower(), "You are a helpful AI assistant. Generate high-quality text based on the user's request.")
         
         # Create Azure client and generate text
-        client = AzureOpenAIClient()
+        try:
+            client = AzureOpenAIClient()
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to create Azure client: {str(e)}",
+                "result": "Please check Azure credentials"
+            }
         
         messages = [
             {"role": "system", "content": system_content},
             {"role": "user", "content": prompt}
         ]
         
-        generated_text = client.chat(messages, temperature=temperature, max_tokens=max_tokens)
+        try:
+            generated_text = client.chat(messages, temperature=temperature, max_tokens=max_tokens)
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Azure API call failed: {str(e)}",
+                "result": "Please check Azure credentials and network connection"
+            }
         
         # Check for errors in response
         if generated_text.startswith("Error:"):
@@ -100,4 +129,38 @@ def execute(parameters, context=None):
             "success": False,
             "error": f"Tool execution error: {str(e)}",
             "result": "Failed to generate text"
-        } 
+        }
+
+# Add this to the end of ai_text_generate.py
+if __name__ == "__main__":
+    print("🧪 Testing ai_text_generate directly...")
+    
+    # First, let's check the .env file
+    import os
+    from dotenv import load_dotenv
+    
+    print(f"Current working directory: {os.getcwd()}")
+    print(f".env file exists in current dir: {os.path.exists('.env')}")
+    
+    # Try to load .env
+    load_dotenv()
+    print(f"AZURE_OPENAI_ENDPOINT: {os.getenv('AZURE_OPENAI_ENDPOINT')}")
+    print(f"AZURE_OPENAI_API_KEY exists: {bool(os.getenv('AZURE_OPENAI_API_KEY'))}")
+    
+    # Test basic functionality
+    test_params = {
+        "prompt": "Write a short story about a robot learning to paint.",
+        "temperature": 0.7,
+        "max_tokens": 100,
+        "style": "creative"
+    }
+    
+    print(f"Testing with parameters: {test_params}")
+    result = execute(test_params)
+    print(f"Result: {result}")
+    
+    # Test error handling
+    print("\n🧪 Testing error handling...")
+    error_params = {"prompt": ""}
+    error_result = execute(error_params)
+    print(f"Error test result: {error_result}")

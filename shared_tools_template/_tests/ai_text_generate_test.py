@@ -2,6 +2,10 @@ import sys
 import os
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def run_tests():
     """Run comprehensive tests for ai_text_generate tool"""
