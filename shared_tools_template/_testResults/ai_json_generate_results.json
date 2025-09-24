@@ -1,0 +1,364 @@
+{
+  "tool_name": "ai_json_generate",
+  "timestamp": "2025-09-24T17:10:58.841844",
+  "tests": [
+    {
+      "name": "test_basic_json_object",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "name": "Jane Doe",
+          "age": 29,
+          "email": "jane.doe@example.com",
+          "preferences": {
+            "newsletter": true,
+            "notifications": {
+              "email": true,
+              "sms": false,
+              "push": true
+            },
+            "themes": [
+              "dark",
+              "minimalist"
+            ]
+          }
+        },
+        "json_string": "{\n  \"name\": \"Jane Doe\",\n  \"age\": 29,\n  \"email\": \"jane.doe@example.com\",\n  \"preferences\": {\n    \"newsletter\": true,\n    \"notifications\": {\n      \"email\": true,\n      \"sms\": false,\n      \"push\": true\n    },\n    \"themes\": [\n      \"dark\",\n      \"minimalist\"\n    ]\n  }\n}",
+        "prompt": "Generate a user profile with name, age, email, and preferences",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "object",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "name",
+            "age",
+            "email",
+            "preferences"
+          ],
+          "length": 4
+        }
+      }
+    },
+    {
+      "name": "test_json_array",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "products": [
+            {
+              "id": 1,
+              "name": "Wireless Bluetooth Headphones",
+              "price": 99.99
+            },
+            {
+              "id": 2,
+              "name": "Smart LED Desk Lamp",
+              "price": 45.5
+            },
+            {
+              "id": 3,
+              "name": "Portable External Hard Drive 2TB",
+              "price": 79.95
+            }
+          ]
+        },
+        "json_string": "{\n  \"products\": [\n    {\n      \"id\": 1,\n      \"name\": \"Wireless Bluetooth Headphones\",\n      \"price\": 99.99\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Smart LED Desk Lamp\",\n      \"price\": 45.5\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Portable External Hard Drive 2TB\",\n      \"price\": 79.95\n    }\n  ]\n}",
+        "prompt": "Generate an array of 3 product items with id, name, and price",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "array",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "products"
+          ],
+          "length": 1
+        }
+      }
+    },
+    {
+      "name": "test_config_json",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "server": {
+            "host": "localhost",
+            "port": 8080
+          },
+          "database": {
+            "type": "postgresql",
+            "host": "db.example.com",
+            "port": 5432,
+            "name": "myappdb",
+            "user": "admin",
+            "password": "securepassword123"
+          }
+        },
+        "json_string": "{\n  \"server\": {\n    \"host\": \"localhost\",\n    \"port\": 8080\n  },\n  \"database\": {\n    \"type\": \"postgresql\",\n    \"host\": \"db.example.com\",\n    \"port\": 5432,\n    \"name\": \"myappdb\",\n    \"user\": \"admin\",\n    \"password\": \"securepassword123\"\n  }\n}",
+        "prompt": "Generate a configuration file for a web server with port, host, database settings",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "config",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "server",
+            "database"
+          ],
+          "length": 2
+        }
+      }
+    },
+    {
+      "name": "test_api_response",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "status": "success",
+          "message": "User authenticated successfully.",
+          "data": {
+            "userId": 12345,
+            "username": "johndoe",
+            "email": "johndoe@example.com",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJqb2huZG9lIiwiaWF0IjoxNjg4MjQ0MjAwfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+            "expiresIn": 3600,
+            "roles": [
+              "user",
+              "admin"
+            ],
+            "profile": {
+              "firstName": "John",
+              "lastName": "Doe",
+              "phone": "+1234567890",
+              "address": {
+                "street": "123 Main St",
+                "city": "Anytown",
+                "state": "Anystate",
+                "postalCode": "12345",
+                "country": "USA"
+              }
+            }
+          }
+        },
+        "json_string": "{\n  \"status\": \"success\",\n  \"message\": \"User authenticated successfully.\",\n  \"data\": {\n    \"userId\": 12345,\n    \"username\": \"johndoe\",\n    \"email\": \"johndoe@example.com\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJqb2huZG9lIiwiaWF0IjoxNjg4MjQ0MjAwfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\",\n    \"expiresIn\": 3600,\n    \"roles\": [\n      \"user\",\n      \"admin\"\n    ],\n    \"profile\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"phone\": \"+1234567890\",\n      \"address\": {\n        \"street\": \"123 Main St\",\n        \"city\": \"Anytown\",\n        \"state\": \"Anystate\",\n        \"postalCode\": \"12345\",\n        \"country\": \"USA\"\n      }\n    }\n  }\n}",
+        "prompt": "Generate an API response for a user authentication endpoint",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "api",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "status",
+            "message",
+            "data"
+          ],
+          "length": 3
+        }
+      }
+    },
+    {
+      "name": "test_with_schema",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "user": {
+            "id": "u123456789",
+            "profile": {
+              "name": "Jane Doe",
+              "settings": {
+                "notifications": true,
+                "theme": "dark",
+                "language": "en",
+                "privacy": {
+                  "profileVisibility": "friends",
+                  "searchEngineIndexing": false
+                }
+              }
+            }
+          }
+        },
+        "json_string": "{\n  \"user\": {\n    \"id\": \"u123456789\",\n    \"profile\": {\n      \"name\": \"Jane Doe\",\n      \"settings\": {\n        \"notifications\": true,\n        \"theme\": \"dark\",\n        \"language\": \"en\",\n        \"privacy\": {\n          \"profileVisibility\": \"friends\",\n          \"searchEngineIndexing\": false\n        }\n      }\n    }\n  }\n}",
+        "prompt": "Generate user data following this structure",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "data",
+          "schema": "{\"user\": {\"id\": \"string\", \"profile\": {\"name\": \"string\", \"settings\": {}}}}"
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "user"
+          ],
+          "length": 1
+        }
+      }
+    },
+    {
+      "name": "test_json_schema_generation",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "BlogPost",
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "The title of the blog post"
+            },
+            "content": {
+              "type": "string",
+              "description": "The main content of the blog post"
+            },
+            "author": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the author"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "description": "Email address of the author"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of tags associated with the blog post"
+            }
+          },
+          "required": [
+            "title",
+            "content",
+            "author"
+          ]
+        },
+        "json_string": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"BlogPost\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"description\": \"The title of the blog post\"\n    },\n    \"content\": {\n      \"type\": \"string\",\n      \"description\": \"The main content of the blog post\"\n    },\n    \"author\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"name\": {\n          \"type\": \"string\",\n          \"description\": \"Name of the author\"\n        },\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"description\": \"Email address of the author\"\n        }\n      },\n      \"required\": [\n        \"name\"\n      ]\n    },\n    \"tags\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"List of tags associated with the blog post\"\n    }\n  },\n  \"required\": [\n    \"title\",\n    \"content\",\n    \"author\"\n  ]\n}",
+        "prompt": "Generate a JSON schema for a blog post with title, content, author, and tags",
+        "settings": {
+          "temperature": 0.1,
+          "format_type": "schema",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "$schema",
+            "title",
+            "type",
+            "properties",
+            "required"
+          ],
+          "length": 5
+        }
+      }
+    },
+    {
+      "name": "test_temperature_control",
+      "passed": true,
+      "check_type": "success_and_structure",
+      "actual": {
+        "success": true,
+        "result": {
+          "appName": "MyApplication",
+          "version": "1.0.0",
+          "debugMode": false,
+          "maxConnections": 100,
+          "timeoutSeconds": 30,
+          "features": {
+            "authentication": true,
+            "logging": true,
+            "autoUpdate": false
+          },
+          "supportedLanguages": [
+            "en",
+            "es",
+            "fr",
+            "de"
+          ],
+          "database": {
+            "host": "localhost",
+            "port": 5432,
+            "username": "admin",
+            "password": "password123",
+            "databaseName": "myapp_db"
+          }
+        },
+        "json_string": "{\n  \"appName\": \"MyApplication\",\n  \"version\": \"1.0.0\",\n  \"debugMode\": false,\n  \"maxConnections\": 100,\n  \"timeoutSeconds\": 30,\n  \"features\": {\n    \"authentication\": true,\n    \"logging\": true,\n    \"autoUpdate\": false\n  },\n  \"supportedLanguages\": [\n    \"en\",\n    \"es\",\n    \"fr\",\n    \"de\"\n  ],\n  \"database\": {\n    \"host\": \"localhost\",\n    \"port\": 5432,\n    \"username\": \"admin\",\n    \"password\": \"password123\",\n    \"databaseName\": \"myapp_db\"\n  }\n}",
+        "prompt": "Generate a simple configuration object",
+        "settings": {
+          "temperature": 0.0,
+          "format_type": "object",
+          "schema": ""
+        },
+        "structure_info": {
+          "type": "dict",
+          "keys": [
+            "appName",
+            "version",
+            "debugMode",
+            "maxConnections",
+            "timeoutSeconds",
+            "features",
+            "supportedLanguages",
+            "database"
+          ],
+          "length": 8
+        }
+      }
+    },
+    {
+      "name": "test_no_prompt_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No prompt provided",
+        "result": "Please provide a 'prompt' parameter describing the JSON to generate"
+      }
+    },
+    {
+      "name": "test_empty_prompt_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No prompt provided",
+        "result": "Please provide a 'prompt' parameter describing the JSON to generate"
+      }
+    }
+  ],
+  "total_tests": 9,
+  "passed_tests": 9,
+  "failed_tests": 0,
+  "all_passed": true
+}

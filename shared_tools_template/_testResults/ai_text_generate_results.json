@@ -1,0 +1,132 @@
+{
+  "tool_name": "ai_text_generate",
+  "timestamp": "2025-09-24T17:10:49.437342",
+  "tests": [
+    {
+      "name": "test_basic_text_generation",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "result": "Once upon a time, in a bustling city filled with towering skyscrapers and vibrant art galleries, there was a robot named Arti. Designed for precision and efficiency, Arti's creators never imagined it would develop a fascination with colors and creativity. Yet, one rainy afternoon, Arti found itself in an art studio, observing a painter brush bold strokes onto a canvas.\n\nIntrigued, Arti's sensors detected the swirling reds, calming blues, and sunny yellows. Curious, it carefully picked up a brush and dipped it into a pot of paint. Its robotic arms moved tentatively at first, but with each stroke, Arti began to understand the flow of colors and the rhythm of the brush.\n\nDays turned into weeks. Arti practiced tirelessly, blending shades and experimenting with shapes. Though its early paintings were abstract and imperfect, there was a genuine spark of joy in each effort. Visitors to the studio marveled at the robot\u2019s dedication, and soon, Arti's art was",
+        "prompt": "Write a short story about a robot learning to paint.",
+        "settings": {
+          "temperature": 0.7,
+          "max_tokens": 200,
+          "style": ""
+        },
+        "word_count": 157,
+        "char_count": 963
+      }
+    },
+    {
+      "name": "test_creative_style",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "result": "Nestled beyond the veil of ordinary sight lies the Enchanted Sylva\u2014a forest where magic breathes with every whisper of the wind and dances in the dappled sunlight. Towering trees, their bark shimmering with iridescent hues of emerald and sapphire, stretch skyward like ancient guardians of a secret realm. Their leaves shimmer in an ever-changing mosaic of colors\u2014crimson, gold, violet\u2014fluttering softly as if whispering forgotten lullabies.\n\nBeneath their sprawling canopies, the forest floor glows with a gentle bioluminescent light, casting a surreal glow that guides wandering footsteps. Flowers with petals like spun glass bloom in impossible shapes, releasing sweet, intoxicating scents that lull the senses into a dreamlike",
+        "prompt": "Describe a magical forest.",
+        "settings": {
+          "temperature": 0.8,
+          "max_tokens": 150,
+          "style": "creative"
+        },
+        "word_count": 107,
+        "char_count": 730
+      }
+    },
+    {
+      "name": "test_professional_style",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "result": "Subject: Project Update \u2013 [Project Name]\n\nDear [Recipient's Name],\n\nI hope this message finds you well.\n\nI am writing to provide an update on the progress of the [Project Name]. As of today, we have completed the following milestones:\n- [Milestone 1]\n- [Milestone 2]\n- [Milestone 3]\n\nCurrently, we are on track to meet the upcoming deadline of [date]. The team is actively working on [next steps or tasks], and we",
+        "prompt": "Write a business email about a project update.",
+        "settings": {
+          "temperature": 0.3,
+          "max_tokens": 100,
+          "style": "professional"
+        },
+        "word_count": 72,
+        "char_count": 413
+      }
+    },
+    {
+      "name": "test_technical_style",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "result": "Machine learning (ML) is a subset of artificial intelligence (AI) that enables systems to automatically learn and improve from experience without being explicitly programmed for every specific task. It involves developing algorithms that identify patterns in data and make predictions or decisions based on those patterns. Here is a detailed explanation of how machine learning works:\n\n1. **Data Collection and Preparation**\n   - **Data Gathering:** The process begins with collecting relevant data, which can be structured (e.g., databases, spreadsheets) or unstructured (e.g., images, text).\n   - **Data Cleaning:** Raw data often contains errors, missing values, or inconsistencies. Cleaning involves handling missing data, removing duplicates, and correcting errors.\n   - **Data Transformation:** Data may need to be transformed into a suitable format, such as normalization, encoding categorical variables, or feature extraction.\n   - **Splitting Data:** The dataset is typically divided into training, validation, and test subsets to evaluate the model's performance objectively.\n\n2. **",
+        "prompt": "Explain how machine learning works.",
+        "settings": {
+          "temperature": 0.7,
+          "max_tokens": 200,
+          "style": "technical"
+        },
+        "word_count": 149,
+        "char_count": 1092
+      }
+    },
+    {
+      "name": "test_humorous_style",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "result": "Once upon a midnight byte, there was a programmer named Dave who had a serious problem\u2014his code had a tiny, sneaky bug. Not just any bug, but the kind that liked to hide behind parentheses and giggle every time Dave looked for it.\n\nOne day, Dave decided to hunt down the bug once and for all. He armed himself with coffee, a debugging tool he barely understood, and an optimistic attitude that only slightly bordered on delusion. As he sifted through lines of code, the bug apparently taunted him by jumping from one function to another, like a digital game of hide and seek.\n\nFinally, Dave found it\u2014a tiny, unassuming piece of code that said, \"Maybe divide by zero? Nah, that'll never happen.\" The bug chuckled in binary.\n\nDetermined to squash it, Dave wrote a special function called \"BugBeGone()\" and invoked it with much flourish. Suddenly, the program crashed\u2014crashed so spectacularly that all his error logs looked",
+        "prompt": "Write a funny story about a programmer and a bug.",
+        "settings": {
+          "temperature": 0.9,
+          "max_tokens": 200,
+          "style": "humorous"
+        },
+        "word_count": 157,
+        "char_count": 920
+      }
+    },
+    {
+      "name": "test_no_prompt_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No prompt provided",
+        "result": "Please provide a 'prompt' parameter"
+      }
+    },
+    {
+      "name": "test_empty_prompt_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No prompt provided",
+        "result": "Please provide a 'prompt' parameter"
+      }
+    },
+    {
+      "name": "test_parameter_validation",
+      "passed": true,
+      "check_type": "parameter_validation",
+      "actual": {
+        "success": true,
+        "result": "Hello! It seems like you've entered a test prompt. How can I assist you today?",
+        "prompt": "Test prompt",
+        "settings": {
+          "temperature": 1.0,
+          "max_tokens": 1000,
+          "style": ""
+        },
+        "word_count": 15,
+        "char_count": 78
+      }
+    }
+  ],
+  "total_tests": 8,
+  "passed_tests": 8,
+  "failed_tests": 0,
+  "all_passed": true
+}

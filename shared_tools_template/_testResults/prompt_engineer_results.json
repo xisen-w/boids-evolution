@@ -1,0 +1,30 @@
+{
+  "tool_name": "prompt_engineer",
+  "timestamp": "2025-09-24T17:10:49.337243",
+  "tests": [
+    {
+      "test_name": "Basic functionality with context",
+      "passed": true,
+      "error": null
+    },
+    {
+      "test_name": "Error handling without context",
+      "passed": true,
+      "error": null
+    },
+    {
+      "test_name": "Error handling with missing task",
+      "passed": true,
+      "error": null
+    },
+    {
+      "test_name": "Few-shot learning functionality",
+      "passed": true,
+      "error": null
+    }
+  ],
+  "total_tests": 4,
+  "passed_tests": 4,
+  "failed_tests": 0,
+  "all_passed": true
+}

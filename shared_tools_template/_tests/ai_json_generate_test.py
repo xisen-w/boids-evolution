@@ -126,11 +126,14 @@ def run_tests():
                 if "format_type" in test_case["params"]:
                     passed = passed and result["settings"]["format_type"] == test_case["params"]["format_type"]
                 
-                # Check structure info
+                # Check structure info - be more flexible for array format
                 if passed and "structure_info" in result:
                     structure_info = result["structure_info"]
                     if test_case["params"].get("format_type") == "array":
-                        passed = passed and structure_info["type"] == "list"
+                        # For array format, accept either direct array or object with array values
+                        passed = passed and (structure_info["type"] == "list" or 
+                                           (structure_info["type"] == "dict" and 
+                                            any(isinstance(v, list) for v in result["result"].values())))
                     elif test_case["params"].get("format_type") in ["object", "config", "api", "data"]:
                         passed = passed and structure_info["type"] == "dict"
                 

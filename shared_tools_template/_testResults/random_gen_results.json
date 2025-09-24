@@ -1,6 +1,6 @@
 {
   "tool_name": "random_gen",
-  "timestamp": "2025-09-02T02:54:42.889092",
+  "timestamp": "2025-09-24T17:11:08.450448",
   "tests": [
     {
       "name": "test_random_number",
@@ -8,16 +8,16 @@
       "test_type": "range",
       "actual": {
         "success": true,
-        "result": "Random number between 1 and 10: 10"
+        "result": "Random number between 1 and 10: 8"
       }
     },
     {
       "name": "test_random_number_negative",
-      "passed": true,
+      "passed": false,
       "test_type": "range",
       "actual": {
         "success": true,
-        "result": "Random number between -5 and 5: 4"
+        "result": "Random number between -5 and 5: -1"
       }
     },
     {
@@ -26,7 +26,7 @@
       "test_type": "range",
       "actual": {
         "success": true,
-        "result": "Random number between 1 and 2: 2"
+        "result": "Random number between 1 and 2: 1"
       }
     },
     {
@@ -35,7 +35,7 @@
       "test_type": "choice",
       "actual": {
         "success": true,
-        "result": "Random choice from ['apple', 'banana', 'cherry']: banana"
+        "result": "Random choice from ['apple', 'banana', 'cherry']: cherry"
       }
     },
     {
@@ -53,7 +53,7 @@
       "test_type": "choice",
       "actual": {
         "success": true,
-        "result": "Random choice from [1, 2, 3, 4, 5]: 3"
+        "result": "Random choice from [1, 2, 3, 4, 5]: 2"
       }
     },
     {
@@ -80,12 +80,12 @@
       "test_type": "range",
       "actual": {
         "success": true,
-        "result": "Random number between 1 and 100: 97"
+        "result": "Random number between 1 and 100: 84"
       }
     }
   ],
   "total_tests": 9,
-  "passed_tests": 9,
-  "failed_tests": 0,
-  "all_passed": true
+  "passed_tests": 8,
+  "failed_tests": 1,
+  "all_passed": false
 }

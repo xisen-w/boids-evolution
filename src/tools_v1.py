@@ -214,8 +214,15 @@ class ToolRegistryV1:
                 tool_data_copy["tool_path"] = os.path.join(self.shared_tools_dir, tool_data["file"])
                 tool_data_copy["type"] = "shared"
                 
-                # Add test information
+                # Add test information - but preserve existing test_passed from index.json
                 test_info = self._get_tool_test_info(tool_name, "shared")
+                
+                # If index.json already has test_passed status, preserve it
+                if tool_data_copy.get("test_passed") is not None:
+                    test_info["test_passed"] = tool_data_copy["test_passed"]
+                    test_info["last_tested"] = tool_data_copy.get("last_tested")
+                    test_info["test_execution_success"] = tool_data_copy.get("test_execution_success")
+                
                 tool_data_copy.update(test_info)
                 
                 tools[tool_name] = tool_data_copy

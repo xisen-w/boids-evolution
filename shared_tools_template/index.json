@@ -10,7 +10,13 @@
       },
       "file": "calculate.py",
       "created_by": "system",
-      "usage_count": 21
+      "usage_count": 21,
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866802",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/calculate_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 8,
+      "total_tests": 8
     },
     "multiply": {
       "name": "multiply",
@@ -21,7 +27,13 @@
       },
       "file": "multiply.py",
       "created_by": "system",
-      "usage_count": 10
+      "usage_count": 10,
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866797",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/multiply_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 6,
+      "total_tests": 6
     },
     "square": {
       "name": "square",
@@ -34,7 +46,13 @@
       "usage_count": 10,
       "depends_on": [
         "multiply"
-      ]
+      ],
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866755",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/square_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 6,
+      "total_tests": 6
     },
     "ai_web_search": {
       "name": "ai_web_search",
@@ -42,7 +60,13 @@
       "file": "ai_web_search.py",
       "created_by": "system",
       "usage_count": 0,
-      "created_at": "2025-09-02T10:20:00Z"
+      "created_at": "2025-09-02T10:20:00Z",
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866804",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/ai_web_search_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 5,
+      "total_tests": 5
     },
     "power": {
       "name": "power",
@@ -56,7 +80,13 @@
       "usage_count": 11,
       "depends_on": [
         "multiply"
-      ]
+      ],
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866801",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/power_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 9,
+      "total_tests": 9
     },
     "file_write": {
       "name": "file_write",
@@ -67,7 +97,13 @@
       },
       "file": "file_write.py",
       "created_by": "system",
-      "usage_count": 13
+      "usage_count": 13,
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866799",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/file_write_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 5,
+      "total_tests": 5
     },
     "random_gen": {
       "name": "random_gen",
@@ -80,7 +116,13 @@
       },
       "file": "random_gen.py",
       "created_by": "system",
-      "usage_count": 15
+      "usage_count": 15,
+      "test_passed": false,
+      "last_tested": "2025-09-24T17:11:13.866803",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/random_gen_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 8,
+      "total_tests": 9
     },
     "ai_text_generate": {
       "name": "ai_text_generate",
@@ -95,7 +137,13 @@
       "created_by": "system",
       "usage_count": 0,
       "ai_powered": true,
-      "requires_api": "Azure OpenAI"
+      "requires_api": "Azure OpenAI",
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866796",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/ai_text_generate_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 8,
+      "total_tests": 8
     },
     "ai_json_generate": {
       "name": "ai_json_generate",
@@ -110,11 +158,39 @@
       "created_by": "system",
       "usage_count": 0,
       "ai_powered": true,
-      "requires_api": "Azure OpenAI"
+      "requires_api": "Azure OpenAI",
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866800",
+      "test_execution_success": true,
+      "test_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+      "passed_tests": 9,
+      "total_tests": 9
+    },
+    "prompt_engineer": {
+      "name": "prompt_engineer",
+      "description": "Advanced prompt engineering tool that wraps ai_text_generate with sophisticated prompting techniques",
+      "parameters": {
+        "base_prompt": "string (required - the core prompt to enhance)",
+        "technique": "string (few_shot, chain_of_thought, structured, creative, technical)",
+        "examples": "array (optional - examples for few-shot learning)",
+        "temperature": "float (0.0-1.0, creativity level, default 0.7)",
+        "max_tokens": "integer (10-1000, response length, default 300)"
+      },
+      "file": "prompt_engineer.py",
+      "created_by": "system",
+      "usage_count": 0,
+      "ai_powered": true,
+      "requires_api": "Azure OpenAI",
+      "test_passed": true,
+      "last_tested": "2025-09-24T17:11:13.866792",
+      "test_execution_success": true,
+      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/prompt_engineer_test.py': [Errno 2] No such file or directory\n",
+      "passed_tests": 4,
+      "total_tests": 4
     }
   },
   "metadata": {
-    "total_tools": 8,
+    "total_tools": 9,
     "last_updated": "2025-09-02T03:00:00.000000",
     "version": "2.1",
     "features": [

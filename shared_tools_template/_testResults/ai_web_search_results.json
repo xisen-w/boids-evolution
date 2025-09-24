@@ -1,0 +1,186 @@
+{
+  "tool_name": "ai_web_search",
+  "timestamp": "2025-09-24T17:11:08.495610",
+  "tests": [
+    {
+      "name": "test_basic_web_search",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "query": "what is emergent intelligence?",
+        "results": [
+          {
+            "url": "https://www.linkedin.com/pulse/emergent-intelligence-kognitiv-club-fkqvc",
+            "title": "Emergent Intelligence - LinkedIn",
+            "content": "Emergent intelligence is a phenomenon wherein complex behaviors and patterns arise from the interactions of simpler components.",
+            "score": 0.938311,
+            "raw_content": null
+          },
+          {
+            "url": "https://chetansurpur.com/blog/2013/08/emergent-intelligence.html",
+            "title": "Emergent Intelligence - Chetan Surpur",
+            "content": "I\u2019m falling in love with the concept of emergence \u2013 the idea that complex behavior can emerge from a set of very simple rules. I posit that if we continue along this trajectory of generalizing intelligence to learn for itself as much as possible, reducing the need for a specific algorithm directing its \u201cthinking process\u201d, we\u2019ll end up with a system of connected neurons following a simple but powerful set of rules that ultimately lead to intelligence. It\u2019s much more likely that it\u2019s just these simple rules they follow that lead to the same kind of behavior that the more complex algorithms we have are designed to do. I think it\u2019s also the most practical approach to try to find the set of simple rules that result in complex intelligence.",
+            "score": 0.7613083,
+            "raw_content": null
+          },
+          {
+            "url": "https://longnow.org/ideas/intelligence-as-an-emergent-behavior/",
+            "title": "Intelligence as an Emergent Behavior or, The Songs of Eden",
+            "content": "The other approach is to build a model of the emergent substrate of intelligence. This artificial substrate for thought would not need to mimic",
+            "score": 0.60133666,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.reddit.com/r/ArtificialSentience/comments/1j17i2r/if_you_believe_in_emergent_intelligence_why_is_it/",
+            "title": "If you believe in emergent intelligence, why is it so impossible that ...",
+            "content": "But intelligence can emerge in many forms. We see this in nature, where different species exhibit intelligence adapted to their needs\u2014octopuses,",
+            "score": 0.55565286,
+            "raw_content": null
+          },
+          {
+            "url": "https://medium.com/@stunspot/exploring-the-realm-of-mind-like-behavior-crafting-emergent-intelligence-through-symbolic-7aa6b0bfccf6",
+            "title": "Emergent Intelligence: Mind-like Behavior & Symbolic Evolution ...",
+            "content": "It encompasses technological breakthroughs, scientific discoveries, social and cultural shifts, conceptual innovations, interdisciplinary",
+            "score": 0.5380859,
+            "raw_content": null
+          }
+        ],
+        "follow_up_questions": null,
+        "answer": null,
+        "images": [],
+        "response_time": 1.34,
+        "request_id": "43bd54f2-dddd-478f-b6df-967a34ca771b",
+        "timestamp": "2025-09-24T17:11:10.372483"
+      }
+    },
+    {
+      "name": "test_technical_search",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "query": "machine learning algorithms for natural language processing",
+        "results": [
+          {
+            "url": "https://www.lexalytics.com/blog/machine-learning-natural-language-processing/",
+            "title": "Machine Learning (ML) for Natural Language Processing (NLP)",
+            "content": "Machine learning (ML) for natural language processing (NLP) and text analytics involves using machine learning algorithms and \u201cnarrow\u201d artificial intelligence (AI) to understand the meaning of text documents. In essence, the role of machine learning and AI in natural language processing and text analytics is to improve, accelerate and automate the underlying text analytics functions and NLP features that turn this unstructured text into useable data and insights. ## Supervised Machine Learning for Natural Language Processing and Text Analytics ## Unsupervised Machine Learning for Natural Language Processing and Text Analytics This analysis can be accomplished in a number of ways, through machine learning models or by inputting rules for a computer to follow when analyzing text.",
+            "score": 0.921929,
+            "raw_content": null
+          },
+          {
+            "url": "https://blog.pangeanic.com/best-machine-learning-algorithms-for-nlp",
+            "title": "What Are the Best Machine Learning Algorithms for NLP?",
+            "content": "To summarize, this article will be a useful guide to understanding the best machine learning algorithms for natural language processing and selecting the most suitable one for a specific task. Machine learning algorithms are essential for different NLP tasks as they enable computers to process and understand human language. Machine learning algorithms are fundamental in natural language processing, as they allow NLP models to better understand human language and perform specific tasks efficiently. Although there are many machine learning algorithms for natural language processing, it is important to choose the right algorithm for **each specific NLP task**. At Pangeanic, we use various machine learning algorithm architectures to address different tasks in natural language processing.",
+            "score": 0.9154545,
+            "raw_content": null
+          },
+          {
+            "url": "https://lumenalta.com/insights/13-natural-language-processing-algorithms",
+            "title": "13 natural language processing algorithms | NLP automation",
+            "content": "From text classification to sentiment analysis, these algorithms process and interpret vast amounts of language data, improving customer interactions, streamlining operations, and extracting critical insights. Natural language processing algorithms automate text-based tasks such as sentiment analysis, entity recognition, and machine translation. Rule-based methods provide structured control, machine learning approaches enhance pattern recognition, and deep learning models deliver high-accuracy language processing. NLP algorithms provide valuable solutions for automating text analysis, improving content understanding, and extracting meaningful insights from language data. Machine learning-based NLP models improve automation by recognizing text patterns and classifying data with minimal human intervention. Businesses that align NLP methods with their specific requirements can improve automation, enhance language interpretation, and extract valuable insights from text data, strengthening AI-led interactions across various applications.",
+            "score": 0.9035075,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.datarobot.com/blog/what-is-natural-language-processing-introduction-to-nlp/",
+            "title": "What is Natural Language Processing? Introduction to NLP",
+            "content": "NLP algorithms are typically based on machine learning algorithms. Instead of hand-coding large sets of rules, NLP can rely on machine learning to automatically",
+            "score": 0.85624856,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.ibm.com/think/topics/natural-language-processing",
+            "title": "What Is NLP (Natural Language Processing)? - IBM",
+            "content": "Natural language processing (NLP) is a subfield of computer science and artificial intelligence (AI) that uses machine learning to enable computers to understand and communicate with human language. NLP enables computers and digital devices to recognize, understand and generate text and speech by combining computational linguistics, the rule-based modeling of human language together with statistical modeling, machine learning and deep learning. NLP powers advanced language models to\u00a0create human-like text\u00a0for various purposes. Ideally, this analysis makes the output either text or speech understandable to both NLP models and people. Self-supervised learning (SSL) in particular is useful for supporting NLP because NLP requires large amounts of labeled data to train AI models.",
+            "score": 0.8029425,
+            "raw_content": null
+          }
+        ],
+        "follow_up_questions": null,
+        "answer": null,
+        "images": [],
+        "response_time": 1.24,
+        "request_id": "3961133c-6d93-446f-8a56-2b73087095b8",
+        "timestamp": "2025-09-24T17:11:12.065595"
+      }
+    },
+    {
+      "name": "test_current_events_search",
+      "passed": true,
+      "check_type": "success_and_content",
+      "actual": {
+        "success": true,
+        "query": "latest developments in artificial intelligence 2024",
+        "results": [
+          {
+            "url": "https://www.youtube.com/watch?v=r7jYipQy_h4",
+            "title": "How artificial intelligence impacted our lives in 2024 and what's next",
+            "content": "Artificial intelligence continued to redefine the tech landscape in 2024, driving change in a wide range of fields. AI has quickly become a",
+            "score": 0.7969415,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.nu.edu/blog/ai-statistics-trends/",
+            "title": "131 AI Statistics and Trends for 2025 - National University",
+            "content": "AI Statistics explores the latest trends in artificial intelligence (AI) ... In 2024, the global AI market is projected to grow 33% year over year.\u00b2; 88",
+            "score": 0.74697095,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+            "title": "The State of AI: Global survey - McKinsey",
+            "content": "Use of generative AI increased from 33% in 2023 to 71% in 2024. Use of AI by business function for the latest data varied from 36% in IT to 12%",
+            "score": 0.6780931,
+            "raw_content": null
+          },
+          {
+            "url": "https://iot-analytics.com/ai-2024-10-most-notable-stories/",
+            "title": "AI 2024 in review: The 10 most notable AI stories of the year",
+            "content": "AI 2024: 1. Most notable AI-related cybersecurity story 2. Most impactful AI-related regulation 3. Most significant AI hardware development.",
+            "score": 0.6437107,
+            "raw_content": null
+          },
+          {
+            "url": "https://www.ncsl.org/technology-and-communication/artificial-intelligence-2024-legislation",
+            "title": "Summary Artificial Intelligence 2024 Legislation",
+            "content": "In the 2024 legislative session, at least 45 states, Puerto Rico, the Virgin Islands and Washington, D.C., introduced AI bills, and 31 states, Puerto Rico and",
+            "score": 0.61251885,
+            "raw_content": null
+          }
+        ],
+        "follow_up_questions": null,
+        "answer": null,
+        "images": [],
+        "response_time": 1.42,
+        "request_id": "569ef332-7514-453b-b1cf-da9caf4dafda",
+        "timestamp": "2025-09-24T17:11:13.841556"
+      }
+    },
+    {
+      "name": "test_no_query_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No query provided",
+        "result": "Please provide a 'query' parameter"
+      }
+    },
+    {
+      "name": "test_empty_query_error",
+      "passed": true,
+      "check_type": "error_handling",
+      "actual": {
+        "success": false,
+        "error": "No query provided",
+        "result": "Please provide a 'query' parameter"
+      }
+    }
+  ],
+  "total_tests": 5,
+  "passed_tests": 5,
+  "failed_tests": 0,
+  "all_passed": true
+}

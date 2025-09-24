@@ -198,7 +198,8 @@ class Agent:
                         "created_by": tool_data.get("created_by", "Unknown"),
                         "file": tool_data.get("file", ""),
                         "tci_score": tool_data.get("complexity", {}).get("tci_score", 0),
-                        "parameters": self._infer_tool_parameters(tool_name, tool_data)
+                        "parameters": self._infer_tool_parameters(tool_name, tool_data),
+                        "test_passed": tool_data.get("test_passed", False)
                     }
         
         except Exception as e:
