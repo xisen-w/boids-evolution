@@ -290,6 +290,9 @@ class ExperimentRunner:
         logger.info("=" * 50)
         self.visualizer.show_round_header(round_num, self.max_rounds)
         
+        # Shared methodology base - used by both Boids and non-Boids modes
+        base_methodology = "You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next."
+        
         # Get the global summary from the previous round for Cohesion
         last_global_summary = self.center_history[-1] if self.center_history else ""
         
@@ -353,9 +356,6 @@ class ExperimentRunner:
                     if self.boids_cohesion_enabled:
                         active_boids_rules.append("Contribute to the collective goal identified by the society (Cohesion).")
 
-                    # Shared methodology base
-                    base_methodology = "You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next."
-                    
                     boids_methodology_lines = [
                         f"Your strategy is guided by Boids rules. {base_methodology}"
                     ]
