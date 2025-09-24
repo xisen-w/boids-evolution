@@ -45,7 +45,7 @@ def load_meta_prompts(file_path: str = 'meta_prompts_enhanced_v2.json') -> Dict[
     try:
         with open(file_path, 'r') as f:
             data = json.load(f)
-        return {prompt['id']: prompt['description'] for prompt in data['meta_prompts']}
+        return {prompt['id']: f"{prompt['description']} \n Open Question: {prompt['open_question']}" for prompt in data['meta_prompts']}
     except FileNotFoundError:
         logger.error(f"Enhanced meta prompts file not found at: {file_path}")
         # Fallback to original meta_prompts.json

@@ -285,24 +285,45 @@ class ExperimentRunner:
                         cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
                     
                     # Add self-reflection if enabled
-                    self_reflection_prompt = ""
+                    self_reflection_memory_prompt = "" # In fact this is for self-reflection MEMORY. For reflection per se, we always have it. 
                     if self.self_reflection_enabled:
-                        self_reflection_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
+                        self_reflection_memory_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
 
                     # Add test failure information for learning
                     test_failure_prompt = self._prepare_test_failure_prompt(agent)
 
+                    active_boids_rules = []
+                    if self.boids_alignment_enabled:
+                        active_boids_rules.append("Adopt successful design principles from your neighbors (Alignment).")
+                    if self.boids_separation_enabled:
+                        active_boids_rules.append("Find a unique functional niche and avoid redundancy (Separation).")
+                    if self.boids_cohesion_enabled:
+                        active_boids_rules.append("Contribute to the collective goal identified by the society (Cohesion).")
+
+                    boids_methodology_lines = [
+                        "Your strategy is guided by Boids rules. You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next." #TODO AGain, not aligned with the boids-free approach below, where it should. 
+                    ]
+
+                    if active_boids_rules:
+                        boids_methodology_lines.append("This means you must:")
+                        boids_methodology_lines.extend(
+                            f"{idx}.  {rule}" for idx, rule in enumerate(active_boids_rules, start=1)
+                        )
+                    else:
+                        boids_methodology_lines.append(
+                            "Currently, all neighborhood rules are disabled; rely on the Mission Objective, your reflection history, and testing signals to guide your next tool."
+                        )
+
+                    boids_methodology_section = "\n".join(boids_methodology_lines)
+
                     # 2. Assemble the final prompt, ensuring the meta_prompt is central
-                    system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society.
+                    system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society. 
 
 **MISSION OBJECTIVE:**
 {self.shared_meta_prompt}
 
 **METHODOLOGY: BOIDS RULES**
-Your strategy is guided by Boids rules. You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next. This means you must:
-1.  Adopt successful design principles from your neighbors (Alignment).
-2.  Find a unique functional niche and avoid redundancy (Separation).
-3.  Contribute to the collective goal identified by the society (Cohesion).
+{boids_methodology_section}
 
 Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to the BOIDS RULES methodology."""
                     
@@ -337,7 +358,7 @@ ECOSYSTEM GOAL: Create a robust and powerful tool library. Prioritize creating "
 
 AVAILABLE ENVIRONMENTS: {', '.join(agent.envs_available)}{package_info}
 
-Reflect on the current tool ecosystem and think strategically about what to build next."""
+Reflect on the current tool ecosystem and think strategically about what to build next.""" # TODO This sohuld align with the base prompts in BOIDS!! Now they couldn't compare. 
 
                     if agent.specific_prompt:
                         system_prompt += f"\n\nSPECIFIC GUIDANCE: {agent.specific_prompt}"
@@ -389,7 +410,7 @@ Reflect on:
 
                 # --- 2. Build Tools ---
                 self.visualizer.show_phase_header(f"{agent.agent_id}'s Turn: Tool Building", "🔨")
-                build_result = agent.build_tools(reflection, round_num)
+                build_result = agent.build_tools(reflection, round_num) # This is the code for tool building, which has NO differentiation between boids and boids-free approach. So currently it is only impacting the 'reflection' part. 
                 
                 self.visualizer.show_tool_creation(agent.agent_id, build_result.get("tool_info", {}), build_result["success"])
 

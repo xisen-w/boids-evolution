@@ -37,13 +37,16 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
     # 2. Find "success" exemplars.
     # Complexity Leader
     complexity_leader = max(recent_tools, key=lambda t: t.get("complexity", {}).get("tci_score", 0), default=None)
-    
-    # Quality Leader
+    print(f"Complexity Leader: {complexity_leader}")
+    print(f"Complexity Leader TCI Score: {complexity_leader.get('complexity', {}).get('tci_score', 0)}")
+    print(f"Complexity Leader Code: {_read_tool_code(complexity_leader, tools_base_dir)}")
+
+    # Quality Leader 
     quality_leader = max(
         (t for t in recent_tools if t.get("test_passed") is True),
         key=lambda t: t.get("complexity", {}).get("tci_score", 0), # Tie-break with complexity
         default=None
-    )
+    ) #TODO Quality Leader = Complexity leader that passed tests. Hence remove complexity leader altogehter. 
 
     # Adoption Leader
     adoption_leader = max(
@@ -65,10 +68,11 @@ def prepare_alignment_prompt(neighbor_tools_meta: List[Dict], current_round: int
         prompt_lines.append(f"  - Code:\n```python\n{code_snippet}\n```")
 
     if quality_leader:
+        tci_score = quality_leader.get("complexity", {}).get("tci_score", 0)
         code_snippet = _read_tool_code(quality_leader, tools_base_dir)
-        prompt_lines.append(f"\nQuality Leader (Tests: 100% Passed):")
+        prompt_lines.append(f"\nQuality Leader (TCI Score: {tci_score:.2f}):")
         prompt_lines.append(f"- Tool: '{quality_leader['name']}' by {quality_leader['created_by']}")
-        prompt_lines.append(f"- Strategy: This tool is highly reliable. Analyze its code for robust error handling and clear functionality.")
+        prompt_lines.append(f"- Strategy: This tool achieves high complexity with reliablility.  Analyze its code for composition and depth (i.e. how it uses other tools or writes more complex lines). Analyze its code for robust error handling and clear functionality.")
         prompt_lines.append(f"  - Code:\n```python\n{code_snippet}\n```")
 
     if adoption_leader:
@@ -172,7 +176,7 @@ def prepare_self_reflection_prompt(reflection_history: List[Dict]) -> str:
 
     prompt_lines = ["[MEMORY: Your Previous Reflection]",
                     "Review your most recent thought to ensure you are making forward progress.",
-                    f"\nYour Last Idea: \"{last_reflection_text[:300]}...\"", # Truncate for brevity
+                    f"\nYour Last Idea: \"{last_reflection_text[:1000]}...\"", # Truncate for brevity
                     "\nYOUR GOAL: Build upon this previous idea, refine it, or explicitly choose a new direction. **Avoid proposing the exact same tool or strategy again.**"]
 
     return "\n".join(prompt_lines) 

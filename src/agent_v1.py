@@ -113,6 +113,9 @@ class Agent:
         # Add detailed test results for learning from failures
         my_test_details = self._get_detailed_test_results()
         
+        # Discover tools available for calling (CRITICAL for tool composition!)
+        available_tools_for_calling = self._discover_available_tools_for_calling()
+        
         observation = {
             "all_visible_tools": all_visible_tools,
             "my_tools": list(my_tools_status.keys()),
@@ -120,6 +123,7 @@ class Agent:
             "my_test_details": my_test_details,  # NEW: Detailed test results for learning
             "shared_test_status": shared_tools_status,
             "neighbor_test_status": neighbor_tools_status,
+            "available_tools_for_calling": available_tools_for_calling,  # NEW: Tools this agent can call!
         }
         
         return observation
@@ -174,6 +178,61 @@ class Agent:
         
         return detailed_results
 
+    def _discover_available_tools_for_calling(self) -> Dict[str, Any]:
+        """Discover tools that this agent can call from other agents and shared tools."""
+        available_tools = {}
+        
+        try:
+            # Get all visible tools from the tool registry
+            all_tools = self.shared_tool_registry.get_all_tools()
+            
+            for tool_name, tool_data in all_tools.items():
+                # Skip tools created by this agent (we don't call our own tools)
+                if tool_data.get("created_by") == self.agent_id:
+                    continue
+                
+                # Only include tools that have passed tests (working tools)
+                if tool_data.get("test_passed", False):
+                    available_tools[tool_name] = {
+                        "description": tool_data.get("description", "No description available"),
+                        "created_by": tool_data.get("created_by", "Unknown"),
+                        "file": tool_data.get("file", ""),
+                        "tci_score": tool_data.get("complexity", {}).get("tci_score", 0),
+                        "parameters": self._infer_tool_parameters(tool_name, tool_data)
+                    }
+        
+        except Exception as e:
+            print(f"Error discovering available tools: {e}")
+        
+        return available_tools
+
+    def _infer_tool_parameters(self, tool_name: str, tool_data: Dict[str, Any]) -> Dict[str, Any]: #TODO THis is too ugly and almost useless. For parameters. opbviously the functions themselves have had them well!! 
+        """Infer tool parameters from description and metadata."""
+        description = tool_data.get("description", "")
+        
+        # Simple parameter inference based on common patterns
+        params = {}
+        
+        if "data" in description.lower():
+            params["data"] = "Any data input (list, dict, or DataFrame)"
+        if "parameters" in description.lower():
+            params["parameters"] = "Dictionary of tool-specific parameters"
+        if "context" in description.lower():
+            params["context"] = "Optional context dictionary"
+        if "file" in description.lower() or "path" in description.lower():
+            params["file_path"] = "Path to input file"
+        if "model" in description.lower():
+            params["model_params"] = "Model parameters dictionary"
+        
+        # Default parameters if none inferred
+        if not params:
+            params = {
+                "data": "Input data for processing",
+                "parameters": "Tool-specific parameters"
+            }
+        
+        return params
+
     def reflect(self, system_prompt: str, user_prompt: str) -> str:
         """
         Generates a reflection based on a dynamically constructed prompt.
@@ -197,6 +256,8 @@ class Agent:
             
         Returns:
             Build result with tool info for testing
+
+        #TODO. This is HUGE. Althought in the reflection curation part, we passed in so many 'instructions', in the code-writing for tool building, this little is here!!'
         """
         system_prompt = f"""You are Agent {self.agent_id}. Based on your reflection, design a specific tool to build.
 
@@ -217,7 +278,7 @@ Be concrete and practical."""
             {"role": "user", "content": user_prompt}
         ]
         
-        tool_design = self.azure_client.chat(messages, temperature=0.5)
+        tool_design = self.azure_client.chat(messages, temperature=0.7)
         
         # Create the actual tool file
         tool_info = self._create_tool_file(tool_design, round_num)
@@ -441,8 +502,10 @@ Be concrete and practical."""
             if 'name:' in line.lower() or 'tool name:' in line.lower():
                 # Extract the name part
                 name_part = line.split(':')[1].strip()
-                # Clean it up for filename
-                tool_name = ''.join(c for c in name_part if c.isalnum() or c in '_-').strip()
+                # Clean it up for filename - REMOVE HYPHENS for Python imports
+                tool_name = ''.join(c for c in name_part if c.isalnum() or c == '_').strip()
+                # Replace hyphens with underscores for Python compatibility
+                tool_name = tool_name.replace('-', '_')
                 if tool_name:
                     return tool_name
         
@@ -483,9 +546,14 @@ CRITICAL REQUIREMENTS:
 - EVERY function must have complete, working implementation
 - ALL logic must be fully implemented with actual code 
 
-TOOL COMPOSITION (Optional but Encouraged):
+TOOL COMPOSITION (HIGHLY ENCOURAGED!):
 - To call other tools: context.call_tool('tool_name', {{'param': value}})
 - Always check: if context: before calling tools
+- Example: result = context.call_tool('DataProcessor', {{'data': my_data}})
+- Example: analysis = context.call_tool('Analyzer', {{'input': processed_data}})
+- Build upon existing tools rather than duplicating functionality
+- Create tool pipelines: Tool A → Tool B → Tool C
+- This increases your TCI score and creates more valuable tools!
 - Handle context=None case gracefully
 - When context is available, you may leverage existing tools to build more sophisticated functionality
 - If you use other tools, include a 'composition' field in the returned dict (e.g., "my_tool -> data_cleaner -> validator")
@@ -532,8 +600,21 @@ def execute(parameters, context=None):
     except Exception as e:
         return {{"error": str(e)}}"""
 
+        # Get available tools for composition
+        available_tools = self._discover_available_tools_for_calling()
+        available_tools_info = ""
+        if available_tools:
+            available_tools_info = f"\n\nAVAILABLE TOOLS FOR COMPOSITION:\n"
+            for tool_name, tool_info in available_tools.items():
+                available_tools_info += f"- {tool_name}: {tool_info['description'][:100]}...\n"
+                available_tools_info += f"  Parameters: {list(tool_info['parameters'].keys())}\n"
+                available_tools_info += f"  TCI Score: {tool_info['tci_score']}\n\n"
+        else:
+            available_tools_info = "\n\nNo other tools available for composition yet."
+
         user_prompt = f"""Write a complete Python function for {tool_name}.
 Consider using context.call_tool() to leverage existing tools when appropriate.
+{available_tools_info}
 Output ONLY the Python code."""
 
         messages = [
@@ -581,7 +662,11 @@ Output ONLY the Python code."""
             return f"""RESOURCE CONTEXT:
 This tool is designed to work with the specific resource: {detected_resource}
 Your tests MUST use this actual resource file for realistic testing.
-Tests should load and work with real data from this resource, not mock data."""
+Tests should load and work with real data from this resource, not mock data.
+
+CRITICAL RESOURCE PATH: Use this EXACT path in your tests:
+resource_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '{detected_resource}')
+This points to the correct resources directory in the project root."""
         else:
             return ""
     
@@ -630,10 +715,19 @@ def run_tests():
     
     # CRITICAL: Use this EXACT import code - DO NOT CHANGE
     try:
+        import importlib.util
         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if parent_dir not in sys.path:
             sys.path.insert(0, parent_dir)
-        import {tool_name}
+        
+        # Dynamic import to handle any tool name (including those with special characters)
+        tool_file = os.path.join(parent_dir, f"{tool_name}.py")
+        spec = importlib.util.spec_from_file_location("tool_module", tool_file)
+        tool_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(tool_module)
+        
+        # Make the tool available as {tool_name}
+        globals()["{tool_name}"] = tool_module
     except Exception as e:
         results["import_error"] = str(e)
         return results
