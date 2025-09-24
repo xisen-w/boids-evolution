@@ -2,153 +2,101 @@
   "tools": {
     "multiply": {
       "name": "multiply",
-      "description": "Simplified multiply tool returning the raw product",
-      "parameters": {
-        "a": "number",
-        "b": "number"
-      },
+      "description": "Multiplies two numbers together using typed parameters and returns the raw result",
       "file": "multiply.py",
       "created_by": "system",
-      "usage_count": 10,
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/multiply_test.py",
+      "test_results_file": "_testResults/multiply_results.json",
       "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866797",
-      "test_execution_success": true,
-      "passed_tests": 6,
-      "total_tests": 6
-    },
-    "ai_web_search": {
-      "name": "ai_web_search",
-      "description": "Performs a web search using the Tavily API with deterministic fallback.",
-      "file": "ai_web_search.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "created_at": "2025-09-02T10:20:00Z",
-      "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866804",
-      "test_execution_success": true,
-      "passed_tests": 5,
-      "total_tests": 5
-    },
-    "file_write": {
-      "name": "file_write",
-      "description": "Write content to a file in the agent_outputs directory",
-      "parameters": {
-        "filename": "string (optional, auto-generated if not provided)",
-        "content": "string"
-      },
-      "file": "file_write.py",
-      "created_by": "system",
-      "usage_count": 13,
-      "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866799",
-      "test_execution_success": true,
-      "passed_tests": 5,
-      "total_tests": 5
-    },
-    "ai_text_generate": {
-      "name": "ai_text_generate",
-      "description": "Generate creative text using Azure OpenAI (typed; returns raw string)",
-      "parameters": {
-        "prompt": "string",
-        "temperature": "float (0.0-1.0)",
-        "max_tokens": "integer (10-1000)",
-        "style": "string"
-      },
-      "file": "ai_text_generate.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "ai_powered": true,
-      "requires_api": "Azure OpenAI (with fallback)",
-      "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866796",
-      "test_execution_success": true,
-      "passed_tests": 8,
-      "total_tests": 8
-    },
-    "ai_json_generate": {
-      "name": "ai_json_generate",
-      "description": "Generate structured JSON using Azure OpenAI (typed; returns dict/list)",
-      "parameters": {
-        "prompt": "string",
-        "schema": "string",
-        "format_type": "string (object|array|config|data|api|schema)",
-        "temperature": "float (0.0-1.0)"
-      },
-      "file": "ai_json_generate.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "ai_powered": true,
-      "requires_api": "Azure OpenAI (with fallback)",
-      "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866800",
-      "test_execution_success": true,
-      "passed_tests": 9,
-      "total_tests": 9
-    },
-    "prompt_engineer": {
-      "name": "prompt_engineer",
-      "description": "Advanced prompt engineering wrapper over ai_text_generate",
-      "parameters": {
-        "base_prompt": "string",
-        "technique": "string",
-        "examples": "array",
-        "temperature": "float (0.0-1.0)",
-        "max_tokens": "integer (10-1000)"
-      },
-      "file": "prompt_engineer.py",
-      "created_by": "system",
-      "usage_count": 0,
-      "ai_powered": true,
-      "requires_api": "Azure OpenAI",
-      "test_passed": true,
-      "last_tested": "2025-09-24T17:11:13.866792",
-      "test_execution_success": true,
-      "passed_tests": 4,
-      "total_tests": 4
+      "last_tested": "2024-09-24T23:54:35",
+      "test_execution_success": true
     },
     "simple_eda_pandas": {
       "name": "simple_eda_pandas",
-      "description": "Basic exploratory data analysis using pandas",
-      "parameters": {
-        "data": "pandas.DataFrame",
-        "target_column": "string (optional)"
-      },
+      "description": "Performs basic exploratory data analysis on datasets using pandas with typed parameters",
       "file": "simple_eda_pandas.py",
       "created_by": "system",
-      "usage_count": 0,
-      "test_passed": false,
-      "last_tested": null,
-      "test_execution_success": null,
-      "passed_tests": 0,
-      "total_tests": 0
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/simple_eda_pandas_test.py",
+      "test_results_file": "_testResults/simple_eda_pandas_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:54:40",
+      "test_execution_success": true
     },
     "data_cleaner": {
       "name": "data_cleaner",
-      "description": "Clean datasets (dropna, fillna)",
-      "parameters": {
-        "data": "string|DataFrame",
-        "dropna": "bool",
-        "fillna_value": "any",
-        "fillna_map": "object"
-      },
+      "description": "Cleans datasets by handling missing values using pandas with typed parameters",
       "file": "data_cleaner.py",
       "created_by": "system",
-      "usage_count": 0,
-      "test_passed": false,
-      "last_tested": null,
-      "test_execution_success": null,
-      "passed_tests": 0,
-      "total_tests": 0
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/data_cleaner_test.py",
+      "test_results_file": "_testResults/data_cleaner_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:54:45",
+      "test_execution_success": true
+    },
+    "correlation_analyzer": {
+      "name": "correlation_analyzer",
+      "description": "Calculates correlation matrices for numeric columns in datasets using pandas",
+      "file": "correlation_analyzer.py",
+      "created_by": "system",
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/correlation_analyzer_test.py",
+      "test_results_file": "_testResults/correlation_analyzer_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:55:40",
+      "test_execution_success": true
+    },
+    "ai_text_generate": {
+      "name": "ai_text_generate",
+      "description": "Generates text using Azure OpenAI with typed parameters and returns raw string response",
+      "file": "ai_text_generate.py",
+      "created_by": "system",
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/ai_text_generate_test.py",
+      "test_results_file": "_testResults/ai_text_generate_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:54:50",
+      "test_execution_success": true
+    },
+    "ai_json_generate": {
+      "name": "ai_json_generate",
+      "description": "Generates JSON data using Azure OpenAI with typed parameters and returns raw JSON response",
+      "file": "ai_json_generate.py",
+      "created_by": "system",
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/ai_json_generate_test.py",
+      "test_results_file": "_testResults/ai_json_generate_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:54:00",
+      "test_execution_success": true
+    },
+    "ai_web_search": {
+      "name": "ai_web_search",
+      "description": "Performs web search using Tavily API with typed parameters and returns raw search results",
+      "file": "ai_web_search.py",
+      "created_by": "system",
+      "created_at": "2024-09-24T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/ai_web_search_test.py",
+      "test_results_file": "_testResults/ai_web_search_results.json",
+      "test_passed": true,
+      "last_tested": "2024-09-24T23:54:00",
+      "test_execution_success": true
     }
-  },
-  "metadata": {
-    "total_tools": 7,
-    "last_updated": "2025-09-24T00:00:00.000000",
-    "version": "2.2",
-    "features": [
-      "direct_import_composition",
-      "ai_integration",
-      "llm_powered_tools"
-    ]
   }
 }

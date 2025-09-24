@@ -1,0 +1,14 @@
+{
+  "tool_name": "simple_eda_pandas",
+  "timestamp": "2024-09-24T23:56:51.150438",
+  "tests": [
+    {
+      "name": "basic_summary",
+      "passed": true
+    }
+  ],
+  "total_tests": 1,
+  "passed_tests": 1,
+  "failed_tests": 0,
+  "all_passed": true
+}

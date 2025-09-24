@@ -6,7 +6,7 @@ TCI-Lite v4: Tool Complexity Index Analyzer
 Implements a simplified 10-point Tool Complexity Index framework:
 1. Code Complexity (0-3): Linear scaling based on LOC up to 300 lines
 2. Interface Complexity (0-2): Parameter count + return structure complexity
-3. Compositional Complexity (0-5): Tool calls (4pts) + external imports (1pt)
+3. Compositional Complexity (0-5): Imports of other tools (4pts) + external imports (1pt)
 
 Usage:
     python complexity_analyzer.py --analyze shared_tools_template
@@ -202,23 +202,21 @@ class TCILiteAnalyzer:
         return max_complexity
     
     def _count_unique_tool_calls(self, tool_file: Path, all_tools: Set[str]) -> int:
-        """Count unique tool calls in the file"""
+        """Count unique tool compositions via direct imports of other tool modules."""
         try:
             with open(tool_file, 'r') as f:
                 code = f.read()
-            
-            # Pattern to match context.call_tool("tool_name")
-            pattern = r'context\.call_tool\(["\']([^"\']+)["\']\s*[,)]'
-            matches = re.findall(pattern, code)
-            
-            # Only count tools that actually exist
-            unique_tools = set()
-            for tool_name in matches:
-                if tool_name in all_tools:
-                    unique_tools.add(tool_name)
-            
-            return len(unique_tools)
-            
+
+            import_pattern = r'^(?:from\s+([A-Za-z_][\w\.]*)\s+import|import\s+([A-Za-z_][\w\.]*))'
+            imported = set()
+            for line in code.splitlines():
+                line = line.strip()
+                m = re.match(import_pattern, line)
+                if m:
+                    mod = (m.group(1) or m.group(2) or "").split('.')[0]
+                    if mod and mod != tool_file.stem and mod in all_tools:
+                        imported.add(mod)
+            return len(imported)
         except Exception:
             return 0
     

@@ -1,0 +1,22 @@
+{
+  "tool_name": "correlation_analyzer",
+  "timestamp": "2025-09-24T23:55:40.540380",
+  "tests": [
+    {
+      "name": "basic_correlation",
+      "passed": true
+    },
+    {
+      "name": "column_selection",
+      "passed": true
+    },
+    {
+      "name": "spearman_method",
+      "passed": true
+    }
+  ],
+  "total_tests": 3,
+  "passed_tests": 3,
+  "failed_tests": 0,
+  "all_passed": true
+}

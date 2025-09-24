@@ -589,8 +589,8 @@ Reflect on:
             if "adoption_count" in all_tools_meta[tool_name]:
                 all_tools_meta[tool_name]["adoption_count"] = 0
 
-        # Regex to find context.call_tool('tool_name', ...)
-        call_pattern = re.compile(r"context\.call_tool\(['\"](.*?)['\"],")
+        # Detect composition via direct imports of other known tools
+        import_pattern = re.compile(r'^(?:from\s+([A-Za-z_][\w\.]*)\s+import|import\s+([A-Za-z_][\w\.]*))', re.M)
 
         # Iterate through each tool and scan its code for calls to other tools
         for tool_name, metadata in all_tools_meta.items():
@@ -599,12 +599,15 @@ Reflect on:
                 try:
                     with open(tool_path, 'r', encoding='utf-8') as f:
                         code = f.read()
-                        found_calls = call_pattern.findall(code)
-                        for called_tool in found_calls:
-                            if called_tool in all_tools_meta:
-                                if "adoption_count" not in all_tools_meta[called_tool]:
-                                    all_tools_meta[called_tool]["adoption_count"] = 0
-                                all_tools_meta[called_tool]["adoption_count"] += 1
+                        found = set()
+                        for m in import_pattern.finditer(code):
+                            mod = (m.group(1) or m.group(2) or "").split('.')[0]
+                            if mod and mod in all_tools_meta and mod != tool_name:
+                                found.add(mod)
+                        for called_tool in found:
+                            if "adoption_count" not in all_tools_meta[called_tool]:
+                                all_tools_meta[called_tool]["adoption_count"] = 0
+                            all_tools_meta[called_tool]["adoption_count"] += 1
                 except Exception as e:
                     logger.error(f"Error reading or parsing {tool_path}: {e}")
 
