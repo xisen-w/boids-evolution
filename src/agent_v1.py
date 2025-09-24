@@ -372,71 +372,43 @@ Be concrete and practical."""
         """
         reflection = strategic_context["reflection"]
         round_num = strategic_context["round_num"]
-        boids_enabled = strategic_context["boids_enabled"]
         
         # Build enhanced system prompt with strategic scaffolding
-        system_prompt = f"""You are Agent {self.agent_id}. Based on your reflection and strategic context, design a specific tool to build.
+        system_prompt = f"""You are Agent {self.agent_id}. Use the strategic context to craft a detailed tool DESIGN SPECIFICATION.
 
-Create a tool specification with:
-- Unique tool name
-- Clear description  
-- Tool type (data, logic, utility, code)
-- Implementation outline
-- Expected parameters and return format
+Your blueprint must include:
+- Unique, Python-import-safe tool name (snake_case preferred)
+- Mission-aligned problem statement and expected outcome
+- Tool type classification (data, logic, utility, orchestration, etc.)
+- Step-by-step implementation outline, highlighting helper functions and external tool calls
+- Composition plan that names any existing tools you will call (or explicitly state none)
+- Expected parameters with types, validation, and defaults where appropriate
+- Expected return structure with keys, data types, and semantic meaning
+- Testing and risk considerations (edge cases, failure modes, evaluation strategy)
 
-CRITICAL REQUIREMENTS:
-1. Output ONLY raw Python code (no markdown, no ```)
-2. Function must be named 'execute(parameters, context=None)'
-3. Include comprehensive docstring with Args and Returns sections
-4. Handle errors gracefully with try/except blocks
-5. Return results in a consistent format
+Do NOT write implementation code. Produce a structured design document that a downstream code generator can follow precisely.
 
-🚫 ABSOLUTELY NO PLACEHOLDERS:
-- NO "# TODO: implement this"
-- NO "# placeholder for X"  
-- NO "pass" statements as implementation
-- NO "raise NotImplementedError"
-- EVERY function must have complete, working implementation
-- ALL logic must be fully implemented with actual code
-
-TOOL COMPOSITION (HIGHLY ENCOURAGED!):
-- To call other tools: context.call_tool('tool_name', {{'param': value}})
-- Always check: if context: before calling tools
-- Example: result = context.call_tool('DataProcessor', {{'data': my_data}})
-- Example: analysis = context.call_tool('Analyzer', {{'input': processed_data}})
-- Build upon existing tools rather than duplicating functionality
-- Create tool pipelines: Tool A → Tool B → Tool C
-- This increases your TCI score and creates more valuable tools!
-
-🚨 CRITICAL: ONLY CALL TOOLS THAT ACTUALLY EXIST!
-- Check the AVAILABLE TOOLS list below - only call tools listed there
-- If no tools are available, build your own complete implementation
-- Do NOT call tools that don't exist (like 'PoetryStructureAnalyzer' if not listed)
-- If you need functionality that doesn't exist, implement it yourself"""
+Composition rules:
+- Only plan to call tools listed in the AVAILABLE TOOLS section
+- When separation guidance warns about overlap, explain how your tool stays unique
+- If no tools are available, design a self-contained implementation"""
 
         # Build enhanced user prompt with strategic context
         user_prompt_parts = [f"REFLECTION: {reflection}"]
-        
-        # Add Boids context if enabled
-        if boids_enabled:
-            if strategic_context.get("alignment_prompt"):
-                user_prompt_parts.append(f"ALIGNMENT GUIDANCE: {strategic_context['alignment_prompt']}")
-            
-            if strategic_context.get("separation_prompt"):
-                user_prompt_parts.append(f"SEPARATION GUIDANCE: {strategic_context['separation_prompt']}")
-            
-            if strategic_context.get("cohesion_prompt"):
-                user_prompt_parts.append(f"COHESION GUIDANCE: {strategic_context['cohesion_prompt']}")
-            
-            if strategic_context.get("self_reflection_memory_prompt"):
-                user_prompt_parts.append(f"SELF-REFLECTION MEMORY: {strategic_context['self_reflection_memory_prompt']}")
-            
-            if strategic_context.get("test_failure_prompt"):
-                user_prompt_parts.append(f"TEST FAILURE GUIDANCE: {strategic_context['test_failure_prompt']}")
-            
-            if strategic_context.get("global_summary"):
-                user_prompt_parts.append(f"GLOBAL ECOSYSTEM SUMMARY: {strategic_context['global_summary']}")
-        
+
+        context_to_include = [
+            ("TEST FAILURE GUIDANCE", strategic_context.get("test_failure_prompt")),
+            ("SELF-REFLECTION MEMORY", strategic_context.get("self_reflection_memory_prompt")),
+            ("ALIGNMENT GUIDANCE", strategic_context.get("alignment_prompt")),
+            ("SEPARATION GUIDANCE", strategic_context.get("separation_prompt")),
+            ("COHESION GUIDANCE", strategic_context.get("cohesion_prompt")),
+            ("GLOBAL ECOSYSTEM SUMMARY", strategic_context.get("global_summary"))
+        ]
+
+        for label, content in context_to_include:
+            if content:
+                user_prompt_parts.append(f"{label}: {content}")
+
         # Add available tools for composition
         available_tools = self._discover_available_tools_for_calling()
         if available_tools:
@@ -450,7 +422,7 @@ TOOL COMPOSITION (HIGHLY ENCOURAGED!):
             user_prompt_parts.append("\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!")
             user_prompt_parts.append("🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!")
         
-        user_prompt_parts.append("\nBased on this comprehensive context, design ONE specific tool to build. Be concrete, practical, and leverage the strategic guidance provided.")
+        user_prompt_parts.append("\nBased on this comprehensive context, design ONE specific tool to build. Provide a rigorous blueprint that adheres to the methodology and leverages the guidance above.")
         
         user_prompt = "\n\n".join(user_prompt_parts)
 

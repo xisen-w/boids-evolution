@@ -292,6 +292,45 @@ class ExperimentRunner:
         
         # Shared methodology base - used by both Boids and non-Boids modes
         base_methodology = "You must reflect on your local neighborhood and the global ecosystem trend to decide what tool to build next."
+        ecosystem_goal_text = "Create a robust and powerful tool library. Prioritize creating \"deep\" tools that solve complex problems by composing and chaining together existing tools."
+
+        def build_reflection_system_prompt(agent_obj: Agent,
+                                            methodology_label: str,
+                                            guidance_prefix: str,
+                                            active_rules: List[str],
+                                            fallback_line: str,
+                                            package_summary: str = "") -> str:
+            """Construct a consistent reflection system prompt for any methodology mode."""
+            intro = (
+                f"You are Agent {agent_obj.agent_id}, a specialist in a collaborative tool-building society. "
+                "Your primary goal is to increase the collective capability of the agent society by creating deep, composable tools."
+            )
+
+            sections = [
+                intro,
+                f"**MISSION OBJECTIVE:**\n{self.shared_meta_prompt}",
+                f"**ECOSYSTEM GOAL:**\n{ecosystem_goal_text}"
+            ]
+
+            available_envs = ", ".join(agent_obj.envs_available) if agent_obj.envs_available else "None declared"
+            sections.append(f"**AVAILABLE ENVIRONMENTS:** {available_envs}")
+
+            if package_summary:
+                sections.append(package_summary)
+
+            methodology_lines = [f"{guidance_prefix} {base_methodology}"]
+            if active_rules:
+                methodology_lines.append("This means you must:")
+                methodology_lines.extend(
+                    f"{idx}.  {rule}" for idx, rule in enumerate(active_rules, start=1)
+                )
+            else:
+                methodology_lines.append(fallback_line)
+
+            sections.append(f"**METHODOLOGY: {methodology_label}**\n" + "\n".join(methodology_lines))
+            sections.append("Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to this methodology.")
+
+            return "\n\n".join(sections)
         
         # Get the global summary from the previous round for Cohesion
         last_global_summary = self.center_history[-1] if self.center_history else ""
@@ -315,20 +354,33 @@ class ExperimentRunner:
                 # --- 1. Observation & Reflection ---
                 self.visualizer.show_phase_header(f"{agent.agent_id}'s Turn: Observation & Reflection", "🔍")
                 
+                # Shared context for both modes
+                package_summary = ""
+                if agent.environment_manager:
+                    package_summary = agent.environment_manager.get_package_summary_for_agent()
+
+                self_reflection_memory_prompt = ""
+                if self.self_reflection_enabled:
+                    self_reflection_memory_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
+
+                test_failure_prompt = self._prepare_test_failure_prompt(agent)
+
+                alignment_prompt = ""
+                separation_prompt = ""
+                cohesion_prompt = ""
+                neighbor_tools_meta: List[Dict[str, Any]] = []
+
                 if self.boids_enabled:
                     # Boids v2.0 Mode: Semantic, rule-guided reflection
                     neighbors = self._get_neighbors(i)
                     
-                    neighbor_tools_meta = []
                     for neighbor_agent in neighbors:
                         neighbor_tools_meta.extend(neighbor_agent.self_built_tools.values())
 
                     # 1. Prepare Boids prompt components (tunable like self-reflection)
-                    alignment_prompt = ""
                     if self.boids_alignment_enabled:
                         alignment_prompt = boids_rules.prepare_alignment_prompt(neighbor_tools_meta, round_num, self.shared_tools_dir)
 
-                    separation_prompt = ""
                     if self.boids_separation_enabled:
                         separation_prompt = boids_rules.prepare_separation_prompt(
                             neighbor_tools_meta, 
@@ -336,17 +388,8 @@ class ExperimentRunner:
                             similarity_threshold=self.boids_sep_threshold  # Fix the bug!
                         )
 
-                    cohesion_prompt = ""
                     if self.boids_cohesion_enabled:
                         cohesion_prompt = boids_rules.prepare_cohesion_prompt(last_global_summary)
-                    
-                    # Add self-reflection if enabled
-                    self_reflection_memory_prompt = "" # In fact this is for self-reflection MEMORY. For reflection per se, we always have it. 
-                    if self.self_reflection_enabled:
-                        self_reflection_memory_prompt = boids_rules.prepare_self_reflection_prompt(agent.reflection_history)
-
-                    # Add test failure information for learning
-                    test_failure_prompt = self._prepare_test_failure_prompt(agent)
 
                     active_boids_rules = []
                     if self.boids_alignment_enabled:
@@ -356,32 +399,14 @@ class ExperimentRunner:
                     if self.boids_cohesion_enabled:
                         active_boids_rules.append("Contribute to the collective goal identified by the society (Cohesion).")
 
-                    boids_methodology_lines = [
-                        f"Your strategy is guided by Boids rules. {base_methodology}"
-                    ]
-
-                    if active_boids_rules:
-                        boids_methodology_lines.append("This means you must:")
-                        boids_methodology_lines.extend(
-                            f"{idx}.  {rule}" for idx, rule in enumerate(active_boids_rules, start=1)
-                        )
-                    else:
-                        boids_methodology_lines.append(
-                            "Currently, all neighborhood rules are disabled; rely on the Mission Objective, your reflection history, and testing signals to guide your next tool."
-                        )
-
-                    boids_methodology_section = "\n".join(boids_methodology_lines)
-
-                    # 2. Assemble the final prompt, ensuring the meta_prompt is central
-                    system_prompt = f"""You are Agent {agent.agent_id}, a specialist in a collaborative tool-building society. 
-
-**MISSION OBJECTIVE:**
-{self.shared_meta_prompt}
-
-**METHODOLOGY: BOIDS RULES**
-{boids_methodology_section}
-
-Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adhering to the BOIDS RULES methodology."""
+                    system_prompt = build_reflection_system_prompt(
+                        agent,
+                        "Boids Rules",
+                        "Your strategy is guided by Boids rules.",
+                        active_boids_rules,
+                        "Currently, all neighborhood rules are disabled; rely on the Mission Objective, your reflection history, and testing signals to guide your next tool.",
+                        package_summary
+                    )
                     
                     user_prompt = "\n\n".join(filter(None, [
                         test_failure_prompt,  # NEW: Add test failure information first
@@ -399,22 +424,14 @@ Your task is to propose a tool that fulfills the MISSION OBJECTIVE while adherin
                     # Legacy Mode: Reconstruct the original global reflection prompt for backward compatibility
                     observation = agent.observe()
                     
-                    # Add test failure information for learning
-                    test_failure_prompt = self._prepare_test_failure_prompt(agent)
-                    
-                    package_info = ""
-                    if agent.environment_manager:
-                        package_info = f"\n\n{agent.environment_manager.get_package_summary_for_agent()}"
-            
-                    system_prompt = f"""You are Agent {agent.agent_id} in a tool-building ecosystem. Your primary goal is to increase the collective capability of the agent society.
-
-META CONTEXT: {self.shared_meta_prompt}
-
-ECOSYSTEM GOAL: Create a robust and powerful tool library. Prioritize creating "deep" tools that solve complex problems by composing and chaining together existing tools.
-
-AVAILABLE ENVIRONMENTS: {', '.join(agent.envs_available)}{package_info}
-
-Your strategy is guided by core strategic heuristics. {base_methodology}""" 
+                    system_prompt = build_reflection_system_prompt(
+                        agent,
+                        "Strategic Heuristics",
+                        "Your strategy is guided by core strategic heuristics.",
+                        [],
+                        "Currently, all neighborhood rules are disabled; rely on the Mission Objective, your reflection history, and testing signals to guide your next tool.",
+                        package_summary
+                    )
 
                     if agent.specific_prompt:
                         system_prompt += f"\n\nSPECIFIC GUIDANCE: {agent.specific_prompt}"
@@ -432,9 +449,7 @@ Your strategy is guided by core strategic heuristics. {base_methodology}"""
                             tool_summaries = [f"{name}: {status.get('test_summary', 'No info')}" for name, status in tools.items()]
                             neighbor_test_summary.append(f"  {neighbor_id}: {'; '.join(tool_summaries[:3])}")
                     
-                    user_prompt = f"""{test_failure_prompt}
-
-CURRENT OBSERVATION:
+                    observation_prompt = f"""CURRENT OBSERVATION:
 
 === ECOSYSTEM SNAPSHOT ({len(observation.get('all_visible_tools', []))}) ===
 {format_test_status(observation.get('shared_test_status', {}), "Shared Foundational Tools")}
@@ -448,6 +463,12 @@ Reflect on:
 1. What is the most significant capability missing from the ecosystem right now to achieve our goal?
 2. How can I combine existing tools to create a new, more powerful tool?
 3. What specific, high-impact tool should I create next that directly serves our main mission?"""
+
+                    user_prompt = "\n\n".join(filter(None, [
+                        test_failure_prompt,
+                        self_reflection_memory_prompt,
+                        observation_prompt
+                    ]))
                     
                     reflection = agent.reflect(system_prompt, user_prompt)
 
@@ -472,13 +493,13 @@ Reflect on:
                     "reflection": reflection,
                     "round_num": round_num,
                     "boids_enabled": self.boids_enabled,
-                    "alignment_prompt": alignment_prompt if self.boids_enabled else "",
-                    "separation_prompt": separation_prompt if self.boids_enabled else "",
-                    "cohesion_prompt": cohesion_prompt if self.boids_enabled else "",
-                    "self_reflection_memory_prompt": self_reflection_memory_prompt if self.boids_enabled else "",
-                    "test_failure_prompt": test_failure_prompt if self.boids_enabled else "",
-                    "global_summary": last_global_summary if self.boids_enabled else "",
-                    "neighbor_tools_meta": neighbor_tools_meta if self.boids_enabled else []
+                    "alignment_prompt": alignment_prompt,
+                    "separation_prompt": separation_prompt,
+                    "cohesion_prompt": cohesion_prompt,
+                    "self_reflection_memory_prompt": self_reflection_memory_prompt,
+                    "test_failure_prompt": test_failure_prompt,
+                    "global_summary": last_global_summary,
+                    "neighbor_tools_meta": neighbor_tools_meta
                 }
                 
                 build_result = agent.build_tools_with_context(strategic_context) 
