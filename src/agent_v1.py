@@ -214,68 +214,71 @@ class Agent:
         return available_tools
 
     def _infer_tool_parameters(self, tool_name: str, tool_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Infer tool parameters using AST parsing of the actual tool file."""
+        """Infer tool parameters by parsing the actual execute function signature."""
         import ast
         import os
         
-        # First, try to get explicit parameters from metadata
-        if 'parameters' in tool_data and tool_data['parameters']:
-            return tool_data['parameters']
-        
-        # Try to parse the actual tool file
+        # Try to parse the actual tool file to get real parameters
         tool_file = tool_data.get('file', f"{tool_name}.py")
-        if not os.path.isabs(tool_file):
-            # Assume it's in the personal tools directory
-            tool_file = os.path.join(self.personal_tool_dir, tool_file)
         
-        if not os.path.exists(tool_file):
-            return self._get_default_parameters()
+        # Check in shared tools directory first
+        shared_tool_path = os.path.join(self.shared_tools_dir, tool_file)
+        if os.path.exists(shared_tool_path):
+            tool_file_path = shared_tool_path
+        else:
+            # Fallback to personal tools
+            tool_file_path = os.path.join(self.personal_tool_dir, tool_file)
         
-        try:
-            with open(tool_file, 'r', encoding='utf-8') as f:
-                source_code = f.read()
-            
-            tree = ast.parse(source_code)
-            
-            # Find the execute function
-            for node in ast.walk(tree):
-                if isinstance(node, ast.FunctionDef) and node.name == 'execute':
-                    params = {}
-                    
-                    # Parse function arguments
-                    for arg in node.args.args:
-                        if arg.arg == 'self':
-                            continue
-                        param_name = arg.arg
-                        
-                        # Get type annotation if available
-                        if arg.annotation:
-                            if isinstance(arg.annotation, ast.Name):
-                                param_type = arg.annotation.id
-                            elif isinstance(arg.annotation, ast.Constant):
-                                param_type = str(arg.annotation.value)
+        if os.path.exists(tool_file_path):
+            try:
+                with open(tool_file_path, 'r') as f:
+                    source = f.read()
+                
+                tree = ast.parse(source)
+                
+                # Find the execute function
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.FunctionDef) and node.name == 'execute':
+                        params = {}
+                        for arg in node.args.args:
+                            arg_name = arg.arg
+                            if arg_name == 'self':
+                                continue
+                            
+                            # Get type annotation if available
+                            if arg.annotation:
+                                if isinstance(arg.annotation, ast.Name):
+                                    type_hint = arg.annotation.id
+                                elif isinstance(arg.annotation, ast.Constant):
+                                    type_hint = str(arg.annotation.value)
+                                else:
+                                    type_hint = "Any"
                             else:
-                                param_type = "Any"
-                        else:
-                            param_type = "Any"
+                                type_hint = "Any"
+                            
+                            params[arg_name] = f"{type_hint}"
                         
-                        # Check if it has a default value
-                        has_default = len(node.args.defaults) > 0 and node.args.args.index(arg) >= len(node.args.args) - len(node.args.defaults)
-                        default_info = " (optional)" if has_default else " (required)"
+                        # Add defaults
+                        defaults = node.args.defaults
+                        if defaults:
+                            default_offset = len(node.args.args) - len(defaults)
+                            for i, default in enumerate(defaults):
+                                arg_idx = default_offset + i
+                                if arg_idx < len(node.args.args):
+                                    arg_name = node.args.args[arg_idx].arg
+                                    if isinstance(default, ast.Constant):
+                                        params[arg_name] += f" = {repr(default.value)}"
+                                    elif isinstance(default, ast.Name) and default.id in ['None', 'True', 'False']:
+                                        params[arg_name] += f" = {default.id}"
                         
-                        params[param_name] = f"{param_type}{default_info}"
-                    
-                    # Parse docstring for parameter descriptions
-                    if node.body and isinstance(node.body[0], ast.Expr) and isinstance(node.body[0].value, ast.Constant):
-                        docstring = node.body[0].value.value
-                        params = self._extract_params_from_docstring(docstring, params)
-                    
-                    return params if params else self._get_default_parameters()
+                        return params
+                        
+            except Exception as e:
+                print(f"Warning: Could not parse {tool_file_path}: {e}")
         
-        except Exception as e:
-            print(f"Error parsing tool {tool_name}: {e}")
-            return self._get_default_parameters()
-    
+        # Fallback: return empty dict instead of old format
+        return {}
+
     def _extract_params_from_docstring(self, docstring: str, params: Dict[str, str]) -> Dict[str, str]:
         """Extract parameter descriptions from docstring."""
         lines = docstring.split('\n')
@@ -355,7 +358,22 @@ Be concrete and practical."""
             {"role": "user", "content": user_prompt}
         ]
         
-        tool_design = self.azure_client.chat(messages, temperature=0.7)
+        # Use structured output for reliable tool name extraction
+        try:
+            tool_design_obj = self.azure_client.structured_output(messages, ToolDesign, temperature=0.7)
+            tool_design = f"""Tool Name: {tool_design_obj.tool_name}
+Description: {tool_design_obj.description}
+Type: {tool_design_obj.tool_type}
+Parameters: {', '.join(tool_design_obj.parameters)}
+Return Type: {tool_design_obj.return_type}
+Composition Plan: {', '.join(tool_design_obj.composition_plan)}
+Implementation Notes: {tool_design_obj.implementation_notes}"""
+            # Store the structured name for extraction
+            self._last_tool_name = tool_design_obj.tool_name
+        except Exception as e:
+            print(f"Structured design failed, falling back to text: {e}")
+            tool_design = self.azure_client.chat(messages, temperature=0.7)
+            self._last_tool_name = None
         
         # 🔍 DEBUG: Log tool design
         print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
@@ -456,7 +474,22 @@ Composition rules:
             {"role": "user", "content": user_prompt}
         ]
         
-        tool_design = self.azure_client.chat(messages, temperature=0.7)
+        # Use structured output for reliable tool name extraction
+        try:
+            tool_design_obj = self.azure_client.structured_output(messages, ToolDesign, temperature=0.7)
+            tool_design = f"""Tool Name: {tool_design_obj.tool_name}
+Description: {tool_design_obj.description}
+Type: {tool_design_obj.tool_type}
+Parameters: {', '.join(tool_design_obj.parameters)}
+Return Type: {tool_design_obj.return_type}
+Composition Plan: {', '.join(tool_design_obj.composition_plan)}
+Implementation Notes: {tool_design_obj.implementation_notes}"""
+            # Store the structured name for extraction
+            self._last_tool_name = tool_design_obj.tool_name
+        except Exception as e:
+            print(f"Structured design failed, falling back to text: {e}")
+            tool_design = self.azure_client.chat(messages, temperature=0.7)
+            self._last_tool_name = None
         
         # 🔍 DEBUG: Log tool design
         print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
@@ -697,19 +730,46 @@ Composition rules:
         return tool_metadata
 
     def _extract_tool_name(self, tool_design: str) -> str:
-        """Extract tool name from design text."""
-        # Simple extraction - look for "name:" or similar patterns
+        """Extract tool name from design text - handles multiple formats."""
+        import re
+        
+        # Pattern 1: Markdown format "### 1. Tool Name" followed by "**tool_name**"
+        markdown_pattern = r'##?#?\s*\d+\.\s*Tool\s+Name[^`*]*(?:`([^`]+)`|\*\*([^*]+)\*\*)'
+        match = re.search(markdown_pattern, tool_design, re.IGNORECASE)
+        if match:
+            tool_name = (match.group(1) or match.group(2) or "").strip()
+            # Clean it up for filename
+            tool_name = ''.join(c for c in tool_name if c.isalnum() or c == '_' or c == '-').strip()
+            tool_name = tool_name.replace('-', '_')
+            if tool_name:
+                return tool_name
+        
+        # Pattern 2: Direct format "Tool Name: tool_name" or "**Tool Name:** tool_name"
+        direct_pattern = r'(?:\*\*)?Tool\s+Name(?:\*\*)?:\s*(?:\*\*)?([^*\n]+)(?:\*\*)?'
+        match = re.search(direct_pattern, tool_design, re.IGNORECASE)
+        if match:
+            tool_name = match.group(1).strip()
+            tool_name = ''.join(c for c in tool_name if c.isalnum() or c == '_' or c == '-').strip()
+            tool_name = tool_name.replace('-', '_')
+            if tool_name:
+                return tool_name
+        
+        # Pattern 3: Legacy format "name:" or "tool name:"
         lines = tool_design.split('\n')
         for line in lines:
             if 'name:' in line.lower() or 'tool name:' in line.lower():
-                # Extract the name part
                 name_part = line.split(':')[1].strip()
-                # Clean it up for filename - REMOVE HYPHENS for Python imports
                 tool_name = ''.join(c for c in name_part if c.isalnum() or c == '_').strip()
-                # Replace hyphens with underscores for Python compatibility
                 tool_name = tool_name.replace('-', '_')
                 if tool_name:
                     return tool_name
+        
+        # Pattern 4: Look for any **word** that looks like a tool name
+        bold_pattern = r'\*\*([a-z_][a-z0-9_]*(?:_[a-z0-9_]+)*)\*\*'
+        matches = re.findall(bold_pattern, tool_design, re.IGNORECASE)
+        for match in matches:
+            if '_' in match and len(match) > 5:  # Likely a tool name
+                return match.lower()
         
         # Fallback to generic name
         return f"tool_{len(self.self_built_tools) + 1}"
@@ -743,7 +803,8 @@ This reflection shows what the agent actually wants to build. Use this context t
 
 CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
-2. Entry point must be: def execute(param1: type, param2: type = default) -> return_type
+2. Entry point MUST be named "execute": def execute(param1: type, param2: type = default) -> return_type
+🚨 CRITICAL: Function name MUST be "execute" - not the tool name!
 3. Use direct imports to compose with other tools (no context object)
 4. Do not return wrapper dicts; return the actual result type directly
 5. Ensure all parentheses and brackets are closed
@@ -879,8 +940,8 @@ Your tests MUST use this actual resource file for realistic testing.
 Tests should load and work with real data from this resource, not mock data.
 
 CRITICAL RESOURCE PATH: Use this EXACT path in your tests:
-resource_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))), '{detected_resource}')
-This points to the correct resources directory in the project root (6 levels up from _tests directory)."""
+resource_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))), '{detected_resource}')
+This points to the correct resources directory in the project root (5 levels up: _tests -> shared_tools -> experiment_dir -> experiments -> boids-evolution)."""
         else:
             return ""
     
@@ -1027,9 +1088,18 @@ Output ONLY the Python test code."""
             # FIX: Use relative path to avoid path duplication
             relative_test_file = os.path.join("_tests", f"{tool_name}_test.py")
             
+            # FIX: Run tests from shared_tools_dir so imports work correctly
+            # Copy test file to shared directory temporarily
+            shared_test_file = os.path.join(self.shared_tools_dir, "_tests", f"{tool_name}_test.py")
+            os.makedirs(os.path.dirname(shared_test_file), exist_ok=True)
+            
+            # Copy test from personal to shared for execution
+            import shutil
+            shutil.copy2(test_file, shared_test_file)
+            
             result = subprocess.run(
-                [sys.executable, relative_test_file],
-                cwd=self.personal_tool_dir,
+                [sys.executable, os.path.join("_tests", f"{tool_name}_test.py")],
+                cwd=self.shared_tools_dir,
                 capture_output=True,
                 text=True,
                 timeout=30

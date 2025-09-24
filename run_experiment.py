@@ -140,6 +140,12 @@ class ExperimentRunner:
             if os.path.exists("shared_tools_template"):
                 shutil.copytree("shared_tools_template", self.shared_tools_dir, dirs_exist_ok=True)
                 logger.info("✅ Copied default shared tools from template to experiment directory")
+                
+                # Also copy src directory so AI tools can import azure_client
+                if os.path.exists("src"):
+                    src_dest = os.path.join(self.shared_tools_dir, "src")
+                    shutil.copytree("src", src_dest, dirs_exist_ok=True)
+                    logger.info("✅ Copied src directory for AI tool dependencies")
             elif os.path.exists("shared_tools"):
                 shutil.copytree("shared_tools", self.shared_tools_dir, dirs_exist_ok=True)
                 logger.info("✅ Copied default shared tools to experiment directory")

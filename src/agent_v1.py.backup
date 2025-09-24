@@ -69,6 +69,12 @@ class Agent:
         os.makedirs(self.personal_tests_dir, exist_ok=True)
         os.makedirs(self.personal_test_results_dir, exist_ok=True)
 
+        # Shared tools directory from registry (for building directly in shared)
+        try:
+            self.shared_tools_dir = getattr(self.shared_tool_registry, "shared_tools_dir", "shared_tools")
+        except Exception:
+            self.shared_tools_dir = "shared_tools"
+
         # Initialize EnvironmentManager
         self.environment_manager = EnvironmentManager(self.personal_tool_dir)
     
@@ -351,8 +357,26 @@ Be concrete and practical."""
         
         tool_design = self.azure_client.chat(messages, temperature=0.7)
         
+        # 🔍 DEBUG: Log tool design
+        print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
+        
+        # 🔍 DEBUG: Save tool design to file
+        debug_dir = f"debug_logs/{self.agent_id}"
+        os.makedirs(debug_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        with open(f"{debug_dir}/tool_design_{timestamp}.txt", 'w') as f:
+            f.write(f"=== TOOL DESIGN DEBUG ===")
+            f.write(f"Agent: {self.agent_id}")
+            f.write(f"Timestamp: {timestamp}")
+            # strategic_context is not available in this path
+            f.write(f"=== STRATEGIC CONTEXT ===(not available in build_tools)")
+            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
+            f.write(f"=== USER PROMPT ==={user_prompt}")
+            f.write(f"=== TOOL DESIGN RESPONSE ==={tool_design}")
+        
         # Create the actual tool file
-        tool_info = self._create_tool_file(tool_design, round_num)
+        tool_info = self._create_tool_file(tool_design, round_num, None)
         
         return {
             "success": tool_info["success"],
@@ -413,15 +437,15 @@ Composition rules:
         # Add available tools for composition
         available_tools = self._discover_available_tools_for_calling()
         if available_tools:
-            user_prompt_parts.append("\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):")
+            user_prompt_parts.append("\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY IMPORT THESE!):")
             for tool_name, tool_info in available_tools.items():
                 user_prompt_parts.append(f"- {tool_name}: {tool_info['description'][:100]}...")
                 user_prompt_parts.append(f"  Parameters: {list(tool_info['parameters'].keys())}")
                 user_prompt_parts.append(f"  TCI Score: {tool_info['tci_score']}")
-                user_prompt_parts.append(f"  🚨 CALL AS: context.call_tool('{tool_name}', {{'param': value}})\n")
+                user_prompt_parts.append(f"  📦 IMPORT AS: `import {tool_name}` then call `{tool_name}.execute(...)`\n")
         else:
             user_prompt_parts.append("\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!")
-            user_prompt_parts.append("🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!")
+            user_prompt_parts.append("🚨 IMPORTANT: Build your own complete implementation with typed signature and raw return.")
         
         user_prompt_parts.append("\nBased on this comprehensive context, design ONE specific tool to build. Provide a rigorous blueprint that adheres to the methodology and leverages the guidance above.")
         
@@ -434,8 +458,24 @@ Composition rules:
         
         tool_design = self.azure_client.chat(messages, temperature=0.7)
         
+        # 🔍 DEBUG: Log tool design
+        print(f"🔍 DEBUG: TOOL DESIGN = {tool_design[:500]}...")
+        
+        # 🔍 DEBUG: Save tool design to file
+        debug_dir = f"debug_logs/{self.agent_id}"
+        os.makedirs(debug_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        with open(f"{debug_dir}/tool_design_{timestamp}.txt", 'w') as f:
+            f.write(f"=== TOOL DESIGN DEBUG ===")
+            f.write(f"Agent: {self.agent_id}")
+            f.write(f"Timestamp: {timestamp}")
+            f.write(f"=== STRATEGIC CONTEXT ==={strategic_context}")
+            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
+            f.write(f"=== USER PROMPT ==={user_prompt}")
+            f.write(f"=== TOOL DESIGN RESPONSE ==={tool_design}")      
         # Create the actual tool file
-        tool_info = self._create_tool_file(tool_design, round_num)
+        tool_info = self._create_tool_file(tool_design, round_num, strategic_context)
         
         return {
             "success": tool_info["success"],
@@ -531,22 +571,29 @@ Composition rules:
             "test_results": test_results
         }
     
-    def _create_tool_file(self, tool_design: str, round_num: int) -> Dict[str, Any]:
-        """Create actual Python file for the tool."""
+    def _create_tool_file(self, tool_design: str, round_num: int, strategic_context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Create actual Python file for the tool (write to shared first, then copy to personal)."""
         try:
             # Extract tool name from design
             tool_name = self._extract_tool_name(tool_design)
             
-            # Generate Python code
-            python_code = self._generate_tool_code(tool_design, tool_name)
+            # Generate Python code with strategic context
+            python_code = self._generate_tool_code(tool_design, tool_name, strategic_context)
             
-            # Write tool file
-            tool_file = f"{self.personal_tool_dir}/{tool_name}.py"
-            with open(tool_file, 'w') as f:
+            # Write tool file to SHARED first for consistent import paths
+            os.makedirs(self.shared_tools_dir, exist_ok=True)
+            shared_tool_file = os.path.join(self.shared_tools_dir, f"{tool_name}.py")
+            with open(shared_tool_file, 'w') as f:
+                f.write(python_code)
+
+            # Also mirror to PERSONAL for tracking
+            os.makedirs(self.personal_tool_dir, exist_ok=True)
+            personal_tool_file = os.path.join(self.personal_tool_dir, f"{tool_name}.py")
+            with open(personal_tool_file, 'w') as f:
                 f.write(python_code)
             
             # 🆕 NEW: Analyze tool for TCI complexity
-            complexity_data = self._analyze_tool_complexity(tool_file, tool_name)
+            complexity_data = self._analyze_tool_complexity(shared_tool_file, tool_name)
             print(f"   🔍 DEBUG: complexity_data = {complexity_data}")
             
             # Update personal tool index (with complexity data)
@@ -560,7 +607,7 @@ Composition rules:
             return {
                 "success": True,
                 "tool_name": tool_name,
-                "tool_file": tool_file,
+                "tool_file": shared_tool_file,
                 "tool_design": tool_design
             }
             
@@ -667,7 +714,7 @@ Composition rules:
         # Fallback to generic name
         return f"tool_{len(self.self_built_tools) + 1}"
     
-    def _generate_tool_code(self, tool_design: str, tool_name: str) -> str:
+    def _generate_tool_code(self, tool_design: str, tool_name: str, strategic_context: Dict[str, Any] = None) -> str:
         """Generate Python code for the tool."""
         
         # Get available packages info
@@ -677,21 +724,31 @@ Composition rules:
             if examples:
                 package_examples = f"\n\nAVAILABLE PACKAGES (use these imports):\n" + "\n".join(examples[:8])
         
+        # Add reflection and mission context to system prompt
+        reflection_context = ""
+        if strategic_context:
+            reflection = strategic_context.get("reflection", "")
+            if reflection:
+                reflection_context = f"""
+
+🎯 MISSION CONTEXT & REFLECTION:
+{reflection}
+
+This reflection shows what the agent actually wants to build. Use this context to ensure your tool implementation aligns with the agent's sophisticated analysis and mission goals."""
+        
         # Use Azure to generate actual implementation
         system_prompt = f"""Generate a complete Python implementation for this tool:
 
-{tool_design}{package_examples}
+{tool_design}{package_examples}{reflection_context}
 
 CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
-2. Entry point must be: def execute(parameters, context=None):
-3. You MAY define small helper functions to keep code readable and modular
-4. Include robust error handling
-5. Return a dictionary with at least THREE keys (e.g., result, details, meta)
-6. Ensure all parentheses and brackets are closed
-7. Try to build more complex tools (more lines). Aim for more lines total (helpers allowed) when appropriate for clarity
-8. Prefer available packages listed above
-9. If useful, try to call other tools for building your own tool.
+2. Entry point must be: def execute(param1: type, param2: type = default) -> return_type
+3. Use direct imports to compose with other tools (no context object)
+4. Do not return wrapper dicts; return the actual result type directly
+5. Ensure all parentheses and brackets are closed
+6. Prefer available packages listed above
+7. Keep code readable; small helpers are fine
 
 🚫 ABSOLUTELY NO PLACEHOLDERS:
 - NO "# TODO: implement this"
@@ -701,91 +758,86 @@ CRITICAL REQUIREMENTS:
 - EVERY function must have complete, working implementation
 - ALL logic must be fully implemented with actual code 
 
-TOOL COMPOSITION (HIGHLY ENCOURAGED!):
-- To call other tools: context.call_tool('tool_name', {{'param': value}})
-- Always check: if context: before calling tools
-- Example: result = context.call_tool('DataProcessor', {{'data': my_data}})
-- Example: analysis = context.call_tool('Analyzer', {{'input': processed_data}})
-- Build upon existing tools rather than duplicating functionality
-- Create tool pipelines: Tool A → Tool B → Tool C
-- This increases your TCI score and creates more valuable tools!
-- Handle context=None case gracefully
-- When context is available, you may leverage existing tools to build more sophisticated functionality
-- If you use other tools, include a 'composition' field in the returned dict (e.g., "my_tool -> data_cleaner -> validator")
+TOOL COMPOSITION (RECOMMENDED):
+- Import other tools directly and call their execute() functions when useful.
+- Example:
+    import data_cleaner
+    cleaned_df = data_cleaner.execute(df, dropna=True)
+- Build pipelines via imports: Tool A → Tool B → Tool C
+- Handle basic invalid inputs minimally (no error wrappers)
 
-🚨 CRITICAL: ONLY CALL TOOLS THAT ACTUALLY EXIST!
-- Check the AVAILABLE TOOLS list below - only call tools listed there
+🚨 CRITICAL: ONLY IMPORT TOOLS THAT ACTUALLY EXIST!
+- Check the AVAILABLE TOOLS list below - only import tools listed there
 - If no tools are available, build your own complete implementation
-- Do NOT call tools that don't exist (like 'PoetryStructureAnalyzer' if not listed)
 - If you need functionality that doesn't exist, implement it yourself
-
-TOOL COMPOSITION - CALLING OTHER TOOLS:
-If your tool needs to use other tools, use the context object:
-- context.call_tool(tool_name, parameters) -> returns result dict
-- Check if context exists: if context:
-- Always handle the case where context is None
 
 Example structures:
 # Standalone tool:
-def execute(parameters, context=None):
-    \"\"\"Tool description\"\"\"
-    try:
-        data = parameters.get('data')
-        result = process_data(data)
-        return {{"result": result}}
-    except Exception as e:
-        return {{"error": str(e)}}
+def execute(data: list[int]) -> float:
+    total = sum(data)
+    return total / max(1, len(data))
 
 # Compositional tool:
-def execute(parameters, context=None):
-    \"\"\"Tool that leverages other tools\"\"\"
-    try:
-        data = parameters.get('data')
-        
-        if context:
-            # Clean the data first
-            clean_result = context.call_tool('DataQualityInspector', {{'df': data}})
-            if clean_result.get('success'):
-                # Then transform it
-                transform_result = context.call_tool('DataTransformer', {{'df': data, 'config': {{}}}})
-                if transform_result.get('success'):
-                    return {{
-                        "result": transform_result['result'], 
-                        "quality_score": clean_result['overall_score'],
-                        "composition": "my_tool -> DataQualityInspector -> DataTransformer"
-                    }}
-        
-        # Fallback: process directly
-        processed_data = process_data_directly(data)
-        return {{"result": processed_data, "composition": "standalone"}}
-    except Exception as e:
-        return {{"error": str(e)}}"""
+def execute(path: str) -> dict:
+    import simple_eda_pandas
+    summary = simple_eda_pandas.execute(path)  # if your design uses file paths
+    return {{"columns": summary["columns"], "shape": summary["shape"]}}"""
 
+        # 🔍 DEBUG: Log system prompt
+        print(f"🔍 DEBUG: SYSTEM PROMPT = {system_prompt[:500]}...")
+        
         # Get available tools for composition
         available_tools = self._discover_available_tools_for_calling()
         available_tools_info = ""
         if available_tools:
-            available_tools_info = f"\n\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY CALL THESE!):\n"
+            available_tools_info = f"\n\n✅ AVAILABLE TOOLS FOR COMPOSITION (ONLY IMPORT THESE!):\n"
             for tool_name, tool_info in available_tools.items():
                 available_tools_info += f"- {tool_name}: {tool_info['description'][:100]}...\n"
-                available_tools_info += f"  Parameters: {list(tool_info['parameters'].keys())}\n"
+                param_details = []
+                for param, type_info in tool_info['parameters'].items():
+                    param_details.append(f"{param}: {type_info}")
+                available_tools_info += f"  Parameters: {param_details}\n"
                 available_tools_info += f"  TCI Score: {tool_info['tci_score']}\n"
-                available_tools_info += f"  🚨 CALL AS: context.call_tool('{tool_name}', {{'param': value}})\n\n"
+                available_tools_info += f"  📦 IMPORT AS: `import {tool_name}` then call `{tool_name}.execute(...)`\n\n"
         else:
-            available_tools_info = "\n\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!\n🚨 IMPORTANT: Do NOT call any tools with context.call_tool() - build your own complete implementation instead!"
+            available_tools_info = "\n\n❌ NO TOOLS AVAILABLE FOR COMPOSITION YET!\n🚨 IMPORTANT: Build your own complete implementation with typed signature and raw return."
 
-        user_prompt = f"""Write a complete Python function for {tool_name}.
-Consider using context.call_tool() to leverage existing tools when appropriate.
+        user_prompt = f"""Write a complete Python function for the designs above.
+Compose by importing existing tools directly and calling their execute() functions when useful.
 {available_tools_info}
 Output ONLY the Python code."""
+
+        # 🔍 DEBUG: Log user prompt
+        print(f"🔍 DEBUG: USER PROMPT = {user_prompt[:500]}...")
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
         
+        # 🔍 DEBUG: Log full messages
+        print(f"🔍 DEBUG: FULL MESSAGES = {messages}")
+        
         code = self.azure_client.chat(messages, temperature=0.1, max_tokens=30000)  # Lower tokens to prevent cutoff
         
+        # 🔍 DEBUG: Log LLM response
+        print(f"🔍 DEBUG: LLM RESPONSE = {code[:500]}...")
+        
+        # 🔍 DEBUG: Save all prompts and responses to file
+        debug_dir = f"debug_logs/{self.agent_id}"
+        os.makedirs(debug_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        with open(f"{debug_dir}/tool_generation_{timestamp}.txt", 'w') as f:
+            f.write(f"=== TOOL GENERATION DEBUG ===")
+            f.write(f"Agent: {self.agent_id}")
+            f.write(f"Tool Name: {tool_name}")
+            f.write(f"Timestamp: {timestamp}")
+            f.write(f"=== TOOL DESIGN ==={tool_design}")
+            f.write(f"=== STRATEGIC CONTEXT ==={strategic_context}")
+            f.write(f"=== SYSTEM PROMPT ==={system_prompt}")
+            f.write(f"=== USER PROMPT ==={user_prompt}")
+            f.write(f"=== LLM RESPONSE ==={code}")
         
         # Validate package usage if environment manager is available
         if self.environment_manager:
@@ -847,24 +899,20 @@ TOOL DESIGN: {tool_design}
 
 CRITICAL REQUIREMENTS:
 1. Output ONLY raw Python code (no markdown, no ```)
-2. Use the EXACT template structure provided below - DO NOT MODIFY THE IMPORT SECTION
-3. The import section MUST use the exact path manipulation code provided
-4. Create a complete test suite with multiple test cases
-5. Include positive tests, negative tests, and edge cases
-6. Return detailed test results as a dictionary
-7. Maximum 100 lines of code
+2. Use the EXACT import/bootstrap section provided below
+3. Create a concise test suite with multiple cases
+4. Validate types/structures of raw returns (no success dicts)
+5. Maximum 100-150 lines of code
 
-WARNING: If you change the import section, the tests will fail completely!
-
-CRITICAL: You MUST use this EXACT structure - do not modify the import section:
+Bootstrap (use exactly this pattern to import the tool by file path):
 
 import sys
 import os
 import json
 from datetime import datetime
 
+
 def run_tests():
-    \"\"\"Run all tests for {tool_name}\"\"\"
     results = {{
         "tool_name": "{tool_name}",
         "timestamp": datetime.now().isoformat(),
@@ -874,89 +922,66 @@ def run_tests():
         "failed_tests": 0,
         "all_passed": False
     }}
-    
-    # CRITICAL: Use this EXACT import code - DO NOT CHANGE
+
+    # Import tool by file path
     try:
         import importlib.util
         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if parent_dir not in sys.path:
             sys.path.insert(0, parent_dir)
-        
-        # Dynamic import to handle any tool name (including those with special characters)
         tool_file = os.path.join(parent_dir, f"{tool_name}.py")
         spec = importlib.util.spec_from_file_location("tool_module", tool_file)
         tool_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(tool_module)
-        
-        # Make the tool available as {tool_name}
         globals()["{tool_name}"] = tool_module
     except Exception as e:
         results["import_error"] = str(e)
         return results
-    
-    def record_result(test_name, passed, error_msg=None):
+
+    def record(name, passed, detail=None):
         results["total_tests"] += 1
         if passed:
             results["passed_tests"] += 1
         else:
             results["failed_tests"] += 1
-        results["tests"].append({{
-            "test_name": test_name,
-            "passed": passed,
-            "error": error_msg
-        }})
-    
-    # CRITICAL: Tools expect parameters as a dictionary!
-    # CORRECT: result = {tool_name}.execute({{'param1': value1, 'param2': value2}})
-    # WRONG: result = {tool_name}.execute(value1, value2)
-    
-    # Example test case - EXTREMELY LENIENT:
+        entry = {{"name": name, "passed": passed}}
+        if detail is not None:
+            entry["detail"] = detail
+        results["tests"].append(entry)
+
+    # Example sanity test (replace with real cases based on design):
     try:
-        # Call tool with basic parameters
-        result = {tool_name}.execute({{'data': [1, 2, 3]}})
-        # Accept ANY result that doesn't crash
-        if result is not None:
-            record_result("Basic functionality", True)
-        else:
-            record_result("Basic functionality", False, "Tool returned None")
+        # Call execute with real parameters matching the typed signature in your design
+        # e.g., result = {tool_name}.execute(<arg1>, <arg2>)
+        ok = True  # replace with actual checks
+        record("basic_execution", ok)
     except Exception as e:
-        record_result("Basic functionality", False, str(e))
-    
-    # Add more test cases following the same pattern...
+        record("basic_execution", False, str(e))
+
     results["all_passed"] = results["failed_tests"] == 0
     return results
 
 if __name__ == "__main__":
-    test_results = run_tests()
-    print(json.dumps(test_results, indent=2))"""
+    print(json.dumps(run_tests(), indent=2))"""
 
         user_prompt = f"""Create comprehensive, resource-aware tests for {tool_name}.
 
-CRITICAL IMPORT REQUIREMENT: Use the EXACT import template provided above. DO NOT change the import section or the tests will fail completely.
+CRITICAL IMPORT REQUIREMENT: Use the EXACT bootstrap import pattern above. Do not change it.
 
-CRITICAL: Tools use this calling convention:
-- result = {tool_name}.execute({{'param1': value1, 'param2': value2}})
-- NOT: result = {tool_name}.execute(value1, value2)
+CRITICAL: Tools expose typed execute functions and return raw results, not dict wrappers.
+- CORRECT: result = {tool_name}.execute(real_param1, real_param2)
+- WRONG:   result = {tool_name}.execute({{'param1': value1}})
 
 RESOURCE-FOCUSED TESTING REQUIREMENTS:
 1. If a resource file is specified, your tests MUST attempt to load and use real data from that resource
-2. Design tests to be modular and minimal but use actual resource data when available
-3. Test realistic scenarios that the tool would encounter with the actual resource
-4. Include error handling tests for resource access issues
-5. Validate that the tool produces meaningful results with real data
+2. Design tests to be minimal but realistic
+3. Validate that the raw return matches the intended type/structure
 
-GENERATE 3 COMPREHENSIVE TEST CASES:
-1. **Resource Integration Test**: Load actual data from the specified resource and test core functionality
-2. **Error Handling Test**: Test behavior when resource is unavailable or malformed
-3. **Edge Case Test**: Test with boundary conditions from the actual resource data
+GENERATE 3 TEST CASES:
+1. Resource Integration (if applicable)
+2. Basic happy path
+3. Edge case
 
-TESTING PHILOSOPHY:
-- Use real data when possible, not just mock data
-- Test meaningful functionality, not just basic execution
-- Validate that results make sense for the specific domain/resource
-- Ensure tests help identify actual issues with tool implementation
-
-REMINDER: Use the EXACT template structure above - especially the import section.
 Output ONLY the Python test code."""
 
         messages = [
