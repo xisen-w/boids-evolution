@@ -105,25 +105,6 @@
       "passed_tests": 5,
       "total_tests": 5
     },
-    "random_gen": {
-      "name": "random_gen",
-      "description": "Generate random numbers or make random choices",
-      "parameters": {
-        "type": "string (number or choice)",
-        "min": "number (for type=number)",
-        "max": "number (for type=number)",
-        "choices": "array (for type=choice)"
-      },
-      "file": "random_gen.py",
-      "created_by": "system",
-      "usage_count": 15,
-      "test_passed": false,
-      "last_tested": "2025-09-24T17:11:13.866803",
-      "test_execution_success": true,
-      "test_error": "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wangxiang/Desktop/my_workspace/boids-evolution/shared_tools_template/_tests/shared_tools_template/_tests/random_gen_test.py': [Errno 2] No such file or directory\n",
-      "passed_tests": 8,
-      "total_tests": 9
-    },
     "ai_text_generate": {
       "name": "ai_text_generate",
       "description": "Generate creative text using Azure OpenAI - stories, articles, content",
@@ -190,7 +171,7 @@
     }
   },
   "metadata": {
-    "total_tools": 9,
+    "total_tools": 8,
     "last_updated": "2025-09-02T03:00:00.000000",
     "version": "2.1",
     "features": [
