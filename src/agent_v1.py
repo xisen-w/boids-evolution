@@ -14,14 +14,14 @@ from datetime import datetime
 
 # Handle imports for both standalone and module usage
 try:
-    from .azure_client import AzureOpenAIClient
+    from .azure_client import AzureOpenAIClient, ToolDesign
     from .tools_v1 import ToolRegistryV1
     from .environment_manager import EnvironmentManager
 except ImportError:
     # Add parent directory to path for standalone execution
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
     try:
-        from src.azure_client import AzureOpenAIClient
+        from src.azure_client import AzureOpenAIClient, ToolDesign
         from src.tools_v1 import ToolRegistryV1
         from src.environment_manager import EnvironmentManager
     except ImportError:
@@ -831,6 +831,11 @@ TOOL COMPOSITION (RECOMMENDED):
 - Check the AVAILABLE TOOLS list below - only import tools listed there
 - If no tools are available, build your own complete implementation
 - If you need functionality that doesn't exist, implement it yourself
+
+🚨 CRITICAL: USE EXACT COLUMN NAMES FROM DATASET!
+- If the meta prompt specifies column names, use ONLY those exact names
+- Do NOT assume columns like 'cost', 'target', 'price' - use the specified names
+- Example: Use 'charges' not 'cost', use 'bmi' not 'body_mass_index'
 
 Example structures:
 # Standalone tool:

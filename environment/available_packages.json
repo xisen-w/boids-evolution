@@ -4,7 +4,7 @@
     "description": "Enhanced environment for AI agent tool building with LLM and search capabilities",
     "last_updated": "2024-09-02",
     "python_version": "3.8+",
-    "total_packages": 52
+    "total_packages": 54
   },
   "core_packages": {
     "standard_library": {
@@ -52,7 +52,9 @@
         "yaml": "YAML file parsing and generation (PyYAML)",
         "xml": "XML processing and manipulation",
         "zipfile": "ZIP archive creation and extraction",
-        "tarfile": "TAR archive handling"
+        "tarfile": "TAR archive handling",
+        "PyPDF2": "PDF file reading and text extraction",
+        "pdfplumber": "Advanced PDF processing - text, tables, layout analysis"
       }
     }
   },

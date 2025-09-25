@@ -97,6 +97,20 @@
       "test_passed": true,
       "last_tested": "2024-09-24T23:54:00",
       "test_execution_success": true
+    },
+    "pdf_text_extractor": {
+      "name": "pdf_text_extractor",
+      "description": "Extract text content from PDF files using PyPDF2 and pdfplumber with multiple extraction methods",
+      "file": "pdf_text_extractor.py",
+      "created_by": "system",
+      "created_at": "2025-09-25T00:00:00",
+      "adoption_count": 0,
+      "has_test": true,
+      "test_file": "_tests/pdf_text_extractor_test.py",
+      "test_results_file": "_testResults/pdf_text_extractor_results.json",
+      "test_passed": true,
+      "last_tested": "2025-09-25T02:26:01",
+      "test_execution_success": true
     }
   }
 }

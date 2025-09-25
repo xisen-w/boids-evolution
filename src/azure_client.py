@@ -131,6 +131,16 @@ class AgentDecision(BaseModel):
     reason: str  # brief explanation
     target_tool: Optional[str] = None  # for use_tool actions
 
+class ToolDesign(BaseModel):
+    """Tool design specification for structured output."""
+    tool_name: str  # The exact tool name (e.g., "sentiment_analyzer", "pdf_processor")
+    description: str  # Brief description of what the tool does
+    tool_type: str  # data, logic, utility, code
+    parameters: List[str] = []  # List of parameter names/types
+    return_type: str = "dict"  # Return type of the tool
+    composition_plan: List[str] = []  # List of other tools this tool will use
+    implementation_notes: str = ""  # Additional implementation details
+
 class ToolCreation(BaseModel):
     """Tool creation specification."""
     name: str

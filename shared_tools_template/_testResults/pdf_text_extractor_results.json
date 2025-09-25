@@ -1,0 +1,40 @@
+{
+  "tool_name": "pdf_text_extractor",
+  "timestamp": "2025-09-25T02:26:46.681197",
+  "tests": [
+    {
+      "name": "shakespeare_sonnet_extraction",
+      "passed": true,
+      "detail": "Extracted 700 characters"
+    },
+    {
+      "name": "math_notes_extraction",
+      "passed": true,
+      "detail": "Extracted 155519 characters from 91 pages"
+    },
+    {
+      "name": "page_range_extraction",
+      "passed": true,
+      "detail": "Extracted 3 pages from range (0,2)"
+    },
+    {
+      "name": "both_methods_comparison",
+      "passed": true,
+      "detail": "pdfplumber: 700 chars, pypdf2: 687 chars"
+    },
+    {
+      "name": "file_not_found_handling",
+      "passed": true,
+      "detail": "Correctly raised FileNotFoundError"
+    },
+    {
+      "name": "clean_text_option",
+      "passed": true,
+      "detail": "Clean: 700 chars, Raw: 700 chars"
+    }
+  ],
+  "total_tests": 6,
+  "passed_tests": 6,
+  "failed_tests": 0,
+  "all_passed": true
+}
