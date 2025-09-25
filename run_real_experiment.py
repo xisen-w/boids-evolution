@@ -144,7 +144,8 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
                          evolution_enabled: bool = False,
                          evolution_frequency: int = 5,
                          evolution_selection_rate: float = 0.2,
-                         self_reflection: bool = False):
+                         self_reflection: bool = False,
+                         model_name: str = "default"):
     """
     Configures and runs a single experiment with full ablation support.
     """
@@ -152,6 +153,7 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
     logger.info(f"🚀 Launching Experiment: {exp_name}")
     logger.info(f"🎯 Meta-Prompt: {meta_prompt[:100]}...")
     logger.info(f"👥 Agents: {num_agents}, 🔄 Rounds: {num_rounds}")
+    logger.info(f"🤖 Model: {model_name}")
     logger.info(f"🐦 Boids Enabled: {boids_enabled} (k={boids_k}, sep={boids_sep})")
     if boids_enabled:
         logger.info(f"   ├─ Separation: {boids_separation_enabled}")
@@ -181,7 +183,8 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
         evolution_enabled=evolution_enabled,
         evolution_frequency=evolution_frequency,
         evolution_selection_rate=evolution_selection_rate,
-        self_reflection_enabled=self_reflection
+        self_reflection_enabled=self_reflection,
+        model_name=model_name
     )
     
     success = runner.run_experiment()
@@ -200,7 +203,8 @@ def run_single_experiment(exp_name: str, meta_prompt: str, num_agents: int, num_
 
 def run_ablation_study(meta_prompt: str, num_agents: int, num_rounds: int, 
                       boids_k: int = 2, boids_sep: float = 0.45, 
-                      evolution_frequency: int = 5, evolution_selection_rate: float = 0.2):
+                      evolution_frequency: int = 5, evolution_selection_rate: float = 0.2,
+                      model_name: str = "default"):
     """
     Runs a complete ablation study with all 6 experiment configurations.
     """
@@ -297,7 +301,8 @@ def run_ablation_study(meta_prompt: str, num_agents: int, num_rounds: int,
             evolution_enabled=exp_config['evolution_enabled'],
             evolution_frequency=evolution_frequency,
             evolution_selection_rate=evolution_selection_rate,
-            self_reflection=exp_config['self_reflection']
+            self_reflection=exp_config['self_reflection'],
+            model_name=model_name
         )
     
     logger.info("\n🎉 Ablation Study Complete!")
@@ -333,6 +338,10 @@ def main():
     parser.add_argument("--self_reflection", action='store_true', help="Enable agent's self-reflection awareness (default: True)")
     parser.add_argument("--no_self_reflection", action='store_true', help="Disable agent's self-reflection awareness")
     
+    # Model selection
+    parser.add_argument("--model", choices=['default', 'gpt-4.1-nano', 'gpt-4o-mini', 'deepseek-v3'], 
+                       default='default', help="Choose the LLM model to use for experiments")
+    
     args = parser.parse_args()
     
     # Verify resources are accessible
@@ -360,7 +369,8 @@ def main():
             boids_k=args.boids_k,
             boids_sep=args.boids_sep,
             evolution_frequency=args.evolution_frequency,
-            evolution_selection_rate=args.evolution_selection_rate
+            evolution_selection_rate=args.evolution_selection_rate,
+            model_name=args.model
         )
     else:
         # Run single experiment
@@ -394,7 +404,8 @@ def main():
             evolution_enabled=args.evolution_enabled,
             evolution_frequency=args.evolution_frequency,
             evolution_selection_rate=args.evolution_selection_rate,
-            self_reflection=self_reflection
+            self_reflection=self_reflection,
+            model_name=args.model
         )
     
     return 0

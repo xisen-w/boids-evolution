@@ -4,7 +4,7 @@
     "description": "Enhanced environment for AI agent tool building with LLM and search capabilities",
     "last_updated": "2024-09-02",
     "python_version": "3.8+",
-    "total_packages": 54
+    "total_packages": 55
   },
   "core_packages": {
     "standard_library": {
@@ -64,6 +64,7 @@
       "openai": "OpenAI API client - access to GPT-4, GPT-3.5, embeddings (YOUR KEY READY)",
       "anthropic": "Anthropic Claude API client (if you have key)",
       "scikit-learn": "Machine learning library - classification, regression, clustering",
+      "sklearn": "Machine learning library (alias for scikit-learn)",
       "scipy": "Scientific computing - optimization, statistics, signal processing",
       "transformers": "Hugging Face transformers for local models (optional)",
       "langchain": "LLM application framework for chaining operations (optional)"

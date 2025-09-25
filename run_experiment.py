@@ -64,7 +64,8 @@ class ExperimentRunner:
                  evolution_enabled: bool = False,
                  evolution_frequency: int = 5,
                  evolution_selection_rate: float = 0.2,
-                 self_reflection_enabled: bool = False):
+                 self_reflection_enabled: bool = False,
+                 model_name: str = "default"):
         
         self.experiment_name = experiment_name
         self.num_agents = num_agents
@@ -78,6 +79,7 @@ class ExperimentRunner:
         self.boids_alignment_enabled = boids_alignment_enabled
         self.boids_cohesion_enabled = boids_cohesion_enabled
         self.self_reflection_enabled = self_reflection_enabled
+        self.model_name = model_name
         
         # Evolution parameters
         self.evolution_enabled = evolution_enabled
@@ -123,8 +125,8 @@ class ExperimentRunner:
     def _initialize_azure_client(self) -> bool:
         """Initialize Azure OpenAI client."""
         try:
-            self.azure_client = AzureOpenAIClient()
-            logger.info("✅ Azure OpenAI client initialized")
+            self.azure_client = AzureOpenAIClient(model_name=self.model_name)
+            logger.info(f"✅ Azure OpenAI client initialized with model: {self.model_name}")
             return True
         except Exception as e:
             logger.error(f"❌ Azure client initialization failed: {e}")

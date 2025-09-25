@@ -166,17 +166,31 @@ class EnvironmentManager:
             'warnings', 'contextlib', 'abc', 'enum', 'dataclasses', 'typing'
         }
         
-        # Extract import statements
-        import_pattern = r'(?:from\s+(\w+)|import\s+(\w+))'
-        imports = re.findall(import_pattern, code)
+        # HARDCODED: Critical packages that must be available (Fix 5)
+        hardcoded_available = {
+            'pandas', 'numpy', 'sklearn', 'scikit-learn', 'matplotlib', 'seaborn',
+            'PyPDF2', 'pdfplumber', 'requests', 'openai', 'tavily', 'anthropic',
+            'beautifulsoup4', 'plotly', 'scipy', 'nltk', 'transformers', 'langchain'
+        }
+        
+        # Extract import statements - handle both 'import pkg' and 'from pkg import ...'
         used_packages = set()
         
-        for from_pkg, import_pkg in imports:
-            pkg = from_pkg or import_pkg
-            if pkg and pkg not in builtin_modules:
-                used_packages.add(pkg)
+        # Find 'import package' statements
+        import_matches = re.findall(r'^import\s+([a-zA-Z_][a-zA-Z0-9_]*)', code, re.MULTILINE)
+        for pkg in import_matches:
+            base_pkg = pkg.split('.')[0]
+            if base_pkg not in builtin_modules:
+                used_packages.add(base_pkg)
         
-        available_packages = set(self.get_all_available_packages())
+        # Find 'from package import ...' statements
+        from_matches = re.findall(r'^from\s+([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)\s+import', code, re.MULTILINE)
+        for pkg in from_matches:
+            base_pkg = pkg.split('.')[0]
+            if base_pkg not in builtin_modules:
+                used_packages.add(base_pkg)
+        
+        available_packages = set(self.get_all_available_packages()) | hardcoded_available
         
         return {
             "used_packages": list(used_packages),

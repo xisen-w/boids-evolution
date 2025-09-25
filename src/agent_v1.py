@@ -361,15 +361,18 @@ Be concrete and practical."""
         # Use structured output for reliable tool name extraction
         try:
             tool_design_obj = self.azure_client.structured_output(messages, ToolDesign, temperature=0.7)
-            tool_design = f"""Tool Name: {tool_design_obj.tool_name}
+            if tool_design_obj and hasattr(tool_design_obj, 'tool_name'):
+                tool_design = f"""Tool Name: {tool_design_obj.tool_name}
 Description: {tool_design_obj.description}
 Type: {tool_design_obj.tool_type}
 Parameters: {', '.join(tool_design_obj.parameters)}
 Return Type: {tool_design_obj.return_type}
 Composition Plan: {', '.join(tool_design_obj.composition_plan)}
 Implementation Notes: {tool_design_obj.implementation_notes}"""
-            # Store the structured name for extraction
-            self._last_tool_name = tool_design_obj.tool_name
+                # Store the structured name for extraction
+                self._last_tool_name = tool_design_obj.tool_name
+            else:
+                raise ValueError("Invalid ToolDesign object returned")
         except Exception as e:
             print(f"Structured design failed, falling back to text: {e}")
             tool_design = self.azure_client.chat(messages, temperature=0.7)
@@ -477,15 +480,18 @@ Composition rules:
         # Use structured output for reliable tool name extraction
         try:
             tool_design_obj = self.azure_client.structured_output(messages, ToolDesign, temperature=0.7)
-            tool_design = f"""Tool Name: {tool_design_obj.tool_name}
+            if tool_design_obj and hasattr(tool_design_obj, 'tool_name'):
+                tool_design = f"""Tool Name: {tool_design_obj.tool_name}
 Description: {tool_design_obj.description}
 Type: {tool_design_obj.tool_type}
 Parameters: {', '.join(tool_design_obj.parameters)}
 Return Type: {tool_design_obj.return_type}
 Composition Plan: {', '.join(tool_design_obj.composition_plan)}
 Implementation Notes: {tool_design_obj.implementation_notes}"""
-            # Store the structured name for extraction
-            self._last_tool_name = tool_design_obj.tool_name
+                # Store the structured name for extraction
+                self._last_tool_name = tool_design_obj.tool_name
+            else:
+                raise ValueError("Invalid ToolDesign object returned")
         except Exception as e:
             print(f"Structured design failed, falling back to text: {e}")
             tool_design = self.azure_client.chat(messages, temperature=0.7)
