@@ -1,5 +1,7 @@
 # Boids Evolution - Multi-Agent Tool Evolution System
 
+> **Oct 2026:** new pre-registered study code lives in `boidsnet/` (see `docs/REPO_LAYOUT.md`). Everything else below describes the earlier system, kept unchanged as the audited corpus.
+
 An advanced **multi-agent evolutionary system** that combines **boids flocking behavior**, **genetic algorithms**, and **tool complexity analysis** to evolve sophisticated AI agent societies that create, test, and compose tools collaboratively.
 
 ## 🎯 Core Innovation: Boids + Evolution + Tool Complexity
