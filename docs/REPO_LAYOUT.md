@@ -1,37 +1,49 @@
 # Repository layout (Oct 2026 refactor)
 
-The repo now holds two systems. They share no code.
+The repo holds two systems. They share no code.
 
 | Path | What it is | Status |
 |---|---|---|
-| `boidsnet/` | New code for the pre-registered AAMAS 2027 study (protocol v0.3.8). Stdlib only. | Active, draft, not frozen |
 | `boidsnet/env/mechenv.py` | Mechanism environment: typed table transforms with reference implementations, sealed test split, probe sets. | v0.2.1 |
-| `tests_boidsnet/` | Env tests; offline. | |
-| `src/`, `experiments/`, `legacy/`, root `*.py` and `*.sh` scripts | The earlier Boids tool-evolution system and its run corpus, as audited in the paper. | **Frozen. Do not edit.** Audit findings cite these paths. |
+| `boidsnet/runner/` | Society runner, sandbox, U harness, smoke/pilot/batch orchestration, freeze. The only model backend (`model.py`, OpenAI/Azure). | Draft, not frozen |
+| `tests/` | Offline tests for env and runner. | |
+| `docs/RUNNER.md` | Runner guarantees and the decision log D1-D20. | |
+| `legacy/` | The earlier Boids tool-evolution system and its run corpus, as audited in the paper. Moved here unchanged with `git mv`. | **Frozen. Do not edit.** |
 
-The society runner (`boids_runner`) is owned by another agent in the project room. Use v0.8.1 or later
-(v0.7 had a sandbox hole). It vendors mechenv, which must be v0.2.1. It has the only model
-backend (`runner/model.py`, OpenAI/Azure), so the frozen tree has a single model code path.
+Audit findings cite legacy files at commit `524dc76`, the last commit before the move. That
+commit has the original root paths (`src/...`, `experiments/...`, `run_experiment.py`, ...).
+In this tree the same files are under `legacy/`, and `git log --follow` traces them.
 
 ## Running
 
 ```bash
-python -m unittest discover -s tests_boidsnet -t .     # offline
-python boidsnet/env/mechenv.py                              # env self-checks, prints the test seal
+python -m unittest discover -s tests -t .      # offline, 76 tests
+python boidsnet/env/mechenv.py                 # env self-checks, prints the test seal
 ```
 
-Paid runs go through the runner only. They need `AZURE_AI_ENDPOINT` and `AZURE_AI_KEY` in the
-environment (never in files or chat), `--allow-spend`, and a freeze manifest.
+There is one mechenv copy: the runner loads `boidsnet/env/mechenv.py`. The code hash
+(`python -c "from boidsnet.runner.freeze import code_hash; print(code_hash())"`) covers
+`boidsnet/runner/*.py` plus that file.
+
+## Status (1 Oct 2026)
+
+- The protocol is draft v0.3.11. The canonical text is in the project room (sha256 `094adcdc...`).
+- There is **no joint freeze**: the Qi-side cutoff passed without approval, and stop rule §8 applies.
+- No real-model run has been made with this code.
 
 ## Invariants the protocol relies on
 
 - The sealed TEST split hash is `25634f7783fffbac3c2e1f74c545c2f647806218173b1af2dd3e2f1393c82371`
-  for `tasks(0, "test")`, independent of `PYTHONHASHSEED`. This is tested.
-- Builders only ever see the dev split. The test split is for the frozen-library solver.
+  for `tasks(0, "test")`, independent of `PYTHONHASHSEED` (tested).
+- Builders only ever see the dev split. The test split opens only via `--unseal` in
+  `boidsnet.runner.utility`, which smoke, pilot and batch never pass.
+- Tool code is untrusted. It runs in mount, PID and network namespaces as uid 65534 and sees only
+  its ACL-reachable tools. The repo, /tmp, /home and /root are hidden from it (docs/RUNNER.md D20).
 
 ## Change log
 
-- v0.2.1 env: `make_task` drew terminal primitives from `list(TERMINAL)`, which iterates a set.
-  The dev and test task lists therefore depended on `PYTHONHASHSEED` (seed 5 produced a different
-  sealed split). The fix is `sorted(TERMINAL)`. It reproduces the published seal under every hash
-  seed, so no confirmatory artefact changes.
+- v0.2.1 env: `make_task` drew terminal primitives from `list(TERMINAL)`, which iterates a set,
+  so the dev and test task lists depended on `PYTHONHASHSEED`. The fix is `sorted(TERMINAL)`,
+  which reproduces the published seal under every hash seed.
+- Runner v0.13 moved into `boidsnet/runner/`. `vendor/mechenv.py` was dropped in favour of the
+  single in-repo copy (identical logic, comments differ), so the code hash changed.

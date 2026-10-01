@@ -1,8 +1,2 @@
 openai==1.51.0
-python-dotenv==1.0.0
-colorama==0.4.6 
-requests
-python-dotenv
-termcolor
-matplotlib
-scikit-learn 
+httpx<0.28   # openai 1.51 passes proxies=, removed in httpx 0.28
