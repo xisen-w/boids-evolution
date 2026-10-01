@@ -148,8 +148,14 @@ class HookTamperTests(unittest.TestCase):
     def test_planted_host_canaries_invisible(self):
         """msg #105.3b: allowlist root, so files planted anywhere on the host
         (/etc, /opt, /var, the repo) do not exist for the tool."""
-        planted = []
-        for d in ("/etc", "/opt", "/var/lib", ROOT):
+        planted, made = [], []
+        if not os.path.isdir("/usr/local/etc"):
+            try:
+                os.makedirs("/usr/local/etc")
+                made.append("/usr/local/etc")
+            except OSError:
+                pass
+        for d in ("/etc", "/opt", "/var/lib", "/usr/local/etc", "/usr/share", ROOT):   # msg #107: /usr too
             p = os.path.join(d, "boids_canary_%d.txt" % os.getpid())
             try:
                 with open(p, "w") as f:
@@ -165,15 +171,18 @@ class HookTamperTests(unittest.TestCase):
                     "    __main__.OK_FILES.add(p)",
                     "    try: res.append(open(p).read())",
                     "    except Exception as e: res.append('ERR ' + type(e).__name__)",
-                    "return [{'r': res, 'root': sorted(os.listdir('/'))}]"]
+                    "return [{'r': res, 'root': sorted(os.listdir('/')), 'usr': sorted(os.listdir('/usr'))}]"]
             lib = make_lib({"a00_r01": _tamper_tool(body)}, {"a00_r01": []})
             y = run_tool(lib, "a00_r01", CALL)[0]
             self.assertNotIn("CANARY_HOST_FILE", json.dumps(y))
             self.assertLessEqual(set(y[0]["root"]), {"bin", "sbin", "lib", "lib32", "lib64", "libx32",
-                                                     "usr", "etc", "dev", "proc", "sandbox"})
+                                                     "usr", "etc", "dev", "proc", "sandbox", ".old"})
+            self.assertFalse({"local", "share"} & set(y[0]["usr"]), y[0]["usr"])
         finally:
             for p in planted:
                 os.remove(p)
+            for d in made:
+                os.rmdir(d)
 
     def test_mount_escape_fails(self):
         """msg #105.3a: tamper the hook, unshare a new user+mount namespace with

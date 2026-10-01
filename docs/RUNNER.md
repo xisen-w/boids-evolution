@@ -221,24 +221,30 @@ D20 (v0.13, msg #102 from i_alx4y9xgu1) The OS is the boundary, not the audit ho
 D21 (v0.14, msg #105 from i_alx4y9xgu1) Allowlist ROOT instead of a denylist of hidden dirs.
    v0.13 covered /tmp, /home, /root, /srv and the repo with tmpfs but left the rest of the host
    FS readable (/etc, /opt, /run, /var ...), which has the same shape as the #91 env bug. Now
-   _NS_SCRIPT builds a fresh tmpfs root and pivot_roots into it. The root contains ONLY:
-     - ro binds of /usr (plus sys.prefix/base_prefix/executable dir if outside it) and
+   _NS_SCRIPT pivot_roots into a minimal root. The root contains ONLY:
+     - a read-only copy of: the real interpreter; mount/umount/setpriv; the ELF dependency
+       closure of all of them plus every lib-dynload extension (ldd, 23 libs here);
        /etc/ld.so.cache;
      - the host's /bin /sbin /lib /lib64 symlinks;
-     - /dev/{null,zero,urandom};
+     - a ro bind of the stdlib dir;
+     - /dev/{null,urandom};
      - a fresh /proc;
-     - /sandbox/lib/tools with the ACL-reachable tools.
+     - /sandbox/lib/tools with the ACL-reachable tools, on tmpfs.
+   /usr is NOT bound wholesale (msg #107): /usr/local, /usr/share and dist-packages do not
+   exist in the sandbox. The root is built once per process (_sysroot), so a call costs about
+   0.07 s.
    The old root is detached and / is remounted ro. Applies to os-root and os-userns alike, so the
    os-userns "real uid can read the host" caveat is gone. The skip-silently hide list (#105.2)
    no longer exists.
    isolation_level() probes it by running it. It requires all of: parent PID invisible, NONE of
-   /etc/passwd, /etc/hostname, /home, /root, /tmp, /opt, /var, /run, or a host tempdir exists,
+   /etc/passwd, /etc/hostname, /home, /root, /tmp, /opt, /var, /run, /usr/local, /usr/share,
+   dist-packages or a host tempdir exists,
    CapEff == 0, and uid 65534 in os-root. PROBE_REPORT (level, probe output, root spec) is
    written into every manifest as sandbox_probe.
    model.py also refuses to load a key unless the level is os-* (the run.py check is kept too).
    Tool ids passed to the namespace script must match runner-assigned formats.
    New tests, each tampering with the hook first:
-     - canaries planted in /etc, /opt, /var/lib and the repo are invisible;
+     - canaries planted in /etc, /opt, /var/lib, /usr/local/etc, /usr/share and the repo are invisible;
      - mount escape (ctypes unshare(USER|NS), umount2('/'), mount tmpfs) still cannot reach a
        /etc canary;
      - loopback to a listener in the runner's netns fails;

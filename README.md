@@ -29,7 +29,7 @@ python -m boidsnet.runner.smoke --out smoke/              # protocol §8 enginee
 - `pip install -r requirements.txt`.
 - Keys are read from environment variables only. They never go in files, logs or chat.
 - Every real-model run requires `--allow-spend`.
-- Tool code runs as uid 65534 in OS namespaces, inside an allowlist root (read-only /usr plus its
-  own tools), so it cannot read the key or the host. A run refuses to start if the host cannot
+- Tool code runs as uid 65534 in OS namespaces, inside a minimal root (interpreter, stdlib and
+  libraries read-only, plus its own tools), so it cannot read the key or the host. A run refuses to start if the host cannot
   provide that (Linux `unshare`, `pivot_root`, `setpriv`).
 - Confirmatory runs need a joint freeze (`FROZEN.json`). None exists yet; see `docs/REPO_LAYOUT.md`.

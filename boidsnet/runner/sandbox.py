@@ -155,10 +155,12 @@ def child_env():
 # boundary is the OS.  Each tool child runs in fresh mount, PID and network
 # namespaces and is pivot_root'ed into an ALLOWLIST root (a fresh tmpfs) that
 # contains only:
-#   * read-only binds of the interpreter's tree (/usr on merged-usr hosts, plus
-#     sys.prefix / base_prefix / the executable's dir if outside it),
-#     /etc/ld.so.cache, and symlinks /bin /sbin /lib /lib64 as on the host;
-#   * /dev/null, /dev/zero, /dev/urandom;
+#   * a read-only copy of ONLY: the real interpreter, the few binaries the
+#     script runs after pivot_root, their ELF dependency closure (ldd, incl.
+#     every lib-dynload extension) and /etc/ld.so.cache, plus the host's
+#     /bin /sbin /lib /lib64 symlinks (root_spec(), built once by _sysroot());
+#   * a read-only bind of the stdlib directory;
+#   * /dev/null, /dev/urandom;
 #   * a fresh /proc of its own PID namespace (the runner, which may hold the
 #     model key in its initial environ, does not exist there);
 #   * /sandbox/lib/tools with ONLY the tools reachable through the ACLs.
@@ -173,28 +175,22 @@ TOOL_ID = re.compile(r"^(a\d{2}_r\d{2}|solver_t\d{3}_k\d+)$")   # runner-assigne
 
 _NS_SCRIPT = r"""
 set -eu
-LIB="$1"; MODE="$2"; shift 2
+LIB="$1"; MODE="$2"; SYSROOT="$3"; STDLIB="$4"; shift 4
 R=/mnt
-mount -t tmpfs -o size=64m,mode=755 none "$R"
-mkdir -p "$R$SANDBOX_LIB/tools" "$R/proc" "$R/dev" "$R/.old"
+mount --bind "$SYSROOT" "$R"                    # prebuilt minimal root (see _sysroot), read-only below
+mount -t tmpfs -o size=64m,mode=755 none "$R/sandbox"
+mkdir -p "$R$SANDBOX_LIB/tools"
 : > "$R$SANDBOX_LIB/tools/__init__.py"
 while [ "$1" != "--" ]; do cp "$LIB/tools/$1.py" "$R$SANDBOX_LIB/tools/"; shift; done; shift
-while [ "$1" != "--" ]; do                      # read-only directory binds
-  mkdir -p "$R$1"; mount --rbind "$1" "$R$1"; mount -o remount,bind,ro "$R$1"; shift
-done; shift
-while [ "$1" != "--" ]; do                      # read-only file binds
-  mkdir -p "$(dirname "$R$1")"; : > "$R$1"; mount --bind "$1" "$R$1"; mount -o remount,bind,ro "$R$1"; shift
-done; shift
-while [ "$1" != "--" ]; do ln -s "$2" "$R$1"; shift 2; done; shift   # symlinks NAME TARGET
-for d in null zero urandom; do : > "$R/dev/$d"; mount --bind "/dev/$d" "$R/dev/$d"; done
-chmod -R a+rX "$R$SANDBOX_LIB"
+chmod -R a+rX "$R/sandbox"
+mount --rbind "$STDLIB" "$R$STDLIB"; mount -o remount,bind,ro "$R$STDLIB"
+for d in null urandom; do mount --bind "/dev/$d" "$R/dev/$d"; done
 cd "$R"
 pivot_root . .old
 cd /
 mount -t proc proc /proc
 umount -l /.old
-rmdir /.old
-mount -o remount,ro /
+mount -o remount,bind,ro /
 cd "$SANDBOX_LIB"
 if [ "$MODE" = root ]; then
   exec setpriv --reuid=65534 --regid=65534 --clear-groups --no-new-privs --inh-caps=-all --bounding-set=-all "$@"
@@ -214,21 +210,93 @@ def _reachable(acl, top):
     return sorted(reach)
 
 
+_SPEC = None
+
+
 def root_spec():
-    """(dirs, files, links) that make up the allowlist root."""
-    links, dirs = [], ["/usr"]
-    for name in ("/bin", "/sbin", "/lib", "/lib32", "/lib64", "/libx32"):
-        if os.path.islink(name):
-            links.append((name, os.readlink(name)))
-        elif os.path.isdir(name):
-            dirs.append(name)
-    for p in (sys.prefix, sys.base_prefix, os.path.dirname(os.path.dirname(os.path.realpath(sys.executable))),
-              os.path.dirname(os.path.abspath(sys.executable))):
-        p = os.path.realpath(p)
-        if p != "/" and not any(p == d or p.startswith(d + os.sep) for d in dirs):
-            dirs.append(p)
-    files = [f for f in ("/etc/ld.so.cache",) if os.path.exists(f)]
-    return dirs, files, links
+    """(dirs, files, links) of the allowlist root (msg #107: do not bind /usr
+    wholesale).  dirs = the stdlib only; files = the real interpreter, the
+    binaries the namespace script runs after pivot_root, and the ELF
+    dependency closure (ldd) of all of them plus every lib-dynload extension;
+    links = the host's top-level /bin /sbin /lib /lib64 symlinks so loader
+    paths resolve.  Nothing else of /usr (no /usr/local, /usr/share,
+    dist-packages) exists in the sandbox."""
+    global _SPEC
+    if _SPEC is not None:
+        return _SPEC
+    import glob
+    import shutil
+    import sysconfig
+    links = [(n, os.readlink(n)) for n in ("/bin", "/sbin", "/lib", "/lib32", "/lib64", "/libx32")
+             if os.path.islink(n)]
+    stdlib = sorted({os.path.realpath(sysconfig.get_paths()[k]) for k in ("stdlib", "platstdlib")})
+    bins = [os.path.realpath(sys.executable)]
+    for b in ("mount", "umount", "rmdir", "setpriv"):
+        w = shutil.which(b, path="/usr/sbin:/usr/bin:/sbin:/bin")
+        if not w:
+            raise RuntimeError(f"{b} not found")
+        bins.append(w)
+    objs = bins + [f for d in stdlib for f in glob.glob(os.path.join(d, "lib-dynload", "*.so"))]
+    libs = set()
+    for o in objs:
+        out = subprocess.run(["ldd", o], capture_output=True, text=True, check=True).stdout
+        for line in out.splitlines():
+            m = re.search(r"(/\S+)", line.split("=>")[-1])
+            if m:
+                libs.add(m.group(1))
+    files = sorted(set(bins) | libs | ({"/etc/ld.so.cache"} if os.path.exists("/etc/ld.so.cache") else set()))
+    _SPEC = (stdlib, files, links)
+    return _SPEC
+
+
+_SYSROOT = None
+
+
+def _sysroot():
+    """Build, once per process, a minimal root directory: the files of
+    root_spec() COPIED to their loader paths, the host's top-level symlinks,
+    and empty mount points (stdlib, /dev nodes, /proc, /sandbox, /.old).
+    Each tool call then binds this one directory instead of dozens of files
+    (one bind per file cost ~0.2 s per call).  Returns (path, stdlib)."""
+    global _SYSROOT
+    if _SYSROOT is not None:
+        return _SYSROOT
+    import atexit
+    import shutil
+    import tempfile
+    stdlibs, files, links = root_spec()
+    if len(stdlibs) != 1:
+        raise RuntimeError(f"expected one stdlib dir, got {stdlibs}")
+    root = tempfile.mkdtemp(prefix="boids_sysroot_")
+    atexit.register(shutil.rmtree, root, True)
+    link_map = dict(links)
+
+    def inside(path):              # resolve a top-level symlink the way the sandbox will
+        parts = path.lstrip("/").split("/", 1)
+        top = "/" + parts[0]
+        if top in link_map:
+            tgt = link_map[top]
+            base = tgt if tgt.startswith("/") else "/" + tgt
+            path = base + ("/" + parts[1] if len(parts) > 1 else "")
+        return os.path.join(root, path.lstrip("/"))
+
+    for name, tgt in links:
+        os.makedirs(inside(name), exist_ok=True)
+        os.symlink(tgt, os.path.join(root, name.lstrip("/")))
+    for f in files:
+        dst = inside(f)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(os.path.realpath(f), dst)
+    os.makedirs(inside(stdlibs[0]), exist_ok=True)
+    for d in ("dev", "proc", "sandbox", ".old"):
+        os.makedirs(os.path.join(root, d), exist_ok=True)
+    for n in ("null", "urandom"):
+        open(os.path.join(root, "dev", n), "w").close()
+    for dp, dn, fn in os.walk(root):
+        os.chmod(dp, 0o755)
+    os.chmod(root, 0o755)
+    _SYSROOT = (root, stdlibs[0])
+    return _SYSROOT
 
 
 def _ns_prefix(mode):
@@ -243,9 +311,9 @@ def _ns_cmd(mode, library_dir, tool_ids, argv):
     bad = [t for t in tool_ids if not TOOL_ID.match(t)]
     if bad:
         raise ValueError(f"refusing non-runner tool ids {bad}")
-    dirs, files, links = root_spec()
-    return (_ns_prefix(mode) + ["sh", "-c", _NS_SCRIPT, "sh", library_dir, mode] + list(tool_ids) + ["--"]
-            + dirs + ["--"] + files + ["--"] + [x for l in links for x in l] + ["--"] + argv)
+    sysroot, stdlib = _sysroot()
+    return (_ns_prefix(mode) + ["sh", "-c", _NS_SCRIPT, "sh", library_dir, mode, sysroot, stdlib]
+            + list(tool_ids) + ["--"] + argv)
 
 
 _LEVEL = None
@@ -272,15 +340,17 @@ def isolation_level():
     import tempfile
     import shutil
     lib = tempfile.mkdtemp()
-    canaries = ["/etc/hostname", "/etc/passwd", "/home", "/root", "/tmp", "/opt", "/var", "/run", lib]
+    canaries = ["/etc/hostname", "/etc/passwd", "/home", "/root", "/tmp", "/opt", "/var", "/run", lib,
+                "/usr/local", "/usr/share", "/usr/lib/python3/dist-packages"]
     try:
         os.makedirs(os.path.join(lib, "tools"))
         for mode in (("root",) if os.geteuid() == 0 else ()) + ("userns",):
-            cmd = _ns_cmd(mode, lib, [], [sys.executable, "-I", "-c", probe, str(os.getpid())] + canaries)
+            cmd = _ns_cmd(mode, lib, [], [os.path.realpath(sys.executable), "-I", "-c", probe, str(os.getpid())]
+                          + canaries)
             try:
                 r = subprocess.run(cmd, capture_output=True, text=True, timeout=15, env=_ns_env())
                 rep = json.loads(r.stdout)
-            except Exception:  # noqa: BLE001 - any failure means this mode is unavailable
+            except Exception:  # noqa: BLE001 - any failure (incl. no ldd) means this mode is unavailable
                 continue
             ok = (not rep["parent_visible"] and not rep["host_paths_visible"]
                   and int(rep["cap_eff"], 16) == 0 and (mode != "root" or str(rep["uid"]) == NOBODY))
@@ -315,7 +385,8 @@ def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None):
     else:
         files = [t for t in _reachable(acl, tool_id)
                  if os.path.exists(os.path.join(library_dir, "tools", t + ".py"))]
-        cmd = _ns_cmd(level[3:], library_dir, files, [sys.executable, "-I", "-c", _CHILD, SANDBOX_LIB, tool_id])
+        cmd = _ns_cmd(level[3:], library_dir, files,
+                      [os.path.realpath(sys.executable), "-I", "-c", _CHILD, SANDBOX_LIB, tool_id])
         cwd, env = "/", _ns_env()
     try:
         proc = subprocess.run(

@@ -38,7 +38,7 @@ There is one mechenv copy: the runner loads `boidsnet/env/mechenv.py`. The code 
 - Builders only ever see the dev split. The test split opens only via `--unseal` in
   `boidsnet.runner.utility`, which smoke, pilot and batch never pass.
 - Tool code is untrusted. It runs in mount, PID and network namespaces as uid 65534,
-  pivot_root'ed into an allowlist root: read-only /usr, /dev/{null,zero,urandom}, its own /proc,
+  pivot_root'ed into a minimal root: the interpreter, its stdlib and libraries (read-only), /dev/{null,urandom}, its own /proc,
   and only its ACL-reachable tools. No other host path exists for it (docs/RUNNER.md D20-D21).
 
 ## Change log
