@@ -66,7 +66,7 @@ def main(argv=None):
             sys.exit("refusing paid run: runner code differs from frozen hash")
         protocol_sha = frozen["protocol_sha256"]
 
-    from .sandbox import isolation_level
+    from .sandbox import isolation_level, PROBE_REPORT
     iso = isolation_level()
     if not dry and not iso.startswith("os-"):
         sys.exit(f"refusing real-model run: sandbox isolation is {iso!r}; generated tool code could reach "
@@ -93,7 +93,8 @@ def main(argv=None):
                                 "engineering": bool(a.engineering),
                                 "deviation": ("pre-freeze engineering smoke, protocol v0.3.10 §8; "
                                               "not a confirmatory or pilot society") if a.engineering else None,
-                                "param_mode": a.param_mode, "sandbox_isolation": iso}
+                                "param_mode": a.param_mode, "sandbox_isolation": iso,
+                                "sandbox_probe": PROBE_REPORT}
     with open(os.path.join(out, "run_manifest.json"), "w") as f:
         json.dump(manifest, f, indent=1, sort_keys=True)
     try:

@@ -7,7 +7,7 @@ made no model calls and does not touch the old corpus. The stub model writes rea
 tools from the env's reference primitives, sometimes adding a bug or a neighbour import.
 
     python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/        # stub model, no API calls
-    python -m unittest discover -s tests -t . -v             # 76 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
+    python -m unittest discover -s tests -t . -v             # 81 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
     python -m boidsnet.runner.smoke --out smoke/                               # protocol §8 ENGINEERING smoke (stub); real: add --model/--key-env/--azure-*/--allow-spend
     python -m boidsnet.runner.pilot --out pilot/ --seed 900 --n-per-arm 10 --score-dev   # 1 society/arm (+2nd L0) + gates + dev U diagnostic
     python -m boidsnet.runner.batch --out runs/ --seeds 1001-1010 --jobs 6     # all arms x pre-listed seeds
@@ -217,6 +217,35 @@ D20 (v0.13, msg #102 from i_alx4y9xgu1) The OS is the boundary, not the audit ho
    (parent initial environ with a canary, reference impl, index.json, ACL import, network,
    uid). On hook-only, every attack succeeds (regression verified); on os-root, all fail.
    No real-model run has ever been made, so no data are affected.
+
+D21 (v0.14, msg #105 from i_alx4y9xgu1) Allowlist ROOT instead of a denylist of hidden dirs.
+   v0.13 covered /tmp, /home, /root, /srv and the repo with tmpfs but left the rest of the host
+   FS readable (/etc, /opt, /run, /var ...), which has the same shape as the #91 env bug. Now
+   _NS_SCRIPT builds a fresh tmpfs root and pivot_roots into it. The root contains ONLY:
+     - ro binds of /usr (plus sys.prefix/base_prefix/executable dir if outside it) and
+       /etc/ld.so.cache;
+     - the host's /bin /sbin /lib /lib64 symlinks;
+     - /dev/{null,zero,urandom};
+     - a fresh /proc;
+     - /sandbox/lib/tools with the ACL-reachable tools.
+   The old root is detached and / is remounted ro. Applies to os-root and os-userns alike, so the
+   os-userns "real uid can read the host" caveat is gone. The skip-silently hide list (#105.2)
+   no longer exists.
+   isolation_level() probes it by running it. It requires all of: parent PID invisible, NONE of
+   /etc/passwd, /etc/hostname, /home, /root, /tmp, /opt, /var, /run, or a host tempdir exists,
+   CapEff == 0, and uid 65534 in os-root. PROBE_REPORT (level, probe output, root spec) is
+   written into every manifest as sandbox_probe.
+   model.py also refuses to load a key unless the level is os-* (the run.py check is kept too).
+   Tool ids passed to the namespace script must match runner-assigned formats.
+   New tests, each tampering with the hook first:
+     - canaries planted in /etc, /opt, /var/lib and the repo are invisible;
+     - mount escape (ctypes unshare(USER|NS), umount2('/'), mount tmpfs) still cannot reach a
+       /etc canary;
+     - loopback to a listener in the runner's netns fails;
+     - uid 65534, CapEff 0, NoNewPrivs 1;
+     - non-runner tool ids are refused.
+   Known: inside the sandbox a tool can still create its own unprivileged user namespace
+   (unshare succeeds). It gains nothing reachable, but a seccomp filter would remove it.
 
 D1-D9 were ratified by the Xisen side (msgs #30, #33) and still need Qi-side ratification.
 

@@ -35,6 +35,26 @@ def make(errors, mode="strict"):
     return m
 
 
+class KeyGuardTests(unittest.TestCase):
+    def test_no_key_load_without_os_isolation(self):
+        """msg #105.4: model.py refuses on its own, independent of run.py."""
+        from boidsnet.runner import sandbox
+        old = (sandbox._LEVEL, os.environ.get("BOIDS_SANDBOX"))
+        sandbox._LEVEL, os.environ["BOIDS_SANDBOX"] = None, "hook-only"
+        os.environ["FAKE_KEY_FOR_GUARD"] = "k"
+        try:
+            with self.assertRaises(PermissionError) as cm:
+                M.OpenAICompatModel("dep", "FAKE_KEY_FOR_GUARD", True)
+            self.assertIn("isolation", str(cm.exception))
+        finally:
+            sandbox._LEVEL = old[0]
+            os.environ.pop("FAKE_KEY_FOR_GUARD", None)
+            if old[1] is None:
+                os.environ.pop("BOIDS_SANDBOX", None)
+            else:
+                os.environ["BOIDS_SANDBOX"] = old[1]
+
+
 class RetryTests(unittest.TestCase):
     def test_cached_tokens_recorded(self):
         m = make([])

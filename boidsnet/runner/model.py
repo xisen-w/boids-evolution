@@ -67,6 +67,11 @@ class OpenAICompatModel:
                  param_mode="strict"):
         if not allow_spend:
             raise PermissionError("paid model requested without --allow-spend")
+        # msg #105.4: belt and braces with run.py's check.  A key may only be
+        # loaded where tool code runs under OS isolation.
+        from .sandbox import isolation_level
+        if os.environ.get("BOIDS_SANDBOX") == "hook-only" or not isolation_level().startswith("os-"):
+            raise PermissionError(f"refusing to load a model key: sandbox isolation is {isolation_level()!r}")
         key = os.environ.get(key_env)
         if not key:
             raise PermissionError(f"environment variable {key_env} is not set")

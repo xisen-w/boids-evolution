@@ -145,14 +145,101 @@ class HookTamperTests(unittest.TestCase):
         y = run_tool(lib, "a00_r01", CALL)[0]
         self.assertTrue(is_error(y) or y[0]["r"].startswith("ERR"), y)
 
+    def test_planted_host_canaries_invisible(self):
+        """msg #105.3b: allowlist root, so files planted anywhere on the host
+        (/etc, /opt, /var, the repo) do not exist for the tool."""
+        planted = []
+        for d in ("/etc", "/opt", "/var/lib", ROOT):
+            p = os.path.join(d, "boids_canary_%d.txt" % os.getpid())
+            try:
+                with open(p, "w") as f:
+                    f.write("CANARY_HOST_FILE")
+                planted.append(p)
+            except OSError:
+                pass
+        if not planted:
+            self.skipTest("cannot plant canaries on this host")
+        try:
+            body = ["__main__.STDLIB = ('/',); __main__.SITE = ()", "res = []",
+                    "for p in %r:" % planted,
+                    "    __main__.OK_FILES.add(p)",
+                    "    try: res.append(open(p).read())",
+                    "    except Exception as e: res.append('ERR ' + type(e).__name__)",
+                    "return [{'r': res, 'root': sorted(os.listdir('/'))}]"]
+            lib = make_lib({"a00_r01": _tamper_tool(body)}, {"a00_r01": []})
+            y = run_tool(lib, "a00_r01", CALL)[0]
+            self.assertNotIn("CANARY_HOST_FILE", json.dumps(y))
+            self.assertLessEqual(set(y[0]["root"]), {"bin", "sbin", "lib", "lib32", "lib64", "libx32",
+                                                     "usr", "etc", "dev", "proc", "sandbox"})
+        finally:
+            for p in planted:
+                os.remove(p)
+
+    def test_mount_escape_fails(self):
+        """msg #105.3a: tamper the hook, unshare a new user+mount namespace with
+        ctypes, try to mount/umount; the host is still unreachable."""
+        flag = "/etc/boids_escape_canary_%d" % os.getpid()
+        try:
+            with open(flag, "w") as f:
+                f.write("CANARY_ESCAPE")
+        except OSError:
+            self.skipTest("cannot plant canary")
+        try:
+            body = ["__main__.BLOCK_PREFIX = ('nothing.',); __main__.STDLIB = ('/',); __main__.SITE = ()",
+                    "import ctypes, ctypes.util",
+                    "libc = ctypes.CDLL(ctypes.util.find_library('c') or 'libc.so.6', use_errno=True)",
+                    "res = {'unshare': libc.unshare(0x10000000 | 0x00020000)}",
+                    "res['umount_root'] = libc.umount2(b'/', 2)",
+                    "res['mount_tmpfs'] = libc.mount(b'none', b'/usr', b'tmpfs', 0, None)",
+                    "try: res['read'] = open(%r).read()" % flag,
+                    "except Exception as e: res['read'] = 'ERR ' + type(e).__name__",
+                    "res['root'] = sorted(os.listdir('/'))",
+                    "return [res]"]
+            lib = make_lib({"a00_r01": _tamper_tool(body)}, {"a00_r01": []})
+            y = run_tool(lib, "a00_r01", CALL)[0]
+            self.assertNotIn("CANARY_ESCAPE", json.dumps(y))
+        finally:
+            os.remove(flag)
+
+    def test_loopback_to_parent_unreachable(self):
+        """msg #105.3d: the tool's netns has no route to a listener in the runner's netns."""
+        import socket
+        srv = socket.socket()
+        srv.bind(("127.0.0.1", 0))
+        srv.listen(1)
+        port = srv.getsockname()[1]
+        try:
+            body = ["__main__.BLOCK_PREFIX = ('nothing.',)", "import socket",
+                    "try:",
+                    "    socket.create_connection(('127.0.0.1', %d), timeout=2); r = 'CONNECTED'" % port,
+                    "except Exception as e: r = 'ERR ' + type(e).__name__",
+                    "return [{'r': r}]"]
+            lib = make_lib({"a00_r01": _tamper_tool(body)}, {"a00_r01": []})
+            y = run_tool(lib, "a00_r01", CALL)[0]
+            self.assertTrue(is_error(y) or y[0]["r"].startswith("ERR"), y)
+        finally:
+            srv.close()
+
+    def test_non_runner_tool_ids_refused(self):
+        from boidsnet.runner.sandbox import _ns_cmd
+        with self.assertRaises(ValueError):
+            _ns_cmd("root", "/x", ["a00_r01", "--"], ["true"])
+        with self.assertRaises(ValueError):
+            _ns_cmd("root", "/x", ["../../etc/passwd"], ["true"])
+
     def test_runs_as_nobody_without_caps(self):
         from boidsnet.runner.sandbox import isolation_level
         if isolation_level() != "os-root":
             self.skipTest("uid drop only in os-root mode")
-        lib = make_lib({"a00_r01": _tamper_tool(["return [{'u': os.getuid(), 'g': os.getgid()}]"])},
-                       {"a00_r01": []})
+        lib = make_lib({"a00_r01": _tamper_tool([
+            "__main__.STDLIB = ('/',)",
+            "st = dict(l.split(':', 1) for l in open('/proc/self/status') if ':' in l)",
+            "return [{'u': os.getuid(), 'g': os.getgid(), 'cap': st['CapEff'].strip(), 'nnp': st['NoNewPrivs'].strip()}]"])},
+            {"a00_r01": []})
         y = run_tool(lib, "a00_r01", CALL)[0]
         self.assertEqual((y[0]["u"], y[0]["g"]), (65534, 65534))
+        self.assertEqual(int(y[0]["cap"], 16), 0)                         # msg #105.3c
+        self.assertEqual(y[0]["nnp"], "1")
 
 
 class SandboxTests(unittest.TestCase):

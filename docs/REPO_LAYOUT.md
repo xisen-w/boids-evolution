@@ -7,7 +7,7 @@ The repo holds two systems. They share no code.
 | `boidsnet/env/mechenv.py` | Mechanism environment: typed table transforms with reference implementations, sealed test split, probe sets. | v0.2.1 |
 | `boidsnet/runner/` | Society runner, sandbox, U harness, smoke/pilot/batch orchestration, freeze. The only model backend (`model.py`, OpenAI/Azure). | Draft, not frozen |
 | `tests/` | Offline tests for env and runner. | |
-| `docs/RUNNER.md` | Runner guarantees and the decision log D1-D20. | |
+| `docs/RUNNER.md` | Runner guarantees and the decision log D1-D21. | |
 | `legacy/` | The earlier Boids tool-evolution system and its run corpus, as audited in the paper. Moved here unchanged with `git mv`. | **Frozen. Do not edit.** |
 
 Audit findings cite legacy files at commit `524dc76`, the last commit before the move. That
@@ -17,7 +17,7 @@ In this tree the same files are under `legacy/`, and `git log --follow` traces t
 ## Running
 
 ```bash
-python -m unittest discover -s tests -t .      # offline, 76 tests
+python -m unittest discover -s tests -t .      # offline, 81 tests
 python boidsnet/env/mechenv.py                 # env self-checks, prints the test seal
 ```
 
@@ -37,8 +37,9 @@ There is one mechenv copy: the runner loads `boidsnet/env/mechenv.py`. The code 
   for `tasks(0, "test")`, independent of `PYTHONHASHSEED` (tested).
 - Builders only ever see the dev split. The test split opens only via `--unseal` in
   `boidsnet.runner.utility`, which smoke, pilot and batch never pass.
-- Tool code is untrusted. It runs in mount, PID and network namespaces as uid 65534 and sees only
-  its ACL-reachable tools. The repo, /tmp, /home and /root are hidden from it (docs/RUNNER.md D20).
+- Tool code is untrusted. It runs in mount, PID and network namespaces as uid 65534,
+  pivot_root'ed into an allowlist root: read-only /usr, /dev/{null,zero,urandom}, its own /proc,
+  and only its ACL-reachable tools. No other host path exists for it (docs/RUNNER.md D20-D21).
 
 ## Change log
 

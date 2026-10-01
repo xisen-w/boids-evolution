@@ -108,11 +108,11 @@ class ProtocolTests(unittest.TestCase):
         lib = tempfile.mkdtemp()
         os.makedirs(os.path.join(lib, "tools"))
         open(os.path.join(lib, "tools", "__init__.py"), "w").close()
-        with open(os.path.join(lib, "tools", "leak.py"), "w") as f:
+        with open(os.path.join(lib, "tools", "a00_r01.py"), "w") as f:
             f.write("import os\ndef execute(x):\n    return os.environ.get('FAKE_API_KEY')\n")
         os.environ["FAKE_API_KEY"] = "secret"
         try:
-            self.assertEqual(run_tool(lib, "leak", [{"args": [0]}]), [None])
+            self.assertEqual(run_tool(lib, "a00_r01", [{"args": [0]}]), [None])
         finally:
             del os.environ["FAKE_API_KEY"]
 
@@ -120,9 +120,9 @@ class ProtocolTests(unittest.TestCase):
         lib = tempfile.mkdtemp()
         os.makedirs(os.path.join(lib, "tools"))
         open(os.path.join(lib, "tools", "__init__.py"), "w").close()
-        with open(os.path.join(lib, "tools", "cheat.py"), "w") as f:
+        with open(os.path.join(lib, "tools", "a00_r01.py"), "w") as f:
             f.write("def execute(x):\n    import mechenv\n    return 1\n")
-        out = run_tool(lib, "cheat", [{"args": [0]}])
+        out = run_tool(lib, "a00_r01", [{"args": [0]}])
         self.assertIn("ModuleNotFoundError", out[0]["__error__"])
 
     def test_signature_is_per_probe_and_harness_matches_reference(self):
