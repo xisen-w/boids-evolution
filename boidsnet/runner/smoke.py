@@ -38,7 +38,7 @@ from .run import main as run_main, DEFAULT_ENV
 SMOKE = {"seed": 9001, "arms": ("E", "L0", "R0", "IM"), "n_agents": 8, "n_rounds": 3,
          "token_budget": 300000, "param_mode": "auto",
          "solver_token_budget_per_arm": 300000}   # hard cap on the dev-diagnostic solver (msg #130 cost cap)
-PROTOCOL_REF = "protocol v0.3.12 (sha256 d9569a07322e168284e4b3fbde37b9d9f02bbe249a0fec3ce451e17ef3bf6555) §8"
+PROTOCOL_REF = "protocol v0.3.13 (sha256 2c120c5e9c2b855359b7b229adb0867e00cdad4291a7b5f760de5b2c772ed11f) §8"
 
 
 def society_dir(out, arm):

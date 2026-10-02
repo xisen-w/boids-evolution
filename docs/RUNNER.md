@@ -283,7 +283,8 @@ D24 (v0.18, msgs #131/#134/#135) Smoke and transport hardening.
      is the only retry layer, and each request has a 180 s timeout. This is recorded as
      `transport` in every real-model manifest.
    - Azure requires an explicit --azure-api-version; the old silent default 2024-06-01 is gone.
-   - PROTOCOL_REF now cites v0.3.12 (d9569a07).
+   - PROTOCOL_REF cites v0.3.13 (2c120c5e), the draft the pre-freeze smoke runs against (msg #141).
+     The frozen protocol will be a later v0.3.14, recorded by freeze.py.
 
 D1-D9 were ratified by the Xisen side (msgs #30, #33) and still need Qi-side ratification.
 

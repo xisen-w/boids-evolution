@@ -1,4 +1,4 @@
-# Engineering smoke: exact recipe (runner v0.18, protocol v0.3.12 §8)
+# Engineering smoke: exact recipe (runner v0.18, protocol v0.3.13 §8)
 
 Status: **not run**. It needs Xisen's go-ahead, a key and the deployment details below. It is a
 logged pre-freeze deviation (protocol v0.3.11 §8). It never opens the sealed test split and
@@ -61,7 +61,7 @@ cd boids-evolution
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 # AZURE_AI_KEY and AZURE_AI_ENDPOINT come from the environment settings, never a file or chat.
 # The runner does NOT read AZURE_AI_ENDPOINT by itself, so pass both explicitly:
-.venv/bin/python -m boidsnet.runner.smoke --out smoke/ \
+PYTHONHASHSEED=0 .venv/bin/python -m boidsnet.runner.smoke --out smoke/ \
     --model <deployment> --key-env AZURE_AI_KEY \
     --azure-endpoint "$AZURE_AI_ENDPOINT" --azure-api-version <version> --allow-spend
 ```
