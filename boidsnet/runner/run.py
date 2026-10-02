@@ -94,7 +94,8 @@ def main(argv=None):
                                 "deviation": ("pre-freeze engineering smoke, protocol v0.3.10 §8; "
                                               "not a confirmatory or pilot society") if a.engineering else None,
                                 "param_mode": a.param_mode, "sandbox_isolation": iso,
-                                "sandbox_probe": PROBE_REPORT}
+                                "sandbox_probe": PROBE_REPORT,
+                                "transport": model.transport_policy() if hasattr(model, "transport_policy") else None}
     with open(os.path.join(out, "run_manifest.json"), "w") as f:
         json.dump(manifest, f, indent=1, sort_keys=True)
     try:

@@ -75,14 +75,22 @@ class OpenAICompatModel:
         key = os.environ.get(key_env)
         if not key:
             raise PermissionError(f"environment variable {key_env} is not set")
+        # msg #134: explicit transport policy.  The SDK's own retries are OFF
+        # (max_retries=0) so that complete()'s loop is the ONLY retry layer
+        # (MAX_ATTEMPTS, logged per call); each request has a hard timeout.
+        # Worst case per call: MAX_ATTEMPTS x REQUEST_TIMEOUT_S + backoff.
         if azure_endpoint:
+            if not api_version:
+                # msg #131: never leave the API version implicit (the old silent default was 2024-06-01)
+                raise ValueError("Azure needs an explicit --azure-api-version")
             from openai import AzureOpenAI  # lazy: dry runs need no SDK
             # `model` is the Azure DEPLOYMENT name.
-            self.client = AzureOpenAI(api_key=key, azure_endpoint=azure_endpoint,
-                                      api_version=api_version or "2024-06-01")
+            self.client = AzureOpenAI(api_key=key, azure_endpoint=azure_endpoint, api_version=api_version,
+                                      timeout=self.REQUEST_TIMEOUT_S, max_retries=0)
         else:
             from openai import OpenAI
-            self.client = OpenAI(api_key=key, base_url=base_url)
+            self.client = OpenAI(api_key=key, base_url=base_url, timeout=self.REQUEST_TIMEOUT_S, max_retries=0)
+        self.api_version = api_version
         self.name = model
         # Sampling-parameter handling (msg #76 item 7).  Reasoning deployments
         # typically reject temperature != 1 and `max_tokens` (they want
@@ -96,6 +104,14 @@ class OpenAICompatModel:
         self.param_adaptations = []
 
     MAX_ATTEMPTS = 6           # backoff 2, 4, 8, 16, 32 s (+ jitter)
+    REQUEST_TIMEOUT_S = 180.0  # per HTTP request; SDK retries disabled (only our loop retries)
+
+    def transport_policy(self):
+        """Recorded in every manifest (msg #134 cost/runtime card)."""
+        return {"sdk_max_retries": 0, "request_timeout_s": self.REQUEST_TIMEOUT_S,
+                "runner_max_attempts": self.MAX_ATTEMPTS, "backoff_s": "2^attempt + U(0,1)",
+                "retried": "429, 408, 409, 5xx, network; not other 4xx",
+                "api_version": getattr(self, "api_version", None)}
 
     def _adapt(self, msg):
         """Return True if a rejected sampling parameter was adapted."""

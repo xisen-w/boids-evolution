@@ -99,6 +99,22 @@ class RetryTests(unittest.TestCase):
         finally:
             del os.environ["FAKE_AZ_KEY_X"]
 
+    def test_transport_policy_and_required_api_version(self):
+        """msg #134/#131: SDK retries off, explicit timeout; Azure api version never implicit."""
+        os.environ["FAKE_AZ_KEY_Y"] = "k"
+        try:
+            with self.assertRaises(ValueError):
+                M.OpenAICompatModel("dep", "FAKE_AZ_KEY_Y", True, azure_endpoint="https://example.openai.azure.com")
+            m = M.OpenAICompatModel("dep", "FAKE_AZ_KEY_Y", True, azure_endpoint="https://example.openai.azure.com",
+                                    api_version="2025-01-01-preview")
+            self.assertEqual(m.client.max_retries, 0)
+            self.assertEqual(float(m.client.timeout), M.OpenAICompatModel.REQUEST_TIMEOUT_S)
+            tp = m.transport_policy()
+            self.assertEqual((tp["sdk_max_retries"], tp["runner_max_attempts"], tp["api_version"]),
+                             (0, 6, "2025-01-01-preview"))
+        finally:
+            del os.environ["FAKE_AZ_KEY_Y"]
+
     def test_param_rejection_strict_refuses(self):
         m = make([FakeErr(400)])
         m.client.chat.completions.create  # noqa

@@ -7,7 +7,7 @@ The repo holds two systems. They share no code.
 | `boidsnet/env/mechenv.py` | Mechanism environment: typed table transforms with reference implementations, sealed test split, probe sets. | v0.2.1 |
 | `boidsnet/runner/` | Society runner, sandbox, U harness, smoke/pilot/batch orchestration, freeze. The only model backend (`model.py`, OpenAI/Azure). | Draft, not frozen |
 | `tests/` | Offline tests for env and runner. | |
-| `docs/RUNNER.md` | Runner guarantees and the decision log D1-D23. | |
+| `docs/RUNNER.md` | Runner guarantees and the decision log D1-D24. | |
 | `docs/SMOKE.md` | Exact engineering-smoke recipe, resolved defaults, cost caps, validation steps. | |
 | `legacy/` | The earlier Boids tool-evolution system and its run corpus, as audited in the paper. Moved here unchanged with `git mv`. | **Frozen. Do not edit.** |
 
@@ -18,7 +18,7 @@ In this tree the same files are under `legacy/`, and `git log --follow` traces t
 ## Running
 
 ```bash
-python -m unittest discover -s tests -t .      # offline, 84 tests
+python -m unittest discover -s tests -t .      # offline, 87 tests
 python boidsnet/env/mechenv.py                 # env self-checks, prints the test seal
 ```
 

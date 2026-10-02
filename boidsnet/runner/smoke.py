@@ -38,7 +38,7 @@ from .run import main as run_main, DEFAULT_ENV
 SMOKE = {"seed": 9001, "arms": ("E", "L0", "R0", "IM"), "n_agents": 8, "n_rounds": 3,
          "token_budget": 300000, "param_mode": "auto",
          "solver_token_budget_per_arm": 300000}   # hard cap on the dev-diagnostic solver (msg #130 cost cap)
-PROTOCOL_REF = "protocol v0.3.10 (sha256 f5e1fbfebd53fda539645f5738c374a131f8d5fa7b19e334e222f39ec2e1235e) §8"
+PROTOCOL_REF = "protocol v0.3.12 (sha256 d9569a07322e168284e4b3fbde37b9d9f02bbe249a0fec3ce451e17ef3bf6555) §8"
 
 
 def society_dir(out, arm):
@@ -81,64 +81,104 @@ def check_coverage(out, real_model):
     return problems, (next(iter(effective.values())) if effective else None)
 
 
-def build_solver(real_model, effective, passthrough):
-    from .utility import StubSolver
-    if not real_model:
-        return StubSolver()
-    q = argparse.ArgumentParser()
-    for f in ("--model", "--key-env", "--azure-endpoint", "--azure-api-version", "--base-url"):
-        q.add_argument(f, default=None)
+def backend_args(passthrough):
+    """msg #134: parse the model/backend options STRUCTURALLY (so --model=x and
+    --model x behave the same) and accept ONLY these; anything else is refused."""
+    q = argparse.ArgumentParser(prog="runner.smoke", add_help=False)
+    q.add_argument("--model", default="stub")
+    q.add_argument("--key-env", default="OPENAI_API_KEY")
+    q.add_argument("--base-url", default=None)
+    q.add_argument("--azure-endpoint", default=None)
+    q.add_argument("--azure-api-version", default=None)
     q.add_argument("--allow-spend", action="store_true")
-    b, _ = q.parse_known_args(passthrough)
+    q.add_argument("--no-temperature", action="store_true")
+    q.add_argument("--token-param", default="max_tokens", choices=("max_tokens", "max_completion_tokens"))
+    b, unknown = q.parse_known_args(passthrough)
+    if unknown:
+        sys.exit(f"runner.smoke accepts only the backend options; refusing {unknown} "
+                 "(seed, arms, N, T, budgets, param mode, env and dev seed are fixed by the protocol)")
+    argv = ["--model", b.model, "--key-env", b.key_env, "--token-param", b.token_param]
+    for flag, val in (("--base-url", b.base_url), ("--azure-endpoint", b.azure_endpoint),
+                      ("--azure-api-version", b.azure_api_version)):
+        if val:
+            argv += [flag, val]
+    argv += ["--allow-spend"] * b.allow_spend + ["--no-temperature"] * b.no_temperature
+    return b, argv
+
+
+def build_solver(b, effective):
+    from .utility import StubSolver
+    if b.model == "stub":
+        return StubSolver()
     from .model import OpenAICompatModel
     temp_sent, token_param, model_name = effective
-    return OpenAICompatModel(model_name, b.key_env or "OPENAI_API_KEY", b.allow_spend, b.base_url,
-                             b.azure_endpoint or os.environ.get("AZURE_OPENAI_ENDPOINT"),
-                             b.azure_api_version or os.environ.get("AZURE_OPENAI_API_VERSION"),
-                             send_temperature=bool(temp_sent), token_param=token_param,
-                             param_mode="strict")
+    return OpenAICompatModel(model_name, b.key_env, b.allow_spend, b.base_url, b.azure_endpoint,
+                             b.azure_api_version, send_temperature=bool(temp_sent),
+                             token_param=token_param, param_mode="strict")
 
 
-FORBIDDEN = ("--unseal", "--frozen", "--seed", "--arm", "--n-agents", "--n-rounds",
-             "--token-budget", "--param-mode", "--engineering", "--out")
+def backend_receipt(out, b, solver):
+    """What actually ran, read back from the manifests, plus the solver object."""
+    builders = {}
+    for arm in SMOKE["arms"]:
+        mp = os.path.join(society_dir(out, arm), "run_manifest.json")
+        if os.path.exists(mp):
+            m = json.load(open(mp))
+            builders[arm] = {"model": m.get("model"), "backend": m.get("backend"),
+                             "client": m.get("model_client"), "api_version": m.get("azure_api_version"),
+                             "transport": m.get("transport"), "sandbox": m.get("sandbox_isolation")}
+    solv = None if solver is None else {"client": type(solver).__name__, "model": getattr(solver, "name", "stub"),
+                                        "transport": solver.transport_policy() if hasattr(solver, "transport_policy") else None}
+    problems = []
+    for arm, r in builders.items():
+        if r["model"] != b.model:
+            problems.append(f"{arm}: builder model {r['model']!r} != requested {b.model!r}")
+        if (r["client"] == "StubModel") != (b.model == "stub"):
+            problems.append(f"{arm}: builder client {r['client']} inconsistent with --model {b.model!r}")
+    if solv is not None:
+        if (solv["client"] == "StubSolver") != (b.model == "stub"):
+            problems.append(f"solver client {solv['client']} inconsistent with --model {b.model!r}")
+        if b.model != "stub" and solv["model"] != b.model:
+            problems.append(f"solver deployment {solv['model']!r} != builder {b.model!r}")
+    return {"builders": builders, "solver": solv}, problems
 
 
 def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument("--out", required=True)
     a, passthrough = p.parse_known_args(argv)
-    bad = [f for f in passthrough if f.split("=")[0] in FORBIDDEN]
-    if bad:
-        sys.exit(f"the smoke setup is fixed by the protocol; do not pass {bad}")
+    b, backend_argv = backend_args(passthrough)
     if os.path.exists(a.out) and os.listdir(a.out):
         sys.exit(f"refusing: {a.out} is not empty")
     os.makedirs(a.out, exist_ok=True)
-    real_model = "--model" in passthrough and passthrough[passthrough.index("--model") + 1] != "stub"
+    real_model = b.model != "stub"
     for arm in SMOKE["arms"]:
         try:
             run_main(["--arm", arm, "--seed", str(SMOKE["seed"]), "--out", a.out, "--engineering",
                       "--n-agents", str(SMOKE["n_agents"]), "--n-rounds", str(SMOKE["n_rounds"]),
                       "--token-budget", str(SMOKE["token_budget"]),
-                      "--param-mode", SMOKE["param_mode"]] + passthrough)
+                      "--param-mode", SMOKE["param_mode"]] + backend_argv)
         except SystemExit as e:
             if e.code not in (None, 0):
                 print(json.dumps({"arm": arm, "status": "FAILED", "exit": e.code}))
     problems, effective = check_coverage(a.out, real_model)
     rows = {arm: arm_row(society_dir(a.out, arm)) for arm in SMOKE["arms"]
             if os.path.exists(os.path.join(society_dir(a.out, arm), "rounds.jsonl"))}
-    dev = None
+    dev, solver = None, None
     if not problems:
         from .env_adapter import MechEnv
         env = MechEnv(DEFAULT_ENV)
-        dev = score_dev({arm: society_dir(a.out, arm) for arm in SMOKE["arms"]},
-                        build_solver(real_model, effective, passthrough), env,
+        solver = build_solver(b, effective)
+        dev = score_dev({arm: society_dir(a.out, arm) for arm in SMOKE["arms"]}, solver, env,
                         token_budget_per_arm=SMOKE["solver_token_budget_per_arm"])
         if set(dev["per_arm"]) != set(SMOKE["arms"]):
             problems.append(f"dev diagnostic covers {sorted(dev['per_arm'])}")
+    receipt, rproblems = backend_receipt(a.out, b, solver)
+    problems += rproblems
     gates = smoke_gates(rows, dev) if rows else {"PASS": False}
     rep = {"protocol": PROTOCOL_REF, "deviation": "pre-freeze ENGINEERING smoke; not a pilot or confirmatory run",
-           "setup": SMOKE, "effective_sampling": effective, "coverage_problems": problems,
-           "per_arm": rows, "dev_diagnostic": dev, "smoke_gates": gates,
+           "setup": SMOKE, "effective_sampling": effective, "backend_receipt": receipt,
+           "coverage_problems": problems, "per_arm": rows, "dev_diagnostic": dev, "smoke_gates": gates,
            "PASS": not problems and gates["PASS"]}
     with open(os.path.join(a.out, "smoke_report.json"), "w") as f:
         json.dump(rep, f, indent=1)

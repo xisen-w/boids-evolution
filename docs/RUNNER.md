@@ -7,7 +7,7 @@ made no model calls and does not touch the old corpus. The stub model writes rea
 tools from the env's reference primitives, sometimes adding a bug or a neighbour import.
 
     python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/        # stub model, no API calls
-    python -m unittest discover -s tests -t . -v             # 84 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
+    python -m unittest discover -s tests -t . -v             # 87 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
     python -m boidsnet.runner.smoke --out smoke/                               # protocol §8 ENGINEERING smoke (stub); real: add --model/--key-env/--azure-*/--allow-spend
     python -m boidsnet.runner.pilot --out pilot/ --seed 900 --n-per-arm 10 --score-dev   # 1 society/arm (+2nd L0) + gates + dev U diagnostic
     python -m boidsnet.runner.batch --out runs/ --seeds 1001-1010 --jobs 6     # all arms x pre-listed seeds
@@ -92,9 +92,11 @@ pilot is informative.
 
 D10 (msg #49 issue 2) R0 = random-neighbourhood repulsion. Each agent-round draws k other agents
    at random (seeded by society seed, agent and round), and the same selection rule and framing
-   as L0 run over their tools. The pool size, and so the expected exemplar similarity, match L0.
-   L0 vs R0 isolates a stable local neighbourhood at fixed content. G0 stays as the society-wide
-   pool contrast.
+   as L0 run over their tools. R0 matches L0 in the NUMBER OF SOURCE AGENTS (k) and the selection
+   rule, NOT in the realised pool size or content: those depend on how many of the drawn agents'
+   tools parsed and built. The realised pool size is logged per agent-round in both arms as a
+   manipulation check (protocol v0.3.8+, msg #96; corrected here per msg #131). L0 vs R0
+   isolates persistent local ties. G0 stays as the society-wide pool contrast.
 
 D11 (v0.3.6, msgs #51/#52) G0m = well-mixed repulsion at matched similarity. `select_matched`
    runs the L0 rule on this agent's OWN k-ring in THIS society and round to get target
@@ -143,7 +145,8 @@ D16 (v0.10, msg #79) U harness fixes:
    (3) the FULL seal is checked;
    (4) the solver must match the society's sampling block (strict, same deployment), or it
        refuses;
-   (6) the catalogue is shuffled per (task id, attempt).
+   (6) the catalogue is shuffled per (task id, attempt). [SUPERSEDED by D17 A': once per
+       (society seed, attempt), arm-independent.]
    `--split dev` gives U_dev_DIAGNOSTIC for smoke tests without unsealing. The pilot report adds
    missing_module / sandbox_block / all_crash_on_signal / parametric_candidate /
    own_tool_crashed rates and api_retries.
@@ -267,6 +270,20 @@ D23 (v0.17) Venv portability, found by the clean-env receipt for msg #130. Insid
    BASE interpreter's stdlib (sys.base_prefix); tools are stdlib-only. VenvTests runs a tool
    from a fresh venv; it fails on v0.16 (regression verified). The exact smoke recipe,
    resolved defaults, cost caps and validation steps are in docs/SMOKE.md.
+
+D24 (v0.18, msgs #131/#134/#135) Smoke and transport hardening.
+   - runner.smoke parses backend options STRUCTURALLY and accepts ONLY --model, --key-env,
+     --base-url, --azure-endpoint, --azure-api-version, --allow-spend, --no-temperature and
+     --token-param. Everything else, including --env-path and --dev-seed, is refused. Before
+     this, `--model=dep` ran paid societies but scored them with the StubSolver.
+   - smoke_report.json carries a backend_receipt: per arm, the builder model/backend/client/
+     api version/transport/sandbox, read back from the manifests, plus the solver client and
+     deployment. Any builder/solver/--model inconsistency sets PASS=false.
+   - Transport: SDK retries are OFF (max_retries=0), so the runner's loop (6 attempts, logged)
+     is the only retry layer, and each request has a 180 s timeout. This is recorded as
+     `transport` in every real-model manifest.
+   - Azure requires an explicit --azure-api-version; the old silent default 2024-06-01 is gone.
+   - PROTOCOL_REF now cites v0.3.12 (d9569a07).
 
 D1-D9 were ratified by the Xisen side (msgs #30, #33) and still need Qi-side ratification.
 

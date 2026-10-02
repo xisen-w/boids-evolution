@@ -333,6 +333,8 @@ class SmokeTests(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             rep = smain(["--out", out])
         self.assertTrue(rep["PASS"], rep["coverage_problems"])
+        self.assertEqual(rep["backend_receipt"]["solver"]["client"], "StubSolver")
+        self.assertEqual({r["client"] for r in rep["backend_receipt"]["builders"].values()}, {"StubModel"})
         self.assertEqual(set(rep["per_arm"]), {"E", "L0", "R0", "IM"})
         self.assertEqual(set(rep["dev_diagnostic"]["per_arm"]), {"E", "L0", "R0", "IM"})
         for arm, d in rep["dev_diagnostic"]["per_arm"].items():
@@ -343,6 +345,30 @@ class SmokeTests(unittest.TestCase):
             smain(["--out", os.path.join(tempfile.mkdtemp(), "s"), "--n-rounds", "10"])
         with self.assertRaises(SystemExit):
             smain(["--out", os.path.join(tempfile.mkdtemp(), "s"), "--unseal"])
+
+    def test_backend_args_structural(self):
+        """msg #134: --model=x must mean the same as --model x; only backend options are accepted."""
+        from boidsnet.runner.smoke import backend_args
+        b1, a1 = backend_args(["--model=dep-x", "--key-env", "K", "--allow-spend"])
+        b2, a2 = backend_args(["--model", "dep-x", "--key-env=K", "--allow-spend"])
+        self.assertEqual((b1.model, b1.key_env, a1), (b2.model, b2.key_env, a2))
+        self.assertEqual(b1.model, "dep-x")
+        for bad in (["--env-path", "x.py"], ["--dev-seed=3"], ["--n-rounds=10"], ["--temperature", "1"],
+                    ["--unseal"], ["--param-mode=strict"]):
+            with self.assertRaises(SystemExit):
+                backend_args(bad)
+
+    def test_backend_receipt_flags_mismatch(self):
+        from boidsnet.runner.smoke import backend_args, backend_receipt, society_dir, SMOKE
+        out = tempfile.mkdtemp()
+        for arm in SMOKE["arms"]:
+            os.makedirs(society_dir(out, arm))
+            json.dump({"model": "dep-x", "model_client": "StubModel"},
+                      open(os.path.join(society_dir(out, arm), "run_manifest.json"), "w"))
+        b, _ = backend_args(["--model=dep-x"])
+        rec, problems = backend_receipt(out, b, StubSolver())
+        self.assertTrue(any("builder client" in p for p in problems), problems)   # paid model name, stub client
+        self.assertTrue(any("solver client" in p for p in problems), problems)    # the #134 bug shape
 
     def test_coverage_detects_missing_arm_and_wrong_T(self):
         from boidsnet.runner.smoke import main as smain, check_coverage
