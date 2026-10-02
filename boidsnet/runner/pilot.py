@@ -107,7 +107,7 @@ def smoke_gates(rows, dev):
     return g
 
 
-def score_dev(dirs, solver, env):
+def score_dev(dirs, solver, env, token_budget_per_arm=None):
     """Dev-split U diagnostic (msg #82 B', #96.1).  dirs: arm -> society dir.
     Per arm: gate_fail_rate, reason tallies, solver cost.  U_dev is computed
     in memory and reported POOLED across arms only; nothing per-arm that
@@ -115,11 +115,11 @@ def score_dev(dirs, solver, env):
     from .utility import score_society
     per_arm, pooled = {}, []
     for arm, d in dirs.items():
-        r = score_society(d, env, solver, attempts=1, split="dev")
+        r = score_society(d, env, solver, attempts=1, split="dev", token_budget=token_budget_per_arm)
         pooled += r.pop("_dev_task_scores")
         per_arm[arm] = {k: r[k] for k in ("gate_fail_rate", "gate_fail_reasons", "solver_calls",
                                           "solver_tokens", "solver_tokens_per_call", "solver_cached_tokens",
-                                          "parametric_share")}
+                                          "parametric_share", "n_tasks_scored", "solver_truncated_by_budget")}
         per_arm[arm]["n_kept"] = len(r["library"]["kept"])      # S1: extrapolate tokens/call by library size
     calls = sum(d["solver_calls"] for d in per_arm.values())
     tok = sum(d["solver_tokens"] for d in per_arm.values())

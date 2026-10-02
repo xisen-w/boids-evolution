@@ -328,7 +328,7 @@ def check_sampling(society_dir, model, split="test"):
 
 
 def score_society(society_dir, env, model, attempts=3, out_name=None, temperature=0.7,
-                  max_tokens=4000, split="test"):
+                  max_tokens=4000, split="test", token_budget=None):
     """split='test' is the confirmatory U (needs the published seal).
     split='dev' is a DIAGNOSTIC (U_dev): same freeze, gate and scoring on the
     dev tasks the agents saw.  It opens nothing sealed, so the smoke test can
@@ -336,6 +336,9 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     is inflated by construction and is never reported as an outcome."""
     if split not in ("test", "dev"):
         raise ValueError(split)
+    if token_budget is not None and split == "test":
+        # a cap would drop the last tasks of the sealed split and bias U
+        raise ValueError("token_budget is for the dev diagnostic only; confirmatory U scores every task")
     out_name = out_name or ("utility" if split == "test" else "utility_dev")
     if not hasattr(model, "solve"):              # real solver: library tools run with the key in this process
         from .sandbox import isolation_level
@@ -366,7 +369,11 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     sseed = society_seed_of(society_dir, man)
     log = open(os.path.join(out, "solver_log.jsonl"), "w")
     task_scores, tokens, cached, single_big = [], 0, 0, []
+    truncated = False
     for ti, task in enumerate(test):
+        if token_budget is not None and tokens >= token_budget:
+            truncated = True          # hard cost cap (smoke): stop before the next task; overshoot <= 1 task
+            break
         passes = []
         for k in range(attempts):
             prompt = solver_prompt(task, kept, source_of, k, sseed)
@@ -423,7 +430,8 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             c = gate_reason_class(r["gate_reason"])
             reasons[c] = reasons.get(c, 0) + 1
     n_calls = len(rows)
-    res = {"split": split, "n_tasks": len(test), "attempts": attempts,
+    res = {"split": split, "n_tasks": len(test), "n_tasks_scored": len(task_scores),
+           "solver_truncated_by_budget": truncated, "solver_token_budget": token_budget, "attempts": attempts,
            "gate_fail_rate": gate_fail, "gate_fail_reasons": dict(sorted(reasons.items())),
            "test_seal": seal, "library": meta, "solver_tokens": tokens,
            "solver_calls": n_calls, "solver_tokens_per_call": tokens / n_calls if n_calls else 0.0,

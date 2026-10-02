@@ -6,7 +6,11 @@
 
 Fixed by the protocol, so NOT configurable here: seed 9001; arms E, L0, R0,
 IM (one society each); N=8, T=3; --token-budget 300000 per society;
---param-mode auto for the societies (to DISCOVER accepted parameters).
+--param-mode auto for the societies (to DISCOVER accepted parameters);
+a hard cap of 300000 solver tokens per arm on the dev diagnostic (it stops
+before the next task once reached; overshoot <= 1 call).  Worst-case spend is
+therefore about 4 x (300k + 1 call) society tokens + 4 x (300k + 1 call)
+solver tokens, i.e. ~2.5M tokens in total.
 Societies are written as ENG_<arm>_s9001 with `engineering: true` in the
 manifest; they can never be scored on the test split (utility refuses) and
 batch refuses --engineering.
@@ -32,7 +36,8 @@ from .pilot import arm_row, score_dev, smoke_gates
 from .run import main as run_main, DEFAULT_ENV
 
 SMOKE = {"seed": 9001, "arms": ("E", "L0", "R0", "IM"), "n_agents": 8, "n_rounds": 3,
-         "token_budget": 300000, "param_mode": "auto"}
+         "token_budget": 300000, "param_mode": "auto",
+         "solver_token_budget_per_arm": 300000}   # hard cap on the dev-diagnostic solver (msg #130 cost cap)
 PROTOCOL_REF = "protocol v0.3.10 (sha256 f5e1fbfebd53fda539645f5738c374a131f8d5fa7b19e334e222f39ec2e1235e) §8"
 
 
@@ -126,7 +131,8 @@ def main(argv=None):
         from .env_adapter import MechEnv
         env = MechEnv(DEFAULT_ENV)
         dev = score_dev({arm: society_dir(a.out, arm) for arm in SMOKE["arms"]},
-                        build_solver(real_model, effective, passthrough), env)
+                        build_solver(real_model, effective, passthrough), env,
+                        token_budget_per_arm=SMOKE["solver_token_budget_per_arm"])
         if set(dev["per_arm"]) != set(SMOKE["arms"]):
             problems.append(f"dev diagnostic covers {sorted(dev['per_arm'])}")
     gates = smoke_gates(rows, dev) if rows else {"PASS": False}

@@ -365,6 +365,30 @@ class SmokeTests(unittest.TestCase):
         self.assertFalse(g["PASS"])
 
 
+class SolverBudgetTests(unittest.TestCase):
+    """msg #130: the smoke's dev diagnostic has a hard solver cost cap; U never does."""
+
+    def test_dev_budget_stops_and_reports(self):
+        env = MechEnv(ENV)
+        soc = os.path.join(tempfile.mkdtemp(), "L0_s01")
+        Society(RunConfig(arm="L0", seed=1, n_rounds=2), env, StubModel(1, env), soc).run()
+
+        class Costly(StubSolver):
+            def solve(self, task, kept, k):
+                text, _, _ = super().solve(task, kept, k)
+                return text, 900, 100                       # 1000 tokens per call
+        r = score_society(soc, env, Costly(), attempts=1, split="dev", token_budget=2500)
+        self.assertTrue(r["solver_truncated_by_budget"])
+        self.assertEqual(r["n_tasks_scored"], 3)              # 0,1000,2000 < 2500 -> 3 calls, then stop
+        self.assertEqual(r["solver_tokens"], 3000)
+        self.assertEqual(r["solver_calls"], 3)
+
+    def test_no_budget_on_confirmatory_u(self):
+        env = MechEnv(ENV)
+        with self.assertRaises(ValueError):
+            score_society(tempfile.mkdtemp(), env, StubSolver(), split="test", token_budget=1000)
+
+
 class PilotDevTests(unittest.TestCase):
     def test_pilot_score_dev_pools_u_dev(self):
         from boidsnet.runner.pilot import main as pmain

@@ -7,7 +7,7 @@ made no model calls and does not touch the old corpus. The stub model writes rea
 tools from the env's reference primitives, sometimes adding a bug or a neighbour import.
 
     python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/        # stub model, no API calls
-    python -m unittest discover -s tests -t . -v             # 81 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
+    python -m unittest discover -s tests -t . -v             # 83 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
     python -m boidsnet.runner.smoke --out smoke/                               # protocol §8 ENGINEERING smoke (stub); real: add --model/--key-env/--azure-*/--allow-spend
     python -m boidsnet.runner.pilot --out pilot/ --seed 900 --n-per-arm 10 --score-dev   # 1 society/arm (+2nd L0) + gates + dev U diagnostic
     python -m boidsnet.runner.batch --out runs/ --seeds 1001-1010 --jobs 6     # all arms x pre-listed seeds
@@ -252,6 +252,14 @@ D21 (v0.14, msg #105 from i_alx4y9xgu1) Allowlist ROOT instead of a denylist of 
      - non-runner tool ids are refused.
    Known: inside the sandbox a tool can still create its own unprivileged user namespace
    (unshare succeeds). It gains nothing reachable, but a seccomp filter would remove it.
+
+D22 (v0.16, msg #130 cost cap) The smoke's dev-diagnostic solver had no token cap; only the
+   societies did. score_society(..., token_budget=) now stops before the next task once the
+   cap is reached (overshoot <= 1 call) and reports n_tasks_scored and
+   solver_truncated_by_budget. It REFUSES a budget on split='test', because a cap would drop
+   sealed tasks and bias U. runner.smoke sets 300000 solver tokens per arm, so the whole smoke
+   is hard-capped at about 4 x 300k society tokens + 4 x 300k solver tokens (~2.5M with
+   overshoot).
 
 D1-D9 were ratified by the Xisen side (msgs #30, #33) and still need Qi-side ratification.
 

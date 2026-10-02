@@ -12,14 +12,14 @@ boidsnet/
   env/mechenv.py      mechanism env v0.2.1: typed table transforms, sealed test split, probe sets
   runner/             agent societies, sandbox, scoring, smoke/pilot/batch, freeze
 tests/                offline tests (no API calls)
-docs/                 RUNNER.md (decision log D1-D21), REPO_LAYOUT.md
+docs/                 RUNNER.md (decision log D1-D22), REPO_LAYOUT.md
 legacy/               pre-2026 system (src/, experiments/, scripts) - do not edit
 ```
 
 ## Quick start (stub model, free)
 
 ```bash
-python -m unittest discover -s tests -t .                 # 81 tests
+python -m unittest discover -s tests -t .                 # 83 tests
 python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/
 python -m boidsnet.runner.smoke --out smoke/              # protocol §8 engineering smoke
 ```
