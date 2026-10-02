@@ -229,7 +229,11 @@ def root_spec():
     import sysconfig
     links = [(n, os.readlink(n)) for n in ("/bin", "/sbin", "/lib", "/lib32", "/lib64", "/libx32")
              if os.path.islink(n)]
-    stdlib = sorted({os.path.realpath(sysconfig.get_paths()[k]) for k in ("stdlib", "platstdlib")})
+    # Always the BASE interpreter's stdlib: inside a venv, sysconfig's platstdlib points at the
+    # venv (site-packages, not stdlib).  Tools are stdlib-only, so the sandbox never needs the venv.
+    base = {"base": sys.base_prefix, "platbase": sys.base_exec_prefix,
+            "installed_base": sys.base_prefix, "installed_platbase": sys.base_exec_prefix}
+    stdlib = sorted({os.path.realpath(sysconfig.get_path(k, vars=base)) for k in ("stdlib", "platstdlib")})
     bins = [os.path.realpath(sys.executable)]
     for b in ("mount", "umount", "rmdir", "setpriv"):
         w = shutil.which(b, path="/usr/sbin:/usr/bin:/sbin:/bin")

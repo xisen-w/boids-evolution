@@ -7,7 +7,7 @@ made no model calls and does not touch the old corpus. The stub model writes rea
 tools from the env's reference primitives, sometimes adding a bug or a neighbour import.
 
     python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/        # stub model, no API calls
-    python -m unittest discover -s tests -t . -v             # 83 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
+    python -m unittest discover -s tests -t . -v             # 84 tests (incl. mechenv) (protocol properties, sandbox isolation, batch, API retry, hash-seed determinism, U harness)
     python -m boidsnet.runner.smoke --out smoke/                               # protocol §8 ENGINEERING smoke (stub); real: add --model/--key-env/--azure-*/--allow-spend
     python -m boidsnet.runner.pilot --out pilot/ --seed 900 --n-per-arm 10 --score-dev   # 1 society/arm (+2nd L0) + gates + dev U diagnostic
     python -m boidsnet.runner.batch --out runs/ --seeds 1001-1010 --jobs 6     # all arms x pre-listed seeds
@@ -260,6 +260,13 @@ D22 (v0.16, msg #130 cost cap) The smoke's dev-diagnostic solver had no token ca
    sealed tasks and bias U. runner.smoke sets 300000 solver tokens per arm, so the whole smoke
    is hard-capped at about 4 x 300k society tokens + 4 x 300k solver tokens (~2.5M with
    overshoot).
+
+D23 (v0.17) Venv portability, found by the clean-env receipt for msg #130. Inside a venv,
+   sysconfig's platstdlib is the venv dir, so root_spec() saw two "stdlib" dirs and refused to
+   build the sandbox: 22 tests errored under `env -i` + venv. The sandbox now always uses the
+   BASE interpreter's stdlib (sys.base_prefix); tools are stdlib-only. VenvTests runs a tool
+   from a fresh venv; it fails on v0.16 (regression verified). The exact smoke recipe,
+   resolved defaults, cost caps and validation steps are in docs/SMOKE.md.
 
 D1-D9 were ratified by the Xisen side (msgs #30, #33) and still need Qi-side ratification.
 

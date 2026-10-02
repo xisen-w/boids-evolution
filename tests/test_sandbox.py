@@ -251,6 +251,25 @@ class HookTamperTests(unittest.TestCase):
         self.assertEqual(y[0]["nnp"], "1")
 
 
+class VenvTests(unittest.TestCase):
+    """Found by the clean-env receipt for msg #130: inside a venv, sysconfig's platstdlib is the
+    venv dir, and root_spec() refused to build the sandbox.  Run a tool from a fresh venv."""
+
+    def test_sandbox_works_from_a_venv(self):
+        import subprocess
+        venv = tempfile.mkdtemp()
+        subprocess.run([sys.executable, "-m", "venv", "--without-pip", venv], check=True)
+        lib = make_lib({"a00_r01": IDENT}, {"a00_r01": []})
+        code = ("import json, sys; sys.path.insert(0, %r)\n"
+                "from boidsnet.runner.sandbox import run_tool, isolation_level\n"
+                "print(json.dumps([isolation_level(), run_tool(%r, 'a00_r01', %r)]))") % (ROOT, lib, CALL)
+        r = subprocess.run([os.path.join(venv, "bin", "python"), "-c", code], capture_output=True, text=True,
+                           timeout=120, env={"PATH": "/usr/bin:/bin", "HOME": venv})
+        self.assertEqual(r.returncode, 0, r.stderr[-500:])
+        level, out = json.loads(r.stdout)
+        self.assertEqual(out, [CALL[0]["args"][0]], (level, out))
+
+
 class SandboxTests(unittest.TestCase):
     def err(self, lib, tool):
         y = run_tool(lib, tool, CALL)[0]
