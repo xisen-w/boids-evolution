@@ -9,6 +9,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from boidsnet.runner import model as M
 
+try:                                    # the SDK is only needed for paid runs (requirements.txt)
+    import openai  # noqa: F401
+    HAVE_OPENAI = True
+except ImportError:
+    HAVE_OPENAI = False
+
 
 class FakeErr(Exception):
     def __init__(self, status):
@@ -88,6 +94,7 @@ class RetryTests(unittest.TestCase):
         with self.assertRaises(FakeErr):
             m.complete("s", "u", 0.7, 10)
 
+    @unittest.skipUnless(HAVE_OPENAI, "openai SDK not installed (pip install -r requirements.txt)")
     def test_azure_client_constructed_without_network(self):
         os.environ["FAKE_AZ_KEY_X"] = "k"
         try:
@@ -99,6 +106,7 @@ class RetryTests(unittest.TestCase):
         finally:
             del os.environ["FAKE_AZ_KEY_X"]
 
+    @unittest.skipUnless(HAVE_OPENAI, "openai SDK not installed (pip install -r requirements.txt)")
     def test_transport_policy_and_required_api_version(self):
         """msg #134/#131: SDK retries off, explicit timeout; Azure api version never implicit."""
         os.environ["FAKE_AZ_KEY_Y"] = "k"
