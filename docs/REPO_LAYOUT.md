@@ -18,7 +18,7 @@ In this tree the same files are under `legacy/`, and `git log --follow` traces t
 ## Running
 
 ```bash
-python -m unittest discover -s tests -t .      # offline, 87 tests
+python -m unittest discover -s tests -t .      # offline, 89 tests
 python boidsnet/env/mechenv.py                 # env self-checks, prints the test seal
 ```
 

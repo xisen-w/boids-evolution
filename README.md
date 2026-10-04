@@ -19,7 +19,7 @@ legacy/               pre-2026 system (src/, experiments/, scripts) - do not edi
 ## Quick start (stub model, free)
 
 ```bash
-python -m unittest discover -s tests -t .                 # 87 tests
+python -m unittest discover -s tests -t .                 # 89 tests
 python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/
 python -m boidsnet.runner.smoke --out smoke/              # protocol §8 engineering smoke
 ```

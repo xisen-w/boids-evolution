@@ -84,7 +84,7 @@ python3 -m venv /tmp/bv && /tmp/bv/bin/pip install -r requirements.txt
 env -i PATH=/tmp/bv/bin:/usr/bin:/bin HOME=$(mktemp -d) PYTHONHASHSEED=0 \
     python -c "from boidsnet.runner.freeze import code_hash; from boidsnet.runner.sandbox import isolation_level; print(code_hash(), isolation_level())"
 env -i PATH=/tmp/bv/bin:/usr/bin:/bin HOME=$(mktemp -d) PYTHONHASHSEED=0 \
-    python -m unittest discover -s tests -t .        # expect: Ran 87 tests ... OK
+    python -m unittest discover -s tests -t .        # expect: Ran 89 tests ... OK
 env -i PATH=/tmp/bv/bin:/usr/bin:/bin HOME=$(mktemp -d) PYTHONHASHSEED=0 \
     python -m boidsnet.runner.smoke --out /tmp/smoke_stub   # stub smoke, free; expect PASS: true
 ```
