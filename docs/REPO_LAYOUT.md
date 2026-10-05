@@ -1,10 +1,16 @@
 # Repository layout (Oct 2026 refactor)
 
+**6 Oct update:** the preparation branch (experiments NOT approved) adds the separate SAC
+four-arm path and a dev-only DeepSeek launcher. See [SAC_DEEPSEEK_REVIEW.md](SAC_DEEPSEEK_REVIEW.md).
+The historical protocol and seal below describe the pre-patch baseline. Env
+v0.2.2 isolates test coverage inputs and has a new candidate seal; no new joint
+freeze or real-model validation is claimed.
+
 The repo holds two systems. They share no code.
 
 | Path | What it is | Status |
 |---|---|---|
-| `boidsnet/env/mechenv.py` | Mechanism environment: typed table transforms with reference implementations, sealed test split, probe sets. | v0.2.1 |
+| `boidsnet/env/mechenv.py` | Mechanism environment: typed table transforms with reference implementations, sealed test split, probe sets. | v0.2.2 candidate |
 | `boidsnet/runner/` | Society runner, sandbox, U harness, smoke/pilot/batch orchestration, freeze. The only model backend (`model.py`, OpenAI/Azure). | Draft, not frozen |
 | `tests/` | Offline tests for env and runner. | |
 | `docs/RUNNER.md` | Runner guarantees and the decision log D1-D24. | |

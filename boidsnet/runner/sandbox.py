@@ -3,11 +3,11 @@
 Tools are plain modules in <library>/tools/<tool_id>.py exposing execute(...).
 They may import other tools with `from tools import <tool_id>`.  Each call is
 {"args": [...], "kwargs": {...}} and crosses the process boundary as JSON.
-Any exception or timeout becomes the sentinel {"__error__": "..."}, so a crash
-is a distinct behaviour, not a missing value.
+Tool exceptions and per-probe timeouts become {"__error__": "..."}. Driver
+launch/transport failures abort scoring with SandboxInfrastructureError.
 
 Isolation (pre-register; tested in tests/test_sandbox.py):
-- the child runs with `python -I` and cwd = the library, with an ALLOWLISTED env
+- the driver runs with `python -s -S`, an explicit safe search path and an ALLOWLISTED env
   (PATH/LANG/PYTHONHASHSEED only; nothing else is inherited, so no credential of any
   name reaches tool code; os.environ is also cleared before the tool is imported);
 - an audit hook, installed before the tool is imported, enforces
@@ -32,11 +32,72 @@ import subprocess
 import sys
 
 _CHILD = r'''
-import json, os, sys, sysconfig
+# -I ignores PYTHONHASHSEED. Use -s -S with a clean environment and remove the
+# current directory BEFORE importing anything other than the built-in sys.
+import sys
+sys.path = [p for p in sys.path if p and p != sys.argv[1]]
+import json, os, select, signal, time, types
+LIB, TOP = sys.argv[1:3]
+payload = json.load(sys.stdin)
+outputs = []
+for call in payload["calls"]:
+    rd, wr = os.pipe()
+    pid = os.fork()
+    if pid == 0:
+        os.close(rd)
+        # stdout/stderr are diagnostics, never the structured result channel.
+        null = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(null, 1); os.dup2(null, 2); os.close(null)
+        try:
+            worker_module = types.ModuleType("__main__")
+            sys.modules["__main__"] = worker_module
+            worker_module.RESULT_FD = wr
+            worker_module.PAYLOAD = {"calls": [call], "acl": payload["acl"]}
+            exec(payload["worker"], worker_module.__dict__)
+        finally:
+            os._exit(0)
+    os.close(wr)
+    data = bytearray()
+    deadline = time.monotonic() + payload["timeout_s"]
+    timed_out = oversized = False
+    try:
+        while True:
+            left = deadline - time.monotonic()
+            if left <= 0 or not select.select([rd], [], [], max(0, left))[0]:
+                timed_out = True
+                break
+            chunk = os.read(rd, 65536)
+            if not chunk:
+                break
+            data.extend(chunk)
+            if len(data) > 8 * 1024 * 1024:
+                oversized = True
+                break
+    finally:
+        # Even a tool that closes its result fd and hangs must not block waitpid.
+        try:
+            os.kill(pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        os.waitpid(pid, 0)
+        os.close(rd)
+    if timed_out or oversized:
+        outputs.append({"__error__": "timeout" if timed_out else "output size limit"})
+    else:
+        # Malformed/missing transport is infrastructure, NOT a failed task.
+        result = json.loads(data)
+        if not isinstance(result, list) or len(result) != 1:
+            raise RuntimeError("invalid worker envelope")
+        outputs.append(result[0])
+json.dump({"protocol": 1, "outputs": outputs}, sys.stdout)
+'''
+
+_WORKER = r'''
+import json, os, sys, sysconfig, random
 sys.dont_write_bytecode = True
 LIB = os.path.realpath(sys.argv[1])
 TOP = sys.argv[2]
-payload = json.load(sys.stdin)
+payload = PAYLOAD
 calls, acl = payload["calls"], payload["acl"]
 
 # Tools reachable from TOP through the authors' ACLs.
@@ -101,25 +162,72 @@ def _hook(event, args):
         raise PermissionError("%s is not allowed" % event)
 
 sys.path.insert(0, LIB)
-import importlib
+import importlib, importlib.util, builtins
+# The audit import event is skipped for sys.modules hits. Check every import
+# entry point as well, including `from tools import cached_module`.
+_original_import = builtins.__import__
+_original_import_module = importlib.import_module
+_policy = {k: frozenset(v) for k, v in acl.items()}
+
+def _permit(target, src):
+    if target != src and target not in (_policy.get(src, ()) if src else (TOP,)):
+        raise PermissionError("tool %s may not import/call %s" % (src, target))
+
+def _checked_import(name, globals=None, locals=None, fromlist=(), level=0):
+    src = _importer()
+    absolute = name
+    if level:
+        package = (globals or {}).get("__package__", "")
+        absolute = importlib.util.resolve_name("." * level + name, package)
+    if absolute.startswith("tools."):
+        _permit(absolute.split(".")[1], src)
+    elif absolute == "tools":
+        for target in fromlist or ():
+            _permit(target, src)
+    return _original_import(name, globals, locals, fromlist, level)
+
+def _checked_import_module(name, package=None):
+    absolute = importlib.util.resolve_name(name, package) if name.startswith(".") else name
+    if absolute.startswith("tools."):
+        _permit(absolute.split(".")[1], _importer())
+    return _original_import_module(name, package)
+
+def _check_call(frame, event, arg):
+    if event == "call":
+        name = frame.f_globals.get("__name__", "")
+        if name.startswith("tools."):
+            caller = frame.f_back
+            while caller is not None:
+                src = caller.f_globals.get("__name__", "")
+                if src.startswith("tools."):
+                    _permit(name[6:], src[6:])
+                    break
+                caller = caller.f_back
+
+builtins.__import__ = _checked_import
+importlib.import_module = _checked_import_module
+sys.setprofile(_check_call)
 for _k in list(os.environ):
     if _k != "PYTHONHASHSEED":
         del os.environ[_k]
 sys.addaudithook(_hook)
-try:
-    fn = getattr(importlib.import_module("tools." + TOP), "execute")
-except BaseException as e:
-    json.dump([{"__error__": "import: " + type(e).__name__ + ": " + str(e)[:200]}] * len(calls), sys.stdout)
-    sys.exit(0)
 out = []
 for c in calls:
     try:
+        # A fresh generated-module state for each probe, not stateful batching.
+        for name in list(sys.modules):
+            if name == "tools" or name.startswith("tools."):
+                del sys.modules[name]
+        random.seed(0)
+        fn = getattr(importlib.import_module("tools." + TOP), "execute")
         y = fn(*c.get("args", []), **c.get("kwargs", {}))
         json.dumps(y)
         out.append(y)
     except BaseException as e:
         out.append({"__error__": type(e).__name__ + ": " + str(e)[:200]})
-json.dump(out, sys.stdout)
+encoded = json.dumps(out).encode()
+while encoded:
+    encoded = encoded[os.write(RESULT_FD, encoded):]
 '''
 
 
@@ -137,15 +245,11 @@ def load_acl(library_dir):
 
 
 # Explicit ALLOWLIST for the tool child (Qi-side review, msg #91): nothing is
-# inherited from the parent environment except the hash seed (determinism).
+# inherited from the parent environment; the hash seed is always fixed at 0.
 # The old denylist (strip *_API_KEY) let AZURE_AI_KEY / *_TOKEN / *_SECRET etc.
 # reach untrusted model-generated code.
 def child_env():
-    env = {"PATH": os.defpath, "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8"}
-    hs = os.environ.get("PYTHONHASHSEED")
-    if hs is not None and hs.isdigit():
-        env["PYTHONHASHSEED"] = hs
-    return env
+    return {"PATH": os.defpath, "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "PYTHONHASHSEED": "0"}
 
 
 # --------------------------------------------------------------------------
@@ -349,9 +453,9 @@ def isolation_level():
     try:
         os.makedirs(os.path.join(lib, "tools"))
         for mode in (("root",) if os.geteuid() == 0 else ()) + ("userns",):
-            cmd = _ns_cmd(mode, lib, [], [os.path.realpath(sys.executable), "-I", "-c", probe, str(os.getpid())]
-                          + canaries)
             try:
+                cmd = _ns_cmd(mode, lib, [], [os.path.realpath(sys.executable), "-I", "-c", probe, str(os.getpid())]
+                              + canaries)
                 r = subprocess.run(cmd, capture_output=True, text=True, timeout=15, env=_ns_env())
                 rep = json.loads(r.stdout)
             except Exception:  # noqa: BLE001 - any failure (incl. no ldd) means this mode is unavailable
@@ -376,8 +480,24 @@ def _ns_env():
     return env
 
 
+class SandboxInfrastructureError(RuntimeError):
+    """A launch/transport failure: the experiment must stop, not score zero."""
+    infrastructure_failure = True
+
+
 def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None):
-    """Return one output per call (errors as sentinels)."""
+    """One clean fork per probe; timeout_s is the per-probe execution limit."""
+    try:
+        return _run_tool(library_dir, tool_id, calls, timeout_s, acl)
+    except SandboxInfrastructureError:
+        raise
+    except Exception as exc:
+        # Includes ACL loading, namespace command construction and JSON input
+        # serialization: none of these is a generated tool's task verdict.
+        raise SandboxInfrastructureError("sandbox preparation failed") from exc
+
+
+def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
     if not calls:
         return []
     library_dir = os.path.abspath(library_dir)
@@ -385,36 +505,38 @@ def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None):
         acl = load_acl(library_dir)
     level = isolation_level()
     if level == "hook-only":
-        cmd, cwd, env = [sys.executable, "-I", "-c", _CHILD, library_dir, tool_id], library_dir, child_env()
+        cmd, cwd, env = [sys.executable, "-s", "-S", "-c", _CHILD, library_dir, tool_id], library_dir, child_env()
     else:
         files = [t for t in _reachable(acl, tool_id)
                  if os.path.exists(os.path.join(library_dir, "tools", t + ".py"))]
         cmd = _ns_cmd(level[3:], library_dir, files,
-                      [os.path.realpath(sys.executable), "-I", "-c", _CHILD, SANDBOX_LIB, tool_id])
+                      [os.path.realpath(sys.executable), "-s", "-S", "-c", _CHILD, SANDBOX_LIB, tool_id])
         cwd, env = "/", _ns_env()
     try:
         proc = subprocess.run(
-            cmd, input=json.dumps({"calls": calls, "acl": acl}), capture_output=True, text=True,
-            timeout=timeout_s + (0 if level == "hook-only" else 5), env=env, cwd=cwd,
+            cmd, input=json.dumps({"calls": calls, "acl": acl, "worker": _WORKER, "timeout_s": timeout_s}),
+            capture_output=True, text=True,
+            timeout=timeout_s * len(calls) + 10, env=env, cwd=cwd,
         )
-    except subprocess.TimeoutExpired:
-        return [{"__error__": "timeout"}] * len(calls)
+    except (subprocess.TimeoutExpired, OSError) as exc:
+        raise SandboxInfrastructureError("sandbox driver launch/timeout failure") from exc
+    if proc.returncode != 0:
+        raise SandboxInfrastructureError(f"sandbox driver exited with status {proc.returncode}")
     try:
-        out = json.loads(proc.stdout)
-        if len(out) != len(calls):
+        envelope = json.loads(proc.stdout)
+        out = envelope["outputs"]
+        if envelope.get("protocol") != 1 or not isinstance(out, list) or len(out) != len(calls):
             raise ValueError("length mismatch")
         return out
-    except Exception:
-        msg = (proc.stderr or "no output").strip().splitlines()[-1:] or ["?"]
-        return [{"__error__": "child: " + msg[0][:200]}] * len(calls)
+    except (ValueError, KeyError, TypeError, AttributeError) as exc:
+        raise SandboxInfrastructureError("sandbox driver returned an invalid envelope") from exc
 
 
 class SandboxedTool:
     """Callable handed to the env's harness: tool(*args, **kwargs).
 
-    Results are cached per call, and .prefetch(calls) runs a whole batch in one
-    subprocess so the harness's one-call-at-a-time loop does not spawn a
-    process per probe.
+    Results are cached per call. .prefetch(calls) uses one isolated driver and
+    a clean fork of that driver per probe, before any generated code is loaded.
     """
 
     def __init__(self, library_dir, tool_id, timeout_s=5.0):

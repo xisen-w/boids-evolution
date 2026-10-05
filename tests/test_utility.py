@@ -239,7 +239,7 @@ class FreezeAndScoreTests(unittest.TestCase):
         json.dump(index, open(os.path.join(lib, "index.json"), "w"))
         res = score_society(soc, self.env, StubSolver(), attempts=2)
         self.assertTrue(0.0 <= res["U"] <= 1.0)
-        self.assertTrue(res["test_seal"].startswith("25634f7783ff"))
+        self.assertEqual(res["test_seal"], PUBLISHED_TEST_SEAL)
         log = [json.loads(l) for l in open(os.path.join(soc, "utility", "solver_log.jsonl"))]
         first = [r for r in log if r["task"] == test0.id]
         self.assertTrue(all(r["gate_ok"] and r["passed"] for r in first), first[:1])

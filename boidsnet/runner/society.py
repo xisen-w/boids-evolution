@@ -16,7 +16,9 @@ import json
 import os
 import random
 import time
+import copy
 
+from .config import SAC_ARMS
 from .exposure import ring_neighbours, select_exemplars, select_matched, render_block
 from .library import Library
 from .prompts import SYSTEM, build_user_prompt, parse_response
@@ -66,6 +68,12 @@ class Society:
 
     # -- main loop ---------------------------------------------------------
     def run(self):
+        try:
+            return self._run_rounds()
+        finally:
+            self.log.close()
+
+    def _run_rounds(self):
         cfg = self.cfg
         for rnd in range(1, cfg.n_rounds + 1):
             snapshot = [dict(e) for e in self.lib.entries.values()]
@@ -81,6 +89,10 @@ class Society:
                 self._evaluate(rec, entry)
                 self.log.write(json.dumps(rec, sort_keys=True) + "\n")
             self.log.flush()
+            snapshots = os.path.join(self.out, "snapshots")
+            os.makedirs(snapshots, exist_ok=True)
+            with open(os.path.join(snapshots, f"round_{rnd:02d}.json"), "w") as f:
+                json.dump(self.lib.entries, f, sort_keys=True, indent=1)
             if self.truncated:
                 break
         self.log.close()
@@ -96,7 +108,14 @@ class Society:
         own = [e for e in snapshot if e["author"] == agent]
         own_latest = max(own, key=lambda e: e["round"]) if own else None
         match = None
-        if cfg.framing is None:
+        sac_evidence, sac_meta, sac_fired = None, None, None
+        if cfg.arm in SAC_ARMS:
+            from .mechanisms import build_evidence, render_evidence
+            sac_evidence, sac_meta = build_evidence(snapshot, agent, rnd, cfg, self._source,
+                                                    self.task_by_id, self.env.primitives)
+            block, sac_fired = render_evidence(sac_evidence, cfg.arm)
+            chosen, sims, mode = [], [], "sac_text_quality_activity_v1"
+        elif cfg.framing is None:
             chosen, sims, mode = [], [], "no_exposure_arm"
         elif cfg.exemplar_scope == "matched":
             ring_pool, other_pool = pool
@@ -106,10 +125,41 @@ class Society:
         else:
             chosen, sims, mode = select_exemplars(agent, pool, own_latest, cfg.m, agent_rng,
                                                   self.env.similarity)
-        block = render_block(cfg.framing, chosen, self._source)
+        if cfg.arm not in SAC_ARMS:
+            block = render_block(cfg.framing, chosen, self._source)
         menu = self.env.menu(cfg.seed, agent, rnd, self.dev_tasks, cfg.menu_size)
         fb = self.feedback.get(agent)
         user = build_user_prompt(rnd, menu, catalogue, block, fb)
+        if sac_evidence is not None:
+            # Shrink all four renderings identically for the SAME snapshot.
+            # Byte budget is a conservative, tokenizer-independent input cap.
+            from .mechanisms import evidence_hash
+            cap = cfg.extra.get("max_input_bytes", 16000)
+            evidence = copy.deepcopy(sac_evidence)
+            cat = copy.deepcopy(catalogue)
+            shrink_steps = 0
+            while True:
+                variants = {arm: build_user_prompt(rnd, menu, cat, render_evidence(evidence, arm)[0], fb)
+                            for arm in SAC_ARMS}
+                if max(len((SYSTEM + u).encode("utf-8")) for u in variants.values()) <= cap:
+                    break
+                excerpts = [e for name in ("S", "A") for e in (evidence[name] or {}).get("tools", [])]
+                if any(e["code_excerpt"] for e in excerpts):
+                    for e in excerpts:
+                        e["code_excerpt"] = "\n".join(e["code_excerpt"].splitlines()[:-1])
+                else:
+                    max_desc = max((len(e.get("description") or "") for e in cat), default=0)
+                    limit = next((n for n in (200, 100, 50) if n < max_desc), None)
+                    if limit is None:
+                        raise ValueError("shared SAC prompt exceeds input cap; no task or evidence module was dropped")
+                    for e in cat:
+                        e["description"] = (e.get("description") or "")[:limit]
+                shrink_steps += 1
+            sac_evidence = evidence
+            block, sac_fired = render_evidence(evidence, cfg.arm)
+            user = variants[cfg.arm]
+            sac_meta.update(evidence_sha256=evidence_hash(evidence), prompt_shrink_steps=shrink_steps,
+                            max_rendered_input_bytes=max(len((SYSTEM + u).encode("utf-8")) for u in variants.values()))
         text, tin, tout = self.model.complete(SYSTEM, user, cfg.temperature, cfg.max_tokens_per_call)
         self.tokens += tin + tout
         retries = getattr(self.model, "last_retries", 0)
@@ -130,7 +180,7 @@ class Society:
             "exemplar_match": match,
             "exemplar_age": [rnd - e["round"] for e in chosen],
             "exemplar_passed": [bool((e.get("harness") or {}).get("passed")) for e in chosen],
-            "rule_fired": bool(block) and cfg.framing in ("avoid", "emulate"),
+            "rule_fired": any(sac_fired.values()) if sac_fired is not None else bool(block) and cfg.framing in ("avoid", "emulate"),
             "block_nonempty": bool(block), "block_chars": len(block),
             "prompt_chars": len(SYSTEM) + len(user), "prompt_sha256": _sha(SYSTEM + user),
             "tokens_in": tin, "tokens_out": tout, "tokens_cum": self.tokens,
@@ -140,6 +190,9 @@ class Society:
             "implements": parsed["implements"], "implements_unknown": parsed["implements_unknown"],
             "wall_s_model": round(time.time() - t0, 3),
         }
+        if sac_evidence is not None:
+            rec.update(sac_evidence=sac_evidence, sac_selection=sac_meta, sac_fired=sac_fired)
+        rec["response_metadata"] = getattr(self.model, "last_response_metadata", None)
         entry = None
         if parsed["parse_ok"]:
             entry = self.lib.add(tool_id, agent, rnd, parsed["tool_label"],
@@ -150,6 +203,10 @@ class Society:
             rec["cross_agent_imports"] = [t for t in entry["static_imports"]
                                           if t in visible and visible[t] != agent]
             rec["unresolved_imports"] = [t for t in entry["static_imports"] if t not in visible]
+            if cfg.arm in SAC_ARMS:
+                from .mechanisms import tci_score
+                entry["tci"] = tci_score(parsed["source"], entry["static_imports"], visible)
+                rec["tci"] = entry["tci"]
         return rec, entry
 
     def _evaluate(self, rec, entry):
@@ -167,7 +224,8 @@ class Society:
         entry["signature_signal"] = vec
         rec["signature_signal"] = vec
         rec["signature_errors"] = sum(1 for y in vec if y.startswith("ERR"))
-        # Verdict is logged only; it is never shown to agents (msg #30, E2/D5).
+        # Legacy arms hide verdicts. SAC exposes selected-exemplar dev-pass
+        # metadata identically in all four conditions (never reference outputs).
         task = self.task_by_id.get(entry["target"])
         if task:
             rec["harness"] = self.env.harness(tool, task)

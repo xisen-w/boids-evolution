@@ -1,2 +1,5 @@
 openai==1.51.0
-httpx<0.28   # openai 1.51 passes proxies=, removed in httpx 0.28
+httpx==0.27.2   # openai 1.51 passes proxies=, removed in httpx 0.28
+scikit-learn==1.5.2  # frozen TF-IDF defaults for SAC text similarity
+numpy==2.0.2
+scipy==1.13.1

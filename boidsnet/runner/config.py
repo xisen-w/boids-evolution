@@ -7,7 +7,9 @@ which condition it belongs to (fixes audit item 7).
 from dataclasses import dataclass, asdict, field
 from typing import Optional
 
-ARMS = ("E", "L0", "R0", "IM", "L1", "G0m", "G0")
+LEGACY_ARMS = ("E", "L0", "R0", "IM", "L1", "G0m", "G0")
+SAC_ARMS = ("000", "100", "011", "111")
+ARMS = LEGACY_ARMS + SAC_ARMS
 # v0.3.8 (msgs #59/#60): confirmatory E/L0/R0/IM, exploratory L1/G0m.
 # G0 (unmatched global) is kept in code only; it is not run by the pilot.
 CONFIRMATORY_ARMS = ("E", "L0", "R0", "IM")
@@ -41,6 +43,8 @@ class RunConfig:
     n_rounds: int = 10         # T
     k: int = 2                 # ring neighbourhood: k/2 on each side
     m: int = 4                 # exemplar budget
+    separation_threshold: float = 0.3
+    alignment_window: int = 3
     menu_size: int = 8         # dev tasks shown per agent-round
     model: str = "stub"
     temperature: Optional[float] = 0.7   # None = not sent (reasoning deployments)
@@ -61,15 +65,27 @@ class RunConfig:
             raise ValueError(f"unknown arm {self.arm!r}; expected one of {ARMS}")
         if self.k % 2 or self.k < 2:
             raise ValueError("k must be a positive even number (ring)")
+        if not 3 <= self.n_agents <= 99 or self.k >= self.n_agents:
+            raise ValueError("need 3 <= n_agents <= 99 and k < n_agents")
+        if not 1 <= self.n_rounds <= 99 or self.menu_size < 1:
+            raise ValueError("need 1 <= n_rounds <= 99 and menu_size >= 1")
+        if self.arm in SAC_ARMS and self.catalogue_scope != "society":
+            raise ValueError("all SAC arms, including 000, need the shared society catalogue")
+        if not 0 <= self.separation_threshold <= 1 or self.alignment_window < 1:
+            raise ValueError("invalid SAC selector settings")
         if self.arm == "IM":
             self.catalogue_scope = "self"
 
     @property
     def exemplar_scope(self):
+        if self.arm in SAC_ARMS:
+            return "local"
         return ARM_SPEC[self.arm][0]
 
     @property
     def framing(self):
+        if self.arm in SAC_ARMS:
+            return "sac"
         return ARM_SPEC[self.arm][1]
 
     def to_dict(self):

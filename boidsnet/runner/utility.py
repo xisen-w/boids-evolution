@@ -42,7 +42,19 @@ def _sha(text):
     return hashlib.sha256(text.encode()).hexdigest()
 
 
-PUBLISHED_TEST_SEAL = "25634f7783fffbac3c2e1f74c545c2f647806218173b1af2dd3e2f1393c82371"  # full, mechenv v0.2/v0.2.1
+def _write_private_audit(path, row):
+    """Retain replay evidence outside the tool-visible library, owner-only."""
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, "w") as f:
+        json.dump(row, f, indent=1)
+        f.write("\n")
+
+
+LEGACY_TEST_SEAL = "25634f7783fffbac3c2e1f74c545c2f647806218173b1af2dd3e2f1393c82371"
+# v0.2.2 changes ONLY test coverage seeds (specs/dev probes unchanged).
+# This is a candidate seal, not a claim of joint preregistration. Real test
+# scoring still requires the separately reviewed confirmatory freeze.
+PUBLISHED_TEST_SEAL = "c9f634ae53c8f62694aed012f83520b53541175462552afdac5d1e40c93b7c0d"
 MAX_GLUE_LINES = 15
 MAX_STR_CONST = 32            # msg #79.2 anti-interpreter caps
 MAX_CONST_PAYLOAD = 128
@@ -103,10 +115,12 @@ def freeze_library(society_dir, out_dir, env=None):
         kept.append((passing or members)[0])
     kept.sort(key=lambda e: (e["round"], e["id"]))
     kept_ids = [e["id"] for e in kept]
-    # dependency closure so kept tools still run
+    # Include the historical ACL closure, not only statically visible imports:
+    # valid tools can import a dependency lazily through importlib. Dependency-
+    # only modules remain unavailable to solver glue and are not counted as reuse.
     need, todo = set(kept_ids), list(kept_ids)
     while todo:
-        for d in index.get(todo.pop(), {}).get("static_imports", []):
+        for d in acl.get(todo.pop(), []):
             if d in index and d not in need:
                 need.add(d)
                 todo.append(d)
@@ -164,6 +178,17 @@ def glue_gate(source, catalogue_ids):
     fn = funcs[0]
     if fn.decorator_list:
         return False, "decorators not allowed", []
+    if (fn.args.defaults or any(v is not None for v in fn.args.kw_defaults)
+            or fn.returns is not None
+            or any(a.annotation is not None for a in fn.args.args + fn.args.posonlyargs + fn.args.kwonlyargs)
+            or (fn.args.kwarg and fn.args.kwarg.annotation is not None)):
+        return False, "defaults and annotations may execute code; not allowed", []
+    if (fn.args.posonlyargs or [a.arg for a in fn.args.args] != ["table", "lookup"]
+            or fn.args.kwonlyargs or fn.args.vararg
+            or (fn.args.kwarg and fn.args.kwarg.arg != "params")):
+        return False, "execute signature must be (table, lookup[, **params])", []
+    if set(imported) & {"table", "lookup", "params"}:
+        return False, "tool import shadows an input", []
     bound = set(imported) | {a.arg for a in fn.args.args + fn.args.kwonlyargs}
     if fn.args.kwarg:
         bound.add(fn.args.kwarg.arg)
@@ -208,30 +233,47 @@ def glue_gate(source, catalogue_ids):
         return f"expression {type(x).__name__} not allowed"
 
     calls = 0
+    derived = set()  # names whose CURRENT value is a library call result
+
+    def library_result(expr):
+        return isinstance(expr, ast.Call) or (isinstance(expr, ast.Name) and expr.id in derived)
+
     for st in fn.body:
         if isinstance(st, ast.Assign):
             if len(st.targets) != 1 or not isinstance(st.targets[0], ast.Name):
                 return False, "only simple name assignments allowed", []
             if st.targets[0].id in FORBIDDEN_NAMES:
                 return False, "forbidden name assigned", []
+            if st.targets[0].id in imported:
+                return False, "cannot rebind an imported tool", []
             r = check_expr(st.value)
             if r:
                 return False, r, []
             calls += isinstance(st.value, ast.Call)
+            is_result = library_result(st.value)
+            derived.discard(st.targets[0].id)
+            if is_result:
+                derived.add(st.targets[0].id)
             bound.add(st.targets[0].id)
         elif isinstance(st, ast.Return):
+            if st is not fn.body[-1]:
+                return False, "return must be the last statement", []
             if st.value is None:
                 return False, "return value required", []
             r = check_expr(st.value)
             if r:
                 return False, r, []
             calls += isinstance(st.value, ast.Call)
+            if not library_result(st.value):
+                return False, "return must be derived from a library execute result", []
         elif isinstance(st, ast.Expr) and isinstance(st.value, ast.Constant):
             continue                      # docstring
         else:
             return False, f"statement {type(st).__name__} not allowed in execute", []
     if calls == 0:
         return False, "glue calls no library tool", []
+    if not fn.body or not isinstance(fn.body[-1], ast.Return):
+        return False, "glue must return its result", []
     payload = 0
     for node in ast.walk(fn):
         if isinstance(node, ast.Constant) and isinstance(node.value, str):
@@ -324,11 +366,15 @@ def check_sampling(society_dir, model, split="test"):
         raise SystemExit(f"solver sampling {have} (mode {model.param_mode}) != society {want} (strict)")
     if man.get("model") != model.name:
         raise SystemExit(f"solver deployment {model.name} != society {man.get('model')}")
+    if man.get("arm") in ("000", "100", "011", "111"):
+        for key in ("thinking", "base_url"):
+            if samp.get(key) != getattr(model, key, None):
+                raise SystemExit(f"solver {key} differs from society")
     return man
 
 
 def score_society(society_dir, env, model, attempts=3, out_name=None, temperature=0.7,
-                  max_tokens=4000, split="test", token_budget=None):
+                  max_tokens=4000, split="test", token_budget=None, task_ids=None):
     """split='test' is the confirmatory U (needs the published seal).
     split='dev' is a DIAGNOSTIC (U_dev): same freeze, gate and scoring on the
     dev tasks the agents saw.  It opens nothing sealed, so the smoke test can
@@ -336,6 +382,10 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     is inflated by construction and is never reported as an outcome."""
     if split not in ("test", "dev"):
         raise ValueError(split)
+    if attempts < 1:
+        raise ValueError("attempts must be positive")
+    if task_ids is not None and split != "dev":
+        raise ValueError("task subsets are allowed only for development diagnostics")
     if token_budget is not None and split == "test":
         # a cap would drop the last tasks of the sealed split and bias U
         raise ValueError("token_budget is for the dev diagnostic only; confirmatory U scores every task")
@@ -365,9 +415,19 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             raise SystemExit(f"test seal {seal} != published {PUBLISHED_TEST_SEAL}")
     else:
         test = env.m.tasks(env.dev_seed, "dev")
+        if task_ids is not None:
+            by_id = {t.id: t for t in test}
+            if not task_ids or len(set(task_ids)) != len(task_ids) or not set(task_ids) <= set(by_id):
+                raise ValueError("dev task_ids must be a nonempty, unique subset of the fixed dev set")
+            test = [by_id[t] for t in task_ids]
         seal = env.m.seal_hash(test)
     sseed = society_seed_of(society_dir, man)
-    log = open(os.path.join(out, "solver_log.jsonl"), "w")
+    log_path = os.path.join(out, "solver_log.jsonl")
+    with open(log_path, "x"):
+        pass
+    audit_dir = os.path.join(out, "private_audit")
+    if split == "dev":
+        os.mkdir(audit_dir, mode=0o700)
     task_scores, tokens, cached, single_big = [], 0, 0, []
     truncated = False
     for ti, task in enumerate(test):
@@ -377,6 +437,13 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
         passes = []
         for k in range(attempts):
             prompt = solver_prompt(task, kept, source_of, k, sseed)
+            audit_path = os.path.join(audit_dir, f"task_{ti:03d}_attempt_{k}.json")
+            audit = {"status": "REQUEST_PENDING", "task": task.id, "attempt": k,
+                     "system": SOLVER_SYSTEM, "prompt": prompt, "task_spec": task.spec,
+                     "coverage_probe_seeds": task.probe_seeds["coverage"], "society_seed": sseed,
+                     "temperature": temperature, "max_tokens": max_tokens, "split_seal": seal}
+            if split == "dev":
+                _write_private_audit(audit_path, audit)
             text, tin, tout = model.complete(SOLVER_SYSTEM, prompt, temperature, max_tokens) \
                 if not hasattr(model, "solve") else model.solve(task, kept, k)
             tcached = getattr(model, "last_cached_tokens", None)
@@ -385,6 +452,12 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             m = _CODE.search(text)
             code = m.group(1) if m else None
             ok, reason, imported = glue_gate(code, set(kept_ids))
+            audit.update(status="RESPONSE_RECEIVED", response=text, code=code, imported=imported,
+                         gate_ok=ok, gate_reason=reason, tokens_in=tin, tokens_out=tout,
+                         tokens_cached=tcached,
+                         response_metadata=getattr(model, "last_response_metadata", None))
+            if split == "dev":
+                _write_private_audit(audit_path, audit)
             verdict = None
             if ok:
                 gid = f"solver_t{ti:03d}_k{k}"
@@ -403,13 +476,15 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                    "gate_reason": reason, "imported": imported,
                    "tokens_in": tin, "tokens_out": tout,
                    "tokens_cached": tcached, "prompt_sha256": _sha(prompt)}
+            row["response_metadata"] = getattr(model, "last_response_metadata", None)
             if split == "test":
                 row.update(passed=passed, verdict=verdict, response=text)
             else:
-                # msg #96.1 BLIND: nothing arm-labelled that reveals or lets anyone
-                # recompute correctness.  No passed/verdict; gate-passing glue
-                # (response + file) is not persisted; gate-failing responses score
-                # 0 by rule, so they are kept for debugging the gate.
+                # Keep the public diagnostic summary blinded, but retain full
+                # owner-only evidence for pipeline auditing. This is NOT a
+                # claim that the run owner cannot unblind their private traces.
+                audit.update(status="SCORED", passed=passed, verdict=verdict)
+                _write_private_audit(audit_path, audit)
                 if not ok:
                     row["response"] = text
                 if ok:
@@ -418,9 +493,9 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                     acl.pop(gid, None)
                     with open(os.path.join(lib, "acl.json"), "w") as f:
                         json.dump(acl, f, sort_keys=True)
-            log.write(json.dumps(row) + "\n")
+            with open(log_path, "a") as log:
+                log.write(json.dumps(row) + "\n")
         task_scores.append(sum(passes) / len(passes))
-    log.close()
     with open(os.path.join(out, "solver_log.jsonl")) as fh:
         rows = [json.loads(l) for l in fh]
     gate_fail = sum(not r["gate_ok"] for r in rows) / len(rows) if rows else 0.0
@@ -431,6 +506,7 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             reasons[c] = reasons.get(c, 0) + 1
     n_calls = len(rows)
     res = {"split": split, "n_tasks": len(test), "n_tasks_scored": len(task_scores),
+           "task_ids": [t.id for t in test], "diagnostic_only": split == "dev",
            "solver_truncated_by_budget": truncated, "solver_token_budget": token_budget, "attempts": attempts,
            "gate_fail_rate": gate_fail, "gate_fail_reasons": dict(sorted(reasons.items())),
            "test_seal": seal, "library": meta, "solver_tokens": tokens,
@@ -485,6 +561,8 @@ def main(argv=None):
     p.add_argument("--env-path", default=None)
     p.add_argument("--model", default="stub")
     p.add_argument("--key-env", default="OPENAI_API_KEY")
+    p.add_argument("--base-url", default=None)
+    p.add_argument("--thinking", choices=("disabled",), default=None)
     p.add_argument("--azure-endpoint", default=os.environ.get("AZURE_OPENAI_ENDPOINT"))
     p.add_argument("--azure-api-version", default=os.environ.get("AZURE_OPENAI_API_VERSION"))
     p.add_argument("--allow-spend", action="store_true")
@@ -492,6 +570,8 @@ def main(argv=None):
     p.add_argument("--token-param", default="max_tokens", choices=("max_tokens", "max_completion_tokens"))
     p.add_argument("--max-tokens", type=int, default=4000)
     a = p.parse_args(argv)
+    if a.model.startswith("deepseek"):
+        sys.exit("DeepSeek scoring must use the reviewed dev-only boidsnet.runner.sac_pilot entry point")
     if a.split == "test" and not a.unseal:
         sys.exit("refusing: U opens the sealed test split; pass --unseal only for confirmatory scoring")
     from .run import DEFAULT_ENV
@@ -502,7 +582,8 @@ def main(argv=None):
         from .model import OpenAICompatModel
         model = OpenAICompatModel(a.model, a.key_env, a.allow_spend, azure_endpoint=a.azure_endpoint,
                                   api_version=a.azure_api_version, send_temperature=not a.no_temperature,
-                                  token_param=a.token_param, param_mode="strict")
+                                  token_param=a.token_param, param_mode="strict", base_url=a.base_url,
+                                  thinking=a.thinking)
     res = score_society(a.society, env, model, a.attempts, max_tokens=a.max_tokens, split=a.split)
     print(json.dumps({k: v for k, v in res.items() if k != "library" and not k.startswith("_")}, indent=1))
 

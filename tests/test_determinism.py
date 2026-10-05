@@ -31,7 +31,7 @@ class DeterminismTests(unittest.TestCase):
                                env=dict(os.environ, PYTHONHASHSEED=h), check=True)
             seals.add(p.stdout.strip())
         self.assertEqual(len(seals), 1, seals)
-        self.assertTrue(next(iter(seals)).startswith("25634f77"))
+        self.assertTrue(next(iter(seals)).startswith("c9f634ae"))
 
     def test_society_independent_of_hash_seed(self):
         for arm in ("R0", "G0m"):

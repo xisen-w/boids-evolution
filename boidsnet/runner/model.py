@@ -64,9 +64,25 @@ class OpenAICompatModel:
 
     def __init__(self, model, key_env, allow_spend, base_url=None, azure_endpoint=None,
                  api_version=None, send_temperature=True, token_param="max_tokens",
-                 param_mode="strict"):
+                 param_mode="strict", thinking=None, max_attempts=None, before_request=None,
+                 after_response=None):
         if not allow_spend:
             raise PermissionError("paid model requested without --allow-spend")
+        if model.startswith("deepseek"):
+            if (model != "deepseek-flash" or base_url != "https://api.deepseek.com"
+                    or azure_endpoint or thinking != "disabled" or param_mode != "strict"
+                    or token_param != "max_tokens" or not send_temperature):
+                raise ValueError("DeepSeek pilot requires deepseek-flash, official base URL, explicit disabled thinking, temperature and strict max_tokens")
+            if key_env != "BOIDS_PARTNER_API_KEY":
+                raise PermissionError("DeepSeek experiments only accept the collaborator's BOIDS_PARTNER_API_KEY")
+        elif thinking is not None:
+            raise ValueError("thinking is configured only for the DeepSeek pilot")
+        if max_attempts is not None:
+            if not 1 <= max_attempts <= 6:
+                raise ValueError("max_attempts must be between 1 and 6")
+            self.MAX_ATTEMPTS = max_attempts
+        self.thinking, self.base_url = thinking, base_url
+        self.before_request, self.after_response = before_request, after_response
         # msg #105.4: belt and braces with run.py's check.  A key may only be
         # loaded where tool code runs under OS isolation.
         from .sandbox import isolation_level
@@ -88,8 +104,14 @@ class OpenAICompatModel:
             self.client = AzureOpenAI(api_key=key, azure_endpoint=azure_endpoint, api_version=api_version,
                                       timeout=self.REQUEST_TIMEOUT_S, max_retries=0)
         else:
-            from openai import OpenAI
-            self.client = OpenAI(api_key=key, base_url=base_url, timeout=self.REQUEST_TIMEOUT_S, max_retries=0)
+            from openai import OpenAI, DefaultHttpxClient
+            transport = {}
+            if model.startswith("deepseek"):
+                # One budget reservation must not silently follow a redirect
+                # into additional HTTP requests (or another endpoint).
+                transport["http_client"] = DefaultHttpxClient(follow_redirects=False)
+            self.client = OpenAI(api_key=key, base_url=base_url, timeout=self.REQUEST_TIMEOUT_S,
+                                 max_retries=0, **transport)
         self.api_version = api_version
         self.name = model
         # Sampling-parameter handling (msg #76 item 7).  Reasoning deployments
@@ -109,9 +131,15 @@ class OpenAICompatModel:
     def transport_policy(self):
         """Recorded in every manifest (msg #134 cost/runtime card)."""
         return {"sdk_max_retries": 0, "request_timeout_s": self.REQUEST_TIMEOUT_S,
+                "follow_redirects": not self.name.startswith("deepseek"),
                 "runner_max_attempts": self.MAX_ATTEMPTS, "backoff_s": "2^attempt + U(0,1)",
                 "retried": "429, 408, 409, 5xx, network; not other 4xx",
                 "api_version": getattr(self, "api_version", None)}
+
+    def sampling(self):
+        return {"temperature_sent": self.send_temperature, "token_param": self.token_param,
+                "param_adaptations": self.param_adaptations,
+                "thinking": getattr(self, "thinking", None), "base_url": getattr(self, "base_url", None)}
 
     def _adapt(self, msg):
         """Return True if a rejected sampling parameter was adapted."""
@@ -134,25 +162,50 @@ class OpenAICompatModel:
         the error propagates and the society is marked FAILED (run.py)."""
         self.last_retries = 0
         self.last_cached_tokens = None
+        self.last_response_metadata = None
         for attempt in range(self.MAX_ATTEMPTS):
+            # Budget refusal is outside the retry handler: no network call,
+            # no credential read, and no retry of a local guard failure.
+            if getattr(self, "before_request", None):
+                self.before_request(system, user, max_tokens, attempt)
             try:
                 kw = {self.token_param: max_tokens}
                 if self.send_temperature:
                     kw["temperature"] = temperature
+                if getattr(self, "thinking", None) is not None:
+                    kw["extra_body"] = {"thinking": {"type": self.thinking}}
                 r = self.client.chat.completions.create(
                     model=self.name, messages=[{"role": "system", "content": system},
                                                {"role": "user", "content": user}], **kw)
-                u = r.usage
-                det = getattr(u, "prompt_tokens_details", None)
-                self.last_cached_tokens = getattr(det, "cached_tokens", None) if det else None
-                return r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens
             except Exception as e:  # noqa: BLE001 - SDK error types vary by version
+                from openai import APIConnectionError
+                from httpx import TransportError
                 status = getattr(e, "status_code", None)
-                if status == 400 and self._adapt(str(e)):
+                if status == 400 and attempt < self.MAX_ATTEMPTS - 1 and self._adapt(str(e)):
                     continue         # parameter adapted (auto mode); retry at once
-                if status is not None and 400 <= status < 500 and status not in (408, 409, 429):
-                    raise            # auth / bad request: retrying will not help
+                transient = (isinstance(e, (APIConnectionError, TransportError, ConnectionError, TimeoutError))
+                             if status is None else status in (408, 409, 429) or 500 <= status < 600)
+                if not transient:
+                    raise            # local SDK/type/decoding errors are not transport retries
                 if attempt == self.MAX_ATTEMPTS - 1:
                     raise
                 self.last_retries += 1
                 time.sleep(2 ** (attempt + 1) + random.random())
+                continue
+            # Never resample an already completed response after a local
+            # decoding / usage / ledger error. It may already be billed.
+            u = r.usage
+            if u is None or u.prompt_tokens is None or u.completion_tokens is None:
+                raise RuntimeError("provider response omitted usage; stop without resampling")
+            det = getattr(u, "prompt_tokens_details", None)
+            self.last_cached_tokens = getattr(u, "prompt_cache_hit_tokens", None)
+            if self.last_cached_tokens is None:
+                self.last_cached_tokens = getattr(det, "cached_tokens", None) if det else None
+            choice = r.choices[0]
+            self.last_response_metadata = {"model": getattr(r, "model", None),
+                                           "finish_reason": getattr(choice, "finish_reason", None),
+                                           "response_id": getattr(r, "id", None)}
+            if getattr(self, "after_response", None):
+                self.after_response(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens,
+                                    self.last_response_metadata)
+            return choice.message.content or "", u.prompt_tokens, u.completion_tokens

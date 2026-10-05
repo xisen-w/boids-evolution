@@ -1,25 +1,45 @@
 # boids-evolution
 
-Boids for LLM tool-building societies. **Does behaviour-based *local repulsion*
-between agents preserve the functional coverage that attraction-only coupling
-(sharing, imitation) homogenises away?**
+Boids for LLM tool-building societies. Does local separation improve the
+usefulness of a shared tool library, beyond alignment and cohesion?
 
-- `boidsnet/`: the new, pre-registered study (AAMAS 2027). Standard library only.
+- `boidsnet/`: draft research runner; the new SAC path is **not jointly frozen or experimentally validated**.
 - `legacy/`: the earlier system and its run corpus, frozen and audited in the paper.
+
+## Current small-pilot preparation (6 Oct 2026)
+
+Use [the SAC/DeepSeek audit and review card](docs/SAC_DEEPSEEK_REVIEW.md), not the
+older L0/E smoke recipes below. The `000 / 100 / 011 / 111` path implements the
+PDF-aligned instruction-only ablation: all arms share the same information
+selectors and global library access. The old behavioral arms remain separate.
+
+```bash
+# PREPARE ONLY. No model client, API key or generated tool execution.
+python -m boidsnet.runner.sac_pilot --out review/deepseek-small \
+  --run-out runs/deepseek-small-approved
+```
+
+The proposed config is 4 agents × 3 rounds × 4 arms, one paired seed, plus six
+development tasks × two solver attempts per arm: **96 nominal model calls**.
+Execution is blocked until the user approves that exact config/source and
+single-use run ID/output directory. See [bug-fix verification](docs/BUGFIX_AUDIT.md).
+Model:
+`deepseek-flash`, thinking explicitly disabled; collaborator credentials only.
+Preparation works on macOS; real execution still requires Linux OS isolation.
 
 ```
 boidsnet/
-  env/mechenv.py      mechanism env v0.2.1: typed table transforms, sealed test split, probe sets
+  env/mechenv.py      mechanism env v0.2.2: isolated dev/test coverage tables
   runner/             agent societies, sandbox, scoring, smoke/pilot/batch, freeze
 tests/                offline tests (no API calls)
 docs/                 RUNNER.md (decision log D1-D24), REPO_LAYOUT.md
 legacy/               pre-2026 system (src/, experiments/, scripts) - do not edit
 ```
 
-## Quick start (stub model, free)
+## Older behavioral protocol (not the SAC experiment)
 
 ```bash
-python -m unittest discover -s tests -t .                 # 89 tests
+python -m unittest discover -s tests -t .                 # offline software tests
 python -m boidsnet.runner.run --arm L0 --seed 3 --out runs/
 python -m boidsnet.runner.smoke --out smoke/              # protocol §8 engineering smoke
 ```

@@ -16,7 +16,7 @@ import sys
 DEFAULT_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                            "env", "mechenv.py")
 
-from .config import RunConfig, ARMS
+from .config import RunConfig, ARMS, SAC_ARMS
 from .env_adapter import MechEnv
 from .freeze import code_hash
 from .model import StubModel, OpenAICompatModel
@@ -51,6 +51,8 @@ def main(argv=None):
     p.add_argument("--env-path", default=DEFAULT_ENV)
     p.add_argument("--dev-seed", type=int, default=0)
     a = p.parse_args(argv)
+    if a.arm in SAC_ARMS and a.model != "stub":
+        sys.exit("paid SAC runs must use boidsnet.runner.sac_pilot with a reviewed approval file")
 
     dry = a.model == "stub"
     env = MechEnv(a.env_path, a.dev_seed)

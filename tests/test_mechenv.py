@@ -6,8 +6,8 @@ import unittest
 
 from boidsnet.env import mechenv as m
 
-# sealed TEST-split hash posted in the room (mechenv v0.2, tasks(0, "test"))
-TEST_SEAL = "25634f7783fffbac3c2e1f74c545c2f647806218173b1af2dd3e2f1393c82371"
+# Candidate v0.2.2 seal after isolating final-test coverage input tables.
+TEST_SEAL = "c9f634ae53c8f62694aed012f83520b53541175462552afdac5d1e40c93b7c0d"
 
 
 class TestMechEnv(unittest.TestCase):
@@ -28,6 +28,14 @@ class TestMechEnv(unittest.TestCase):
         a = [t.spec for t in m.tasks(0, "dev")]
         b = [t.spec for t in m.tasks(0, "dev")]
         self.assertEqual(a, b)
+
+    def test_dev_seal_preserved_and_test_inputs_disjoint(self):
+        dev, test = m.tasks(0, "dev"), m.tasks(0, "test")
+        self.assertEqual(m.seal_hash(dev), "22cc39d56cd39ec426f890d78b5caf30860bcb4498b4c643fc7a00bafde7600c")
+        for t in test:
+            self.assertTrue(all(50000 <= s < 60000 for s in t.probe_seeds["coverage"]))
+        for t in dev:
+            self.assertTrue(all(30000 <= s < 40000 for s in t.probe_seeds["coverage"]))
 
     def test_seed_ranges_disjoint(self):
         spans = sorted(m.SEED_RANGES.values())

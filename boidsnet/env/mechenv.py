@@ -1,4 +1,4 @@
-"""Mechanism environment for the Boids v0.3.2 confirmatory study (v0.2.1, DRAFT, not frozen).
+"""Mechanism environment for the Boids study (v0.2.2, DRAFT, not frozen).
 
 v0.2.1: draw terminal primitives from sorted(TERMINAL), not list(set), so the task
 lists no longer depend on PYTHONHASHSEED. The sealed TEST hash is unchanged.
@@ -33,9 +33,10 @@ Table = List[Dict[str, Any]]
 SEED_RANGES = {
     "dev": (0, 10_000),            # task specs visible to building agents
     "test": (10_000, 20_000),      # sealed: only the frozen-library solver sees these
-    "signal": (20_000, 30_000),    # P_signal: probes used by the repulsion signal
+    "signal": (20_000, 30_000),    # freeze probes; SAC separation is text-only
     "coverage": (30_000, 40_000),  # P_coverage: M6/M7 and load-bearing ablation
     "diversity": (40_000, 50_000), # P_diversity: M5 behavioural clustering
+    "test_coverage": (50_000, 60_000), # v0.2.2: held-out solver input tables
 }
 PROBES_PER_SET = 8
 
@@ -356,10 +357,10 @@ def _spec(steps) -> str:
     return "Transform the input table (and region lookup table) by applying in order:\n" + "\n".join(parts)
 
 
-def _probe_seeds(task_seed: int) -> Dict[str, List[int]]:
+def _probe_seeds(task_seed: int, split: str = "dev") -> Dict[str, List[int]]:
     out = {}
     for name in ("signal", "coverage", "diversity"):
-        lo, hi = SEED_RANGES[name]
+        lo, hi = SEED_RANGES["test_coverage" if name == "coverage" and split == "test" else name]
         rng = random.Random(task_seed * 31 + zlib.crc32(name.encode()) % 997)
         out[name] = [rng.randrange(lo, hi) for _ in range(PROBES_PER_SET)]
     return out
@@ -375,7 +376,7 @@ def make_task(task_seed: int, split: str, depth: int) -> Task:
         steps.append((name, PRIMITIVES[name][1](rng)))
     return Task(id=f"{split}-{task_seed}-d{depth}", split=split, depth=depth, steps=steps,
                 spec=_spec(steps), primitive_set=sorted({s[0] for s in steps}),
-                probe_seeds=_probe_seeds(task_seed))
+                probe_seeds=_probe_seeds(task_seed, split))
 
 
 def tasks(seed: int, split: str, n_per_depth: int = 20, depths=(1, 2, 3)) -> List[Task]:
@@ -433,6 +434,8 @@ def _run_on_probes(fn: Callable[[Table, Table], Table], ref: Callable[[Table, Ta
         try:
             got = fn(_copy(t), [dict(r) for r in lk])
         except Exception as e:  # noqa: BLE001 - any tool failure is a verdict, not a harness error
+            if getattr(e, "infrastructure_failure", False):
+                raise
             crashed += 1
             details.append(f"seed {s}: crash {type(e).__name__}: {e}"[:200])
             continue
@@ -474,6 +477,8 @@ def behaviour_vector(tool_fn: Callable[[Table, Table], Table], probe: str, seeds
             got = tool_fn(gen_table(s), gen_lookup(s))
             vec.append(hashlib.sha256(json.dumps(got, sort_keys=True, default=str).encode()).hexdigest()[:16])
         except Exception as e:  # noqa: BLE001
+            if getattr(e, "infrastructure_failure", False):
+                raise
             vec.append(f"ERR:{type(e).__name__}")
     return vec
 
@@ -494,6 +499,8 @@ def behaviour_signature(tool_fn: Callable[[Table, Table], Table], probe: str, se
             got = tool_fn(gen_table(s), gen_lookup(s))
             outs.append(json.dumps(got, sort_keys=True, default=str)[:4000])
         except Exception as e:  # noqa: BLE001
+            if getattr(e, "infrastructure_failure", False):
+                raise
             outs.append(f"ERR:{type(e).__name__}")
     return hashlib.sha256("|".join(outs).encode()).hexdigest()
 

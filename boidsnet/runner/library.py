@@ -1,8 +1,7 @@
 """The society's shared tool library.
 
-Visibility rule (v0.3.2 sec. 4, msgs #20/#21): a tool is importable AND listed
-the moment it is built, whatever its test outcome.  There is no promotion
-step and no "importable but unlisted" state.
+Visibility: a tool is importable AND listed starting the next synchronous
+round, whatever its test outcome. There is no promotion step.
 
 Naming rule (audit item 6): tool ids are assigned by the runner as
 a<agent>_r<round>, so no build can overwrite another.  The model's proposed
@@ -11,10 +10,15 @@ name is kept only as a label.
 import ast
 import json
 import os
+import re
 
 
 class Library:
     def __init__(self, root):
+        # This constructor creates a NEW library; it is deliberately not a
+        # resume API. Check before touching any existing metadata or source.
+        if os.path.exists(root) and os.listdir(root):
+            raise FileExistsError("refusing to initialize a nonempty library")
         self.root = root
         self.pkg = os.path.join(root, "tools")
         os.makedirs(self.pkg, exist_ok=True)
@@ -22,16 +26,21 @@ class Library:
         self.entries = {}   # tool_id -> metadata
         self.acl = {}       # tool_id -> importable tool ids
         self.index_path = os.path.join(root, "index.json")
+        self.save()  # an all-unparseable society is still a valid empty library
+        with open(os.path.join(root, "acl.json"), "w") as f:
+            json.dump({}, f)
 
     @staticmethod
     def make_id(agent, rnd):
         return f"a{agent:02d}_r{rnd:02d}"
 
     def add(self, tool_id, author, rnd, label, description, target, source, implements=(), acl=()):
+        if not re.fullmatch(r"a\d{2}_r\d{2}", tool_id):
+            raise ValueError("tool id must be assigned by the runner")
         if tool_id in self.entries:
             raise RuntimeError(f"duplicate tool id {tool_id}")
         path = os.path.join(self.pkg, f"{tool_id}.py")
-        with open(path, "w") as f:
+        with open(path, "x") as f:
             f.write(source)
         entry = {
             "id": tool_id, "author": author, "round": rnd, "label": label,

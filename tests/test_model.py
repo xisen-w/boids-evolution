@@ -95,7 +95,8 @@ class RetryTests(unittest.TestCase):
             m.complete("s", "u", 0.7, 10)
 
     @unittest.skipUnless(HAVE_OPENAI, "openai SDK not installed (pip install -r requirements.txt)")
-    def test_azure_client_constructed_without_network(self):
+    @mock.patch("boidsnet.runner.sandbox.isolation_level", return_value="os-test-fixture")
+    def test_azure_client_constructed_without_network(self, _isolation):
         os.environ["FAKE_AZ_KEY_X"] = "k"
         try:
             m = M.OpenAICompatModel("my-deployment", "FAKE_AZ_KEY_X", allow_spend=True,
@@ -107,7 +108,8 @@ class RetryTests(unittest.TestCase):
             del os.environ["FAKE_AZ_KEY_X"]
 
     @unittest.skipUnless(HAVE_OPENAI, "openai SDK not installed (pip install -r requirements.txt)")
-    def test_transport_policy_and_required_api_version(self):
+    @mock.patch("boidsnet.runner.sandbox.isolation_level", return_value="os-test-fixture")
+    def test_transport_policy_and_required_api_version(self, _isolation):
         """msg #134/#131: SDK retries off, explicit timeout; Azure api version never implicit."""
         os.environ["FAKE_AZ_KEY_Y"] = "k"
         try:

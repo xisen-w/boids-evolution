@@ -219,6 +219,9 @@ __marimo__/
 runs/
 smoke/
 pilot/
+review/
+*.consumed
+private_audit/
 
 # boidsnet/env is real source, not a virtualenv (the generic env/ rule above would hide it)
 !boidsnet/env/

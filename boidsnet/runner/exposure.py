@@ -95,7 +95,7 @@ EXEMPLAR_CHARS = 400
 
 
 def summarise(entry, source):
-    """Signature + docstring + declared IMPLEMENTS, capped at EXEMPLAR_CHARS.
+    """Keep interface metadata intact; cap only the descriptive prose.
     Same format for every arm, so content is fixed (msg #30, E3)."""
     sig, doc = "execute(?)", ""
     try:
@@ -107,9 +107,17 @@ def summarise(entry, source):
     except SyntaxError:
         pass
     impl = ", ".join(entry.get("implements") or []) or "none"
-    text = (f"--- {entry['id']} (by agent {entry['author']:02d}): {entry['description']}\n"
-            f"    {sig} | implements: {impl}" + (f"\n    doc: {' '.join(doc.split())}" if doc else ""))
-    return text if len(text) <= EXEMPLAR_CHARS else text[:EXEMPLAR_CHARS - 3] + "..."
+    mandatory = (f"--- {entry['id']} (by agent {entry['author']:02d})\n"
+                 f"    {sig} | implements: {impl}")
+    prose = "\n    " + entry.get("description", "")
+    if doc:
+        prose += f" | doc: {' '.join(doc.split())}"
+    room = max(0, EXEMPLAR_CHARS - len(mandatory))
+    if len(prose) > room:
+        prose = prose[:room - 3] + "..." if room >= 3 else ""
+    # An unusually long signature can exceed the soft exemplar budget. The
+    # overall prompt hard cap is enforced separately, never by corrupting it.
+    return mandatory + prose
 
 
 def render_block(framing, exemplars, source_of):
