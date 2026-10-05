@@ -7,10 +7,63 @@ and reads the key from an environment variable whose value is never logged.
 """
 import inspect
 import json
+import math
 import os
 import random
 import re
+import signal
+import threading
 import time
+from contextlib import contextmanager
+
+
+class RequestDeadlineExceeded(TimeoutError):
+    """Total wall-clock deadline: stop this run without resampling."""
+
+
+class _DeadlineInterrupt(BaseException):
+    """Do not let SDK/transport `except Exception` handlers swallow the alarm."""
+
+
+def validate_usage(prompt_tokens, completion_tokens, cached_tokens=None):
+    """Never let malformed provider accounting decrease the spend ledger."""
+    if any(type(n) is not int or n < 0 for n in (prompt_tokens, completion_tokens)):
+        raise RuntimeError("provider usage must contain nonnegative integer token counts")
+    if cached_tokens is not None and (type(cached_tokens) is not int or not 0 <= cached_tokens <= prompt_tokens):
+        raise RuntimeError("provider cache usage is outside prompt token bounds")
+
+
+def _check_deadline_support(seconds):
+    # Paid runners are deliberately serial on POSIX/Linux. A thread-based
+    # timeout leaves the HTTP request running in the background and is NOT a
+    # cancellation mechanism; refuse unsupported callers before sending.
+    if (threading.current_thread() is not threading.main_thread()
+            or not hasattr(signal, "setitimer")):
+        raise RuntimeError("model requests require the POSIX main thread for total deadlines")
+    if not math.isfinite(seconds) or seconds <= 0:
+        raise ValueError("request deadline must be positive and finite")
+    if any(signal.getitimer(signal.ITIMER_REAL)):
+        raise RuntimeError("another real-time alarm is active; refusing to replace it")
+
+
+@contextmanager
+def _request_deadline(seconds):
+    _check_deadline_support(seconds)
+    previous = signal.getsignal(signal.SIGALRM)
+
+    def expired(signum, frame):
+        raise _DeadlineInterrupt()
+
+    signal.signal(signal.SIGALRM, expired)
+    try:
+        signal.setitimer(signal.ITIMER_REAL, seconds)
+        try:
+            yield
+        except _DeadlineInterrupt:
+            raise RequestDeadlineExceeded("total request deadline exceeded; no automatic resampling") from None
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
 
 
 class StubModel:
@@ -93,7 +146,8 @@ class OpenAICompatModel:
             raise PermissionError(f"environment variable {key_env} is not set")
         # msg #134: explicit transport policy.  The SDK's own retries are OFF
         # (max_retries=0) so that complete()'s loop is the ONLY retry layer
-        # (MAX_ATTEMPTS, logged per call); each request has a hard timeout.
+        # (MAX_ATTEMPTS, logged per call). SDK timeout is inactivity-based;
+        # _request_deadline additionally bounds the whole synchronous call.
         # Worst case per call: MAX_ATTEMPTS x REQUEST_TIMEOUT_S + backoff.
         if azure_endpoint:
             if not api_version:
@@ -131,6 +185,8 @@ class OpenAICompatModel:
     def transport_policy(self):
         """Recorded in every manifest (msg #134 cost/runtime card)."""
         return {"sdk_max_retries": 0, "request_timeout_s": self.REQUEST_TIMEOUT_S,
+                "total_request_deadline_s": self.REQUEST_TIMEOUT_S,
+                "deadline_policy": "POSIX main-thread cancellation; terminal, no resampling",
                 "follow_redirects": not self.name.startswith("deepseek"),
                 "runner_max_attempts": self.MAX_ATTEMPTS, "backoff_s": "2^attempt + U(0,1)",
                 "retried": "429, 408, 409, 5xx, network; not other 4xx",
@@ -163,6 +219,9 @@ class OpenAICompatModel:
         self.last_retries = 0
         self.last_cached_tokens = None
         self.last_response_metadata = None
+        if getattr(self, "_deadline_exhausted", False):
+            raise RequestDeadlineExceeded("client stopped after an ambiguous deadline; review before a new run")
+        _check_deadline_support(self.REQUEST_TIMEOUT_S)
         for attempt in range(self.MAX_ATTEMPTS):
             # Budget refusal is outside the retry handler: no network call,
             # no credential read, and no retry of a local guard failure.
@@ -174,9 +233,21 @@ class OpenAICompatModel:
                     kw["temperature"] = temperature
                 if getattr(self, "thinking", None) is not None:
                     kw["extra_body"] = {"thinking": {"type": self.thinking}}
-                r = self.client.chat.completions.create(
-                    model=self.name, messages=[{"role": "system", "content": system},
-                                               {"role": "user", "content": user}], **kw)
+                with _request_deadline(self.REQUEST_TIMEOUT_S):
+                    r = self.client.chat.completions.create(
+                        model=self.name, messages=[{"role": "system", "content": system},
+                                                   {"role": "user", "content": user}], **kw)
+            except RequestDeadlineExceeded:
+                # Unwind the live socket operation, close the transport, and
+                # do not launch a retry for a response with unknown billing.
+                self._deadline_exhausted = True
+                close = getattr(self.client, "close", None)
+                if callable(close):
+                    try:
+                        close()
+                    except Exception:
+                        pass
+                raise
             except Exception as e:  # noqa: BLE001 - SDK error types vary by version
                 from openai import APIConnectionError
                 from httpx import TransportError
@@ -201,11 +272,19 @@ class OpenAICompatModel:
             self.last_cached_tokens = getattr(u, "prompt_cache_hit_tokens", None)
             if self.last_cached_tokens is None:
                 self.last_cached_tokens = getattr(det, "cached_tokens", None) if det else None
-            choice = r.choices[0]
+            validate_usage(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens)
+            choices = getattr(r, "choices", None)
+            choice = choices[0] if choices else None
             self.last_response_metadata = {"model": getattr(r, "model", None),
                                            "finish_reason": getattr(choice, "finish_reason", None),
                                            "response_id": getattr(r, "id", None)}
             if getattr(self, "after_response", None):
                 self.after_response(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens,
                                     self.last_response_metadata)
+            # Account for a completed/billed response even when its answer
+            # envelope is malformed. Never resample it to obtain a new answer.
+            if choice is None or not hasattr(choice, "message"):
+                raise RuntimeError("provider response omitted the assistant choice")
+            if u.completion_tokens > max_tokens:
+                raise RuntimeError("provider output usage exceeded the requested token cap")
             return choice.message.content or "", u.prompt_tokens, u.completion_tokens

@@ -122,6 +122,9 @@ a provider billing guarantee. Request count is a hard local cap.
         self.config, self.ledger = config, Path(ledger)
         self.requests, self.reserved, self.reported_usd = 0, 0.0, 0.0
         self.reported_responses = 0
+        self._stopped = False
+        self._last_response_request = 0
+        self._last_limits = None
 
     def append(self, row):
         with self.ledger.open("a") as f:
@@ -129,6 +132,10 @@ a provider billing guarantee. Request count is a hard local cap.
 
     def before(self, system, user, max_tokens, attempt):
         cfg = self.config
+        if self._stopped:
+            raise PermissionError("accounting anomaly: review required before further requests")
+        if type(max_tokens) is not int or max_tokens <= 0:
+            raise ValueError("output cap must be a positive integer")
         size = len((system + user).encode("utf-8"))
         if size > cfg["max_input_bytes"]:
             raise ValueError("input exceeds the reviewed byte cap; do not silently truncate")
@@ -137,19 +144,31 @@ a provider billing guarantee. Request count is a hard local cap.
             raise PermissionError("reviewed request/cost budget exhausted; no further request sent")
         self.requests += 1
         self.reserved += estimate
+        self._last_limits = (size + 512, max_tokens)
         self.append({"event": "request_reserved", "request": self.requests, "retry_index": attempt,
                      "input_bytes": size, "output_token_cap": max_tokens,
                      "reserved_usd_cumulative": self.reserved})
 
     def after(self, tin, tout, cached, metadata):
+        from .model import validate_usage
+        try:
+            validate_usage(tin, tout, cached)
+            if self.requests <= self._last_response_request:
+                raise RuntimeError("usage without an unreported reserved request")
+        except RuntimeError:
+            self._stopped = True
+            raise
         # Report conservative uncached-rate cost; do not assume cache hits are free.
         usd = (tin * self.config["input_usd_per_million"] + tout * self.config["output_usd_per_million"]) / 1e6
         self.reported_usd += usd
         self.reported_responses += 1
+        self._last_response_request = self.requests
         self.append({"event": "response_usage", "request": self.requests, "tokens_in": tin,
                      "tokens_out": tout, "cached_tokens": cached, "metadata": metadata,
                      "usage_cost_at_uncached_rate_usd": usd})
-        if self.reported_usd > self.config["max_reserved_usd"]:
+        if (self.reported_usd > self.config["max_reserved_usd"]
+                or tin > self._last_limits[0] or tout > self._last_limits[1]):
+            self._stopped = True
             raise PermissionError("reported provider usage exceeded reserve assumptions; stop for review")
 
 

@@ -44,7 +44,7 @@ def tci_score(source, static_imports, visible_ids):
         words = line.strip().split()
         if len(words) >= 2 and words[0] in ("from", "import"):
             module = words[1].split(".")[0].rstrip(",")
-            external += module not in STDLIB and module != "tools"
+            external += not words[1].startswith(".") and module not in STDLIB and module != "tools"
     iface, valid = 0.0, False
     try:
         tree = ast.parse(source)

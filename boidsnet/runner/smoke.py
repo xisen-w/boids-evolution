@@ -60,7 +60,8 @@ def check_coverage(out, real_model):
         if os.path.exists(os.path.join(d, "FAILED.json")):
             problems.append(f"{arm}: FAILED.json present")
             continue
-        man = json.load(open(os.path.join(d, "run_manifest.json")))
+        with open(os.path.join(d, "run_manifest.json")) as f:
+            man = json.load(f)
         for key, want in (("arm", arm), ("seed", SMOKE["seed"]), ("n_agents", SMOKE["n_agents"]),
                           ("n_rounds", SMOKE["n_rounds"]), ("token_budget", SMOKE["token_budget"]),
                           ("engineering", True)):
@@ -68,7 +69,8 @@ def check_coverage(out, real_model):
                 problems.append(f"{arm}: manifest {key}={man.get(key)!r}, protocol says {want!r}")
         if real_model and man.get("param_mode") != SMOKE["param_mode"]:
             problems.append(f"{arm}: param_mode {man.get('param_mode')!r} != auto")
-        summ = json.load(open(os.path.join(d, "summary.json")))
+        with open(os.path.join(d, "summary.json")) as f:
+            summ = json.load(f)
         if summ["records"] != SMOKE["n_agents"] * SMOKE["n_rounds"] and not summ["truncated"]:
             problems.append(f"{arm}: {summ['records']} records, expected N*T={SMOKE['n_agents'] * SMOKE['n_rounds']}")
         for sub in os.listdir(d):
@@ -123,7 +125,8 @@ def backend_receipt(out, b, solver):
     for arm in SMOKE["arms"]:
         mp = os.path.join(society_dir(out, arm), "run_manifest.json")
         if os.path.exists(mp):
-            m = json.load(open(mp))
+            with open(mp) as f:
+                m = json.load(f)
             builders[arm] = {"model": m.get("model"), "backend": m.get("backend"),
                              "client": m.get("model_client"), "api_version": m.get("azure_api_version"),
                              "transport": m.get("transport"), "sandbox": m.get("sandbox_isolation")}

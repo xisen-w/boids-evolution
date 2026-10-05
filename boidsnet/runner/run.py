@@ -63,7 +63,8 @@ def main(argv=None):
     if not dry and not a.engineering:
         if not a.frozen:
             sys.exit("refusing paid run: no --frozen manifest")
-        frozen = json.load(open(a.frozen))
+        with open(a.frozen) as f:
+            frozen = json.load(f)
         if frozen["code_sha256"] != chash:
             sys.exit("refusing paid run: runner code differs from frozen hash")
         protocol_sha = frozen["protocol_sha256"]

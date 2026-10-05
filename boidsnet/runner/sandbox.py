@@ -79,15 +79,31 @@ for call in payload["calls"]:
             os.kill(pid, signal.SIGKILL)
         except ProcessLookupError:
             pass
-        os.waitpid(pid, 0)
+        _, status = os.waitpid(pid, 0)
         os.close(rd)
+    if not data.startswith(b"READY\n"):
+        raise RuntimeError("worker failed before readiness")
     if timed_out or oversized:
         outputs.append({"__error__": "timeout" if timed_out else "output size limit"})
     else:
-        # Malformed/missing transport is infrastructure, NOT a failed task.
-        result = json.loads(data)
-        if not isinstance(result, list) or len(result) != 1:
-            raise RuntimeError("invalid worker envelope")
+        # The trusted worker announces readiness BEFORE importing tool code.
+        # No handshake means initialization/transport failed. After readiness,
+        # an abnormal exit or missing result is a generated-tool failure, not
+        # evidence that the sandbox could not start.
+        body = data[len(b"READY\n"):]
+        if not body:
+            code = os.waitstatus_to_exitcode(status)
+            message = ("PermissionError: forbidden cross-tool call" if code == 77
+                       else "tool terminated without a result (exit %s)" % code)
+            outputs.append({"__error__": message})
+            continue
+        try:
+            result = json.loads(body)
+            if not isinstance(result, list) or len(result) != 1:
+                raise ValueError("invalid worker envelope")
+        except (ValueError, TypeError):
+            outputs.append({"__error__": "tool corrupted its result channel"})
+            continue
         outputs.append(result[0])
 json.dump({"protocol": 1, "outputs": outputs}, sys.stdout)
 '''
@@ -108,6 +124,8 @@ while todo:
             reach.add(d); todo.append(d)
 TOOLS = os.path.join(LIB, "tools")
 OK_FILES = {os.path.join(TOOLS, "__init__.py")} | {os.path.join(TOOLS, t + ".py") for t in reach}
+_tool_paths = {os.path.join(TOOLS, t + ".py"): t for t in reach}
+_module_owners = {}
 paths = sysconfig.get_paths()
 STDLIB = tuple(os.path.realpath(paths[k]) + os.sep for k in ("stdlib", "platstdlib"))
 SITE = tuple(os.path.realpath(paths[k]) for k in ("purelib", "platlib"))
@@ -115,12 +133,24 @@ BLOCK_PREFIX = ("socket.", "subprocess.", "os.exec", "os.spawn", "os.posix_spawn
                 "os.fork", "os.kill", "os.system", "os.remove", "os.rename", "os.rmdir",
                 "os.mkdir", "os.chmod", "os.truncate", "shutil.", "ctypes.", "pty.")
 
+def _frame_tool(frame, _owners=_module_owners, _paths=_tool_paths):
+    # Module-level execution is profiled before generated code runs. Register
+    # the namespace by its loader path once; __name__ is tool-writable and is
+    # not a trustworthy identity. Hold namespaces to prevent object-id reuse.
+    key = id(frame.f_globals)
+    if key in _owners:
+        return _owners[key][0]
+    owner = _paths.get(frame.f_code.co_filename)
+    if owner is not None:
+        _owners[key] = (owner, frame.f_globals)
+    return owner
+
 def _importer():
     f = sys._getframe(2)
     while f is not None:
-        n = f.f_globals.get("__name__", "")
-        if n.startswith("tools.") and n != "tools":
-            return n[6:]
+        owner = _frame_tool(f)
+        if owner is not None:
+            return owner
         f = f.f_back
     return None
 
@@ -129,7 +159,10 @@ def _file_ok(p):
         rp = os.path.realpath(p if isinstance(p, str) else os.fsdecode(p))
     except Exception:
         return False
-    if rp in OK_FILES or rp == TOOLS:
+    if rp in OK_FILES:
+        target, src = _tool_paths.get(rp), _importer()
+        return target is None or target == src or target in (_policy.get(src, ()) if src else (TOP,))
+    if rp == TOOLS:
         return True
     if rp.startswith(SITE):
         return False
@@ -147,11 +180,12 @@ def _hook(event, args):
             elif target not in acl.get(src, []):
                 raise PermissionError("tool %s may not import %s" % (src, target))
     elif event == "open":
-        path, mode = args[0], args[1]
+        path, mode, flags = args
+        write_flags = os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC | os.O_APPEND
+        if (mode and any(c in str(mode) for c in "wax+")) or flags & write_flags:
+            raise PermissionError("file writes are not allowed")
         if isinstance(path, int):
             return
-        if mode and any(c in str(mode) for c in "wax+"):
-            raise PermissionError("file writes are not allowed")
         if not _file_ok(path):
             raise PermissionError("file access outside the sandbox: %s" % path)
     elif event in ("os.listdir", "os.scandir"):
@@ -160,6 +194,8 @@ def _hook(event, args):
             raise PermissionError("directory listing outside the sandbox")
     elif event.startswith(BLOCK_PREFIX):
         raise PermissionError("%s is not allowed" % event)
+    elif event in ("sys.setprofile", "sys.settrace"):
+        raise PermissionError("execution policy hooks cannot be replaced")
 
 sys.path.insert(0, LIB)
 import importlib, importlib.util, builtins
@@ -192,17 +228,23 @@ def _checked_import_module(name, package=None):
         _permit(absolute.split(".")[1], _importer())
     return _original_import_module(name, package)
 
-def _check_call(frame, event, arg):
-    if event == "call":
-        name = frame.f_globals.get("__name__", "")
-        if name.startswith("tools."):
-            caller = frame.f_back
-            while caller is not None:
-                src = caller.f_globals.get("__name__", "")
-                if src.startswith("tools."):
-                    _permit(name[6:], src[6:])
-                    break
-                caller = caller.f_back
+def _check_call(frame, event, arg, _exit=os._exit, _acl=_policy):
+    try:
+        if event == "call":
+            target = _frame_tool(frame)
+            if target is not None:
+                caller = frame.f_back
+                while caller is not None:
+                    src = _frame_tool(caller)
+                    if src is not None:
+                        if target != src and target not in _acl.get(src, ()):
+                            _exit(77)
+                        break
+                    caller = caller.f_back
+    except BaseException:
+        # Never raise out of a profiler: CPython disables it on exceptions.
+        # Denials AND unexpected policy errors terminate the current probe.
+        _exit(77)
 
 builtins.__import__ = _checked_import
 importlib.import_module = _checked_import_module
@@ -211,6 +253,9 @@ for _k in list(os.environ):
     if _k != "PYTHONHASHSEED":
         del os.environ[_k]
 sys.addaudithook(_hook)
+# Initialization above is trusted. Everything after this marker may execute
+# generated code, including module-level imports and JSON serialization hooks.
+os.write(RESULT_FD, b"READY\n")
 out = []
 for c in calls:
     try:
@@ -286,7 +331,8 @@ mount -t tmpfs -o size=64m,mode=755 none "$R/sandbox"
 mkdir -p "$R$SANDBOX_LIB/tools"
 : > "$R$SANDBOX_LIB/tools/__init__.py"
 while [ "$1" != "--" ]; do cp "$LIB/tools/$1.py" "$R$SANDBOX_LIB/tools/"; shift; done; shift
-chmod -R a+rX "$R/sandbox"
+chmod -R a+rX,a-w "$R/sandbox"
+mount -o remount,ro "$R/sandbox"                # child tmpfs is NOT covered by remounting /
 mount --rbind "$STDLIB" "$R$STDLIB"; mount -o remount,bind,ro "$R$STDLIB"
 for d in null urandom; do mount --bind "/dev/$d" "$R/dev/$d"; done
 cd "$R"

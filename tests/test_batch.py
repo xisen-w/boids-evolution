@@ -1,5 +1,6 @@
 """Batch runner: completeness, resume, failed-dir handling."""
 import json
+from pathlib import Path
 import os
 import sys
 import tempfile
@@ -19,7 +20,7 @@ class BatchTests(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             batch_main(["--out", out, "--seeds", "5-6", "--arms", "L0,IM", "--jobs", "2", "--n-rounds", "2"])
         self.assertEqual(cm.exception.code, 0)
-        st = json.load(open(os.path.join(out, "batch_status.json")))
+        st = json.loads(Path(out, "batch_status.json").read_text())
         self.assertEqual(st["ok"], 4)
         # resume: completed societies are skipped, not rerun
         r = run_one(out, "L0", 5, ["--n-rounds", "2"])
@@ -27,7 +28,7 @@ class BatchTests(unittest.TestCase):
         # a FAILED society is moved aside (kept) and rerun once
         d = os.path.join(out, "IM_s07")
         os.makedirs(d)
-        json.dump({"error_type": "X"}, open(os.path.join(d, "FAILED.json"), "w"))
+        Path(d, "FAILED.json").write_text(json.dumps({"error_type": "X"}))
         r = run_one(out, "IM", 7, ["--n-rounds", "2"])
         self.assertEqual(r["status"], "OK")
         self.assertTrue(os.path.exists(d + ".failed1/FAILED.json"))

@@ -1,5 +1,6 @@
 """U harness: glue gate, library freeze, sealed scoring (stub solver)."""
 import json
+from pathlib import Path
 import os
 import shutil
 import sys
@@ -96,7 +97,7 @@ class FreezeAndScoreTests(unittest.TestCase):
     def test_freeze_rule(self):
         out = os.path.join(tempfile.mkdtemp(), "lib")
         kept, acl, meta = freeze_library(self.soc, out)
-        index = json.load(open(os.path.join(self.soc, "library", "index.json")))
+        index = json.loads(Path(self.soc, "library", "index.json").read_text())
         sigs = [tuple(index[k]["signature_signal"]) for k in meta["kept"]]
         self.assertEqual(len(sigs), len(set(sigs)))                      # deduped
         self.assertEqual(meta["n_built"], len(meta["kept"]) + len(meta["dropped_all_crash"])
@@ -196,12 +197,12 @@ class FreezeAndScoreTests(unittest.TestCase):
             self.env.m.tasks = real
         self.assertNotIn("U", res)
         self.assertIn("_dev_task_scores", res)                           # in memory only, for pooling
-        written = json.load(open(os.path.join(soc, "utility_dev", "utility.json")))
+        written = json.loads(Path(soc, "utility_dev", "utility.json").read_text())
         self.assertFalse([k for k in written if k.startswith("U") or k.startswith("_")], written.keys())
         self.assertIsNotNone(res["gate_fail_rate"])
         self.assertIsInstance(res["gate_fail_reasons"], dict)
         # msg #96.1: no arm-labelled per-attempt correctness, and nothing to rebuild it from
-        rows = [json.loads(l) for l in open(os.path.join(soc, "utility_dev", "solver_log.jsonl"))]
+        rows = [json.loads(l) for l in Path(soc, "utility_dev", "solver_log.jsonl").read_text().splitlines()]
         self.assertTrue(rows)
         for r in rows:
             self.assertFalse({"passed", "verdict"} & set(r), r)
@@ -209,7 +210,7 @@ class FreezeAndScoreTests(unittest.TestCase):
                 self.assertFalse({"response", "imported"} & set(r), r)
         tools = os.listdir(os.path.join(soc, "utility_dev", "frozen_library", "tools"))
         self.assertFalse([t for t in tools if t.startswith("solver_")], tools)
-        acl = json.load(open(os.path.join(soc, "utility_dev", "frozen_library", "acl.json")))
+        acl = json.loads(Path(soc, "utility_dev", "frozen_library", "acl.json").read_text())
         self.assertFalse([t for t in acl if t.startswith("solver_")])
 
     def test_score_requires_unseal(self):
@@ -223,24 +224,24 @@ class FreezeAndScoreTests(unittest.TestCase):
         # positive control: add a tool that exactly implements test task 0
         test0 = self.env.m.tasks(0, "test")[0]
         lib = os.path.join(soc, "library")
-        index = json.load(open(os.path.join(lib, "index.json")))
-        acl = json.load(open(os.path.join(lib, "acl.json")))
+        index = json.loads(Path(lib, "index.json").read_text())
+        acl = json.loads(Path(lib, "acl.json").read_text())
         tid = "a07_r99"
         src = tool_for(self.env, test0, "")
-        open(os.path.join(lib, "tools", tid + ".py"), "w").write(src)
+        Path(lib, "tools", tid + ".py").write_text(src)
         from boidsnet.runner.sandbox import SandboxedTool
         acl[tid] = []
-        json.dump(acl, open(os.path.join(lib, "acl.json"), "w"))
+        Path(lib, "acl.json").write_text(json.dumps(acl))
         sig = self.env.signature(SandboxedTool(lib, tid))
         index[tid] = {"id": tid, "author": 7, "round": 99, "label": "ctrl",
                       "description": "pipeline " + " -> ".join(n for n, _ in test0.steps),
                       "target": None, "implements": [], "static_imports": [],
                       "harness": {"passed": True}, "signature_signal": sig}
-        json.dump(index, open(os.path.join(lib, "index.json"), "w"))
+        Path(lib, "index.json").write_text(json.dumps(index))
         res = score_society(soc, self.env, StubSolver(), attempts=2)
         self.assertTrue(0.0 <= res["U"] <= 1.0)
         self.assertEqual(res["test_seal"], PUBLISHED_TEST_SEAL)
-        log = [json.loads(l) for l in open(os.path.join(soc, "utility", "solver_log.jsonl"))]
+        log = [json.loads(l) for l in Path(soc, "utility", "solver_log.jsonl").read_text().splitlines()]
         first = [r for r in log if r["task"] == test0.id]
         self.assertTrue(all(r["gate_ok"] and r["passed"] for r in first), first[:1])
         self.assertEqual(len(log), res["n_tasks"] * 2)
@@ -279,9 +280,9 @@ class EngineeringTests(unittest.TestCase):
 
     def test_confirmatory_still_refuses_adaptations(self):
         soc = self._eng_soc(["drop temperature"])
-        man = json.load(open(os.path.join(soc, "run_manifest.json")))
+        man = json.loads(Path(soc, "run_manifest.json").read_text())
         man["engineering"] = False
-        json.dump(man, open(os.path.join(soc, "run_manifest.json"), "w"))
+        Path(soc, "run_manifest.json").write_text(json.dumps(man))
         class M:
             name, send_temperature, token_param, param_mode = "dep-a", False, "max_completion_tokens", "strict"
         with self.assertRaises(SystemExit):
@@ -295,7 +296,7 @@ class EngineeringTests(unittest.TestCase):
         import io, contextlib
         with contextlib.redirect_stdout(io.StringIO()):
             rmain(["--arm", "L0", "--seed", "1", "--out", out, "--engineering", "--n-rounds", "1"])
-        man = json.load(open(os.path.join(out, "ENG_L0_s01", "run_manifest.json")))
+        man = json.loads(Path(out, "ENG_L0_s01", "run_manifest.json").read_text())
         self.assertTrue(man["engineering"])
         self.assertIn("pre-freeze", man["deviation"])
         from boidsnet.runner.batch import main as bmain
@@ -363,8 +364,8 @@ class SmokeTests(unittest.TestCase):
         out = tempfile.mkdtemp()
         for arm in SMOKE["arms"]:
             os.makedirs(society_dir(out, arm))
-            json.dump({"model": "dep-x", "model_client": "StubModel"},
-                      open(os.path.join(society_dir(out, arm), "run_manifest.json"), "w"))
+            Path(society_dir(out, arm), "run_manifest.json").write_text(
+                json.dumps({"model": "dep-x", "model_client": "StubModel"}))
         b, _ = backend_args(["--model=dep-x"])
         rec, problems = backend_receipt(out, b, StubSolver())
         self.assertTrue(any("builder client" in p for p in problems), problems)   # paid model name, stub client
@@ -378,7 +379,9 @@ class SmokeTests(unittest.TestCase):
             smain(["--out", out])
         shutil.rmtree(os.path.join(out, "ENG_R0_s9001"))
         man_p = os.path.join(out, "ENG_E_s9001", "run_manifest.json")
-        man = json.load(open(man_p)); man["n_rounds"] = 10; json.dump(man, open(man_p, "w"))
+        man = json.loads(Path(man_p).read_text())
+        man["n_rounds"] = 10
+        Path(man_p).write_text(json.dumps(man))
         problems, _ = check_coverage(out, False)
         self.assertTrue(any("society dirs" in p for p in problems), problems)
         self.assertTrue(any("n_rounds" in p for p in problems), problems)
@@ -423,7 +426,7 @@ class PilotDevTests(unittest.TestCase):
         import io, contextlib
         with contextlib.redirect_stdout(io.StringIO()):
             pmain(["--out", out, "--seed", "901", "--score-dev", "--n-rounds", "2"])
-        rep = json.load(open(os.path.join(out, "pilot_report.json")))
+        rep = json.loads(Path(out, "pilot_report.json").read_text())
         dev = rep["dev_diagnostic"]
         self.assertIn("U_dev_POOLED_DIAGNOSTIC", dev)
         for arm, d in dev["per_arm"].items():

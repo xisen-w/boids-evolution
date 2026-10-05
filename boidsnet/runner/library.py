@@ -58,7 +58,7 @@ class Library:
         return entry
 
     def static_imports(self, source):
-        """Tool ids imported via `from tools import X` / `import tools.X`
+        """Tool ids from absolute or package-relative static imports.
         (definition (a); (b)/(c) are computed by the analysis code)."""
         found = set()
         try:
@@ -66,14 +66,21 @@ class Library:
         except SyntaxError:
             return []
         for node in ast.walk(tree):
-            if isinstance(node, ast.ImportFrom) and node.module == "tools":
+            if isinstance(node, ast.ImportFrom) and node.level == 0 and node.module == "tools":
                 found.update(a.name for a in node.names)
-            elif isinstance(node, ast.ImportFrom) and node.module and node.module.startswith("tools."):
-                found.add(node.module.split(".", 1)[1])
+            elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module and node.module.startswith("tools."):
+                found.add(node.module.split(".")[1])
+            elif isinstance(node, ast.ImportFrom) and node.level == 1:
+                # Generated modules live directly in the tools package:
+                # `from . import X` and `from .X import execute` are both X.
+                if node.module:
+                    found.add(node.module.split(".")[0])
+                else:
+                    found.update(a.name for a in node.names)
             elif isinstance(node, ast.Import):
                 for a in node.names:
                     if a.name.startswith("tools."):
-                        found.add(a.name.split(".", 1)[1])
+                        found.add(a.name.split(".")[1])
         return sorted(found)
 
     def listed_for(self, agent, scope):
