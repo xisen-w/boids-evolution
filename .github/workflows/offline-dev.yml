@@ -21,7 +21,19 @@ jobs:
           git diff --check
       - name: Require Linux namespace isolation
         run: |
-          sudo "$(which python)" -c 'from boidsnet.runner.sandbox import isolation_level; level = isolation_level(); print(level); assert level == "os-root", level'
+          sudo "$(which python)" - <<'PY'
+          import os, subprocess, sys, tempfile
+          from boidsnet.runner import sandbox
+          level = sandbox.isolation_level()
+          print(level)
+          if level != 'os-root':
+              with tempfile.TemporaryDirectory() as root:
+                  os.makedirs(os.path.join(root, 'tools'))
+                  cmd = sandbox._ns_cmd('root', root, [], [os.path.realpath(sys.executable), '-I', '-c', 'print("namespace interpreter ready")'])
+                  result = subprocess.run(cmd, capture_output=True, text=True, env=sandbox._ns_env())
+                  print('namespace diagnostic:', result.returncode, result.stdout, result.stderr)
+          assert level == 'os-root', level
+          PY
       - name: Offline DEV contracts with Linux sandbox
         run: |
           sudo env PYTHONHASHSEED=0 "$(which python)" -m unittest tests.test_sac_controls tests.test_sac_sharing tests.test_runner tests.test_sandbox tests.test_batch tests.test_determinism tests.test_model tests.test_audit_figure -v
