@@ -18,7 +18,8 @@ from .env_adapter import MechEnv
 from .freeze import code_hash
 from .mechanisms import canonical
 from .run import DEFAULT_ENV
-from .agentport_config import is_agentport, validate as validate_agentport, blockers, EXTRA_KEYS, USD_KEYS
+from .agentport_config import (is_agentport, is_local_budget, is_stage_b, validate as validate_agentport,
+                              blockers, extra_keys, USD_KEYS, worst_case_cost, thinking_request_body)
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG = ROOT / "configs" / "deepseek_flash_small.json"
@@ -47,7 +48,8 @@ def write_json(path, value):
 def resolve(config, run_out=None, run_id=None):
     """Read-only planning: dev metadata only, no sandbox/model/key access."""
     gateway = is_agentport(config)
-    if set(config) != ((KEYS - USD_KEYS) | EXTRA_KEYS if gateway else KEYS):
+    stage = is_stage_b(config)
+    if set(config) != ((KEYS - USD_KEYS) | extra_keys(config) if gateway else KEYS):
         raise ValueError("config has missing or unknown fields")
     fixed = {"thinking": "disabled", "key_env": "BOIDS_PARTNER_API_KEY"}
     if gateway:
@@ -57,13 +59,13 @@ def resolve(config, run_out=None, run_id=None):
     for k, value in fixed.items():
         if config[k] != value:
             raise ValueError(f"{k} must be {value!r}")
-    if config["arms"] != list(SAC_ARMS) or config["seeds"] != [1001]:
-        raise ValueError("small launcher requires the four SAC arms and one paired seed [1001]")
-    for k, lo, hi in (("n_agents", 3, 8), ("n_rounds", 2, 3), ("k", 2, 2),
+    if config["arms"] != list(SAC_ARMS) or config["seeds"] != ([2001] if stage else [1001]):
+        raise ValueError("launcher requires the four SAC arms and the stage-specific paired seed")
+    for k, lo, hi in (("n_agents", 3, 8), ("n_rounds", 2, 12 if stage else 3), ("k", 2, 2),
                       ("menu_size", 8, 8), ("dev_seed", 0, 0), ("eval_tasks_per_depth", 1, 2),
                       ("solver_attempts", 1, 2), ("builder_max_tokens", 256, 4000),
-                      ("solver_max_tokens", 256, 1500), ("max_input_bytes", 2000, 16000),
-                      ("max_http_attempts_per_call", 1, 2), ("max_http_requests", 1, 180),
+                      ("solver_max_tokens", 256, 1500), ("max_input_bytes", 2000, 32768 if stage else 16000),
+                      ("max_http_attempts_per_call", 1, 2), ("max_http_requests", 1, 432 if stage else 180),
                       ("alignment_window", 3, 3)):
         if type(config[k]) is not int or not lo <= config[k] <= hi:
             raise ValueError(f"{k} must be an integer in [{lo}, {hi}]")
@@ -74,7 +76,7 @@ def resolve(config, run_out=None, run_id=None):
     for k, lo, hi in numeric:
         if type(config[k]) not in (int, float) or not lo <= config[k] <= hi:
             raise ValueError(f"{k} outside this reviewed pilot's range")
-    RunConfig(arm="000", seed=1001, n_agents=config["n_agents"], n_rounds=config["n_rounds"], k=config["k"])
+    RunConfig(arm="000", seed=config['seeds'][0], n_agents=config["n_agents"], n_rounds=config["n_rounds"], k=config["k"])
     env = MechEnv(DEFAULT_ENV, config["dev_seed"])
     dev = env.dev_tasks()
     selected = [t for d in (1, 2, 3) for t in [t for t in dev if t["depth"] == d][:config["eval_tasks_per_depth"]]]
@@ -86,7 +88,7 @@ def resolve(config, run_out=None, run_id=None):
     if run_out is not None:
         run_id = str(uuid.UUID(run_id)) if run_id else str(uuid.uuid4())
         scope = {"run_id": run_id, "output_dir": str(Path(run_out).resolve())}
-    return {"config": json.loads(json.dumps(config)), "split": "dev", "test_unsealed": False,
+    resolved = {"config": json.loads(json.dumps(config)), "split": "dev", "test_unsealed": False,
             "spend_blockers": blockers(config) if gateway else [],
             "run_scope": scope, "sandbox_hash_seed": 0, "probe_state": "clean_fork_per_probe",
             "study_status": "engineering_diagnostic_not_scientific_evidence",
@@ -95,6 +97,24 @@ def resolve(config, run_out=None, run_id=None):
             "builder_calls": build, "solver_calls": solve, "nominal_model_calls": build + solve,
             "code_sha256": code_hash(DEFAULT_ENV),
             "requirements_sha256": hashlib.sha256((ROOT / "requirements.txt").read_bytes()).hexdigest()}
+    if gateway:
+        from .analysis import ANALYSIS_PROTOCOL
+        resolved['mechanism_analysis'] = ANALYSIS_PROTOCOL
+        resolved['arm_order'] = config.get('arm_order', ['000', '111', '100', '011'])
+        resolved['provider_request_body'] = thinking_request_body(
+            config['model'], config['base_url'], config['thinking'])
+    if is_local_budget(config):
+        resolved['local_budget_policy'] = {
+            'version': 'local-circuit-v2', 'currency': 'CNY',
+            'accounting_basis': 'local_allowance_not_provider_invoice',
+            'provider_cap_required': False, 'provider_bill_guaranteed': False,
+            'max_reserved_cny': config['max_reserved_cny'],
+            'max_reserved_per_request_cny': config['max_reserved_per_request_cny'],
+            'full_schedule_reservation_cny': str(worst_case_cost(config)),
+            'automatic_retries': 0, 'automatic_resume': False,
+            'in_flight_requests': 1,
+        }
+    return resolved
 
 
 def approval_template(resolved):
@@ -107,7 +127,7 @@ def verify_approval(resolved, approval, allow_spend, out=None):
     if not allow_spend:
         raise PermissionError("execution needs explicit --allow-spend and human approval")
     if resolved.get("spend_blockers") or (is_agentport(resolved["config"]) and blockers(resolved["config"])):
-        raise PermissionError("unresolved pricing, provider cap, model IDs or sandbox; no request permitted")
+        raise PermissionError("unresolved budget policy, model IDs or sandbox; no request permitted")
     owner = "user_provided" if is_agentport(resolved["config"]) else "collaborator"
     if (approval.get("approved") is not True or approval.get("status") != "APPROVED"
             or not approval.get("reviewed_by") or approval.get("credential_owner") != owner):
@@ -131,6 +151,8 @@ Input UTF-8 bytes + 512 framing tokens is a conservative token estimate, not
 a provider billing guarantee. Request count is a hard local cap.
 """
     def __init__(self, config, ledger):
+        if is_local_budget(config):
+            raise ValueError('local-only smoke requires LocalSmokeBudget')
         self.config, self.ledger = config, Path(ledger)
         self.currency = "CNY" if is_agentport(config) else "USD"
         if is_agentport(config) and blockers(config):
@@ -219,8 +241,12 @@ a provider billing guarantee. Request count is a hard local cap.
             raise PermissionError("reported provider usage exceeded reserve assumptions; stop for review")
 
 
-def execute(resolved, approval, out, allow_spend):
+def execute(resolved, approval, out, allow_spend, *, campaign=None):
     verify_approval(resolved, approval, allow_spend, out)
+    if campaign is not None:
+        if not is_local_budget(resolved['config']):
+            raise PermissionError('repair campaign requires local smoke budgeting')
+        campaign.bind_run(resolved)
     from .sandbox import isolation_level, PROBE_REPORT
     iso = isolation_level()
     if not iso.startswith("os-"):
@@ -241,7 +267,11 @@ def execute(resolved, approval, out, allow_spend):
         f.write(digest(resolved) + "\n")
     out.mkdir(exist_ok=False)
     c = resolved["config"]
-    budget = Budget(c, out / "request_ledger.jsonl")
+    if is_local_budget(c):
+        from .local_budget import LocalSmokeBudget
+        budget = LocalSmokeBudget(c, out / "request_ledger.jsonl", campaign=campaign)
+    else:
+        budget = Budget(c, out / "request_ledger.jsonl")
     write_json(out / "reviewed_config.json", resolved)
     write_json(out / "approval.json", {k: approval[k] for k in ("status", "approved", "reviewed_by", "credential_owner", "review_sha256")})
     from .model import OpenAICompatModel
@@ -256,14 +286,15 @@ def execute(resolved, approval, out, allow_spend):
                                   before_request=budget.before, after_response=budget.after, **strict)
         env = MechEnv(DEFAULT_ENV, c["dev_seed"])
         # Fixed balanced alternating order, not sorted by hypothesized benefit.
-        for arm in ("000", "111", "100", "011"):
-            cfg = RunConfig(arm=arm, seed=1001, n_agents=c["n_agents"], n_rounds=c["n_rounds"],
+        for arm in c.get('arm_order', ["000", "111", "100", "011"]):
+            seed = c['seeds'][0]
+            cfg = RunConfig(arm=arm, seed=seed, n_agents=c["n_agents"], n_rounds=c["n_rounds"],
                             k=c["k"], menu_size=c["menu_size"], model=c["model"], temperature=c["temperature"],
                             max_tokens_per_call=c["builder_max_tokens"], dry_run=False,
                             separation_threshold=c["separation_threshold"], alignment_window=c["alignment_window"],
                             tool_timeout_s=c["tool_timeout_s"], code_sha256=resolved["code_sha256"],
                             extra={"max_input_bytes": c["max_input_bytes"], "stop_on_smoke_anomaly": gateway})
-            soc = out / f"ENG_{arm}_s1001"
+            soc = out / f"ENG_{arm}_s{seed}"
             soc.mkdir()
             manifest = cfg.to_dict() | {"engineering": True, "protocol": c["version"],
                                        "env_sha256": env.file_sha256, "dev_seed": c["dev_seed"],
@@ -279,9 +310,17 @@ def execute(resolved, approval, out, allow_spend):
                 raise RuntimeError("incomplete society: stop, do not score as a full run")
             scored = score_society(str(soc), env, model, attempts=c["solver_attempts"], split="dev",
                                    task_ids=resolved["eval_task_ids"], max_tokens=c["solver_max_tokens"],
-                                   stop_on_smoke_anomaly=gateway)
+                                   stop_on_smoke_anomaly=gateway,
+                                   max_input_bytes=c['max_input_bytes'] if is_stage_b(c) else None)
             pooled.extend(scored.pop("_dev_task_scores"))
-            results.append({"arm": arm, "build": summary, "solver": scored})
+            result = {"arm": arm, "build": summary, "solver": scored}
+            if gateway:
+                from .analysis import analyze_society
+                analysis = analyze_society(soc, out / 'analysis' / soc.name, env, stop_on_smoke_anomaly=True)
+                result['mechanism_analysis'] = analysis['summary']
+            results.append(result)
+        if gateway and (budget.requests != resolved['nominal_model_calls'] or budget.reported_responses != budget.requests):
+            raise RuntimeError('completed schedule does not match reviewed request/response count')
         report = {"status": "COMPLETE_DEV_DIAGNOSTIC", "results": results,
                   "pooled_U_dev_diagnostic": sum(pooled) / len(pooled),
                   "http_requests": budget.requests, "reported_responses": budget.reported_responses,
@@ -290,14 +329,21 @@ def execute(resolved, approval, out, allow_spend):
         if not gateway:
             report.update(cost_reserved_usd=budget.reserved,
                           cost_reported_at_uncached_rate_usd=budget.reported_usd)
+        if gateway:
+            from .analysis import aggregate_analyses
+            report['analysis_summary'] = aggregate_analyses(out / 'analysis')
         write_json(out / "pilot_summary.json", report)
         return report
     except (Exception, SystemExit, KeyboardInterrupt) as exc:
+        if is_local_budget(c):
+            budget.stop('run_failure')
         # Never persist str(exc): SDK/proxy errors may contain credentials.
         failure = {"status": "INCOMPLETE_NOT_SCORED_AS_ZERO",
                     "error_type": type(exc).__name__, "http_status": getattr(exc, "status_code", None),
                     "stop_reason": getattr(exc, "reason", None), "budget": budget.receipt(),
                     "http_requests": budget.requests, "completed_arms": [r["arm"] for r in results]}
+        from .failure_diagnostics import failure_diagnostics
+        failure['diagnostic'] = failure_diagnostics(exc)
         if not gateway:
             failure["reserved_usd"] = budget.reserved
         write_json(out / "FAILED.json", failure)

@@ -29,10 +29,10 @@ def check():
     return dict(PROBE_REPORT, external_model_requests=0)
 
 
-def main(argv=None):
+def main(argv=None, *, campaign=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('action', choices=('check', 'prepare', 'execute'))
-    p.add_argument('--config', default=str(ROOT / 'configs/agentport_flash_smoke.json'))
+    p.add_argument('--config', default=str(ROOT / 'configs/agentport_flash_local_smoke.json'))
     p.add_argument('--out')
     p.add_argument('--run-out')
     p.add_argument('--review')
@@ -51,7 +51,11 @@ def main(argv=None):
     if args.action == 'prepare':
         if not args.out or not args.run_out or args.allow_spend or args.approval or args.review:
             p.error('prepare needs --out and --run-out; spending/approval flags are forbidden')
+        if config.get('sandbox_image_id'):
+            os.environ['BOIDS_DOCKER_IMAGE'] = config['sandbox_image_id']
         receipt = check()
+        if config.get('sandbox_image_id') and receipt['probe']['image_id'] != config['sandbox_image_id']:
+            raise PermissionError('prepared Docker image differs from the supplied pin')
         config['sandbox_image_id'] = receipt['probe']['image_id']
         resolved = resolve(config, args.run_out)
         out = Path(args.out)
@@ -81,7 +85,7 @@ def main(argv=None):
             if not sys.stdin.isatty():
                 raise PermissionError('key absent: use an interactive hidden prompt or runtime environment')
             os.environ[config['key_env']] = getpass.getpass('AgentPort key (hidden, not saved): ')
-        report = execute(resolved, approval, args.out, args.allow_spend)
+        report = execute(resolved, approval, args.out, args.allow_spend, campaign=campaign)
         print(json.dumps({'status': report['status'], 'budget': report['budget'], 'out': args.out}))
     finally:
         if supplied:

@@ -32,6 +32,24 @@ def body(lines):
 
 
 class GateTests(unittest.TestCase):
+    def test_signed_numeric_literals_are_constants_not_transform_logic(self):
+        for value in ('-1', '+1', '-0.5', '-1e9', '[-1, +2]', '(-1, 2)',
+                      "{'lo': -1, 'limits': [-2, +3]}", '{-1: +2}'):
+            with self.subTest(value=value):
+                ok, reason, _ = glue_gate(body([
+                    f'return a00_r01.execute(table, lookup, value={value})']), CAT)
+                self.assertTrue(ok, reason)
+        self.assertTrue(glue_gate(body([
+            'factor = -1', 'return a00_r01.execute(table, lookup, factor=factor)']), CAT)[0])
+
+    def test_sign_permission_does_not_allow_computation_or_calls(self):
+        for value in ('-table', '-a00_r01.execute(table, lookup)', '--1',
+                      '-float("inf")', 'not True', '~1', '-True', "-'text'",
+                      '[-table]', "{'lo': -table}"):
+            with self.subTest(value=value):
+                self.assertFalse(glue_gate(body([
+                    f'return a00_r01.execute(table, lookup, value={value})']), CAT)[0])
+
     def test_accepts_tool_chain(self):
         ok, reason, imp = glue_gate(OKG, CAT)
         self.assertTrue(ok, reason)
@@ -65,15 +83,14 @@ class GateTests(unittest.TestCase):
         self.assertIn("payload", reason)
         self.assertTrue(glue_gate(body(["return a00_r01.execute(table, lookup, col='revenue_cents', k=3)"]), CAT)[0])
 
-    def test_rejects_imports_outside_library_and_long_glue(self):
+    def test_rejects_imports_outside_library_but_accepts_long_glue(self):
         self.assertFalse(glue_gate("import os\n" + OKG, CAT)[0])
         self.assertFalse(glue_gate(OKG.replace("a01_r02", "a09_r09"), CAT)[0])
         self.assertFalse(glue_gate("from tools import a00_r01 as z\n" + body(["return z.execute(table, lookup)"]), CAT)[0])
         long = body(["x0 = a00_r01.execute(table, lookup)"] +
                     [f"x{i} = a00_r01.execute(x{i-1}, lookup)" for i in range(1, 14)] + ["return x13"])
         ok, reason, _ = glue_gate(long, CAT)
-        self.assertFalse(ok)
-        self.assertIn("lines", reason)
+        self.assertTrue(ok, reason)
 
 
 def tool_for(env, task, desc):

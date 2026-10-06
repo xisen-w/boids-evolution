@@ -17,7 +17,9 @@ Pre-registered rules (msgs #73 B1/B3, #76.1/#76.3):
   statements, no loops/comprehensions/conditionals/arithmetic/subscripts,
   no builtins, getattr/__import__/importlib/eval/open, and every name must be
   bound by a from-tools-import line, by execute's parameters, or by an
-  earlier assignment.  At most 15 non-blank lines.  A gate failure scores 0
+  earlier assignment. There is no physical-line cap (removed during the
+  engineering smoke at the user's request); the model output-token budget
+  still applies. A gate failure scores 0
   for that attempt and is logged with its reason.
 - Scoring: mechenv.harness(glue, task, probe='coverage') on tasks(0,'test')
   whose seal must equal the published one.  Each task gets R attempts; task
@@ -35,6 +37,7 @@ import sys
 
 from .env_adapter import MechEnv
 from .exposure import summarise
+from .primitive_contract import PUBLIC_PRIMITIVES
 from .sandbox import SandboxedTool
 
 def _sha(text):
@@ -55,7 +58,6 @@ LEGACY_TEST_SEAL = "25634f7783fffbac3c2e1f74c545c2f647806218173b1af2dd3e2f1393c8
 # This is a candidate seal, not a claim of joint preregistration. Real test
 # scoring still requires the separately reviewed confirmatory freeze.
 PUBLISHED_TEST_SEAL = "c9f634ae53c8f62694aed012f83520b53541175462552afdac5d1e40c93b7c0d"
-MAX_GLUE_LINES = 15
 MAX_STR_CONST = 32            # msg #79.2 anti-interpreter caps
 MAX_CONST_PAYLOAD = 128
 FORBIDDEN_NAMES = {"getattr", "setattr", "__import__", "importlib", "eval", "exec", "open",
@@ -64,7 +66,10 @@ FORBIDDEN_NAMES = {"getattr", "setattr", "__import__", "importlib", "eval", "exe
 SOLVER_SYSTEM = (
     "You solve a table-transform task by composing tools from a fixed library. "
     "You may NOT write any transformation logic yourself: your answer may only import "
-    "library tools and chain their execute() calls."
+    "library tools and chain their execute() calls. "
+    "The library may be insufficient for the task. In that case still provide your "
+    "best legal composition of available tools; an incorrect result is scored as "
+    "failure. Never invent tools, assume extra lookup data, or bypass the call contract."
 )
 SOLVER_FORMAT = (
     "Answer with one ```python block containing only:\n"
@@ -72,7 +77,16 @@ SOLVER_FORMAT = (
     "  def execute(table, lookup, **params):\n"
     "      <name> = <tool_id>.execute(<args>)   # args: table, lookup, earlier names, constants\n"
     "      return <name>\n"
-    f"No loops, conditionals, arithmetic, indexing, builtins or other code. At most {MAX_GLUE_LINES} lines."
+    "No loops, conditionals, arithmetic, indexing, builtins or other code. "
+    "You must call at least one listed tool and return that call's result (directly "
+    "or through an assigned variable); returning the original input table without "
+    "a tool call is invalid even if the task cannot be solved. Pass named keyword "
+    "arguments explicitly, not **params. Omit lengthy comments or explanations. "
+    "Prefer the shortest useful chain; repeating the same operation "
+    "does not supply a missing capability. Import only the tools you call. "
+    "Copy each tool's listed call signature and fill in its keyword values. "
+    "For example, sort needs col=<column name>, desc=<boolean>, NOT sort=<column name>; "
+    "filter needs col, op, value, NOT threshold. Supply every listed keyword."
 )
 
 
@@ -153,9 +167,6 @@ def glue_gate(source, catalogue_ids):
     """Return (ok, reason, imported_ids)."""
     if source is None:
         return False, "no python block", []
-    lines = [l for l in source.splitlines() if l.strip()]
-    if len(lines) > MAX_GLUE_LINES:
-        return False, f"{len(lines)} lines > {MAX_GLUE_LINES}", []
     try:
         tree = ast.parse(source)
     except SyntaxError as e:
@@ -195,8 +206,17 @@ def glue_gate(source, catalogue_ids):
     if fn.args.vararg:
         return False, "*args not allowed", []
 
+    def literal(x):
+        # Python represents -1 as UnaryOp(USub, Constant(1)), not Constant.
+        # Permit signed numeric literals without enabling arithmetic on data,
+        # names, calls, nested unary operators, or custom objects.
+        return isinstance(x, ast.Constant) or (
+            isinstance(x, ast.UnaryOp) and isinstance(x.op, (ast.USub, ast.UAdd))
+            and isinstance(x.operand, ast.Constant)
+            and type(x.operand.value) in (int, float))
+
     def check_expr(x):
-        if isinstance(x, ast.Constant):
+        if literal(x):
             return None
         if isinstance(x, ast.Name):
             if x.id in FORBIDDEN_NAMES or x.id not in bound:
@@ -204,14 +224,14 @@ def glue_gate(source, catalogue_ids):
             return None
         if isinstance(x, (ast.List, ast.Tuple)):
             for el in x.elts:
-                if not isinstance(el, ast.Constant):
+                if not literal(el):
                     return "only constant lists/tuples allowed as arguments"
             return None
         if isinstance(x, ast.Dict):
             for k, v in zip(x.keys, x.values):
-                if not (isinstance(k, ast.Constant) and isinstance(v, (ast.Constant, ast.List))):
+                if not (literal(k) and (literal(v) or isinstance(v, ast.List))):
                     return "only constant dicts allowed as arguments"
-                if isinstance(v, ast.List) and not all(isinstance(el, ast.Constant) for el in v.elts):
+                if isinstance(v, ast.List) and not all(literal(el) for el in v.elts):
                     return "only constant dicts allowed as arguments"
             return None
         if isinstance(x, ast.Call):
@@ -284,6 +304,8 @@ def glue_gate(source, catalogue_ids):
             payload += len(node.value)
         elif isinstance(node, ast.Constant) and node.value is not None:
             payload += len(repr(node.value))
+        elif isinstance(node, ast.UnaryOp):
+            payload += 1  # The numeric operand is counted separately above.
     if payload > MAX_CONST_PAYLOAD:
         return False, f"constant payload {payload} > {MAX_CONST_PAYLOAD}", []
     return True, "ok", imported
@@ -304,7 +326,7 @@ def const_payload(source):
 # --------------------------------------------------------------------------
 # Solver + scoring
 # --------------------------------------------------------------------------
-def solver_prompt(task, kept, source_of, attempt=0, society_seed=0):
+def solver_prompt(task, kept, source_of, attempt=0, society_seed=0, max_input_bytes=None):
     """v0.3.10 (msg #82 A'): catalogue FIRST, task spec LAST, so all tasks in
     one (society, attempt) share a cacheable prefix.  The catalogue order is
     shuffled once per (society seed, attempt) with a fixed seed; the seed does
@@ -313,13 +335,21 @@ def solver_prompt(task, kept, source_of, attempt=0, society_seed=0):
     import random as _r
     order = sorted(kept, key=lambda e: e["id"])
     _r.Random(f"solver:{society_seed}:{attempt}").shuffle(order)
-    lines = ["Library:"]
-    for e in order:
-        lines.append(summarise(e, source_of(e["id"])))
-    if not kept:
-        lines.append("(empty)")
-    lines += ["", SOLVER_FORMAT, "", f"TASK: {task.spec}"]
-    return "\n".join(lines)
+    for prose_limit in (None, 200, 100, 50, 0):
+        lines = ["Library:"]
+        for e in order:
+            lines.append(summarise(e, source_of(e["id"]), prose_limit=prose_limit))
+            for name in e.get("implements", []):
+                if name in PUBLIC_PRIMITIVES:
+                    keywords = ', '.join(f'{p}=<{p}>' for p in PUBLIC_PRIMITIVES[name][0].split(','))
+                    lines.append(f"    Declared {name} call: {e['id']}.execute(table, lookup, {keywords})")
+        if not kept:
+            lines.append("(empty)")
+        lines += ["", SOLVER_FORMAT, "", f"TASK: {task.spec}"]
+        prompt = "\n".join(lines)
+        if max_input_bytes is None or len((SOLVER_SYSTEM + prompt).encode('utf-8')) <= max_input_bytes:
+            return prompt
+    raise ValueError('solver interfaces and full task exceed reviewed input cap; no tool or signature was dropped')
 
 
 def gate_reason_class(reason):
@@ -375,7 +405,7 @@ def check_sampling(society_dir, model, split="test"):
 
 def score_society(society_dir, env, model, attempts=3, out_name=None, temperature=0.7,
                   max_tokens=4000, split="test", token_budget=None, task_ids=None,
-                  stop_on_smoke_anomaly=False):
+                  stop_on_smoke_anomaly=False, max_input_bytes=None):
     """split='test' is the confirmatory U (needs the published seal).
     split='dev' is a DIAGNOSTIC (U_dev): same freeze, gate and scoring on the
     dev tasks the agents saw.  It opens nothing sealed, so the smoke test can
@@ -442,7 +472,7 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             break
         passes = []
         for k in range(attempts):
-            prompt = solver_prompt(task, kept, source_of, k, sseed)
+            prompt = solver_prompt(task, kept, source_of, k, sseed, max_input_bytes)
             audit_path = os.path.join(audit_dir, f"task_{ti:03d}_attempt_{k}.json")
             audit = {"status": "REQUEST_PENDING", "task": task.id, "attempt": k,
                      "system": SOLVER_SYSTEM, "prompt": prompt, "task_spec": task.spec,
@@ -464,9 +494,10 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                          response_metadata=getattr(model, "last_response_metadata", None))
             if split == "dev":
                 _write_private_audit(audit_path, audit)
-            if stop_on_smoke_anomaly and not ok:
-                from .smoke_policy import SmokeStop
-                raise SmokeStop("solver_glue_contract_failure")
+            # Invalid model answers are still zero-score attempts, including
+            # in engineering smoke. Requiring every answer to be valid would
+            # select away model failures through whole-run retries. The gate
+            # prevents invalid glue from executing; infrastructure still raises.
             verdict = None
             if ok:
                 gid = f"solver_t{ti:03d}_k{k}"
@@ -486,6 +517,8 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                    "tokens_in": tin, "tokens_out": tout,
                    "tokens_cached": tcached, "prompt_sha256": _sha(prompt)}
             row["response_metadata"] = getattr(model, "last_response_metadata", None)
+            row['model_contract_failure'] = not ok
+            row['model_execution_failure'] = bool(verdict and verdict.get('crashed', 0))
             if split == "test":
                 row.update(passed=passed, verdict=verdict, response=text)
             else:
@@ -505,13 +538,16 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
             with open(log_path, "a") as log:
                 log.write(json.dumps(row) + "\n")
             if stop_on_smoke_anomaly:
-                from .smoke_policy import SmokeStop, verdict_has_execution_error
-                if verdict_has_execution_error(verdict):
+                from .smoke_policy import SmokeStop, verdict_has_execution_error, ordinary_solver_code_error
+                if verdict_has_execution_error(verdict) and not ordinary_solver_code_error(verdict):
                     raise SmokeStop("solver_execution_error")
         task_scores.append(sum(passes) / len(passes))
     with open(os.path.join(out, "solver_log.jsonl")) as fh:
         rows = [json.loads(l) for l in fh]
     gate_fail = sum(not r["gate_ok"] for r in rows) / len(rows) if rows else 0.0
+    if stop_on_smoke_anomaly and rows and not any(r['gate_ok'] for r in rows):
+        from .smoke_policy import SmokeStop
+        raise SmokeStop('no_executable_solver_attempts')
     reasons = {}
     for r in rows:
         if not r["gate_ok"]:
@@ -522,6 +558,7 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
            "task_ids": [t.id for t in test], "diagnostic_only": split == "dev",
            "solver_truncated_by_budget": truncated, "solver_token_budget": token_budget, "attempts": attempts,
            "gate_fail_rate": gate_fail, "gate_fail_reasons": dict(sorted(reasons.items())),
+           "model_execution_failure_attempts": sum(r['model_execution_failure'] for r in rows),
            "test_seal": seal, "library": meta, "solver_tokens": tokens,
            "solver_calls": n_calls, "solver_tokens_per_call": tokens / n_calls if n_calls else 0.0,
            "solver_cached_tokens": cached,

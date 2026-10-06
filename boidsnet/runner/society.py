@@ -88,7 +88,8 @@ class Society:
                 if cfg.extra.get("stop_on_smoke_anomaly"):
                     # Evaluate immediately, but keep the frozen round-start
                     # snapshot for every agent. Do not pay for the next agent
-                    # after discovering an execution failure in this one.
+                    # after discovering a system/security/resource failure.
+                    # Ordinary generated-code failures remain failed outcomes.
                     self._evaluate(*item)
                     self.log.write(json.dumps(item[0], sort_keys=True) + "\n")
                     self.log.flush()
@@ -169,13 +170,20 @@ class Society:
             user = variants[cfg.arm]
             sac_meta.update(evidence_sha256=evidence_hash(evidence), prompt_shrink_steps=shrink_steps,
                             max_rendered_input_bytes=max(len((SYSTEM + u).encode("utf-8")) for u in variants.values()))
+        tool_id = self.lib.make_id(agent, rnd)
+        # Keep the exact research prompt even if the first provider call fails.
+        # No transport headers or credentials are part of this artifact.
+        prompt_path = os.path.join(self.out, "prompts", f"{tool_id}.json")
+        with open(prompt_path, "w") as f:
+            json.dump({"system": SYSTEM, "user": user, "response": None,
+                       "status": "REQUEST_PREPARED"}, f, indent=1)
         text, tin, tout = self.model.complete(SYSTEM, user, cfg.temperature, cfg.max_tokens_per_call)
         self.tokens += tin + tout
         retries = getattr(self.model, "last_retries", 0)
         parsed = parse_response(text, self.env.primitives)
-        tool_id = self.lib.make_id(agent, rnd)
-        with open(os.path.join(self.out, "prompts", f"{tool_id}.json"), "w") as f:
-            json.dump({"system": SYSTEM, "user": user, "response": text}, f, indent=1)
+        with open(prompt_path, "w") as f:
+            json.dump({"system": SYSTEM, "user": user, "response": text,
+                       "status": "RESPONSE_RECEIVED"}, f, indent=1)
         rec = {
             "arm": cfg.arm, "seed": cfg.seed, "round": rnd, "agent": agent,
             "neighbours": neighbours, "exemplar_scope": cfg.exemplar_scope,
@@ -202,11 +210,7 @@ class Society:
         if sac_evidence is not None:
             rec.update(sac_evidence=sac_evidence, sac_selection=sac_meta, sac_fired=sac_fired)
         rec["response_metadata"] = getattr(self.model, "last_response_metadata", None)
-        if cfg.extra.get("stop_on_smoke_anomaly") and not parsed["parse_ok"]:
-            from .smoke_policy import SmokeStop
-            self.log.write(json.dumps(dict(rec, smoke_stop="builder_parse_failure"), sort_keys=True) + "\n")
-            self.log.flush()
-            raise SmokeStop("builder_parse_failure")
+        rec['model_parse_failure'] = not parsed['parse_ok']
         entry = None
         if parsed["parse_ok"]:
             entry = self.lib.add(tool_id, agent, rnd, parsed["tool_label"],
@@ -232,11 +236,26 @@ class Society:
         tool = SandboxedTool(self.lib.root, entry["id"], self.cfg.tool_timeout_s)
         # D9: zero-model-call execution feedback, shown to the author next round.
         rec["exec_feedback"] = self.env.exec_feedback(tool, rec["round"])
+        parametric = None
         if self.cfg.extra.get("stop_on_smoke_anomaly") and rec["exec_feedback"].startswith("raised "):
-            from .smoke_policy import SmokeStop
-            self.log.write(json.dumps(dict(rec, smoke_stop="builder_public_execution_error"), sort_keys=True) + "\n")
-            self.log.flush()
-            raise SmokeStop("builder_public_execution_error")
+            from .smoke_policy import SmokeStop, verified_parametric_component, ordinary_model_code_error
+            diagnostic = {}
+            parametric = verified_parametric_component(self.env, tool, entry, rec["exec_feedback"], diagnostic)
+            rec["parametric_probe_diagnostic"] = diagnostic
+            # The independent verifier can reveal a timeout/security failure
+            # even when the earlier public call was just missing a parameter.
+            critical_verifier = diagnostic['status'] == 'primitive_verification_failed'
+            if parametric is None and (critical_verifier or not ordinary_model_code_error(rec['exec_feedback'][7:])):
+                reason = ("builder_parametric_verification_failed"
+                          if diagnostic['status'] == 'primitive_verification_failed'
+                          else "builder_public_execution_error")
+                self.log.write(json.dumps(dict(rec, smoke_stop=reason), sort_keys=True) + "\n")
+                self.log.flush()
+                raise SmokeStop(reason)
+            if parametric is not None:
+                rec["parametric_probe_contract"] = parametric
+            else:
+                rec['model_public_execution_failure'] = True
         rec["exec_feedback_seed"] = self.env.public_example_seed(rec["round"])
         self.feedback[entry["author"]] = {"tool_id": entry["id"], "text": rec["exec_feedback"]}
         vec = self.env.signature(tool)
@@ -244,10 +263,24 @@ class Society:
         rec["signature_signal"] = vec
         rec["signature_errors"] = sum(1 for y in vec if y.startswith("ERR"))
         if self.cfg.extra.get("stop_on_smoke_anomaly") and rec["signature_errors"]:
-            from .smoke_policy import SmokeStop
-            self.log.write(json.dumps(dict(rec, smoke_stop="builder_probe_execution_error"), sort_keys=True) + "\n")
-            self.log.flush()
-            raise SmokeStop("builder_probe_execution_error")
+            from .smoke_policy import SmokeStop, missing_parameter, ordinary_model_code_error
+            # Inspect the actual cached no-kwargs outputs, not the coarse ERR
+            # fingerprints. A verified primitive does not excuse another error.
+            outputs = tool.prefetch(self.env.signal_calls())
+            expected = model_errors = 0
+            for y in outputs:
+                error = y.get('__error__') if isinstance(y, dict) else None
+                if parametric and missing_parameter(error, parametric['parameter_names']):
+                    expected += 1
+                elif ordinary_model_code_error(error):
+                    model_errors += 1
+            rec['model_probe_error_count'] = model_errors
+            if expected + model_errors != rec["signature_errors"]:
+                self.log.write(json.dumps(dict(rec, smoke_stop="builder_probe_execution_error"), sort_keys=True) + "\n")
+                self.log.flush()
+                raise SmokeStop("builder_probe_execution_error")
+            if parametric:
+                parametric['signal_errors_classified'] = expected
         # Legacy arms hide verdicts. SAC exposes selected-exemplar dev-pass
         # metadata identically in all four conditions (never reference outputs).
         task = self.task_by_id.get(entry["target"])
@@ -258,8 +291,9 @@ class Society:
         entry["harness"] = rec["harness"]
         self.lib.save()
         if self.cfg.extra.get("stop_on_smoke_anomaly"):
-            from .smoke_policy import SmokeStop, verdict_has_execution_error
-            if verdict_has_execution_error(rec["harness"]):
+            from .smoke_policy import SmokeStop, verdict_has_execution_error, ordinary_solver_code_error
+            rec['model_harness_execution_failure'] = verdict_has_execution_error(rec['harness'])
+            if rec['model_harness_execution_failure'] and not ordinary_solver_code_error(rec['harness']):
                 self.log.write(json.dumps(dict(rec, smoke_stop="builder_harness_execution_error"), sort_keys=True) + "\n")
                 self.log.flush()
                 raise SmokeStop("builder_harness_execution_error")
@@ -271,6 +305,10 @@ class Society:
         s = {
             "records": len(recs), "tokens_total": self.tokens, "truncated": self.truncated,
             "tools_built": sum(r["parse_ok"] for r in recs),
+            "model_parse_failures": sum(bool(r.get('model_parse_failure')) for r in recs),
+            "model_public_execution_failures": sum(bool(r.get('model_public_execution_failure')) for r in recs),
+            "model_probe_execution_failures": sum(bool(r.get('model_probe_error_count')) for r in recs),
+            "model_harness_execution_failures": sum(bool(r.get('model_harness_execution_failure')) for r in recs),
             "harness_passed": sum(1 for r in recs if (r.get("harness") or {}).get("passed")),
             "rule_fire_rate": sum(r["rule_fired"] for r in recs) / n,
             "block_nonempty_rate": sum(r["block_nonempty"] for r in recs) / n,

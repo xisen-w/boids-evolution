@@ -1,5 +1,12 @@
 # boidsnet.runner (DRAFT, not frozen), protocol v0.3.11
 
+**Current SAC status (2026-10-07):** four-arm core engineering smoke completed on
+Mac + Docker. The reviewed Stage B launcher and zero-model-call mechanism
+analysis are documented in [STAGE_B_AND_ANALYSIS.md](STAGE_B_AND_ANALYSIS.md).
+The older behavioral protocol and dated decisions below are retained as history;
+their original "dry-run only" status is not the current SAC execution status.
+No confirmatory study or scientific benefit is claimed.
+
 Single runner for the protocol arms: confirmatory E, L0, R0, IM and exploratory L1, G0m (G0 kept in code only), wired to the mechanism env
 (`boidsnet/env/mechenv.py`, mechenv v0.2.1, the single copy in the repo). Stdlib only, except for
 the optional `openai` package, which is used only for paid runs. Status: dry-run only. It has
@@ -133,7 +140,7 @@ D15 (v0.9) U harness, runner/utility.py (msgs #73 B1/B3, #76.1/#76.3). L_T is fr
    group (else the earliest). Dependencies are copied but not listed. The solver sees one test spec
    plus the catalogue. An AST gate allows only from-tools imports and one execute() made of name
    assignments, return and `<tool>.execute(...)` calls with names/constants; no loops,
-   conditionals, arithmetic, subscripts, builtins, getattr/importlib/eval/open; <=15 lines; every
+   conditionals, arithmetic, subscripts, builtins, getattr/importlib/eval/open; every
    name bound. Scoring uses mechenv.harness on tasks(0,'test') after checking the published seal.
    Task score = MEAN over R attempts; U = mean over tasks; U_by_depth is reported. The test
    split opens only with --unseal.

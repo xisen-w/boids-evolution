@@ -94,7 +94,7 @@ def select_matched(ring_pool, other_pool, own_latest, m, rng, similarity):
 EXEMPLAR_CHARS = 400
 
 
-def summarise(entry, source):
+def summarise(entry, source, prose_limit=None):
     """Keep interface metadata intact; cap only the descriptive prose.
     Same format for every arm, so content is fixed (msg #30, E3)."""
     sig, doc = "execute(?)", ""
@@ -113,6 +113,8 @@ def summarise(entry, source):
     if doc:
         prose += f" | doc: {' '.join(doc.split())}"
     room = max(0, EXEMPLAR_CHARS - len(mandatory))
+    if prose_limit is not None:
+        room = min(room, prose_limit)
     if len(prose) > room:
         prose = prose[:room - 3] + "..." if room >= 3 else ""
     # An unusually long signature can exceed the soft exemplar budget. The

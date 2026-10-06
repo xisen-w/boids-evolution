@@ -6,21 +6,34 @@ an extra "combine tools" question, a role prior, or a global summary).
 import re
 
 from .env_adapter import CONTRACT
+from .primitive_contract import render_public_contract
 
 SYSTEM = (
     "You are one agent in a society that builds small Python tools for table "
     "transforms. Each round you write exactly one new tool. " + CONTRACT + " "
     "You may import any listed tool with `from tools import <tool_id>` and call "
-    "`<tool_id>.execute(...)`. Standard library only."
+    "`<tool_id>.execute(...)`. Standard library only. "
+    "TARGET names a task only if execute(table, lookup), with no keyword arguments, "
+    "implements that task's entire listed pipeline using its specified parameters. "
+    "A reusable primitive or partial pipeline that does not solve an entire task "
+    "must use TARGET: NONE. IMPLEMENTS lists only complete primitives that work "
+    "with their parameters supplied as keyword arguments. Public feedback and "
+    "behaviour probes call without keyword arguments; primitive verification "
+    "supplies parameters. Describe required parameters in DESCRIPTION.\n\n"
+    + render_public_contract()
 )
 
 FORMAT = (
     "Answer in exactly this format:\n"
     "TOOL_LABEL: <short name>\n"
-    "TARGET: <task id from the list, or NONE>\n"
+    "TARGET: <NONE if any keyword parameter is required; otherwise an exact task id whose whole pipeline works with no kwargs>\n"
     "IMPLEMENTS: <comma-separated primitive names this tool implements on its own, or NONE>\n"
     "DESCRIPTION: <one line>\n"
-    "```python\n<code defining execute(table, lookup, **params)>\n```"
+    "```python\n<code defining execute(table, lookup, **params)>\n```\n"
+    "Before answering, check the TARGET contract: if your code needs a value such "
+    "as params['col'] or params['factor'] and has no default, TARGET must be NONE, "
+    "even when a menu task uses that primitive. Do not claim a task based only on "
+    "its name or one matching step. Do not include this check in the answer."
 )
 
 

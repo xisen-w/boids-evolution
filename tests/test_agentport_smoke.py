@@ -132,6 +132,35 @@ class ConfigAndBudgetTests(unittest.TestCase):
 
 
 class ResponseContractTests(unittest.TestCase):
+    def test_azure_and_native_thinking_wire_formats_are_distinct(self):
+        from boidsnet.runner.agentport_config import thinking_request_body
+        self.assertEqual(thinking_request_body('azure:DeepSeek-V4-Flash',
+                         'https://agentport.world/v1', 'disabled'), {'reasoning_effort': 'none'})
+        self.assertEqual(thinking_request_body('deepseek-flash', 'https://api.deepseek.com', 'disabled'),
+                         {'thinking': {'type': 'disabled'}})
+        r = resolve(ready_config())
+        self.assertEqual(r['provider_request_body'], {'reasoning_effort': 'none'})
+
+    def test_reasoning_aliases_tokens_and_inline_blocks_stop_after_accounting(self):
+        variants = [({'reasoning': 'secret reasoning fixture'}, None),
+                    ({'reasoning_details': [{'text': 'fixture'}]}, None),
+                    ({'content': '<think>fixture</think>answer'}, None),
+                    ({}, 3), ({}, -1), ({}, True), ({}, '0')]
+        for message_change, tokens in variants:
+            m = make([]); m.accepted_response_models = ['fixture']
+            m.before_request, m.after_response = mock.Mock(), mock.Mock()
+            message = {'content': 'answer'} | message_change
+            m.client.chat.completions.create = mock.Mock(return_value=types.SimpleNamespace(
+                usage=types.SimpleNamespace(prompt_tokens=3, completion_tokens=5,
+                                            completion_tokens_details=types.SimpleNamespace(reasoning_tokens=tokens)),
+                model='fixture', choices=[types.SimpleNamespace(finish_reason='stop',
+                                                                message=types.SimpleNamespace(**message))]))
+            with self.subTest(message=message_change, tokens=tokens), self.assertRaises(SmokeStop):
+                m.complete('s', 'u', 0.7, 10)
+            m.after_response.assert_called_once()
+            with self.assertRaises(RuntimeError): m.complete('s', 'u', 0.7, 10)
+            self.assertEqual(m.before_request.call_count, 1)
+
     def test_gateway_transport_requires_no_retry_and_explicit_models(self):
         with mock.patch('boidsnet.runner.sandbox.isolation_level', return_value='os-docker'), \
                 mock.patch.dict(os.environ, {'BOIDS_PARTNER_API_KEY': 'OFFLINE_FAKE', 'BOIDS_SANDBOX': 'docker'}), \
@@ -189,21 +218,25 @@ class StopSemanticsTests(unittest.TestCase):
         return Society(RunConfig(arm='000', seed=1001, n_agents=4, n_rounds=3,
                                  extra={'stop_on_smoke_anomaly': True}), env, model, tmp)
 
-    def test_bad_builder_stops_after_one_request(self):
+    def test_bad_builder_is_recorded_without_regeneration_or_fake_tool(self):
         model = types.SimpleNamespace(complete=mock.Mock(return_value=('bad fixture', 3, 1)))
         with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaisesRegex(SmokeStop, 'builder_parse_failure'):
-                self.society(tmp, model, MechEnv(DEFAULT_ENV)).run()
-            self.assertEqual(model.complete.call_count, 1)
+            result = self.society(tmp, model, MechEnv(DEFAULT_ENV)).run()
+            self.assertEqual(model.complete.call_count, 12)
+            self.assertEqual(result['records'], 12)
+            self.assertEqual(result['tools_built'], 0)
+            self.assertEqual(result['model_parse_failures'], 12)
+            self.assertEqual(result['harness_passed'], 0)
 
     def test_execution_error_stops_before_next_agent(self):
-        model = types.SimpleNamespace(complete=mock.Mock(return_value=(BUILDER, 3, 1)))
-        env = MechEnv(DEFAULT_ENV)
-        with tempfile.TemporaryDirectory() as tmp, \
-                mock.patch.object(env, 'exec_feedback', return_value='raised fixture failure'):
-            with self.assertRaisesRegex(SmokeStop, 'builder_public_execution_error'):
-                self.society(tmp, model, env).run()
-            self.assertEqual(model.complete.call_count, 1)
+        for error in ('fixture failure', 'timeout', 'PermissionError: forbidden file'):
+            model = types.SimpleNamespace(complete=mock.Mock(return_value=(BUILDER, 3, 1)))
+            env = MechEnv(DEFAULT_ENV)
+            with self.subTest(error=error), tempfile.TemporaryDirectory() as tmp, \
+                    mock.patch.object(env, 'exec_feedback', return_value='raised ' + error):
+                with self.assertRaisesRegex(SmokeStop, 'builder_public_execution_error'):
+                    self.society(tmp, model, env).run()
+                self.assertEqual(model.complete.call_count, 1)
 
     def test_wrong_answer_not_misclassified_as_execution_failure(self):
         self.assertFalse(verdict_has_execution_error({'passed': False, 'crashed': 0}))
@@ -222,17 +255,64 @@ class StopSemanticsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             score_society('never-created', None, None, split='test', stop_on_smoke_anomaly=True)
 
-    def test_bad_solver_glue_stops_after_one_request(self):
+    def test_bad_solver_attempt_is_zero_without_dropping_other_attempts(self):
         from boidsnet.runner.library import Library
-        model = types.SimpleNamespace(solve=mock.Mock(return_value=('bad fixture', 3, 1)))
+        good = '```python\nfrom tools import a00_r01\ndef execute(table, lookup, **params):\n    return a00_r01.execute(table, lookup)\n```'
+        model = types.SimpleNamespace(solve=mock.Mock(side_effect=[('bad fixture', 3, 1), (good, 3, 1)]))
         with tempfile.TemporaryDirectory() as tmp:
             lib = Library(str(Path(tmp) / 'library'))
             entry = lib.add('a00_r01', 0, 1, 'fixture', 'identity', None, IDENT)
             entry.update(signature_signal=['fixture'] * 8, harness={'passed': False})
             lib.save()
-            with self.assertRaisesRegex(SmokeStop, 'solver_glue_contract_failure'):
-                score_society(tmp, MechEnv(DEFAULT_ENV), model, split='dev', stop_on_smoke_anomaly=True)
-            self.assertEqual(model.solve.call_count, 1)
+            env = MechEnv(DEFAULT_ENV)
+            task = env.dev_tasks()[0]['id']
+            verdict = {'passed': True, 'crashed': 0, 'n_pass': 8, 'n_total': 8, 'details': []}
+            with mock.patch.object(env, 'harness', return_value=verdict):
+                result = score_society(tmp, env, model, split='dev', stop_on_smoke_anomaly=True,
+                                       task_ids=[task], attempts=2)
+            self.assertEqual(model.solve.call_count, 2)
+            self.assertEqual(result['_dev_task_scores'], [0.5])
+            self.assertEqual(result['gate_fail_rate'], 0.5)
+            audit = json.loads((Path(tmp) / 'utility_dev/private_audit/task_000_attempt_0.json').read_text())
+            self.assertFalse(audit['passed'])
+            self.assertIsNone(audit['verdict'])
+
+    def test_solver_python_mistakes_are_not_timeouts_or_infrastructure_errors(self):
+        from boidsnet.runner.smoke_policy import ordinary_solver_code_error
+        for text, expected in [("KeyError: 'col'", True), ('TypeError: bad call', True),
+                               ('timeout', False), ('PermissionError: denied', False),
+                               ('tool corrupted its result channel', False)]:
+            v = {'passed': False, 'crashed': 1, 'details': ['seed 1: crash RuntimeError: ' + text]}
+            self.assertEqual(ordinary_solver_code_error(v), expected)
+        self.assertFalse(ordinary_solver_code_error({'crashed': 1, 'details': []}))
+
+    def test_solver_error_scoring_and_infrastructure_stop_are_separate(self):
+        from boidsnet.runner.library import Library
+        from boidsnet.runner.sandbox import SandboxInfrastructureError
+        good = '```python\nfrom tools import a00_r01\ndef execute(table, lookup, **params):\n    return a00_r01.execute(table, lookup)\n```'
+        crash = {'passed': False, 'crashed': 8, 'n_pass': 0, 'n_total': 8,
+                 'details': [f"seed {i}: crash RuntimeError: KeyError: 'col'" for i in range(8)]}
+        passed = {'passed': True, 'crashed': 0, 'n_pass': 8, 'n_total': 8, 'details': []}
+        for error in (crash, SandboxInfrastructureError('fixture infrastructure')):
+            with self.subTest(error=type(error).__name__), tempfile.TemporaryDirectory() as tmp:
+                lib = Library(str(Path(tmp) / 'library'))
+                entry = lib.add('a00_r01', 0, 1, 'fixture', 'identity', None, IDENT)
+                entry.update(signature_signal=['fixture'] * 8, harness={'passed': False})
+                lib.save()
+                model = types.SimpleNamespace(solve=mock.Mock(return_value=(good, 3, 1)))
+                env = MechEnv(DEFAULT_ENV)
+                with mock.patch.object(env, 'harness', side_effect=[error, passed]):
+                    args = dict(split='dev', stop_on_smoke_anomaly=True,
+                                task_ids=[env.dev_tasks()[0]['id']], attempts=2)
+                    if isinstance(error, Exception):
+                        with self.assertRaises(SandboxInfrastructureError):
+                            score_society(tmp, env, model, **args)
+                        self.assertEqual(model.solve.call_count, 1)
+                    else:
+                        result = score_society(tmp, env, model, **args)
+                        self.assertEqual(model.solve.call_count, 2)
+                        self.assertEqual(result['_dev_task_scores'], [0.5])
+                        self.assertEqual(result['model_execution_failure_attempts'], 1)
 
 
 class DockerCommandTests(unittest.TestCase):

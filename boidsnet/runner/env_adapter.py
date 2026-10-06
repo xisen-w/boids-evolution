@@ -20,8 +20,10 @@ from dataclasses import asdict
 
 CONTRACT = (
     "A tool is a module defining execute(table, lookup, **params) -> table. "
-    "A table is a list of dict rows (values are float, str or None); lookup is the "
-    "region lookup table. Do not mutate the inputs. Tools that implement a single "
+    "Both table and lookup are lists of dict rows, not dictionaries keyed by region. "
+    "Table row values are float, str or None. Each lookup row has region (str), "
+    "target (float), and manager (str); iterate its rows to find an exact region "
+    "match. Do not mutate either input. Tools that implement a single "
     "primitive take that primitive's parameters as keyword arguments."
 )
 

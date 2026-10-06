@@ -542,10 +542,10 @@ class SandboxInfrastructureError(RuntimeError):
     infrastructure_failure = True
 
 
-def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None):
+def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None, *, worker_source=None):
     """One clean fork per probe; timeout_s is the per-probe execution limit."""
     try:
-        return _run_tool(library_dir, tool_id, calls, timeout_s, acl)
+        return _run_tool(library_dir, tool_id, calls, timeout_s, acl, worker_source)
     except SandboxInfrastructureError:
         raise
     except Exception as exc:
@@ -554,7 +554,7 @@ def run_tool(library_dir, tool_id, calls, timeout_s=5.0, acl=None):
         raise SandboxInfrastructureError("sandbox preparation failed") from exc
 
 
-def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
+def _run_tool(library_dir, tool_id, calls, timeout_s, acl, worker_source=None):
     if not calls:
         return []
     library_dir = os.path.abspath(library_dir)
@@ -563,7 +563,7 @@ def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
     level = isolation_level()
     if level == "os-docker":
         from .docker_sandbox import run
-        proc = run(library_dir, tool_id, calls, acl, timeout_s)
+        proc = run(library_dir, tool_id, calls, acl, timeout_s, worker_source=worker_source) if worker_source else run(library_dir, tool_id, calls, acl, timeout_s)
     elif level == "hook-only":
         cmd, cwd, env = [sys.executable, "-s", "-S", "-c", _CHILD, library_dir, tool_id], library_dir, child_env()
     else:
@@ -575,7 +575,7 @@ def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
     if level != "os-docker":
         try:
             proc = subprocess.run(
-                cmd, input=json.dumps({"calls": calls, "acl": acl, "worker": _WORKER, "timeout_s": timeout_s}),
+                cmd, input=json.dumps({"calls": calls, "acl": acl, "worker": worker_source or _WORKER, "timeout_s": timeout_s}),
                 capture_output=True, text=True,
                 timeout=timeout_s * len(calls) + 10, env=env, cwd=cwd,
             )

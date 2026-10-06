@@ -4,6 +4,11 @@
 
 后续严格复查及修复见 [STRICT_REAUDIT_2026-10-06.md](STRICT_REAUDIT_2026-10-06.md)。下面的美元小实验配置不等同于新提出的 500 元完整研究方案；任何旧批准均因源码变化失效。HTTP 现在增加了真正的总时长 deadline：到期会关闭本地连接并终止本次运行，不自动重采样；服务端是否仍计费视为未知，保留费用预留。
 
+> 2026-10-07 更新：本文保留初期官方 DeepSeek 路由的历史审核记录，不能作为当前启动配置。
+> 当前使用 AgentPort，核心 smoke 已完成；新增机制分析和阶段 B 入口见
+> [STAGE_B_AND_ANALYSIS.md](STAGE_B_AND_ANALYSIS.md)。其中“尚未实现”的历史段落按当时状态阅读；
+> 新阶段仍须新配置批准，不会沿用已关闭的 smoke 修复授权。
+
 ## 1. 审核依据与范围
 
 - GitHub：`xisen-w/boids-evolution`。

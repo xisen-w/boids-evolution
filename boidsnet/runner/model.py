@@ -16,7 +16,7 @@ import threading
 import time
 from contextlib import contextmanager
 
-from .agentport_config import AGENTPORT_BASE_URL, AGENTPORT_FLASH_MODELS
+from .agentport_config import AGENTPORT_BASE_URL, AGENTPORT_FLASH_MODELS, thinking_request_body
 
 
 class RequestDeadlineExceeded(TimeoutError):
@@ -209,7 +209,9 @@ class OpenAICompatModel:
     def sampling(self):
         return {"temperature_sent": self.send_temperature, "token_param": self.token_param,
                 "param_adaptations": self.param_adaptations,
-                "thinking": getattr(self, "thinking", None), "base_url": getattr(self, "base_url", None)}
+                "thinking": getattr(self, "thinking", None), "base_url": getattr(self, "base_url", None),
+                "thinking_request_body": thinking_request_body(
+                    self.name, getattr(self, 'base_url', None), getattr(self, 'thinking', None))}
 
     def _adapt(self, msg):
         """Return True if a rejected sampling parameter was adapted."""
@@ -248,7 +250,7 @@ class OpenAICompatModel:
                 if self.send_temperature:
                     kw["temperature"] = temperature
                 if getattr(self, "thinking", None) is not None:
-                    kw["extra_body"] = {"thinking": {"type": self.thinking}}
+                    kw["extra_body"] = thinking_request_body(self.name, getattr(self, 'base_url', None), self.thinking)
                 with _request_deadline(self.REQUEST_TIMEOUT_S):
                     r = self.client.chat.completions.create(
                         model=self.name, messages=[{"role": "system", "content": system},
@@ -273,19 +275,26 @@ class OpenAICompatModel:
                 transient = (isinstance(e, (APIConnectionError, TransportError, ConnectionError, TimeoutError))
                              if status is None else status in (408, 409, 429) or 500 <= status < 600)
                 if not transient:
+                    if getattr(self, 'accepted_response_models', None) is not None:
+                        self._response_stopped = True
                     raise            # local SDK/type/decoding errors are not transport retries
                 if attempt == self.MAX_ATTEMPTS - 1:
+                    if getattr(self, 'accepted_response_models', None) is not None:
+                        self._response_stopped = True
                     raise
                 self.last_retries += 1
                 time.sleep(2 ** (attempt + 1) + random.random())
                 continue
             # Never resample an already completed response after a local
             # decoding / usage / ledger error. It may already be billed.
-            u = r.usage
+            u = getattr(r, 'usage', None)
             if u is None or u.prompt_tokens is None or u.completion_tokens is None:
                 self._response_stopped = True
                 raise RuntimeError("provider response omitted usage; stop without resampling")
             det = getattr(u, "prompt_tokens_details", None)
+            completion_details = getattr(u, 'completion_tokens_details', None)
+            reasoning_tokens = (completion_details.get('reasoning_tokens') if isinstance(completion_details, dict)
+                                else getattr(completion_details, 'reasoning_tokens', None))
             self.last_cached_tokens = getattr(u, "prompt_cache_hit_tokens", None)
             if self.last_cached_tokens is None:
                 self.last_cached_tokens = getattr(det, "cached_tokens", None) if det else None
@@ -299,9 +308,16 @@ class OpenAICompatModel:
             self.last_response_metadata = {"model": getattr(r, "model", None),
                                            "finish_reason": getattr(choice, "finish_reason", None),
                                            "response_id": getattr(r, "id", None)}
+            # Keep observable off-mode evidence without saving chain-of-thought.
+            self.last_response_metadata['reasoning_tokens'] = (
+                reasoning_tokens if type(reasoning_tokens) is int and reasoning_tokens >= 0 else None)
             if getattr(self, "after_response", None):
-                self.after_response(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens,
-                                    self.last_response_metadata)
+                try:
+                    self.after_response(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens,
+                                        self.last_response_metadata)
+                except Exception:
+                    self._response_stopped = True
+                    raise
             # Account for a completed/billed response even when its answer
             # envelope is malformed. Never resample it to obtain a new answer.
             if choice is None or not hasattr(choice, "message"):
@@ -323,7 +339,10 @@ class OpenAICompatModel:
                     reason = "empty_or_nontext_response"
                 elif getattr(message, "tool_calls", None) or getattr(message, "function_call", None):
                     reason = "unexpected_function_call"
-                elif getattr(message, "reasoning_content", None):
+                elif (getattr(message, "reasoning_content", None) or getattr(message, 'reasoning', None)
+                      or getattr(message, 'reasoning_details', None)
+                      or (reasoning_tokens is not None and (type(reasoning_tokens) is not int or reasoning_tokens != 0))
+                      or re.search(r'<think(?:ing)?>', message.content, re.I)):
                     reason = "thinking_not_disabled"
                 if reason:
                     self._response_stopped = True

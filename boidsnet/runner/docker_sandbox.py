@@ -106,7 +106,7 @@ print(json.dumps({'uid': os.getuid(), 'gid': os.getgid(),
     return dict(row, image_id=image_id(), backend='docker-stdlib-only-v1')
 
 
-def run(library_dir, tool_id, calls, acl, timeout_s):
+def run(library_dir, tool_id, calls, acl, timeout_s, *, worker_source=None):
     from .sandbox import _CHILD, _WORKER, _reachable, TOOL_ID
     ids = _reachable(acl, tool_id)
     if any(not TOOL_ID.fullmatch(tid) for tid in ids):
@@ -126,7 +126,7 @@ def run(library_dir, tool_id, calls, acl, timeout_s):
                 dest = stage / 'tools' / (tid + '.py')
                 shutil.copyfile(original, dest)
                 dest.chmod(0o444)
-        payload = json.dumps({'calls': calls, 'acl': acl, 'worker': _WORKER, 'timeout_s': timeout_s})
+        payload = json.dumps({'calls': calls, 'acl': acl, 'worker': worker_source or _WORKER, 'timeout_s': timeout_s})
         return invoke(['--mount', 'type=bind,source=' + str(stage) + ',target=/sandbox/lib,readonly',
                        image_id(), '-c', _CHILD, '/sandbox/lib', tool_id],
                       payload, timeout_s * len(calls) + 20)
