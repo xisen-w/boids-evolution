@@ -1,0 +1,27 @@
+name: Offline DEV verification
+on:
+  pull_request:
+  push:
+    branches: [main, codex/sac-sharing-review]
+permissions:
+  contents: read
+jobs:
+  offline-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt -r requirements-sac.txt matplotlib
+      - name: Dependency and static checks
+        run: |
+          python -m pip check
+          python -m compileall -q boidsnet tests
+          git diff --check
+      - name: Require Linux namespace isolation
+        run: |
+          sudo "$(which python)" -c 'from boidsnet.runner.sandbox import isolation_level; level = isolation_level(); print(level); assert level == "os-root", level'
+      - name: Offline DEV contracts with Linux sandbox
+        run: |
+          sudo env PYTHONHASHSEED=0 "$(which python)" -m unittest tests.test_sac_controls tests.test_sac_sharing tests.test_runner tests.test_sandbox tests.test_batch tests.test_determinism tests.test_model tests.test_audit_figure -v

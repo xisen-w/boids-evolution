@@ -1,4 +1,4 @@
-"""Run configuration for the v0.3.2 confirmatory study.
+"""Versioned run configurations: original-Boids guidance draft and legacy behavior.
 
 Everything that distinguishes one society from another lives here, and the
 whole object is written to run_manifest.json so a run directory always says
@@ -7,7 +7,17 @@ which condition it belongs to (fixes audit item 7).
 from dataclasses import dataclass, asdict, field
 from typing import Optional
 
-ARMS = ("E", "L0", "R0", "IM", "L1", "G0m", "G0")
+LEGACY_ARMS = ("E", "L0", "R0", "IM", "L1", "G0m", "G0")
+SAC_SPEC = {
+    "neutral000": {"S": False, "A": False, "C": False},
+    "AC011": {"S": False, "A": True, "C": True},
+    "SAC111": {"S": True, "A": True, "C": True},
+    "S100": {"S": True, "A": False, "C": False},
+}
+SAC_ARMS = tuple(SAC_SPEC)
+ARMS = LEGACY_ARMS + SAC_ARMS
+# Historical orchestration aliases below intentionally remain legacy-only.
+# They must not silently launch the new four-configuration design.
 # v0.3.8 (msgs #59/#60): confirmatory E/L0/R0/IM, exploratory L1/G0m.
 # G0 (unmatched global) is kept in code only; it is not run by the pilot.
 CONFIRMATORY_ARMS = ("E", "L0", "R0", "IM")
@@ -61,19 +71,42 @@ class RunConfig:
             raise ValueError(f"unknown arm {self.arm!r}; expected one of {ARMS}")
         if self.k % 2 or self.k < 2:
             raise ValueError("k must be a positive even number (ring)")
+        if self.is_sac and self.catalogue_scope != "society":
+            raise ValueError("SAC guidance controls require the common society catalogue")
+        if self.is_sac and (self.n_agents <= self.k or self.n_rounds < 1):
+            raise ValueError("SAC requires n_agents > k and positive n_rounds")
         if self.arm == "IM":
             self.catalogue_scope = "self"
 
     @property
+    def is_sac(self):
+        return self.arm in SAC_SPEC
+
+    @property
+    def design_version(self):
+        return "original_boids_guidance_v1" if self.is_sac else "behavioral_repulsion_v0.3.13"
+
+    @property
+    def mechanism_toggles(self):
+        return dict(SAC_SPEC[self.arm]) if self.is_sac else None
+
+    @property
     def exemplar_scope(self):
+        if self.is_sac:
+            return "local"
+
         return ARM_SPEC[self.arm][0]
 
     @property
     def framing(self):
+        if self.is_sac:
+            return "mechanism_guidance"
         return ARM_SPEC[self.arm][1]
 
     def to_dict(self):
         d = asdict(self)
+        d["design_version"] = self.design_version
+        d["mechanism_toggles"] = self.mechanism_toggles
         d["exemplar_scope"] = self.exemplar_scope
         d["framing"] = self.framing
         return d

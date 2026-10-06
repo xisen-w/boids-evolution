@@ -23,7 +23,7 @@ import subprocess
 import sys
 import time
 
-from .config import PROTOCOL_ARMS
+from .config import PROTOCOL_ARMS, SAC_ARMS
 
 
 def parse_seeds(spec):
@@ -74,6 +74,8 @@ def main(argv=None):
     a, passthrough = p.parse_known_args(argv)
     if "--engineering" in passthrough:
         sys.exit("batch runs confirmatory societies only; --engineering is for boidsnet.runner.smoke")
+    if any(arm in SAC_ARMS for arm in a.arms.split(",")):
+        p.error("historical batch is legacy-only; SAC batching needs a separately reviewed design")
     out = os.path.abspath(a.out)
     os.makedirs(out, exist_ok=True)
     arms, seeds = a.arms.split(","), parse_seeds(a.seeds)

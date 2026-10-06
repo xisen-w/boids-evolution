@@ -171,7 +171,7 @@ def child_env():
 # --------------------------------------------------------------------------
 NOBODY = "65534"
 SANDBOX_LIB = "/sandbox/lib"
-TOOL_ID = re.compile(r"^(a\d{2}_r\d{2}|solver_t\d{3}_k\d+)$")   # runner-assigned ids only
+TOOL_ID = re.compile(r"^(a\d{2,}_r\d{2,}|solver_t\d{3}_k\d+)$")   # runner-assigned ids only
 
 _NS_SCRIPT = r"""
 set -eu
@@ -349,9 +349,9 @@ def isolation_level():
     try:
         os.makedirs(os.path.join(lib, "tools"))
         for mode in (("root",) if os.geteuid() == 0 else ()) + ("userns",):
-            cmd = _ns_cmd(mode, lib, [], [os.path.realpath(sys.executable), "-I", "-c", probe, str(os.getpid())]
-                          + canaries)
             try:
+                cmd = _ns_cmd(mode, lib, [], [os.path.realpath(sys.executable), "-I", "-c", probe, str(os.getpid())]
+                              + canaries)
                 r = subprocess.run(cmd, capture_output=True, text=True, timeout=15, env=_ns_env())
                 rep = json.loads(r.stdout)
             except Exception:  # noqa: BLE001 - any failure (incl. no ldd) means this mode is unavailable

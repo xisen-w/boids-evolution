@@ -1,7 +1,8 @@
-"""Build prompt, identical for every arm except the exemplar block.
+"""Build prompt, identical for every arm except the versioned evidence block.
 
 One template for all arms (fixes the audit's code-path asymmetry: no arm gets
-an extra "combine tools" question, a role prior, or a global summary).
+an extra "combine tools" question or a role prior). SAC configurations all
+receive the same descriptive global-summary evidence before guidance toggles.
 """
 import re
 

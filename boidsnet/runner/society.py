@@ -19,6 +19,7 @@ import time
 
 from .exposure import ring_neighbours, select_exemplars, select_matched, render_block
 from .library import Library
+from .mechanisms import build_evidence, render_evidence, compute_complexity
 from .prompts import SYSTEM, build_user_prompt, parse_response
 from .sandbox import SandboxedTool
 
@@ -96,7 +97,11 @@ class Society:
         own = [e for e in snapshot if e["author"] == agent]
         own_latest = max(own, key=lambda e: e["round"]) if own else None
         match = None
-        if cfg.framing is None:
+        evidence = None
+        if cfg.is_sac:
+            evidence = build_evidence(snapshot, neighbours, rnd, self._source)
+            chosen, sims, mode = [], [], "shared_original_boids_evidence_v1"
+        elif cfg.framing is None:
             chosen, sims, mode = [], [], "no_exposure_arm"
         elif cfg.exemplar_scope == "matched":
             ring_pool, other_pool = pool
@@ -106,7 +111,8 @@ class Society:
         else:
             chosen, sims, mode = select_exemplars(agent, pool, own_latest, cfg.m, agent_rng,
                                                   self.env.similarity)
-        block = render_block(cfg.framing, chosen, self._source)
+        block = (render_evidence(evidence, cfg.mechanism_toggles) if cfg.is_sac
+                 else render_block(cfg.framing, chosen, self._source))
         menu = self.env.menu(cfg.seed, agent, rnd, self.dev_tasks, cfg.menu_size)
         fb = self.feedback.get(agent)
         user = build_user_prompt(rnd, menu, catalogue, block, fb)
@@ -119,6 +125,12 @@ class Society:
             json.dump({"system": SYSTEM, "user": user, "response": text}, f, indent=1)
         rec = {
             "arm": cfg.arm, "seed": cfg.seed, "round": rnd, "agent": agent,
+            "design_version": cfg.design_version,
+            "mechanism_toggles": cfg.mechanism_toggles,
+            "mechanism_evidence": evidence,
+            "evidence_sha256": (_sha(json.dumps(evidence, sort_keys=True))
+                                if evidence is not None else None),
+            "block_sha256": _sha(block),
             "neighbours": neighbours, "exemplar_scope": cfg.exemplar_scope,
             "framing": cfg.framing, "catalogue_size": len(catalogue),
             "pool_size": len(pool), "selection_mode": mode,
@@ -140,11 +152,22 @@ class Society:
             "implements": parsed["implements"], "implements_unknown": parsed["implements_unknown"],
             "wall_s_model": round(time.time() - t0, 3),
         }
+        if cfg.is_sac:
+            rec["mechanism_fired"] = {
+                rule: bool(cfg.mechanism_toggles[rule] and evidence["fired"][rule])
+                for rule in ("S", "A", "C")
+            }
+            rec["rule_fired"] = any(rec["mechanism_fired"].values())
         entry = None
         if parsed["parse_ok"]:
             entry = self.lib.add(tool_id, agent, rnd, parsed["tool_label"],
                                  parsed["description"] or "", parsed["target"], parsed["source"],
                                  parsed["implements"], acl=[e["id"] for e in catalogue])
+            if cfg.is_sac:
+                known_ids = {e["id"] for e in catalogue}
+                resolved = [tid for tid in entry["static_imports"] if tid in known_ids]
+                entry["complexity"] = compute_complexity(parsed["source"], resolved)
+                rec["complexity"] = entry["complexity"]
             visible = {e["id"]: e["author"] for e in snapshot}
             rec["static_imports"] = entry["static_imports"]
             rec["cross_agent_imports"] = [t for t in entry["static_imports"]
@@ -167,7 +190,8 @@ class Society:
         entry["signature_signal"] = vec
         rec["signature_signal"] = vec
         rec["signature_errors"] = sum(1 for y in vec if y.startswith("ERR"))
-        # Verdict is logged only; it is never shown to agents (msg #30, E2/D5).
+        # Legacy arms keep verdict private. SAC controls expose the same dev
+        # pass metadata to every arm through common A evidence, never sealed tests.
         task = self.task_by_id.get(entry["target"])
         if task:
             rec["harness"] = self.env.harness(tool, task)

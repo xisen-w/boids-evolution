@@ -35,7 +35,7 @@ class StubModel:
 
     def complete(self, system, user, temperature, max_tokens):
         ids = re.findall(r"^TASK (\S+):", user, re.M)
-        tools = re.findall(r"^- (a\d\d_r\d\d) ", user, re.M)
+        tools = re.findall(r"^- (a\d{2,}_r\d{2,}) ", user, re.M)
         tid = self.rng.choice(ids)
         steps = list(self.tasks[tid].steps)
         if self.rng.random() < 0.3 and len(steps) > 1:

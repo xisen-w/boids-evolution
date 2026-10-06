@@ -1,0 +1,3 @@
+# Optional original-Boids semantic selector dependency; legacy runner stays stdlib.
+# Explicit review pin, not an installed/verified environment or a full lockfile.
+scikit-learn==1.5.2

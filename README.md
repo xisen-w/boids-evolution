@@ -1,5 +1,14 @@
 # boids-evolution
 
+## Current review draft: original Boids guidance controls
+
+The new four-arm S/A/C implementation is documented in [SAC_CONTROLS](docs/SAC_CONTROLS.md).
+It remains an unfrozen research design; offline DEV contracts and Linux CI
+verify engineering behavior without establishing experimental efficacy. The existing behavioral study
+below is preserved as a versioned legacy/optional design, not silently renamed.
+
+## Earlier behavioral study
+
 Boids for LLM tool-building societies. **Does behaviour-based *local repulsion*
 between agents preserve the functional coverage that attraction-only coupling
 (sharing, imitation) homogenises away?**

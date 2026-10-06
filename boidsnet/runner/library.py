@@ -37,6 +37,7 @@ class Library:
             "id": tool_id, "author": author, "round": rnd, "label": label,
             "description": description, "target": target, "implements": list(implements),
             "static_imports": self.static_imports(source),
+            "build_acl": sorted(set(acl)),
             "harness": None, "signature_signal": None,
         }
         self.entries[tool_id] = entry

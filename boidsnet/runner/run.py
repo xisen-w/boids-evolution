@@ -16,7 +16,7 @@ import sys
 DEFAULT_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                            "env", "mechenv.py")
 
-from .config import RunConfig, ARMS
+from .config import RunConfig, ARMS, SAC_ARMS
 from .env_adapter import MechEnv
 from .freeze import code_hash
 from .model import StubModel, OpenAICompatModel
@@ -52,6 +52,21 @@ def main(argv=None):
     p.add_argument("--dev-seed", type=int, default=0)
     a = p.parse_args(argv)
 
+    supplied = list(sys.argv[1:] if argv is None else argv)
+    if a.arm in SAC_ARMS:
+        required = ("--n-agents", "--n-rounds", "--token-budget")
+        absent = [flag for flag in required
+                  if not any(arg == flag or arg.startswith(flag + "=") for arg in supplied)]
+        if absent:
+            p.error("SAC sizing/budget are not inherited from legacy defaults; specify " + ", ".join(absent))
+        if a.token_budget is None or a.token_budget <= 0:
+            p.error("SAC requires an explicit positive token budget")
+        # Fail before any model call; S=0 still requires the common S selector.
+        try:
+            from sklearn.feature_extraction.text import TfidfVectorizer  # noqa: F401
+            from sklearn.metrics.pairwise import cosine_similarity  # noqa: F401
+        except ImportError:
+            p.error("SAC requires scikit-learn from requirements-sac.txt before execution")
     dry = a.model == "stub"
     env = MechEnv(a.env_path, a.dev_seed)
     chash = code_hash(a.env_path)
