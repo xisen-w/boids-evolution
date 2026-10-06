@@ -214,3 +214,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# boidsnet run outputs (never commit runs; they may contain model responses)
+runs/
+smoke/
+pilot/
+
+# boidsnet/env is real source, not a virtualenv (the generic env/ rule above would hide it)
+!boidsnet/env/

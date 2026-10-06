@@ -1,0 +1,41 @@
+name: Offline DEV verification
+on:
+  pull_request:
+  push:
+    branches: [main, codex/sac-sharing-review]
+permissions:
+  contents: read
+jobs:
+  offline-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use system Python for the allowlist sandbox
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y python3-venv
+          /usr/bin/python3 -m venv /tmp/boids-ci-venv
+          /tmp/boids-ci-venv/bin/python -m pip install -r requirements.txt -r requirements-sac.txt matplotlib
+      - name: Dependency and static checks
+        run: |
+          /tmp/boids-ci-venv/bin/python -m pip check
+          /tmp/boids-ci-venv/bin/python -m compileall -q boidsnet tests
+          git diff --check
+      - name: Require Linux namespace isolation
+        run: |
+          sudo /tmp/boids-ci-venv/bin/python - <<'PY'
+          import os, subprocess, sys, tempfile
+          from boidsnet.runner import sandbox
+          level = sandbox.isolation_level()
+          print(level)
+          if level != 'os-root':
+              with tempfile.TemporaryDirectory() as root:
+                  os.makedirs(os.path.join(root, 'tools'))
+                  cmd = sandbox._ns_cmd('root', root, [], [os.path.realpath(sys.executable), '-I', '-c', 'print("namespace interpreter ready")'])
+                  result = subprocess.run(cmd, capture_output=True, text=True, env=sandbox._ns_env())
+                  print('namespace diagnostic:', result.returncode, result.stdout, result.stderr)
+          assert level == 'os-root', level
+          PY
+      - name: Offline DEV contracts with Linux sandbox
+        run: |
+          sudo env PYTHONHASHSEED=0 /tmp/boids-ci-venv/bin/python -m unittest tests.test_sac_controls tests.test_sac_sharing tests.test_runner tests.test_sandbox tests.test_batch tests.test_determinism.DeterminismTests.test_society_independent_of_hash_seed tests.test_model tests.test_audit_figure -v

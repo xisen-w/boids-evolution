@@ -1,0 +1,66 @@
+{
+  "schema_version": "sac_design_template_v1",
+  "status": "REVIEW_ONLY_NOT_RUNNABLE",
+  "design_version": "original_boids_guidance_v1",
+  "base_commit": "b0b4ff90f39231443c24e946e239330f7fe83dde",
+  "arms": [
+    {
+      "arm": "neutral000",
+      "toggles": {
+        "S": false,
+        "A": false,
+        "C": false
+      }
+    },
+    {
+      "arm": "AC011",
+      "toggles": {
+        "S": false,
+        "A": true,
+        "C": true
+      }
+    },
+    {
+      "arm": "SAC111",
+      "toggles": {
+        "S": true,
+        "A": true,
+        "C": true
+      }
+    },
+    {
+      "arm": "S100",
+      "toggles": {
+        "S": true,
+        "A": false,
+        "C": false
+      }
+    }
+  ],
+  "contrasts": {
+    "primary": [
+      [
+        "SAC111",
+        "neutral000"
+      ],
+      [
+        "SAC111",
+        "AC011"
+      ]
+    ],
+    "supporting": [
+      [
+        "S100",
+        "neutral000"
+      ]
+    ]
+  },
+  "n_agents": null,
+  "n_rounds": null,
+  "token_budget": null,
+  "seeds": null,
+  "model": null,
+  "summary_policy": "descriptive_counts_v1",
+  "runtime_validation": "NOT_RUN",
+  "authorization": "No experiments or runtime tests in this delivery"
+}

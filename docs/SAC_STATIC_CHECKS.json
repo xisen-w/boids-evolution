@@ -1,0 +1,23 @@
+{
+  "scope": "static_only",
+  "base_commit": "b0b4ff90f39231443c24e946e239330f7fe83dde",
+  "branch": "dot/sac-controls-20261002",
+  "python_ast_files": 28,
+  "python_ast_status": "PASS",
+  "manifest_json_status": "PASS",
+  "runner_code_sha256": "8030235b6090e2eb611b6d776e0d574ece2e52875bfa7fec331ebf74990b1226",
+  "requirements_sac_sha256": "c8975ea5d088607e0c523889e817d4f4db448d4549188f437522d7adadcf6627",
+  "not_run": [
+    "project imports",
+    "runtime test suite",
+    "stub simulations",
+    "experiments",
+    "model calls",
+    "dependency installation",
+    "runtime dependency validation"
+  ],
+  "runtime_behavior": "UNVERIFIED",
+  "new_freeze": "NONE",
+  "git_diff_check": "PASS",
+  "independent_static_review": "No remaining definite CLI integration blocker found; runtime unverified"
+}
