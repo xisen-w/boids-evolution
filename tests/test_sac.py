@@ -213,8 +213,12 @@ class PilotGuardTests(unittest.TestCase):
             b.config["max_reserved_usd"] = b.reserved
             with self.assertRaises(PermissionError):
                 b.before("s", "u", 10, 0)
-            with self.assertRaises(ValueError):
+            # Exhaustion is now sticky: mutating a config cannot resume spend.
+            with self.assertRaises(PermissionError):
                 b.before("s", "x" * 16001, 10, 0)
+            fresh = Budget(self.c, Path(tmp) / "fresh.jsonl")
+            with self.assertRaises(ValueError):
+                fresh.before("s", "x" * 16001, 10, 0)
 
     def test_subset_cannot_be_used_for_test_score(self):
         with self.assertRaises(ValueError):

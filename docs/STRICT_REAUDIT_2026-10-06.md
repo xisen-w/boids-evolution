@@ -1,5 +1,7 @@
 # Strict re-audit: repair and verification
 
+Subsequent same-Mac Docker implementation and AgentPort smoke gates are documented in [MAC_AGENTPORT_SMOKE.md](MAC_AGENTPORT_SMOKE.md). The report below preserves the earlier repair checkpoint; its then-unavailable Docker daemon is historical, not the latest runtime status.
+
 2026-10-06. Baseline: `981e6ab352b319aaef4d6b366c52b19409487be6`.
 
 This report concerns software fixes and offline artificial fixtures only. No real model experiments, provider requests, experiment keys, test-result-based design tuning or spending approval were used. The HTTP deadline integration test connects only to a local fake server with a fake key.

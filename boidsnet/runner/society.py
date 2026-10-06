@@ -84,7 +84,16 @@ class Society:
                 if cfg.token_budget is not None and self.tokens >= cfg.token_budget:
                     self.truncated = True
                     break
-                built.append(self._agent_turn(agent, rnd, snapshot))
+                item = self._agent_turn(agent, rnd, snapshot)
+                if cfg.extra.get("stop_on_smoke_anomaly"):
+                    # Evaluate immediately, but keep the frozen round-start
+                    # snapshot for every agent. Do not pay for the next agent
+                    # after discovering an execution failure in this one.
+                    self._evaluate(*item)
+                    self.log.write(json.dumps(item[0], sort_keys=True) + "\n")
+                    self.log.flush()
+                else:
+                    built.append(item)
             for rec, entry in built:
                 self._evaluate(rec, entry)
                 self.log.write(json.dumps(rec, sort_keys=True) + "\n")
@@ -193,6 +202,11 @@ class Society:
         if sac_evidence is not None:
             rec.update(sac_evidence=sac_evidence, sac_selection=sac_meta, sac_fired=sac_fired)
         rec["response_metadata"] = getattr(self.model, "last_response_metadata", None)
+        if cfg.extra.get("stop_on_smoke_anomaly") and not parsed["parse_ok"]:
+            from .smoke_policy import SmokeStop
+            self.log.write(json.dumps(dict(rec, smoke_stop="builder_parse_failure"), sort_keys=True) + "\n")
+            self.log.flush()
+            raise SmokeStop("builder_parse_failure")
         entry = None
         if parsed["parse_ok"]:
             entry = self.lib.add(tool_id, agent, rnd, parsed["tool_label"],
@@ -218,12 +232,22 @@ class Society:
         tool = SandboxedTool(self.lib.root, entry["id"], self.cfg.tool_timeout_s)
         # D9: zero-model-call execution feedback, shown to the author next round.
         rec["exec_feedback"] = self.env.exec_feedback(tool, rec["round"])
+        if self.cfg.extra.get("stop_on_smoke_anomaly") and rec["exec_feedback"].startswith("raised "):
+            from .smoke_policy import SmokeStop
+            self.log.write(json.dumps(dict(rec, smoke_stop="builder_public_execution_error"), sort_keys=True) + "\n")
+            self.log.flush()
+            raise SmokeStop("builder_public_execution_error")
         rec["exec_feedback_seed"] = self.env.public_example_seed(rec["round"])
         self.feedback[entry["author"]] = {"tool_id": entry["id"], "text": rec["exec_feedback"]}
         vec = self.env.signature(tool)
         entry["signature_signal"] = vec
         rec["signature_signal"] = vec
         rec["signature_errors"] = sum(1 for y in vec if y.startswith("ERR"))
+        if self.cfg.extra.get("stop_on_smoke_anomaly") and rec["signature_errors"]:
+            from .smoke_policy import SmokeStop
+            self.log.write(json.dumps(dict(rec, smoke_stop="builder_probe_execution_error"), sort_keys=True) + "\n")
+            self.log.flush()
+            raise SmokeStop("builder_probe_execution_error")
         # Legacy arms hide verdicts. SAC exposes selected-exemplar dev-pass
         # metadata identically in all four conditions (never reference outputs).
         task = self.task_by_id.get(entry["target"])
@@ -233,6 +257,12 @@ class Society:
             rec["harness"] = {"passed": False, "reason": "no_or_unknown_target"}
         entry["harness"] = rec["harness"]
         self.lib.save()
+        if self.cfg.extra.get("stop_on_smoke_anomaly"):
+            from .smoke_policy import SmokeStop, verdict_has_execution_error
+            if verdict_has_execution_error(rec["harness"]):
+                self.log.write(json.dumps(dict(rec, smoke_stop="builder_harness_execution_error"), sort_keys=True) + "\n")
+                self.log.flush()
+                raise SmokeStop("builder_harness_execution_error")
 
     def _summary(self):
         with open(os.path.join(self.out, "rounds.jsonl")) as fh:

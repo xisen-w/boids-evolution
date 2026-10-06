@@ -486,6 +486,17 @@ def isolation_level():
         _LEVEL = "hook-only"
         PROBE_REPORT.update(level=_LEVEL, forced=True)
         return _LEVEL
+    if os.environ.get("BOIDS_SANDBOX") == "docker":
+        from .docker_sandbox import probe
+        try:
+            receipt = probe()
+        except Exception as exc:
+            _LEVEL = "hook-only"
+            PROBE_REPORT.update(level=_LEVEL, docker_probe_error=type(exc).__name__)
+        else:
+            _LEVEL = "os-docker"
+            PROBE_REPORT.update(level=_LEVEL, probe=receipt)
+        return _LEVEL
     probe = ("import json, os, sys\n"
              "st = dict(l.split(':', 1) for l in open('/proc/self/status') if ':' in l)\n"
              "print(json.dumps({'parent_visible': os.path.exists('/proc/%d' % int(sys.argv[1])),\n"
@@ -550,7 +561,10 @@ def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
     if acl is None:
         acl = load_acl(library_dir)
     level = isolation_level()
-    if level == "hook-only":
+    if level == "os-docker":
+        from .docker_sandbox import run
+        proc = run(library_dir, tool_id, calls, acl, timeout_s)
+    elif level == "hook-only":
         cmd, cwd, env = [sys.executable, "-s", "-S", "-c", _CHILD, library_dir, tool_id], library_dir, child_env()
     else:
         files = [t for t in _reachable(acl, tool_id)
@@ -558,14 +572,15 @@ def _run_tool(library_dir, tool_id, calls, timeout_s, acl):
         cmd = _ns_cmd(level[3:], library_dir, files,
                       [os.path.realpath(sys.executable), "-s", "-S", "-c", _CHILD, SANDBOX_LIB, tool_id])
         cwd, env = "/", _ns_env()
-    try:
-        proc = subprocess.run(
-            cmd, input=json.dumps({"calls": calls, "acl": acl, "worker": _WORKER, "timeout_s": timeout_s}),
-            capture_output=True, text=True,
-            timeout=timeout_s * len(calls) + 10, env=env, cwd=cwd,
-        )
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        raise SandboxInfrastructureError("sandbox driver launch/timeout failure") from exc
+    if level != "os-docker":
+        try:
+            proc = subprocess.run(
+                cmd, input=json.dumps({"calls": calls, "acl": acl, "worker": _WORKER, "timeout_s": timeout_s}),
+                capture_output=True, text=True,
+                timeout=timeout_s * len(calls) + 10, env=env, cwd=cwd,
+            )
+        except (subprocess.TimeoutExpired, OSError) as exc:
+            raise SandboxInfrastructureError("sandbox driver launch/timeout failure") from exc
     if proc.returncode != 0:
         raise SandboxInfrastructureError(f"sandbox driver exited with status {proc.returncode}")
     try:

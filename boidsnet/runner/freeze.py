@@ -25,6 +25,11 @@ def code_hash(env_path=None):
     h.update(b"env")
     with open(env_path, "rb") as f:
         h.update(f.read())
+    runtime = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docker", "tool-sandbox")
+    for name in ("Dockerfile", "build_runtime.py"):
+        h.update(("docker/tool-sandbox/" + name).encode())
+        with open(os.path.join(runtime, name), "rb") as f:
+            h.update(f.read())
     return h.hexdigest()
 
 

@@ -374,7 +374,8 @@ def check_sampling(society_dir, model, split="test"):
 
 
 def score_society(society_dir, env, model, attempts=3, out_name=None, temperature=0.7,
-                  max_tokens=4000, split="test", token_budget=None, task_ids=None):
+                  max_tokens=4000, split="test", token_budget=None, task_ids=None,
+                  stop_on_smoke_anomaly=False):
     """split='test' is the confirmatory U (needs the published seal).
     split='dev' is a DIAGNOSTIC (U_dev): same freeze, gate and scoring on the
     dev tasks the agents saw.  It opens nothing sealed, so the smoke test can
@@ -382,6 +383,8 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     is inflated by construction and is never reported as an outcome."""
     if split not in ("test", "dev"):
         raise ValueError(split)
+    if stop_on_smoke_anomaly and split != "dev":
+        raise ValueError("strict smoke stopping is development-only")
     if attempts < 1:
         raise ValueError("attempts must be positive")
     if task_ids is not None and split != "dev":
@@ -403,6 +406,9 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     lib = os.path.join(out, "frozen_library")
     kept, acl, meta = freeze_library(society_dir, lib, env)
     kept_ids = [e["id"] for e in kept]
+    if stop_on_smoke_anomaly and not kept_ids:
+        from .smoke_policy import SmokeStop
+        raise SmokeStop("empty_frozen_library")
 
     def source_of(tid):
         with open(os.path.join(lib, "tools", tid + ".py")) as f:
@@ -458,6 +464,9 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                          response_metadata=getattr(model, "last_response_metadata", None))
             if split == "dev":
                 _write_private_audit(audit_path, audit)
+            if stop_on_smoke_anomaly and not ok:
+                from .smoke_policy import SmokeStop
+                raise SmokeStop("solver_glue_contract_failure")
             verdict = None
             if ok:
                 gid = f"solver_t{ti:03d}_k{k}"
@@ -495,6 +504,10 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
                         json.dump(acl, f, sort_keys=True)
             with open(log_path, "a") as log:
                 log.write(json.dumps(row) + "\n")
+            if stop_on_smoke_anomaly:
+                from .smoke_policy import SmokeStop, verdict_has_execution_error
+                if verdict_has_execution_error(verdict):
+                    raise SmokeStop("solver_execution_error")
         task_scores.append(sum(passes) / len(passes))
     with open(os.path.join(out, "solver_log.jsonl")) as fh:
         rows = [json.loads(l) for l in fh]

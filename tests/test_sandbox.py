@@ -112,6 +112,11 @@ class HookTamperTests(unittest.TestCase):
                 "from boidsnet.runner.sandbox import run_tool\n"
                 "print(json.dumps(run_tool(%r, 'a00_r01', [{'args': [[], []], 'kwargs': {}}])))") % (ROOT, lib)
         env = {"PATH": "/usr/bin:/bin", "AZURE_AI_KEY": "CANARY_PARENT_INITIAL_ENV"}
+        if os.environ.get("BOIDS_SANDBOX") == "docker":
+            env.update(BOIDS_SANDBOX="docker", BOIDS_DOCKER_SOCKET=os.environ.get(
+                "BOIDS_DOCKER_SOCKET", os.path.expanduser("~/.docker/run/docker.sock")))
+            if os.environ.get("BOIDS_DOCKER_IMAGE"):
+                env["BOIDS_DOCKER_IMAGE"] = os.environ["BOIDS_DOCKER_IMAGE"]
         r = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True, timeout=60)
         self.assertNotIn("CANARY_PARENT_INITIAL_ENV", r.stdout + r.stderr)
         self.assertTrue(r.stdout.strip(), r.stderr)
@@ -175,8 +180,12 @@ class HookTamperTests(unittest.TestCase):
             lib = make_lib({"a00_r01": _tamper_tool(body)}, {"a00_r01": []})
             y = run_tool(lib, "a00_r01", CALL)[0]
             self.assertNotIn("CANARY_HOST_FILE", json.dumps(y))
-            self.assertLessEqual(set(y[0]["root"]), {"bin", "sbin", "lib", "lib32", "lib64", "libx32",
-                                                     "usr", "etc", "dev", "proc", "sandbox", ".old"})
+            allowed_root = {"bin", "sbin", "lib", "lib32", "lib64", "libx32",
+                            "usr", "etc", "dev", "proc", "sandbox", ".old"}
+            from boidsnet.runner.sandbox import isolation_level
+            if isolation_level() == "os-docker":
+                allowed_root |= {".dockerenv", "sys"}  # Docker's own runtime mounts, not host binds
+            self.assertLessEqual(set(y[0]["root"]), allowed_root)
             self.assertFalse({"local", "share"} & set(y[0]["usr"]), y[0]["usr"])
         finally:
             for p in planted:
@@ -238,8 +247,8 @@ class HookTamperTests(unittest.TestCase):
 
     def test_runs_as_nobody_without_caps(self):
         from boidsnet.runner.sandbox import isolation_level
-        if isolation_level() != "os-root":
-            self.skipTest("uid drop only in os-root mode")
+        if isolation_level() not in ("os-root", "os-docker"):
+            self.skipTest("uid 65534 test requires os-root or os-docker mode")
         lib = make_lib({"a00_r01": _tamper_tool([
             "__main__.STDLIB = ('/',)",
             "st = dict(l.split(':', 1) for l in open('/proc/self/status') if ':' in l)",

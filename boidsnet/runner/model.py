@@ -16,6 +16,8 @@ import threading
 import time
 from contextlib import contextmanager
 
+from .agentport_config import AGENTPORT_BASE_URL, AGENTPORT_FLASH_MODELS
+
 
 class RequestDeadlineExceeded(TimeoutError):
     """Total wall-clock deadline: stop this run without resampling."""
@@ -118,16 +120,19 @@ class OpenAICompatModel:
     def __init__(self, model, key_env, allow_spend, base_url=None, azure_endpoint=None,
                  api_version=None, send_temperature=True, token_param="max_tokens",
                  param_mode="strict", thinking=None, max_attempts=None, before_request=None,
-                 after_response=None):
+                 after_response=None, accepted_response_models=None, request_timeout_s=None):
         if not allow_spend:
             raise PermissionError("paid model requested without --allow-spend")
-        if model.startswith("deepseek"):
-            if (model != "deepseek-flash" or base_url != "https://api.deepseek.com"
+        gateway = base_url == AGENTPORT_BASE_URL
+        deepseek_route = model.startswith("deepseek") or gateway
+        if deepseek_route:
+            if ((not gateway and (model != "deepseek-flash" or base_url != "https://api.deepseek.com"))
+                    or (gateway and (model not in AGENTPORT_FLASH_MODELS or not accepted_response_models or max_attempts != 1))
                     or azure_endpoint or thinking != "disabled" or param_mode != "strict"
                     or token_param != "max_tokens" or not send_temperature):
-                raise ValueError("DeepSeek pilot requires deepseek-flash, official base URL, explicit disabled thinking, temperature and strict max_tokens")
+                raise ValueError("DeepSeek requires an approved Flash route, disabled thinking, strict max_tokens; AgentPort also requires response IDs and no retries")
             if key_env != "BOIDS_PARTNER_API_KEY":
-                raise PermissionError("DeepSeek experiments only accept the collaborator's BOIDS_PARTNER_API_KEY")
+                raise PermissionError("DeepSeek experiments require the dedicated BOIDS_PARTNER_API_KEY; no credential fallback")
         elif thinking is not None:
             raise ValueError("thinking is configured only for the DeepSeek pilot")
         if max_attempts is not None:
@@ -135,6 +140,15 @@ class OpenAICompatModel:
                 raise ValueError("max_attempts must be between 1 and 6")
             self.MAX_ATTEMPTS = max_attempts
         self.thinking, self.base_url = thinking, base_url
+        if accepted_response_models is not None and (
+                not isinstance(accepted_response_models, list) or not accepted_response_models
+                or any(not isinstance(s, str) or not s.strip() for s in accepted_response_models)):
+            raise ValueError("accepted response models must be a nonempty explicit list")
+        self.accepted_response_models = accepted_response_models
+        if request_timeout_s is not None:
+            if type(request_timeout_s) not in (int, float) or not 1 <= request_timeout_s <= 180:
+                raise ValueError("request timeout must be within 1..180 seconds")
+            self.REQUEST_TIMEOUT_S = request_timeout_s
         self.before_request, self.after_response = before_request, after_response
         # msg #105.4: belt and braces with run.py's check.  A key may only be
         # loaded where tool code runs under OS isolation.
@@ -160,7 +174,7 @@ class OpenAICompatModel:
         else:
             from openai import OpenAI, DefaultHttpxClient
             transport = {}
-            if model.startswith("deepseek"):
+            if deepseek_route:
                 # One budget reservation must not silently follow a redirect
                 # into additional HTTP requests (or another endpoint).
                 transport["http_client"] = DefaultHttpxClient(follow_redirects=False)
@@ -187,7 +201,7 @@ class OpenAICompatModel:
         return {"sdk_max_retries": 0, "request_timeout_s": self.REQUEST_TIMEOUT_S,
                 "total_request_deadline_s": self.REQUEST_TIMEOUT_S,
                 "deadline_policy": "POSIX main-thread cancellation; terminal, no resampling",
-                "follow_redirects": not self.name.startswith("deepseek"),
+                "follow_redirects": not (self.name.startswith("deepseek") or getattr(self, "base_url", None) == AGENTPORT_BASE_URL),
                 "runner_max_attempts": self.MAX_ATTEMPTS, "backoff_s": "2^attempt + U(0,1)",
                 "retried": "429, 408, 409, 5xx, network; not other 4xx",
                 "api_version": getattr(self, "api_version", None)}
@@ -219,6 +233,8 @@ class OpenAICompatModel:
         self.last_retries = 0
         self.last_cached_tokens = None
         self.last_response_metadata = None
+        if getattr(self, "_response_stopped", False):
+            raise RuntimeError("client stopped after a response contract anomaly; no further requests")
         if getattr(self, "_deadline_exhausted", False):
             raise RequestDeadlineExceeded("client stopped after an ambiguous deadline; review before a new run")
         _check_deadline_support(self.REQUEST_TIMEOUT_S)
@@ -267,12 +283,17 @@ class OpenAICompatModel:
             # decoding / usage / ledger error. It may already be billed.
             u = r.usage
             if u is None or u.prompt_tokens is None or u.completion_tokens is None:
+                self._response_stopped = True
                 raise RuntimeError("provider response omitted usage; stop without resampling")
             det = getattr(u, "prompt_tokens_details", None)
             self.last_cached_tokens = getattr(u, "prompt_cache_hit_tokens", None)
             if self.last_cached_tokens is None:
                 self.last_cached_tokens = getattr(det, "cached_tokens", None) if det else None
-            validate_usage(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens)
+            try:
+                validate_usage(u.prompt_tokens, u.completion_tokens, self.last_cached_tokens)
+            except RuntimeError:
+                self._response_stopped = True
+                raise
             choices = getattr(r, "choices", None)
             choice = choices[0] if choices else None
             self.last_response_metadata = {"model": getattr(r, "model", None),
@@ -284,7 +305,27 @@ class OpenAICompatModel:
             # Account for a completed/billed response even when its answer
             # envelope is malformed. Never resample it to obtain a new answer.
             if choice is None or not hasattr(choice, "message"):
+                self._response_stopped = True
                 raise RuntimeError("provider response omitted the assistant choice")
             if u.completion_tokens > max_tokens:
+                self._response_stopped = True
                 raise RuntimeError("provider output usage exceeded the requested token cap")
+            allowed = getattr(self, "accepted_response_models", None)
+            if allowed is not None:
+                from .smoke_policy import SmokeStop
+                message = choice.message
+                reason = None
+                if getattr(r, "model", None) not in allowed:
+                    reason = "unexpected_response_model"
+                elif len(choices) != 1 or getattr(choice, "finish_reason", None) != "stop":
+                    reason = "incomplete_response"
+                elif not isinstance(getattr(message, "content", None), str) or not message.content.strip():
+                    reason = "empty_or_nontext_response"
+                elif getattr(message, "tool_calls", None) or getattr(message, "function_call", None):
+                    reason = "unexpected_function_call"
+                elif getattr(message, "reasoning_content", None):
+                    reason = "thinking_not_disabled"
+                if reason:
+                    self._response_stopped = True
+                    raise SmokeStop(reason)
             return choice.message.content or "", u.prompt_tokens, u.completion_tokens
