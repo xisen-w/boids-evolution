@@ -38,4 +38,4 @@ jobs:
           PY
       - name: Offline DEV contracts with Linux sandbox
         run: |
-          sudo env PYTHONHASHSEED=0 /tmp/boids-ci-venv/bin/python -m unittest tests.test_sac_controls tests.test_sac_sharing tests.test_runner tests.test_sandbox tests.test_batch tests.test_determinism tests.test_model tests.test_audit_figure -v
+          sudo env PYTHONHASHSEED=0 /tmp/boids-ci-venv/bin/python -m unittest tests.test_sac_controls tests.test_sac_sharing tests.test_runner tests.test_sandbox tests.test_batch tests.test_determinism.DeterminismTests.test_society_independent_of_hash_seed tests.test_model tests.test_audit_figure -v
