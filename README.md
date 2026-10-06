@@ -9,22 +9,26 @@ usefulness of a shared tool library, beyond alignment and cohesion?
 
 ## Current small-pilot preparation (7 Oct 2026)
 
-The supplemented runner passed a new **96-request, four-arm real smoke**, including
-integrated mechanism analysis and independent replay. See the
+The previous runner revision passed a **96-request, four-arm real smoke**, including
+integrated mechanism analysis and independent replay. See the historical
 [two-pass review and revalidation report](docs/SMOKE_REVALIDATION_2026-10-07.md).
-This establishes engineering execution, not the paper's mechanism claims; Stage B
-has not been run. No credentials or raw research runs are published here.
+That run does **not** validate the new declared-task-parameter contract. The
+current code connects parameterized task targets, quality alignment, freezing
+and functional dependency measurement; see [pilot v2](docs/TARGET_CONTRACT_PILOT_V2.md).
+Its validation is offline software testing, not a new paid experiment. Stage B
+has not been run. This update does not publish credentials or current smoke/pilot
+raw artifacts; the separately documented legacy corpus is unchanged.
 
-Use [the Stage B preparation guide](docs/STAGE_B_AND_ANALYSIS.md) and
+Use [the current pilot v2 guide](docs/TARGET_CONTRACT_PILOT_V2.md) and
 [Mac/AgentPort instructions](docs/MAC_AGENTPORT_SMOKE.md), not the historical
 official-DeepSeek or L0/E recipes below. The `000 / 100 / 011 / 111` path implements the
 PDF-aligned instruction-only ablation: all arms share the same information
 selectors and global library access. The old behavioral arms remain separate.
 
 ```bash
-# PREPARE ONLY. No model client, API key or generated tool execution.
-python -m boidsnet.runner.sac_pilot --config configs/agentport_flash_stage_b.json \
-  --out review/stage-b --run-out runs/stage-b-approved
+# PREPARE ONLY. Local Docker identity check; no model or key access.
+.venv/bin/python -m boidsnet.runner.small_pilot prepare \
+  --out review/stage-b-v2 --run-out runs/stage-b-v2
 ```
 
 The proposed next-stage config is 8 agents × 12 rounds × 4 arms, one paired seed,

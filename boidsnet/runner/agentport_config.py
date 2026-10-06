@@ -6,6 +6,8 @@ from decimal import Decimal
 VERSION = 'sac-agentport-smoke-v1'
 LOCAL_VERSION = 'sac-agentport-local-smoke-v2'
 STAGE_B_VERSION = 'sac-agentport-stage-b-v1'
+CONTRACT_SMOKE_VERSION = 'sac-agentport-local-smoke-v3'
+CONTRACT_STAGE_B_VERSION = 'sac-agentport-stage-b-v2'
 AGENTPORT_BASE_URL = 'https://agentport.world/v1'
 # Explicit provider pins returned by the gateway catalog. Bare aliases and
 # moving "latest" routes are not interchangeable with a reproducible model.
@@ -26,15 +28,20 @@ LOCAL_EXTRA_KEYS = {'max_reserved_cny', 'reservation_input_cny_per_million',
 
 
 def is_agentport(config):
-    return config.get('version') in (VERSION, LOCAL_VERSION, STAGE_B_VERSION)
+    return config.get('version') in (VERSION, LOCAL_VERSION, STAGE_B_VERSION, CONTRACT_SMOKE_VERSION, CONTRACT_STAGE_B_VERSION)
 
 
 def is_local_budget(config):
-    return config.get('version') in (LOCAL_VERSION, STAGE_B_VERSION)
+    return config.get('version') in (LOCAL_VERSION, STAGE_B_VERSION, CONTRACT_SMOKE_VERSION, CONTRACT_STAGE_B_VERSION)
 
 
 def is_stage_b(config):
-    return config.get('version') == STAGE_B_VERSION
+    return config.get('version') in (STAGE_B_VERSION, CONTRACT_STAGE_B_VERSION)
+
+
+def target_contract(config):
+    from .target_contract import VERSION, LEGACY
+    return VERSION if config.get('version') in (CONTRACT_SMOKE_VERSION, CONTRACT_STAGE_B_VERSION) else LEGACY
 
 
 def extra_keys(config):

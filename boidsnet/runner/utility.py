@@ -39,6 +39,7 @@ from .env_adapter import MechEnv
 from .exposure import summarise
 from .primitive_contract import PUBLIC_PRIMITIVES
 from .sandbox import SandboxedTool
+from .target_contract import VERSION as TARGET_VERSION, kwargs_for, scope_key
 
 def _sha(text):
     import hashlib
@@ -93,7 +94,7 @@ SOLVER_FORMAT = (
 # --------------------------------------------------------------------------
 # Freezing L_T
 # --------------------------------------------------------------------------
-def freeze_library(society_dir, out_dir, env=None):
+def freeze_library(society_dir, out_dir, env=None, *, stop_on_anomaly=False):
     """See module docstring.  `env` is needed to verify parametric tools
     (msg #79.1); without it parametric tools cannot be recovered."""
     src = os.path.join(society_dir, "library")
@@ -103,24 +104,63 @@ def freeze_library(society_dir, out_dir, env=None):
         acl = json.load(f)
     groups = {}
     dropped_crash, parametric, verified_log = [], set(), {}
+    target_kept, target_verdicts = set(), {}
+    def check_verdict(v):
+        if stop_on_anomaly:
+            from .smoke_policy import SmokeStop, verdict_has_execution_error, ordinary_solver_code_error
+            if verdict_has_execution_error(v) and not ordinary_solver_code_error(v):
+                raise SmokeStop('freeze_verification_execution_error')
     for e in sorted(index.values(), key=lambda e: (e["round"], e["id"])):
         sig = e.get("signature_signal") or []
-        if sig and not all(str(x).startswith("ERR") for x in sig):
+        params = kwargs_for(e)
+        usable_signature = bool(sig) and not all(str(x).startswith('ERR') for x in sig)
+        parameterized_entry = (e.get('target_contract_version') == TARGET_VERSION
+                               and (bool(params) or bool(e.get('implements'))))
+        if not parameterized_entry and usable_signature:
             groups.setdefault(("sig", tuple(sig)), []).append(e)
             continue
-        # All-ERR on P_signal: P_signal calls tools WITHOUT params, so a
-        # parametric building block (e.g. filter(col, op, value)) looks like a
-        # crash.  Keep it if it verifies >=1 declared IMPLEMENTS primitive.
+        # No-kwargs calls may crash OR return a default identity for different
+        # parameterized capabilities. New contracts verify declared primitives
+        # first, even with TARGET NONE. Legacy all-ERR recovery is unchanged.
         ok = []
         if env is not None:
             for prim in e.get("implements") or []:
                 v = env.verify_primitive(SandboxedTool(src, e["id"]), prim)
+                check_verdict(v)
                 verified_log.setdefault(e["id"], {})[prim] = bool(v.get("passed"))
                 if v.get("passed"):
                     ok.append(prim)
         if ok:
             parametric.add(e["id"])
             groups.setdefault(("prims", frozenset(ok)), []).append(e)
+        elif usable_signature and not params:
+            # A failed primitive claim does not erase an otherwise callable
+            # no-kwargs tool. Preserve the original raw-behaviour fallback.
+            groups.setdefault(('sig', tuple(sig)), []).append(e)
+        elif env is not None and e.get('target_contract_version') == TARGET_VERSION and params is not None:
+            # A valid parameterized full pipeline need not implement any one
+            # standalone primitive. Verify its declared task, never infer one.
+            task = next((t for t in env.dev_tasks() if t['id'] == e['target']), None)
+            tool = SandboxedTool(src, e['id'])
+            v = env.harness(tool, task, params=params) if task else {'passed': False}
+            check_verdict(v)
+            target_verdicts[e['id']] = v
+            if v.get('passed'):
+                sig = env.signature(tool, params)
+                if stop_on_anomaly:
+                    from .smoke_policy import ordinary_model_code_error, SmokeStop
+                    for output in tool.prefetch(env.signal_calls(params)):
+                        if isinstance(output, dict) and '__error__' in output and not ordinary_model_code_error(output['__error__']):
+                            raise SmokeStop('freeze_verification_execution_error')
+                # Task/kwargs are the same test condition; different targets
+                # cannot be deduplicated just because no-kwargs calls crash.
+                if sig and not all(str(x).startswith('ERR') for x in sig):
+                    target_kept.add(e['id'])
+                    groups.setdefault(('declared_target', scope_key(e), tuple(sig)), []).append(e)
+                else:
+                    dropped_crash.append(e['id'])
+            else:
+                dropped_crash.append(e['id'])
         else:
             dropped_crash.append(e["id"])
     kept = []
@@ -152,6 +192,9 @@ def freeze_library(society_dir, out_dir, env=None):
             "dropped_all_crash": dropped_crash,
             "dropped_duplicate": sorted(set(index) - set(kept_ids) - set(dropped_crash)),
             "n_built": len(index)}
+    if any(e.get('target_contract_version') == TARGET_VERSION for e in index.values()):
+        meta.update(target_contract_version=TARGET_VERSION, target_verdicts=target_verdicts,
+                    kept_target_invocations=sorted(target_kept & set(kept_ids)))
     with open(os.path.join(out_dir, "freeze.json"), "w") as f:
         json.dump(meta, f, indent=1)
     return [e for e in kept], frozen_acl, meta
@@ -339,6 +382,9 @@ def solver_prompt(task, kept, source_of, attempt=0, society_seed=0, max_input_by
         lines = ["Library:"]
         for e in order:
             lines.append(summarise(e, source_of(e["id"]), prose_limit=prose_limit))
+            if e.get('target_contract_version') == TARGET_VERSION and kwargs_for(e) is not None:
+                lines.append('    Declared DEV target invocation (not a guarantee for this task): '
+                             + e['target'] + ' kwargs=' + json.dumps(kwargs_for(e), sort_keys=True))
             for name in e.get("implements", []):
                 if name in PUBLIC_PRIMITIVES:
                     keywords = ', '.join(f'{p}=<{p}>' for p in PUBLIC_PRIMITIVES[name][0].split(','))
@@ -434,7 +480,7 @@ def score_society(society_dir, env, model, attempts=3, out_name=None, temperatur
     if os.path.exists(out):
         raise SystemExit(f"refusing to overwrite {out}")
     lib = os.path.join(out, "frozen_library")
-    kept, acl, meta = freeze_library(society_dir, lib, env)
+    kept, acl, meta = freeze_library(society_dir, lib, env, stop_on_anomaly=stop_on_smoke_anomaly)
     kept_ids = [e["id"] for e in kept]
     if stop_on_smoke_anomaly and not kept_ids:
         from .smoke_policy import SmokeStop

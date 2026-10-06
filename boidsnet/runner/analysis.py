@@ -23,9 +23,11 @@ from .library import Library
 from .mechanisms import text_pairs
 from .run import DEFAULT_ENV
 from .sandbox import isolation_level, is_error
+from .target_contract import LEGACY, kwargs_for
 
 ANALYSIS_PROTOCOL = {
-    'version': 'sac-analysis-v1', 'model_calls': 0, 'test_unsealed': False,
+    'version': 'sac-analysis-v2', 'model_calls': 0, 'test_unsealed': False,
+    'target_invocation': 'declared DEV task with saved versioned kwargs; absent legacy metadata means no kwargs; never infer targets',
     'unparameterized_seeds': list(range(40000, 40008)),
     'parameterized_seeds': [list(range(40000 + 8*j, 40008 + 8*j)) for j in range(3)],
     'parameter_rng': 'Random(45000 + crc32(primitive.encode(utf-8)) % 2000); three sequential draws',
@@ -237,6 +239,9 @@ def analyze_society(society, out, env=None, *, require_os=True, utility_name='ut
     original = hashes(society)
     index = read(society / 'library/index.json')
     manifest = read(society / 'run_manifest.json')
+    declared_contract = manifest.get('extra', {}).get('target_contract', LEGACY)
+    if any(e.get('target_contract_version', LEGACY) != declared_contract for e in index.values()):
+        raise ValueError('tool target contract differs from the recorded society protocol')
     if manifest.get('env_sha256') and manifest['env_sha256'] != env.file_sha256:
         raise ValueError('analysis environment differs from source society')
     freeze = read(society / utility_name / 'frozen_library/freeze.json')
@@ -311,16 +316,20 @@ def analyze_society(society, out, env=None, *, require_os=True, utility_name='ut
             source = (society / 'library/tools' / (tid + '.py')).read_text()
             known_cross = direct_cross_edges(tid, index, source)
             target = tasks.get(entry.get('target'))
-            if target is None:
+            params = kwargs_for(entry)
+            if target is None or params is None:
                 tool_rows.append({'tool_id': tid, 'target': entry.get('target'), 'status': 'no_valid_target'})
                 for edge in sorted(known_cross):
                     edge_rows.append({'root_tool': tid, 'importer': edge[0], 'dependency': edge[1], 'classification': 'unknown'})
                 continue
-            calls = calls_for(env, ANALYSIS_PROTOCOL['target_and_ablation_seeds'])
-            expected = reference_outputs(env, calls, target.reference)
+            calls = calls_for(env, ANALYSIS_PROTOCOL['target_and_ablation_seeds'], params)
+            # The reference already binds the complete task's own parameters.
+            # Generated kwargs select the tool invocation, never alter the oracle.
+            expected = reference_outputs(env, calls, lambda table, lookup, **_: target.reference(table, lookup))
             intact = probe(society / utility_name / 'frozen_library', tid, calls)
             base = verdict(env, intact, expected)
-            trace = {'intact': intact, 'expected': expected, 'verdict': base, 'ablations': {}}
+            trace = {'intact': intact, 'expected': expected, 'verdict': base, 'ablations': {},
+                     'target_params': params, 'target_contract_version': entry.get('target_contract_version', LEGACY)}
             candidates = direct_cross_edges(tid, index, source, intact)
             statuses = []
             for edge in sorted(candidates):
@@ -351,6 +360,8 @@ def analyze_society(society, out, env=None, *, require_os=True, utility_name='ut
         summary['mechanism_delivery'] = {
             'builder_records': len(rounds),
             'target_none': sum(r.get('target') is None for r in rounds),
+            'invalid_target_contracts': sum(bool(r.get('target_contract_error')) for r in rounds),
+            'declared_target_passes': sum(bool((r.get('harness') or {}).get('passed')) for r in rounds),
             'S_opportunities': sum((r.get('sac_evidence') or {}).get('S') is not None for r in rounds),
             'S_fired': sum(bool((r.get('sac_fired') or {}).get('S')) for r in rounds),
             'A_nonfallback_opportunities': sum(bool((r.get('sac_evidence') or {}).get('A')) and not r['sac_evidence']['A']['fallback'] for r in rounds),
@@ -364,6 +375,7 @@ def analyze_society(society, out, env=None, *, require_os=True, utility_name='ut
                   'source_unchanged': True, 'analysis_code_sha256': analyzer_hash,
                   'stop_on_smoke_anomaly': stop_on_smoke_anomaly,
                   'source_run_code_sha256': manifest.get('code_sha256'), 'env_sha256': env.file_sha256,
+                  'target_contract': manifest.get('extra', {}).get('target_contract', LEGACY),
                   'sandbox': isolation_level(), 'summary': summary}
         write(out / 'analysis.json', result)
         return result
@@ -383,6 +395,8 @@ def aggregate_analyses(root):
     for r in reports:
         if any(r[k] != reports[0][k] for k in ('protocol', 'env_sha256', 'analysis_code_sha256', 'source_run_code_sha256')):
             raise ValueError('analysis protocol/environment/source mismatch')
+        if r.get('target_contract', LEGACY) != reports[0].get('target_contract', LEGACY):
+            raise ValueError('target contracts differ across societies')
         s = r['summary']
         block = by_seed.setdefault(s['seed'], {})
         if s['arm'] in block:

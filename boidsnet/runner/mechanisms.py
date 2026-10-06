@@ -92,12 +92,15 @@ def build_evidence(snapshot, agent, rnd, cfg, source_of, known_tasks, primitives
     adoption = Counter(d for e in history for d in set(e.get("static_imports", [])))
 
     def pack(e, role):
-        return {"tool_id": e["id"], "author": e["author"], "round": e["round"],
+        result = {"tool_id": e["id"], "author": e["author"], "round": e["round"],
                 "label": e.get("label"), "description": e.get("description"),
                 "target": e.get("target"), "implements": e.get("implements", []),
                 "dev_pass": bool((e.get("harness") or {}).get("passed")),
                 "tci": e["tci"], "adoption": adoption[e["id"]], "role": role,
                 "code_excerpt": "\n".join(s[:200] for s in source_of(e["id"]).splitlines()[:20])}
+        if 'target_contract_version' in e:
+            result.update({k: e.get(k) for k in ('target_params', 'target_contract_version', 'target_contract_error')})
+        return result
 
     pairs, reason = text_pairs(pool)
     qualifying = [p for p in pairs if p[0] >= cfg.separation_threshold]

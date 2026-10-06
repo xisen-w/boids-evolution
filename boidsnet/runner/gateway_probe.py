@@ -18,7 +18,7 @@ from .config import RunConfig
 from .env_adapter import MechEnv
 from .run import DEFAULT_ENV
 from .society import Society
-from .agentport_config import is_local_budget
+from .agentport_config import is_local_budget, is_stage_b, target_contract
 from .failure_diagnostics import failure_diagnostics
 
 
@@ -39,7 +39,8 @@ def first_request(config):
                     temperature=config['temperature'], max_tokens_per_call=config['builder_max_tokens'],
                     separation_threshold=config['separation_threshold'],
                     alignment_window=config['alignment_window'], tool_timeout_s=config['tool_timeout_s'],
-                    extra={'max_input_bytes': config['max_input_bytes'], 'stop_on_smoke_anomaly': True})
+                    extra={'max_input_bytes': config['max_input_bytes'], 'stop_on_smoke_anomaly': True,
+                           'target_contract': target_contract(config)})
     with tempfile.TemporaryDirectory(prefix='boids_request_capture_') as tmp:
         try:
             Society(cfg, MechEnv(DEFAULT_ENV, config['dev_seed']), Capture(), tmp).run()
@@ -51,8 +52,8 @@ def first_request(config):
 
 
 def resolve_probe(config, out, run_id=None):
-    if not is_local_budget(config):
-        raise ValueError('one-request probe requires the local v2 smoke policy')
+    if not is_local_budget(config) or is_stage_b(config):
+        raise ValueError('one-request probe requires a smoke config, not a stage B pilot')
     r = resolve(config, out, run_id)
     r.update(execution_mode='one_builder_request_only', builder_calls=1, solver_calls=0,
              nominal_model_calls=1, first_request=first_request(config),
@@ -113,7 +114,8 @@ def execute_probe(review, approval, out, allow_spend):
         text, tin, tout = model.complete(**review['first_request'])
         write_json(out / 'response.json', {'content': text, 'tokens_in': tin, 'tokens_out': tout,
                                           'metadata': model.last_response_metadata})
-        parsed = parse_response(text, MechEnv(DEFAULT_ENV, c['dev_seed']).primitives)
+        parsed = parse_response(text, MechEnv(DEFAULT_ENV, c['dev_seed']).primitives,
+                                target_contract=target_contract(c))
         budget.stop('diagnostic_complete')
         report = {'status': 'API_RESPONSE_RECEIVED_NOT_END_TO_END', 'budget': budget.receipt(),
                   'builder_parse_ok': parsed['parse_ok'], 'generated_code_executed': False,

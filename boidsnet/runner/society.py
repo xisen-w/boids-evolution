@@ -21,7 +21,8 @@ import copy
 from .config import SAC_ARMS
 from .exposure import ring_neighbours, select_exemplars, select_matched, render_block
 from .library import Library
-from .prompts import SYSTEM, build_user_prompt, parse_response
+from .prompts import SYSTEM, PARAM_SYSTEM, build_user_prompt, parse_response
+from .target_contract import VERSION as TARGET_VERSION, kwargs_for
 from .sandbox import SandboxedTool
 
 
@@ -32,6 +33,8 @@ def _sha(s):
 class Society:
     def __init__(self, cfg, env, model, out_dir):
         self.cfg, self.env, self.model = cfg, env, model
+        self.target_contract = cfg.extra.get('target_contract')
+        self.system = PARAM_SYSTEM if self.target_contract == TARGET_VERSION else SYSTEM
         self.out = out_dir
         os.makedirs(os.path.join(out_dir, "prompts"), exist_ok=True)
         self.lib = Library(os.path.join(out_dir, "library"))
@@ -139,7 +142,7 @@ class Society:
             block = render_block(cfg.framing, chosen, self._source)
         menu = self.env.menu(cfg.seed, agent, rnd, self.dev_tasks, cfg.menu_size)
         fb = self.feedback.get(agent)
-        user = build_user_prompt(rnd, menu, catalogue, block, fb)
+        user = build_user_prompt(rnd, menu, catalogue, block, fb, target_contract=self.target_contract)
         if sac_evidence is not None:
             # Shrink all four renderings identically for the SAME snapshot.
             # Byte budget is a conservative, tokenizer-independent input cap.
@@ -149,9 +152,10 @@ class Society:
             cat = copy.deepcopy(catalogue)
             shrink_steps = 0
             while True:
-                variants = {arm: build_user_prompt(rnd, menu, cat, render_evidence(evidence, arm)[0], fb)
+                variants = {arm: build_user_prompt(rnd, menu, cat, render_evidence(evidence, arm)[0], fb,
+                                                   target_contract=self.target_contract)
                             for arm in SAC_ARMS}
-                if max(len((SYSTEM + u).encode("utf-8")) for u in variants.values()) <= cap:
+                if max(len((self.system + u).encode("utf-8")) for u in variants.values()) <= cap:
                     break
                 excerpts = [e for name in ("S", "A") for e in (evidence[name] or {}).get("tools", [])]
                 if any(e["code_excerpt"] for e in excerpts):
@@ -169,20 +173,23 @@ class Society:
             block, sac_fired = render_evidence(evidence, cfg.arm)
             user = variants[cfg.arm]
             sac_meta.update(evidence_sha256=evidence_hash(evidence), prompt_shrink_steps=shrink_steps,
-                            max_rendered_input_bytes=max(len((SYSTEM + u).encode("utf-8")) for u in variants.values()))
+                            max_rendered_input_bytes=max(len((self.system + u).encode("utf-8")) for u in variants.values()))
         tool_id = self.lib.make_id(agent, rnd)
         # Keep the exact research prompt even if the first provider call fails.
         # No transport headers or credentials are part of this artifact.
         prompt_path = os.path.join(self.out, "prompts", f"{tool_id}.json")
         with open(prompt_path, "w") as f:
-            json.dump({"system": SYSTEM, "user": user, "response": None,
+            json.dump({"system": self.system, "user": user, "response": None,
                        "status": "REQUEST_PREPARED"}, f, indent=1)
-        text, tin, tout = self.model.complete(SYSTEM, user, cfg.temperature, cfg.max_tokens_per_call)
+        text, tin, tout = self.model.complete(self.system, user, cfg.temperature, cfg.max_tokens_per_call)
         self.tokens += tin + tout
         retries = getattr(self.model, "last_retries", 0)
-        parsed = parse_response(text, self.env.primitives)
+        parsed = parse_response(text, self.env.primitives, target_contract=self.target_contract)
+        if self.target_contract == TARGET_VERSION and parsed['target'] is not None:
+            if parsed['target'] not in {t['id'] for t in menu}:
+                parsed['target_contract_error'] = 'target_not_in_shown_dev_menu'
         with open(prompt_path, "w") as f:
-            json.dump({"system": SYSTEM, "user": user, "response": text,
+            json.dump({"system": self.system, "user": user, "response": text,
                        "status": "RESPONSE_RECEIVED"}, f, indent=1)
         rec = {
             "arm": cfg.arm, "seed": cfg.seed, "round": rnd, "agent": agent,
@@ -199,7 +206,7 @@ class Society:
             "exemplar_passed": [bool((e.get("harness") or {}).get("passed")) for e in chosen],
             "rule_fired": any(sac_fired.values()) if sac_fired is not None else bool(block) and cfg.framing in ("avoid", "emulate"),
             "block_nonempty": bool(block), "block_chars": len(block),
-            "prompt_chars": len(SYSTEM) + len(user), "prompt_sha256": _sha(SYSTEM + user),
+            "prompt_chars": len(self.system) + len(user), "prompt_sha256": _sha(self.system + user),
             "tokens_in": tin, "tokens_out": tout, "tokens_cum": self.tokens,
             "api_retries": retries,
             "tool_id": tool_id, "parse_ok": parsed["parse_ok"],
@@ -211,11 +218,19 @@ class Society:
             rec.update(sac_evidence=sac_evidence, sac_selection=sac_meta, sac_fired=sac_fired)
         rec["response_metadata"] = getattr(self.model, "last_response_metadata", None)
         rec['model_parse_failure'] = not parsed['parse_ok']
+        contract = {}
+        if self.target_contract == TARGET_VERSION:
+            contract = {k: parsed[k] for k in ('target_params', 'target_contract_version', 'target_contract_error')}
+            # Record invalid declarations even when no Python tool was parsed.
+            rec.update(copy.deepcopy(contract))
         entry = None
         if parsed["parse_ok"]:
             entry = self.lib.add(tool_id, agent, rnd, parsed["tool_label"],
                                  parsed["description"] or "", parsed["target"], parsed["source"],
                                  parsed["implements"], acl=[e["id"] for e in catalogue])
+            if contract:
+                entry.update(copy.deepcopy(contract))
+                self.lib.save()
             visible = {e["id"]: e["author"] for e in snapshot}
             rec["static_imports"] = entry["static_imports"]
             rec["cross_agent_imports"] = [t for t in entry["static_imports"]
@@ -234,8 +249,13 @@ class Society:
             self.feedback[rec["agent"]] = {"tool_id": rec["tool_id"], "text": rec["exec_feedback"]}
             return
         tool = SandboxedTool(self.lib.root, entry["id"], self.cfg.tool_timeout_s)
+        target_params = kwargs_for(entry)
         # D9: zero-model-call execution feedback, shown to the author next round.
-        rec["exec_feedback"] = self.env.exec_feedback(tool, rec["round"])
+        rec["exec_feedback"] = (self.env.exec_feedback(tool, rec["round"], params=target_params)
+                                if self.target_contract == TARGET_VERSION
+                                else self.env.exec_feedback(tool, rec["round"]))
+        if self.target_contract == TARGET_VERSION:
+            rec['exec_feedback_target_params'] = target_params
         parametric = None
         if self.cfg.extra.get("stop_on_smoke_anomaly") and rec["exec_feedback"].startswith("raised "):
             from .smoke_policy import SmokeStop, verified_parametric_component, ordinary_model_code_error
@@ -257,7 +277,10 @@ class Society:
             else:
                 rec['model_public_execution_failure'] = True
         rec["exec_feedback_seed"] = self.env.public_example_seed(rec["round"])
-        self.feedback[entry["author"]] = {"tool_id": entry["id"], "text": rec["exec_feedback"]}
+        feedback_text = rec['exec_feedback']
+        if self.target_contract == TARGET_VERSION:
+            feedback_text = ('[call kwargs=' + json.dumps(target_params or {}, sort_keys=True) + '] ' + feedback_text)
+        self.feedback[entry["author"]] = {"tool_id": entry["id"], "text": feedback_text}
         vec = self.env.signature(tool)
         entry["signature_signal"] = vec
         rec["signature_signal"] = vec
@@ -284,10 +307,10 @@ class Society:
         # Legacy arms hide verdicts. SAC exposes selected-exemplar dev-pass
         # metadata identically in all four conditions (never reference outputs).
         task = self.task_by_id.get(entry["target"])
-        if task:
-            rec["harness"] = self.env.harness(tool, task)
+        if task and target_params is not None:
+            rec["harness"] = self.env.harness(tool, task, params=target_params) if target_params else self.env.harness(tool, task)
         else:
-            rec["harness"] = {"passed": False, "reason": "no_or_unknown_target"}
+            rec["harness"] = {"passed": False, "reason": entry.get('target_contract_error') or "no_or_unknown_target"}
         entry["harness"] = rec["harness"]
         self.lib.save()
         if self.cfg.extra.get("stop_on_smoke_anomaly"):

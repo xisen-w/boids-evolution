@@ -16,6 +16,7 @@ import importlib.util
 import json
 import random
 import sys
+import copy
 from dataclasses import asdict
 
 CONTRACT = (
@@ -64,11 +65,11 @@ class MechEnv:
         per round (msg #73 B4/#76.4) so tools are not tuned to one table."""
         return self.m.SEED_RANGES["dev"][0] + 7 + 101 * rnd
 
-    def exec_feedback(self, tool, rnd=0):
+    def exec_feedback(self, tool, rnd=0, params=None):
         """D9: run the tool on one public dev example; return the exception
         or the first rows.  No pass/fail, no reference output, no P_coverage."""
         s = self.public_example_seed(rnd)
-        call = {"args": [self.m.gen_table(s), self.m.gen_lookup(s)], "kwargs": {}}
+        call = {"args": [self.m.gen_table(s), self.m.gen_lookup(s)], "kwargs": copy.deepcopy(params or {})}
         y = tool.prefetch([call])[0]
         if isinstance(y, dict) and "__error__" in y:
             text = "raised " + y["__error__"]
@@ -78,18 +79,19 @@ class MechEnv:
             text = "returned non-table value: " + json.dumps(y)[:200]
         return text[:self.FEEDBACK_CHARS]
 
-    def signal_calls(self):
-        return [{"args": [self.m.gen_table(s), self.m.gen_lookup(s)], "kwargs": {}}
+    def signal_calls(self, params=None):
+        return [{"args": [self.m.gen_table(s), self.m.gen_lookup(s)], "kwargs": copy.deepcopy(params or {})}
                 for s in self.signal_seeds]
 
     def menu(self, society_seed, agent, rnd, all_tasks, menu_size):
         rng = random.Random(f"menu:{society_seed}:{agent}:{rnd}")
         return sorted(rng.sample(all_tasks, min(menu_size, len(all_tasks))), key=lambda t: t["id"])
 
-    def signature(self, tool):
+    def signature(self, tool, params=None):
         """Per-probe output hashes on P_signal ('ERR:<type>' for crashes)."""
-        tool.prefetch(self.signal_calls())
-        return self.m.behaviour_vector(tool, "signal", self.signal_seeds)
+        tool.prefetch(self.signal_calls(params))
+        bound = (lambda table, lookup: tool(table, lookup, **copy.deepcopy(params))) if params else tool
+        return self.m.behaviour_vector(bound, "signal", self.signal_seeds)
 
     def similarity(self, a, b):
         if not a or not b or len(a) != len(b):
@@ -115,9 +117,11 @@ class MechEnv:
         tool.prefetch(calls)
         return asdict(self.m.verify_primitive(tool, primitive, "coverage"))
 
-    def harness(self, tool, task):
+    def harness(self, tool, task, params=None):
         t = task["obj"]
-        calls = [{"args": [self.m.gen_table(s), [dict(r) for r in self.m.gen_lookup(s)]], "kwargs": {}}
+        params = copy.deepcopy(params or {})
+        calls = [{"args": [self.m.gen_table(s), [dict(r) for r in self.m.gen_lookup(s)]], "kwargs": copy.deepcopy(params)}
                  for s in t.probe_seeds["coverage"]]
         tool.prefetch(calls)
-        return asdict(self.m.harness(tool, t, "coverage"))
+        bound = (lambda table, lookup: tool(table, lookup, **copy.deepcopy(params))) if params else tool
+        return asdict(self.m.harness(bound, t, "coverage"))

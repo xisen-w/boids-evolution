@@ -99,6 +99,8 @@ def resolve(config, run_out=None, run_id=None):
             "requirements_sha256": hashlib.sha256((ROOT / "requirements.txt").read_bytes()).hexdigest()}
     if gateway:
         from .analysis import ANALYSIS_PROTOCOL
+        from .agentport_config import target_contract
+        resolved['target_contract'] = target_contract(config)
         resolved['mechanism_analysis'] = ANALYSIS_PROTOCOL
         resolved['arm_order'] = config.get('arm_order', ['000', '111', '100', '011'])
         resolved['provider_request_body'] = thinking_request_body(
@@ -287,13 +289,15 @@ def execute(resolved, approval, out, allow_spend, *, campaign=None):
         env = MechEnv(DEFAULT_ENV, c["dev_seed"])
         # Fixed balanced alternating order, not sorted by hypothesized benefit.
         for arm in c.get('arm_order', ["000", "111", "100", "011"]):
+            from .agentport_config import target_contract
             seed = c['seeds'][0]
             cfg = RunConfig(arm=arm, seed=seed, n_agents=c["n_agents"], n_rounds=c["n_rounds"],
                             k=c["k"], menu_size=c["menu_size"], model=c["model"], temperature=c["temperature"],
                             max_tokens_per_call=c["builder_max_tokens"], dry_run=False,
                             separation_threshold=c["separation_threshold"], alignment_window=c["alignment_window"],
                             tool_timeout_s=c["tool_timeout_s"], code_sha256=resolved["code_sha256"],
-                            extra={"max_input_bytes": c["max_input_bytes"], "stop_on_smoke_anomaly": gateway})
+                            extra={"max_input_bytes": c["max_input_bytes"], "stop_on_smoke_anomaly": gateway,
+                                   "target_contract": target_contract(c)})
             soc = out / f"ENG_{arm}_s{seed}"
             soc.mkdir()
             manifest = cfg.to_dict() | {"engineering": True, "protocol": c["version"],
@@ -332,6 +336,8 @@ def execute(resolved, approval, out, allow_spend, *, campaign=None):
         if gateway:
             from .analysis import aggregate_analyses
             report['analysis_summary'] = aggregate_analyses(out / 'analysis')
+            from .pilot_readiness import summarize
+            report['research_readiness'] = summarize(report)
         write_json(out / "pilot_summary.json", report)
         return report
     except (Exception, SystemExit, KeyboardInterrupt) as exc:

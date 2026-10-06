@@ -1,5 +1,7 @@
 # 下一阶段小实验与独立机制分析
 
+**版本提示：本文保留 v1 方案。当前入口及参数化目标契约使用 [TARGET_CONTRACT_PILOT_V2.md](TARGET_CONTRACT_PILOT_V2.md) 和 `configs/agentport_flash_stage_b_v2.json`。旧真实 smoke 不作为新契约已通过付费验证的证明。**
+
 2026-10-07。本文是当前操作说明；早期官方 DeepSeek / legacy behavioral 入口与旧预算说明不再作为 SAC 小实验的启动依据。
 
 本次补齐的是开发阶段入口和分析代码。**准备配置不等于批准执行，离线 fixture 不等于真实模型实验。** 旧 run-12 保持原状；新分析另存目录，新模型调用仍须先审核配置。

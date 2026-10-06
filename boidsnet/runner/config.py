@@ -61,6 +61,10 @@ class RunConfig:
     extra: dict = field(default_factory=dict)
 
     def __post_init__(self):
+        from .target_contract import VERSION, LEGACY
+        contract = self.extra.get('target_contract', LEGACY)
+        if contract not in (VERSION, LEGACY) or (contract == VERSION and self.arm not in SAC_ARMS):
+            raise ValueError('parameterized task contracts require the explicit SAC protocol')
         if self.arm not in ARMS:
             raise ValueError(f"unknown arm {self.arm!r}; expected one of {ARMS}")
         if self.k % 2 or self.k < 2:

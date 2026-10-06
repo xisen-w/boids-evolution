@@ -1,0 +1,43 @@
+{
+  "version": "sac-agentport-local-smoke-v3",
+  "arms": [
+    "000",
+    "100",
+    "011",
+    "111"
+  ],
+  "seeds": [
+    1001
+  ],
+  "n_agents": 4,
+  "n_rounds": 3,
+  "k": 2,
+  "menu_size": 8,
+  "dev_seed": 0,
+  "eval_tasks_per_depth": 2,
+  "solver_attempts": 2,
+  "model": "azure:DeepSeek-V4-Flash",
+  "base_url": "https://agentport.world/v1",
+  "thinking": "disabled",
+  "temperature": 0.7,
+  "builder_max_tokens": 4000,
+  "solver_max_tokens": 1500,
+  "max_input_bytes": 16000,
+  "max_http_attempts_per_call": 1,
+  "max_http_requests": 96,
+  "max_reserved_cny": 7.5,
+  "reservation_input_cny_per_million": 3.2,
+  "reservation_output_cny_per_million": 8.4,
+  "reservation_basis": "Local allowances, not provider prices. New task-contract revalidation proposal only; no run authorized.",
+  "max_reserved_per_request_cny": 0.1,
+  "accepted_response_models": [
+    "azure:DeepSeek-V4-Flash",
+    "DeepSeek-V4-Flash"
+  ],
+  "sandbox_image_id": "sha256:0e379b4303072d494085de56dbfc73924845f30daa1a91d0aaee19fb50f6cdf1",
+  "request_timeout_s": 90,
+  "tool_timeout_s": 5,
+  "separation_threshold": 0.3,
+  "alignment_window": 3,
+  "key_env": "BOIDS_PARTNER_API_KEY"
+}
