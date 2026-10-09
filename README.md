@@ -1,5 +1,18 @@
 # boids-evolution
 
+## Completed-study analysis and manuscript
+
+The new analysis uses **existing frozen evidence only: zero additional model or
+grader calls**. See the [AAMAS-format full paper](paper/tool-ecology/main.pdf),
+[Chinese in-depth analysis](docs/tool-ecology/DEEP_ANALYSIS_ZH.pdf), and
+[source data plus ten coordinated figures](studies/tool_ecology/evidence/v031/analysis-02/README.md).
+Post-initial correct adoption occurs in Boids57/115 versus neutral26/116 admitted
+publications, while final collective family coverage adds zero beyond the best
+self-contained author history in every society. The analysis separates adoption,
+maintenance location, persistence, reliability, root code size and token budgets.
+All seeds, unsuccessful narrowing and recovery/cost provenance remain visible.
+The user has ended further experiments; paid work and experiment automation stay stopped.
+
 ## Repeated-demand native tool ecology (2026-10-09)
 
 The latest authorized exploratory experiment is complete: nine GPT-6-Luna/mini-SWE-agent societies, 420 immutable native-tool publications, identical plain/instrumented replay scores, and 71 of 72 preselected return interventions with noncrashing correctness-loss witnesses (69 of70 unique edges within societies). Local Boids guidance corresponds to more tool adoption and different dependency profiles, while every society's common-panel coverage equals its best self-contained author history; no complementary coverage gain was observed. Four narrow lookup publications occurred, with one isolated program defect diagnosed without changing original scores. All 2,121 corrected-study attempts, including a 69-call transport-failed partial cell, are accounted for. This is a recovered exploratory collection with per-cell revisions and 55/180-second transport disclosure. Paid work has ended. See [final Chinese results, tables and figures](docs/tool-ecology/FINAL_RESULTS_ZH.md), [historical live record](docs/tool-ecology/RESULTS_ZH.md), [recovery protocol](docs/tool-ecology/RECOVERY_V031.md), and [implementation](studies/tool_ecology/README.md). The earlier LDB pilot remains in [the historical report](studies/tool_ecology/REPORT_ZH.md).

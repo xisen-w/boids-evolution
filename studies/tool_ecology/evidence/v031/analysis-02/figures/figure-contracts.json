@@ -1,0 +1,127 @@
+{
+  "palette": {
+    "local-neutral": "#2878B5",
+    "local-boids": "#D97932",
+    "independent": "#737C86"
+  },
+  "font": "Arial with Helvetica/DejaVu Sans fallbacks",
+  "width_inches": 7.25,
+  "formats": [
+    "editable SVG",
+    "TrueType PDF",
+    "280 dpi PNG preview"
+  ],
+  "error_bars": "none; all three society replicates or their descriptive aggregates are shown",
+  "figures": [
+    {
+      "name": "fig01-tool-communication",
+      "claim": "Tools separate visibility, execution, functional contribution and collective coverage.",
+      "source_tables": [],
+      "caveat": "Schematic of the implemented protocol, not additional observations.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig02-boids-mapping",
+      "claim": "The implemented triad is prompt guidance, with distinct measurable targets and limits.",
+      "source_tables": [],
+      "caveat": "This figure describes v0.3.1; it does not show the earlier global-catalogue TF-IDF pilot.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig03-main-results",
+      "claim": "More publications adopt foreign tools, while final additional family coverage is zero.",
+      "source_tables": [
+        "societies.csv"
+      ],
+      "caveat": "Points are societies, not cases. Three seeds per condition; lines join workload/topology seed matches. History is a union of versions.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig04-dynamics",
+      "claim": "Adoption and self-contained histories develop differently in the three seed matches.",
+      "source_tables": [
+        "rounds.csv"
+      ],
+      "caveat": "Top row uses original round-specific DEV checks; bottom uses already archived common fresh panel. No averages hide seed trajectories.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig05-author-provenance",
+      "claim": "Dependence supplements some author histories without adding collective categories.",
+      "source_tables": [
+        "authors.csv"
+      ],
+      "caveat": "Own history requires an entirely same-author declared closure. It is not a measure of originality or understanding.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig06-code-and-budget",
+      "claim": "Short root packages do not imply proportionally lower total context or token use.",
+      "source_tables": [
+        "societies.csv"
+      ],
+      "caveat": "AST size is static root size, excludes dependencies and is not effort or computational complexity. Input includes cached tokens; money is unverified.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig07-reliability",
+      "claim": "Observed failures concentrate in output contracts rather than providing a single cause for rule effects.",
+      "source_tables": [
+        "services.csv",
+        "summary.json"
+      ],
+      "caveat": "Cases are correlated, declaration-conditioned and not independent replicates. A mismatched field is not automatically a common code cause.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig08-narrowing",
+      "claim": "Transient narrow declarations must be separated from sustained independent expertise.",
+      "source_tables": [
+        "publications.csv"
+      ],
+      "caveat": "Selected because this is the only three-round same-author narrow declaration sequence; existing repair evidence only, no new execution.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig09-author-networks",
+      "claim": "The dependency structure involves more authors in Boids societies, with all seed graphs disclosed.",
+      "source_tables": [
+        "author-links.csv"
+      ],
+      "caveat": "Edges collapse versioned correct-execution pairs. This author projection may contain cycles although the version graph is acyclic; not the social ring.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    },
+    {
+      "name": "fig10-publication-breadth",
+      "claim": "Broad service offerings dominate every condition; four narrow declarations remain visible.",
+      "source_tables": [
+        "publications.csv"
+      ],
+      "caveat": "Zero denotes an admitted publication with no fully passing family. A cross denotes skip or contract rejection; neither is missing data.",
+      "replicate_unit": "society; three per condition",
+      "model_calls": 0,
+      "grader_calls": 0
+    }
+  ],
+  "plotting_script_sha256": "6efa11e2ed4ef36df8a2f28569c4d6554546e3efdb6cea6f41156e69437b7d8f",
+  "model_calls": 0,
+  "grader_calls": 0
+}

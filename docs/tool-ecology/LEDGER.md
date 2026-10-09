@@ -67,3 +67,56 @@
 - Publication checks:2386 tracked/new public files scanned,0 actual-key or credential-pattern matches;0 private API payload/prompt/trajectory/grader input/output files. All final report links resolve. All1287 staged files within the nine frozen libraries, including freeze manifests, match expected SHA256 byte hashes; no line-ending corruption. Original boidsnet/ and legacy/ diff against8b3cd95 is empty. Complete analysis marker and final report source hash archived; source/docs diff check clean while immutable generated evidence bytes are preserved.
 
 - Final count clarification:72 selected publication-edge intervention records correspond to70 unique edges within societies;71 records and69 unique edges have witnesses. Two internal edges recur under different root publications. The deterministic selection and all original results remain unchanged; final report/summary explicitly separate intervention count from distinct-edge evidence. This is a reporting clarification, not additional probes or a score adjustment.
+
+## 2026-10-09: analysis-only manuscript revision
+
+- User explicitly ended all further experiments and requested deeper analysis,
+  coordinated figures, full tables and a unified manuscript. No new model calls,
+  grader calls, generated-program runs, probes, interventions or repairs occur.
+  Experiment automation remains paused; no continuation may launch paid work
+  without a later explicit user instruction superseding this stop.
+- Added a public-record-only analyzer, conservative adapter-syntax descriptors,
+  source-linked tables and ten Python figure sets in separate `analysis-02`.
+  Original `collection-01`, paid generation source, scores, frozen libraries,
+  selected intervention records and historical final report remain unchanged.
+- New posthoc units: adopting publications57/115 Boids versus26/116 neutral after
+  round one; per all post-initial opportunities57/120 versus26/120. Adopting
+  authors15/24 versus8/24. These remain nested within three societies per arm,
+  not new treatment replicates. No case-level p-values or causal mediation claims.
+- Common-panel prefix analysis finds exactly two positive historical/latest
+  coverage gaps, neutral71/round1 and Boids2026/round1, both before tool exchange.
+  All later gaps and all final latest-version gaps are zero. Thus initial pooling
+  complementarity cannot be attributed to local interaction. No new scoring.
+- Among adopting publications, all adapters are direct imported checks or
+  simple single-return delegates in39/57 Boids and19/26 neutral packages.
+  The conservative AST classification distinguishes ownership from syntax and
+  rejects overwritten imports; it establishes neither originality nor necessity.
+- Root AST pooled medians114/822.5/755 (Boids/neutral/independent) exclude imported
+  code, vary by seed and do not measure effort. Boids has34.3% more input tokens
+  than independent generation and nearly equal output tokens. All cell values
+  and cached-input accounting remain visible; no monetary-cost claim.
+- Declared-case correctness94.14% Boids,93.25% neutral,95.35% independent has
+  unequal declaration-conditioned denominators. Boids-minus-neutral seed
+  differences+2.18/+2.36/-1.93pp do not establish a consistent reliability effect.
+  Original862 output failures, four narrow declarations, single-program existing
+  writeback diagnosis and the unconfirmed empty-table edge remain intact.
+- Full AAMAS working manuscript now centers the completed native-tool study.
+  It uses the supplied official class, explicit local v0.3.1 mapping, all-seed
+  tables, all nine projected author graphs and all432 opportunities. The old
+  global-catalogue/TF-IDF pilot is not mislabeled as this protocol or pooled.
+  A separate Chinese deep-analysis document explains observations and hypotheses.
+  The authors are not cited as independent prior work on their own substrate.
+- Final analysis QA:461 input SHA256 values verified; all nine derived output
+  files reproduce byte-for-byte in a fresh temporary directory. Four manuscript
+  tables regenerate exactly; all nine Chinese rows match CSV; ten figure PDFs
+  match the source exports. Five new analysis-only contract tests pass in0.01s;
+  Ruff passes for all ecology/tests/scripts. Original final-report SHA and all
+  collection/runtime source remain unchanged.
+- English export15 pages and Chinese export11 pages reviewed in full, including
+  enlarged principal tables/figures; no outside-page words, unresolved citations,
+  missing glyphs or overfull boxes. Supplied AAMAS class's local incomplete-ifx
+  warning also occurs in a minimal Hello document and is disclosed in the paper
+  README; the class is preserved unmodified. Both document builds succeed.
+- Experiment heartbeat prompt now explicitly prohibits any further experiments
+  and remains PAUSED. This revision makes0 experimental model/grader calls and
+  executes0 archived generated programs. The fixed study remains closed.
