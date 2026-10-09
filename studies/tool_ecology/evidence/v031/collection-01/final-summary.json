@@ -20,7 +20,10 @@
   "return_interventions": {
     "selected": 72,
     "noncrashing_correctness_loss": 71,
-    "unconfirmed": 1
+    "unconfirmed": 1,
+    "unique_edges_within_societies": 70,
+    "unique_confirmed_functional_edges": 69,
+    "selection_unit": "publication-edge candidate; the same internal edge can recur under different root publications"
   },
   "common_panel": {
     "seed": 31415926,

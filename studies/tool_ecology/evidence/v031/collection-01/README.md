@@ -6,7 +6,7 @@ batch02 remains aborted; this directory is the sanitized analysis archive for a
 separate recovered collection, with all attempts and per-cell provenance.
 
 - `results.csv`: all nine cells; all-six counts describe broad offerings, not a division-of-labour objective.
-- `diagnostics.json` and each cell's interventions: 420 replay parities and 71/72 return-intervention witnesses.
+- `diagnostics.json` and each cell's interventions: 420 replay parities and 71/72 return-intervention records with witnesses (69/70 unique edges within societies).
 - `fresh-panel/`: common new DEV data, author dependency provenance, structural removal and publication results.
 - `condition-summary.json`, `final-summary.json`: descriptive summaries; three societies per condition.
 - `usage-accounting.json`: valid cells and discarded transport attempt separately; `usage.json` includes all attempts.
