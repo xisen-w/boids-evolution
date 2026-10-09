@@ -22,7 +22,7 @@
   "pdf_exports": {
     "paper/tool-ecology/main.pdf": {
       "pages": 9,
-      "sha256": "d33f299dffef28e6b9b00faabb4ac7f880c5d2ee27f1166a6390af7314929a49",
+      "sha256": "160b18642f7635debfa39ea44cb81ebe1a4d93ea83b8875ce5485ecc437d35e1",
       "outside_page_words": 0,
       "visual_review": "All pages inspected in final renders; English atlas, mechanism table, resources, bibliography and final body page additionally inspected at enlarged resolution. No clipping, overlaps or blank body pages.",
       "main_text_pages": 8,
@@ -42,5 +42,21 @@
     "last-page balance",
     "fully occupied atlas/trajectory page contains only floats"
   ],
-  "automation": "PAUSED; experiment stop remains binding"
+  "automation": "PAUSED; experiment stop remains binding",
+  "submission_id": "1867",
+  "submission_metadata_update": {
+    "parent_revision": "5ebc163921a0d14375ba2196d3ff5dff3b4a2563",
+    "change": "Submission ID only; scientific content and bibliography unchanged.",
+    "pixel_identical_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "page_1_visual_review": "Pass: ID1867 visible; no clipping or overlap."
+  }
 }

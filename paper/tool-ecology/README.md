@@ -1,6 +1,6 @@
 # Tool-ecology manuscript: eight-page body, no appendix
 
-The current official-AAMAS-class export has **8 main-text pages plus 1 reference page (9 total), with no appendix**. This is an anonymous working draft, not a submission. The supplied class, bibliography style, fonts and margins are preserved; no manual font reduction, negative spacing or margin changes were used to fit the page limit. Author names remain in source and are hidden by the class; no affiliations are invented.
+The current official-AAMAS-class export has **8 main-text pages plus 1 reference page (9 total), with no appendix**. Submission ID is **1867**. This is an anonymous working draft; assigning the ID does not confirm submission. The supplied class, bibliography style, fonts and margins are preserved; no manual font reduction, negative spacing or margin changes were used to fit the page limit. Author names remain in source and are hidden by the class; no affiliations are invented.
 
 The body contains seven vector figures and four data tables: both refined workflows, all nine endpoints, all nine author networks, all 432 publication opportunities, all 72 own/served author histories, all seed trajectories, the original narrowing sequence, service reliability, resource usage and generation provenance. The atlas combines three former supplementary views; its original-round and common-panel columns are explicitly distinguished. The old appendix is removed, with evidence integrated into the body.
 

@@ -16,11 +16,11 @@
     "docs/tool-ecology/DEEP_ANALYSIS_ZH.md": "1016a464e4349e74acbfa9927002ae5350a8a7013791a968b6bdbeb6df68e2e3",
     "docs/tool-ecology/DEEP_ANALYSIS_ZH.pdf": "983c9e76f507ae58820cb08fd543e49eba4b67859939075fbbddb4277b8e96ae",
     "docs/tool-ecology/DEEP_ANALYSIS_ZH.tex": "17d9f678aff8924f9f176eb00c68892c340703e6ce0cec0d7c7d650873f707d8",
-    "docs/tool-ecology/LEDGER.md": "827b4a173f1712610f0725ff3a710721b9ca78a44b85bf2fbd1bec0a9ae12816",
+    "docs/tool-ecology/LEDGER.md": "e9421ff1b53ad73e6573bffa2c4b2b931ddb5937fe9b4f3e632187669c9aa03c",
     "docs/tool-ecology/RESULTS_ZH.md": "8998838516bfe5c32a4cde002fcb86c7350d9a895a38099cb9f528739a2e0e18",
     "paper/tool-ecology/ACM-Reference-Format.bst": "8ec002c927068bfc5b3cfe71b66aa4767b9e485530ac3c67ba5c064df4c2e6ac",
     "paper/tool-ecology/CITATION_AUDIT.md": "05c08e37970f1e18f575f3fbd9caa44056b8d42d40086fc33ee295f36ed3b3ec",
-    "paper/tool-ecology/README.md": "888757ba14d694b1e3cc8ed61a2c2a74522b5f7f9e056ade837c8239d7ae2d1e",
+    "paper/tool-ecology/README.md": "b722a1ec3223d3738aa34c958628a02fdff61b282273b3a30536fa6c20a6af86",
     "paper/tool-ecology/aamas.cls": "e88c8e3e5fd1e39f93a2a4fa5b664e125b67487996b4236668206acf5c70ca7e",
     "paper/tool-ecology/by.pdf": "19b7b19350bb937afead8e45e4ad006187e14803bef783902dbd88e370fc9917",
     "paper/tool-ecology/citation-audit.json": "156d39bc917d6244c8390de91469678e3411bf73028ef11fdb720b8f612b95d0",
@@ -31,8 +31,8 @@
     "paper/tool-ecology/figures/fig05-society-atlas.pdf": "3dfa95c33e4d75e9f3b6bb6dcc2fa4dad6e117734dfdb22b245901a44c8aa986",
     "paper/tool-ecology/figures/fig06-cost-reliability.pdf": "167796f94d925f46b9bd5c0e2167886f997dce7dccdbdd37b740a8adc6b45e03",
     "paper/tool-ecology/figures/fig07-narrow-trajectory.pdf": "ce731c8dfc1609fba1721bb87c3eebb3748aea0309d3ab654ca8d70071ec7c28",
-    "paper/tool-ecology/main.pdf": "d33f299dffef28e6b9b00faabb4ac7f880c5d2ee27f1166a6390af7314929a49",
-    "paper/tool-ecology/main.tex": "ed4d53d08c85ab8eb3547f4f81a4a5efbecb3e3718c3b794403d4ccfab20994f",
+    "paper/tool-ecology/main.pdf": "160b18642f7635debfa39ea44cb81ebe1a4d93ea83b8875ce5485ecc437d35e1",
+    "paper/tool-ecology/main.tex": "b7bb86b5a3d5b15d1e517277752d4b2380b2d7ddd48d880c1f5451b302db43c2",
     "paper/tool-ecology/refs.bib": "0325c6fd521b9695c8ae3e02c04a3f2e16f8d7a47db552ba8c0ae8b061055fa0",
     "paper/tool-ecology/related_work.tex": "16f5328be66076377a29c4ada06d217107df96f95c60875cb8be1cb6285783cc",
     "paper/tool-ecology/tables/all-societies.tex": "095a64d9ad4bd93c8c2246a9bf1172a531c593be609a22da4936fb94a06075c8",
@@ -62,8 +62,11 @@
     "studies/tool_ecology/evidence/v031/manuscript-03/figures/fig07-narrow-trajectory.png": "8d14b36e24049b574464d558c9b4672fcdde8bbdd3b7442be7a82cf2c2fc0e21",
     "studies/tool_ecology/evidence/v031/manuscript-03/figures/fig07-narrow-trajectory.svg": "591061d5e43e2f4a5b9f84fa4567a4563942c6d502ef230e65c2510a744ab697",
     "studies/tool_ecology/evidence/v031/manuscript-03/figures/figure-contracts.json": "5a4a6a472ce9ecca90bb610d586f32e0724496a4ccc470c47eba0acdb0282f91",
-    "studies/tool_ecology/evidence/v031/manuscript-03/publication-qa.json": "67e090e37cd44e84d9386de26f5374dabf9800d54c51575fd21e067f19edb0bc",
+    "studies/tool_ecology/evidence/v031/manuscript-03/publication-qa.json": "d968ddfb58b1d39b537538aac9d3a2c5be8edcde7761445ccec6695cdf87d171",
     "studies/tool_ecology/scripts/refine_paper_figures.py": "9f3f4c504e2b077768b14878c7ee38359e519b5c79e33e8f1f3b3daa1ea7349b",
     "studies/tool_ecology/scripts/write_analysis_tables.py": "27c836716723c5010a2d00832f1229e2477899a4a87addfc1b9d24499a897e0e"
-  }
+  },
+  "submission_id": "1867",
+  "submission_metadata_updated_utc": "2026-10-09T11:01:01.221811+00:00",
+  "submission_metadata_parent_revision": "5ebc163921a0d14375ba2196d3ff5dff3b4a2563"
 }

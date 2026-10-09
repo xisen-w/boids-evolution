@@ -152,3 +152,7 @@
   overflow checks, visual review and artifact hashes are recorded in the new
   publication-qa.json/REVISION_MANIFEST.json, rather than rewriting the older
   completion marker. Upstream AAMAS class bytes remain unchanged.
+
+### Submission metadata: 1867 (2026-10-09)
+
+- Updated only the manuscript submission ID to 1867 and rebuilt its PDF. Main text remains 8 pages plus 1 reference page, no appendix; pages 2–9 are pixel-identical to the previous export. Title, abstract, bibliography and all scientific content are unchanged. Page 1 was visually inspected. Zero experiments or model/grader calls.
