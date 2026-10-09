@@ -1,0 +1,178 @@
+{
+  "analysis_source_sha256": "a14b78a438a55ba956747d30bc971c35814bea342c827fb3c1ebac014994bc67",
+  "model_calls": 0,
+  "results": [
+    {
+      "society": "seed-9001/local-boids",
+      "all_families": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "after_author_removal": {
+        "a00": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a01": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a02": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a03": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ]
+      },
+      "coverage_loss": {
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "a03": 0
+      },
+      "self_contained_author_profiles": {
+        "a00": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a01": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a02": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a03": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ]
+      },
+      "best_self_contained_author_coverage": 6,
+      "collective_minus_best_self_contained_coverage": 0
+    },
+    {
+      "society": "seed-9001/local-neutral",
+      "all_families": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "after_author_removal": {
+        "a00": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a01": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a02": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a03": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ]
+      },
+      "coverage_loss": {
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "a03": 0
+      },
+      "self_contained_author_profiles": {
+        "a00": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a01": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a02": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly",
+          "revenue",
+          "window"
+        ],
+        "a03": [
+          "clean",
+          "group",
+          "lookup",
+          "monthly"
+        ]
+      },
+      "best_self_contained_author_coverage": 6,
+      "collective_minus_best_self_contained_coverage": 0
+    }
+  ]
+}

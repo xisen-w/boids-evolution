@@ -1,0 +1,81 @@
+{
+  "classification": "posthoc_host_diagnostic_attempt_01_inconclusive",
+  "original": {
+    "clean": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "revenue": {
+      "passed": 1,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "group": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "monthly": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "lookup": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "window": {
+      "passed": 1,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    }
+  },
+  "diagnostic": {
+    "clean": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "revenue": {
+      "passed": 1,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "group": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "monthly": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "lookup": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    },
+    "window": {
+      "passed": 1,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    }
+  },
+  "explanation": "Host patch used a chained conditional with wrong precedence, so normalization remained active for strings. No model calls and no scored artifacts modified.",
+  "model_calls": 0
+}
