@@ -98,11 +98,11 @@ def main():
         values = [family]
         for condition in NAMES:
             passed, total = service[family, condition]
-            values.extend([f"{passed}/{total}", f"{100 * passed / total:.2f}\\%"])
+            values.append(f"{passed}/{total} ({100 * passed / total:.2f})")
         service_rows.append(values)
     tables["service-reliability"] = (
-        "lrrrrrr",
-        r"Service & \neutralname & Pass rate & \boidsname & Pass rate & \independentname & Pass rate",
+        "lrrr",
+        r"Service & \textcolor{NeutralBlue}{Neutral} & \textcolor{BoidsOrange}{Boids} & \textcolor{IndependentGray}{Independent}",
         service_rows,
     )
     for name, (columns, header, rows) in tables.items():

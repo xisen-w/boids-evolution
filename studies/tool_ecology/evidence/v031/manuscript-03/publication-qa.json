@@ -1,0 +1,46 @@
+{
+  "study_status": "closed; user forbids further experiments",
+  "experimental_model_calls": 0,
+  "grader_calls": 0,
+  "archived_generated_tool_executions": 0,
+  "new_interventions": 0,
+  "new_repairs": 0,
+  "source_analysis_revision": "56d04508db5784d9ae0d9d1e64109e5702de2fdd",
+  "input_hashes_verified_unchanged": 461,
+  "original_final_report_sha256_unchanged": "d4d20f1ab0c1a80960d509e8190d700b8d28aea741a4ea5a183181503345c583",
+  "manuscript_tables_exactly_regenerated": 4,
+  "manuscript_figure_pdfs_match_source": 7,
+  "cited_reference_keys_resolved": 27,
+  "uncited_bibtex_entries": 0,
+  "citation_audit": "paper/tool-ecology/citation-audit.json",
+  "source_only_analysis_tests": {
+    "passed": 5,
+    "seconds": 0.01
+  },
+  "ruff": "pass",
+  "original_aamas_class_and_bst_unchanged": true,
+  "pdf_exports": {
+    "paper/tool-ecology/main.pdf": {
+      "pages": 9,
+      "sha256": "d33f299dffef28e6b9b00faabb4ac7f880c5d2ee27f1166a6390af7314929a49",
+      "outside_page_words": 0,
+      "visual_review": "All pages inspected in final renders; English atlas, mechanism table, resources, bibliography and final body page additionally inspected at enlarged resolution. No clipping, overlaps or blank body pages.",
+      "main_text_pages": 8,
+      "reference_pages": 1,
+      "references_start_page": 9,
+      "appendix_pages": 0
+    },
+    "docs/tool-ecology/DEEP_ANALYSIS_ZH.pdf": {
+      "pages": 11,
+      "sha256": "983c9e76f507ae58820cb08fd543e49eba4b67859939075fbbddb4277b8e96ae",
+      "outside_page_words": 0,
+      "visual_review": "All pages inspected in final renders; English atlas, mechanism table, resources, bibliography and final body page additionally inspected at enlarged resolution. No clipping, overlaps or blank body pages."
+    }
+  },
+  "template_messages": [
+    "incomplete conditional also reproduces in minimal document",
+    "last-page balance",
+    "fully occupied atlas/trajectory page contains only floats"
+  ],
+  "automation": "PAUSED; experiment stop remains binding"
+}

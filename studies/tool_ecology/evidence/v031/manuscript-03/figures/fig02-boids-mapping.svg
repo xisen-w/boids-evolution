@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="411.03pt" height="125.676pt" viewBox="0 0 411.03 125.676" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-09T04:45:24.755999</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 125.676
+L 411.03 125.676
+L 411.03 -0
+L 0 -0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 5.384115 42.654144
+L 82.005885 42.654144
+Q 83.01726 42.654144 83.01726 41.660844
+L 83.01726 19.251996
+Q 83.01726 18.258696 82.005885 18.258696
+L 5.384115 18.258696
+Q 4.37274 18.258696 4.37274 19.251996
+L 4.37274 41.660844
+Q 4.37274 42.654144 5.384115 42.654144
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 97.0956 42.17736
+L 238.6881 42.17736
+L 238.6881 18.73548
+L 97.0956 18.73548
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 254.061 42.17736
+L 404.5536 42.17736
+L 404.5536 18.73548
+L 254.061 18.73548
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 86.959134 30.25776
+Q 90.015643 30.25776 92.065923 30.25776
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 88.865923 28.65776
+L 92.065923 30.25776
+L 88.865923 31.85776
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 243.112767 30.25776
+Q 246.575314 30.25776 249.03163 30.25776
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 245.83163 28.65776
+L 249.03163 30.25776
+L 245.83163 31.85776
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 5.384115 73.645104
+L 82.005885 73.645104
+Q 83.01726 73.645104 83.01726 72.651804
+L 83.01726 50.242956
+Q 83.01726 49.249656 82.005885 49.249656
+L 5.384115 49.249656
+Q 4.37274 49.249656 4.37274 50.242956
+L 4.37274 72.651804
+Q 4.37274 73.645104 5.384115 73.645104
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 97.0956 73.16832
+L 238.6881 73.16832
+L 238.6881 49.72644
+L 97.0956 49.72644
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 254.061 73.16832
+L 404.5536 73.16832
+L 404.5536 49.72644
+L 254.061 49.72644
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 86.959134 61.24872
+Q 90.015643 61.24872 92.065923 61.24872
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 88.865923 59.64872
+L 92.065923 61.24872
+L 88.865923 62.84872
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 243.112767 61.24872
+Q 246.575314 61.24872 249.03163 61.24872
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 245.83163 59.64872
+L 249.03163 61.24872
+L 245.83163 62.84872
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 5.384115 104.636064
+L 82.005885 104.636064
+Q 83.01726 104.636064 83.01726 103.642764
+L 83.01726 81.233916
+Q 83.01726 80.240616 82.005885 80.240616
+L 5.384115 80.240616
+Q 4.37274 80.240616 4.37274 81.233916
+L 4.37274 103.642764
+Q 4.37274 104.636064 5.384115 104.636064
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 97.0956 104.15928
+L 238.6881 104.15928
+L 238.6881 80.7174
+L 97.0956 80.7174
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 254.061 104.15928
+L 404.5536 104.15928
+L 404.5536 80.7174
+L 254.061 80.7174
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #eef2fc"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 86.959134 92.23968
+Q 90.015643 92.23968 92.065923 92.23968
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 88.865923 90.63968
+L 92.065923 92.23968
+L 88.865923 93.83968
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 243.112767 92.23968
+Q 246.575314 92.23968 249.03163 92.23968
+" clip-path="url(#pc3a29ae462)" style="fill: none; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 245.83163 90.63968
+L 249.03163 92.23968
+L 245.83163 93.83968
+z
+" clip-path="url(#pc3a29ae462)" style="fill: #002fa7; stroke: #002fa7; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="4.8582" y="10.78908" transform="rotate(-0 4.8582 10.78908)">LOCAL RULE</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="98.30925" y="10.78908" transform="rotate(-0 98.30925 10.78908)">TRANSLATION TO TOOLS</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="254.8701" y="10.78908" transform="rotate(-0 254.8701 10.78908)">READOUT / BOUNDARY</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="12.9492" y="33.363229" transform="rotate(-0 12.9492 33.363229)">S</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="29.53575" y="32.328072" transform="rotate(-0 29.53575 32.328072)">Separation</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 7.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="27.0792" transform="rotate(-0 101.9502 27.0792)">Avoid redundant construction</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="37.0122" transform="rotate(-0 101.9502 37.0122)">when a useful neighbor capability exists</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="258.9156" y="27.0792" transform="rotate(-0 258.9156 27.0792)">Breadth, duplication, sustained niches</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 6.7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="258.9156" y="37.0122" transform="rotate(-0 258.9156 37.0122)">A hint cannot enforce complementarity</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="12.9492" y="64.354189" transform="rotate(-0 12.9492 64.354189)">A</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="29.53575" y="63.318954" transform="rotate(-0 29.53575 63.318954)">Alignment</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 7.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="58.07016" transform="rotate(-0 101.9502 58.07016)">Reuse verified useful interfaces</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="68.00316" transform="rotate(-0 101.9502 68.00316)">when available from a neighbor</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="258.9156" y="58.07016" transform="rotate(-0 258.9156 58.07016)">Correct adoption and functional witnesses</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 6.7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="258.9156" y="68.00316" transform="rotate(-0 258.9156 68.00316)">A passing dependency can have substitutes</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="12.9492" y="95.345149" transform="rotate(-0 12.9492 95.345149)">C</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="29.53575" y="94.309992" transform="rotate(-0 29.53575 94.309992)">Cohesion</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 7.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="89.06112" transform="rotate(-0 101.9502 89.06112)">Fit recurring needs and capabilities</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="101.9502" y="98.99412" transform="rotate(-0 101.9502 98.99412)">using the same local pre-round view</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #002fa7" x="258.9156" y="89.06112" transform="rotate(-0 258.9156 89.06112)">Common-panel coverage and persistence</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 6.7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #243544" x="258.9156" y="98.99412" transform="rotate(-0 258.9156 98.99412)">The shared demand is externally specified</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #65758a" x="5.26275" y="118.4628" transform="rotate(-0 5.26275 118.4628)">Bundled prompt guidance: no physical steering equations, adaptive neighborhoods or separately identified rule effects.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc3a29ae462">
+   <rect x="3.24" y="3.24" width="404.55" height="119.196"/>
+  </clipPath>
+ </defs>
+</svg>

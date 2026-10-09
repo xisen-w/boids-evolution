@@ -10,7 +10,7 @@
 
 前两个问题主要研究传播和功能依赖，后两个才接近互补分工。把别人的整套工具箱转发出来，可以是一项真实、有用的采用行为，但不能单凭转发就认定八个人形成了八个互补专业。反过来，最终覆盖没有提升，也不能抹去已经发生的实际采用。
 
-![工具通信与证据层级](../../studies/tool_ecology/evidence/v031/analysis-02/figures/fig01-tool-communication.png)
+![工具通信与证据层级](../../studies/tool_ecology/evidence/v031/manuscript-03/figures/fig01-tool-communication.png)
 
 ## 2. 本轮到底研究什么
 
@@ -20,7 +20,9 @@
 
 这里的 Boids 是三条方向性提示。S 鼓励避免不必要的重复建设；A 鼓励复用经过验证的邻居接口；C 鼓励贴合持续需求和邻居近期能力。三条一起启用，没有分开估计。中性组也允许复用、修复和专业化，因此对比不是“允许合作”与“禁止合作”。
 
-![当前 Boids 映射](../../studies/tool_ecology/evidence/v031/analysis-02/figures/fig02-boids-mapping.png)
+两张概念流程图统一使用克莱因蓝；结果图的蓝、橙、灰始终对应局部中性、局部 Boids、独立条件。英文主文已将全部社会结构、发布矩阵和关键表格纳入正文，正文八页，参考文献另计，无附录。
+
+![当前 Boids 映射](../../studies/tool_ecology/evidence/v031/manuscript-03/figures/fig02-boids-mapping.png)
 
 这是受控的探索性机制研究。它不是外部 benchmark 排名，不是原始物理 Boids 的数值复现，也没有完成持续单 agent 或集中分工的付费对照。
 

@@ -1,0 +1,717 @@
+{
+  "date_utc": "2026-10-09T08:43:14.290451+00:00",
+  "scope": "27 references actually cited in main.tex and related_work.tex; no claim of full-paper exhaustive review",
+  "unresolved_keys": [],
+  "uncited_entries": [],
+  "bibtex_sha256": "0325c6fd521b9695c8ae3e02c04a3f2e16f8d7a47db552ba8c0ae8b061055fa0",
+  "entries": [
+    {
+      "key": "ashery2025conventions",
+      "title": "Emergent social conventions and collective bias in {LLM} populations",
+      "authors_bibtex": "Ashery, Ariel Flint and Aiello, Luca Maria and Baronchelli, Andrea",
+      "year": "2025",
+      "primary_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12077490/",
+      "checked_evidence": "Publisher/PubMed/PMC metadata and abstract",
+      "supported_manuscript_claim": "Pairwise interaction supports conventions; committed-minority interventions test change.",
+      "resolution": "Verified Science Advances 11(20), eadu9368, DOI 10.1126/sciadv.adu9368.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "cai2024latm",
+      "title": "Large Language Models as Tool Makers",
+      "authors_bibtex": "Cai, Tianle and Wang, Xuezhi and Ma, Tengyu and Chen, Xinyun and Zhou, Denny",
+      "year": "2024",
+      "primary_source": "https://openreview.net/pdf?id=qV83K9d5WB",
+      "checked_evidence": "Abstract and official conference PDF header",
+      "supported_manuscript_claim": "Tool making is separated from cached tool use.",
+      "resolution": "Corrected arXiv primary class from cs.CL to cs.LG; conference year remains 2024.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Large Language Models as Tool Makers"
+        ],
+        "citation_author": [
+          "Cai, Tianle",
+          "Wang, Xuezhi",
+          "Ma, Tengyu",
+          "Chen, Xinyun",
+          "Zhou, Denny"
+        ],
+        "citation_date": [
+          "2023/05/26"
+        ],
+        "citation_online_date": [
+          "2024/03/11"
+        ],
+        "citation_arxiv_id": [
+          "2305.17126"
+        ],
+        "url": "https://arxiv.org/abs/2305.17126"
+      }
+    },
+    {
+      "key": "chen2024agentverse",
+      "title": "{AgentVerse}: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+      "authors_bibtex": "Chen, Weize and Su, Yusheng and Zuo, Jingwei and Yang, Cheng and Yuan, Chenfei and Chan, Chi-Min and Yu, Heyang and Lu, Yaxi and Hung, Yi-Hsin and Qian, Chen and Qin, Yujia and Cong, Xin and Xie, Ruobing and Liu, Zhiyuan and Sun, Maosong and Zhou, Jie",
+      "year": "2024",
+      "primary_source": "https://openreview.net/pdf?id=EHg5GDnyq1",
+      "checked_evidence": "Official PDF indexed header/abstract; author arXiv metadata and expert-recruitment section",
+      "supported_manuscript_claim": "Expert teams are recruited and revised.",
+      "resolution": "Verified 16 authors and ICLR 2024. Author preprint is arXiv:2308.10848. Direct OpenReview browser challenge does not invalidate indexed official proceedings text.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors"
+        ],
+        "citation_author": [
+          "Chen, Weize",
+          "Su, Yusheng",
+          "Zuo, Jingwei",
+          "Yang, Cheng",
+          "Yuan, Chenfei",
+          "Chan, Chi-Min",
+          "Yu, Heyang",
+          "Lu, Yaxi",
+          "Hung, Yi-Hsin",
+          "Qian, Chen",
+          "Qin, Yujia",
+          "Cong, Xin",
+          "Xie, Ruobing",
+          "Liu, Zhiyuan",
+          "Sun, Maosong",
+          "Zhou, Jie"
+        ],
+        "citation_date": [
+          "2023/08/21"
+        ],
+        "citation_online_date": [
+          "2023/10/23"
+        ],
+        "citation_arxiv_id": [
+          "2308.10848"
+        ],
+        "url": "https://arxiv.org/abs/2308.10848"
+      }
+    },
+    {
+      "key": "colas2026transmission",
+      "title": "Discovering Adaptive Transmission Programs for Collective Innovation",
+      "authors_bibtex": "Colas, C{\\'e}dric and Perez, J{\\'e}r{\\'e}my and Nisioti, Eleni and Mocherla, Akhilesh and Oudeyer, Pierre-Yves and Moulin-Frier, Cl{\\'e}ment and Derex, Maxime",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2608.24545",
+      "checked_evidence": "Author metadata and abstract",
+      "supported_manuscript_claim": "Adaptive transmission programs make routing an intervenable object.",
+      "resolution": "Retained preprint status; no unverified proceedings pagination added.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Discovering Adaptive Transmission Programs for Collective Innovation"
+        ],
+        "citation_author": [
+          "Colas, Cédric",
+          "Perez, Jérémy",
+          "Nisioti, Eleni",
+          "Mocherla, Akhilesh",
+          "Oudeyer, Pierre-Yves",
+          "Moulin-Frier, Clément",
+          "Derex, Maxime"
+        ],
+        "citation_date": [
+          "2026/08/25"
+        ],
+        "citation_online_date": [
+          "2026/08/25"
+        ],
+        "citation_arxiv_id": [
+          "2608.24545"
+        ],
+        "url": "https://arxiv.org/abs/2608.24545"
+      }
+    },
+    {
+      "key": "daull2025collabtoolbuilder",
+      "title": "A Flexible Multi-Agent {LLM}-Human Framework for Fast Human Validated Tool Building",
+      "authors_bibtex": "Daull, Xavier and Bellot, Patrice and Bruno, Emmanuel and Martin, Vincent and Murisasco, Elisabeth",
+      "year": "2025",
+      "primary_source": "https://arxiv.org/abs/2512.01434",
+      "checked_evidence": "Author abstract/journal reference and Crossref publication metadata",
+      "supported_manuscript_claim": "Tool building uses prescribed builder/critic roles and human validation.",
+      "resolution": "Updated from preprint to WI-IAT 2025 proceedings, pp. 391–398, DOI 10.1109/WI-IAT67162.2025.00058. Crossref and byline resolve an inverted first-author arXiv metadata field.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "A Flexible Multi-Agent LLM-Human Framework for Fast Human Validated Tool Building"
+        ],
+        "citation_author": [
+          "Xavier, Daull",
+          "Bellot, Patrice",
+          "Bruno, Emmanuel",
+          "Martin, Vincent",
+          "Murisasco, Elisabeth"
+        ],
+        "citation_date": [
+          "2025/12/01"
+        ],
+        "citation_online_date": [
+          "2025/12/01"
+        ],
+        "citation_arxiv_id": [
+          "2512.01434"
+        ],
+        "url": "https://arxiv.org/abs/2512.01434"
+      }
+    },
+    {
+      "key": "hong2024metagpt",
+      "title": "Meta{GPT}: Meta Programming for A Multi-Agent Collaborative Framework",
+      "authors_bibtex": "Hong, Sirui and Zhuge, Mingchen and Chen, Jonathan and Zheng, Xiawu and Cheng, Yuheng and Zhang, Ceyao and Wang, Jinlin and Wang, Zili and Yau, Steven Ka Shing and Lin, Zijuan and Zhou, Liyang and Ran, Chenyu and Xiao, Lingfeng and Wu, Chenglin and Schmidhuber, J{\\\"u}rgen",
+      "year": "2024",
+      "primary_source": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/6507b115562bb0a305f1958ccc87355a-Abstract-Conference.html",
+      "checked_evidence": "Official proceedings record and official PDF indexed text; author v5 PDF byline",
+      "supported_manuscript_claim": "Software-development roles and standardized procedures are prescribed.",
+      "resolution": "Ceyao Zhang precedes Jinlin Wang in the official PDF byline; corrected order to match PDF. Retained Jonathan Chen, the conference-version name; latest arXiv changes it to Jiaqi Chen. Proceedings landing-page order differs from its PDF, explicitly resolved in favor of PDF.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework"
+        ],
+        "citation_author": [
+          "Hong, Sirui",
+          "Zhuge, Mingchen",
+          "Chen, Jonathan",
+          "Zheng, Xiawu",
+          "Cheng, Yuheng",
+          "Zhang, Ceyao",
+          "Wang, Jinlin",
+          "Wang, Zili",
+          "Yau, Steven Ka Shing",
+          "Lin, Zijuan",
+          "Zhou, Liyang",
+          "Ran, Chenyu",
+          "Xiao, Lingfeng",
+          "Wu, Chenglin",
+          "Schmidhuber, Jürgen"
+        ],
+        "citation_date": [
+          "2023/08/01"
+        ],
+        "citation_online_date": [
+          "2023/11/06"
+        ],
+        "citation_arxiv_id": [
+          "2308.00352"
+        ],
+        "url": "https://arxiv.org/abs/2308.00352v5"
+      },
+      "official_pdf": "https://proceedings.iclr.cc/paper_files/paper/2024/file/6507b115562bb0a305f1958ccc87355a-Paper-Conference.pdf"
+    },
+    {
+      "key": "jimenezromero2025swarm",
+      "title": "Multi-agent Systems Powered by Large Language Models: Applications in Swarm Intelligence",
+      "authors_bibtex": "Jimenez-Romero, Cristian and Yegenoglu, Alper and Blum, Christian",
+      "year": "2025",
+      "primary_source": "https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1593017/full",
+      "checked_evidence": "Publisher article and Crossref metadata",
+      "supported_manuscript_claim": "LLMs are used in physical swarm/flocking simulations.",
+      "resolution": "Verified all three authors, Frontiers in Artificial Intelligence 8, article 1593017 and DOI.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "li2024flocking",
+      "title": "Challenges Faced by Large Language Models in Solving Multi-Agent Flocking",
+      "authors_bibtex": "Li, Peihan and Menon, Vishnu and Gudiguntla, Bhavanaraj and Ting, Daniel and Zhou, Lifeng",
+      "year": "2024",
+      "primary_source": "https://arxiv.org/abs/2404.04752",
+      "checked_evidence": "Author metadata and abstract",
+      "supported_manuscript_claim": "Prior language-model experiments concern physical flocking.",
+      "resolution": "Retained 2024 preprint status and all five authors.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Challenges Faced by Large Language Models in Solving Multi-Agent Flocking"
+        ],
+        "citation_author": [
+          "Li, Peihan",
+          "Menon, Vishnu",
+          "Gudiguntla, Bhavanaraj",
+          "Ting, Daniel",
+          "Zhou, Lifeng"
+        ],
+        "citation_date": [
+          "2024/04/06"
+        ],
+        "citation_online_date": [
+          "2024/12/16"
+        ],
+        "citation_arxiv_id": [
+          "2404.04752"
+        ],
+        "url": "https://arxiv.org/abs/2404.04752"
+      }
+    },
+    {
+      "key": "lyu2026coagent",
+      "title": "{CoAgent}: Concurrency Control for Multi-Agent Systems",
+      "authors_bibtex": "Lyu, Hongtao and Zhang, Dingyan and Wu, Mingyu and Wei, Xingda and Chen, Haibo",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2606.15376",
+      "checked_evidence": "arXiv metadata and abstract",
+      "supported_manuscript_claim": "Concurrent agents access growing tools through a privileged ToolSmith builder.",
+      "resolution": "Retained 2026 preprint status.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "CoAgent: Concurrency Control for Multi-Agent Systems"
+        ],
+        "citation_author": [
+          "Lyu, Hongtao",
+          "Zhang, Dingyan",
+          "Wu, Mingyu",
+          "Wei, Xingda",
+          "Chen, Haibo"
+        ],
+        "citation_date": [
+          "2026/06/13"
+        ],
+        "citation_online_date": [
+          "2026/06/13"
+        ],
+        "citation_arxiv_id": [
+          "2606.15376"
+        ],
+        "url": "https://arxiv.org/abs/2606.15376"
+      }
+    },
+    {
+      "key": "najarro2026conversable",
+      "title": "Conversable Complexity: Agentic {LLM} Collectives as Interpretable Substrates",
+      "authors_bibtex": "Najarro, Elias and Espeseth, Ane and Nisioti, Eleni and Risi, Sebastian and Nichele, Stefano",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2607.01047",
+      "checked_evidence": "Author metadata and abstract",
+      "supported_manuscript_claim": "A perspective proposes interpretable agent collectives with memory, tools and shared skills.",
+      "resolution": "Replaced self-extensible tools and connectivity wording with the directly verified description; identified this as a proposal, not a completed experiment.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Conversable Complexity: Agentic LLM Collectives as Interpretable Substrates"
+        ],
+        "citation_author": [
+          "Najarro, Elias",
+          "Espeseth, Ane",
+          "Nisioti, Eleni",
+          "Risi, Sebastian",
+          "Nichele, Stefano"
+        ],
+        "citation_date": [
+          "2026/07/01"
+        ],
+        "citation_online_date": [
+          "2026/07/01"
+        ],
+        "citation_arxiv_id": [
+          "2607.01047"
+        ],
+        "url": "https://arxiv.org/abs/2607.01047"
+      }
+    },
+    {
+      "key": "nisioti2024collective",
+      "title": "Collective Innovation in Groups of Large Language Models",
+      "authors_bibtex": "Nisioti, Eleni and Risi, Sebastian and Momennejad, Ida and Oudeyer, Pierre-Yves and Moulin-Frier, Cl{\\'e}ment",
+      "year": "2024",
+      "primary_source": "https://arxiv.org/abs/2407.05377",
+      "checked_evidence": "Author abstract and Crossref venue record",
+      "supported_manuscript_claim": "Innovation is studied under alternative network topologies in Little Alchemy 2.",
+      "resolution": "Verified ALIFE 2024 DOI 10.1162/isal_a_00730; removed an unnecessary detailed copying-mechanism claim.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "paolo2026terralingua",
+      "title": "{TerraLingua}: Emergence and Analysis of Open-endedness in {LLM} Ecologies",
+      "authors_bibtex": "Paolo, Giuseppe and Warner, Jamieson and Shahrzad, Hormoz and Hodjat, Babak and Miikkulainen, Risto and Meyerson, Elliot",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2603.16910",
+      "checked_evidence": "Author metadata and abstract",
+      "supported_manuscript_claim": "Resource-constrained ecologies include persistent artifacts.",
+      "resolution": "Replaced a more specific local editable-text claim with the directly verified abstract-level description.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "TerraLingua: Emergence and Analysis of Open-endedness in LLM Ecologies"
+        ],
+        "citation_author": [
+          "Paolo, Giuseppe",
+          "Warner, Jamieson",
+          "Shahrzad, Hormoz",
+          "Hodjat, Babak",
+          "Miikkulainen, Risto",
+          "Meyerson, Elliot"
+        ],
+        "citation_date": [
+          "2026/03/06"
+        ],
+        "citation_online_date": [
+          "2026/03/06"
+        ],
+        "citation_arxiv_id": [
+          "2603.16910"
+        ],
+        "url": "https://arxiv.org/abs/2603.16910"
+      }
+    },
+    {
+      "key": "park2023generative",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "authors_bibtex": "Park, Joon Sung and O'Brien, Joseph C. and Cai, Carrie J. and Morris, Meredith Ringel and Liang, Percy and Bernstein, Michael S.",
+      "year": "2023",
+      "primary_source": "https://arxiv.org/pdf/2304.03442",
+      "checked_evidence": "Author PDF byline/venue block/abstract and Crossref",
+      "supported_manuscript_claim": "Agents diffuse information and coordinate social activity.",
+      "resolution": "Added ACM publisher and pp. 1–22. Kept Joseph C. O’Brien and Carrie J. Cai from PDF; Crossref drops/expands these initials and is not used to override the authoritative byline.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "qian2023creator",
+      "title": "{CREATOR}: Tool Creation for Disentangling Abstract and Concrete Reasoning of Large Language Models",
+      "authors_bibtex": "Qian, Cheng and Han, Chi and Fung, Yi R. and Qin, Yujia and Liu, Zhiyuan and Ji, Heng",
+      "year": "2023",
+      "primary_source": "https://aclanthology.org/2023.findings-emnlp.462/",
+      "checked_evidence": "Venue metadata, abstract and PDF byline",
+      "supported_manuscript_claim": "Abstract tool creation and concrete execution are separated.",
+      "resolution": "Kept Yi R. Fung from authoritative PDF, despite the landing page abbreviation Yi Fung.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "qian2024chatdev",
+      "title": "{ChatDev}: Communicative Agents for Software Development",
+      "authors_bibtex": "Qian, Chen and Liu, Wei and Liu, Hongzhang and Chen, Nuo and Dang, Yufan and Li, Jiahao and Yang, Cheng and Chen, Weize and Su, Yusheng and Cong, Xin and Xu, Juyuan and Li, Dahai and Liu, Zhiyuan and Sun, Maosong",
+      "year": "2024",
+      "primary_source": "https://aclanthology.org/2024.acl-long.810/",
+      "checked_evidence": "Venue metadata and abstract",
+      "supported_manuscript_claim": "Specialized software-development agents follow a chat-chain workflow.",
+      "resolution": "Verified all 14 authors, ACL 2024, 15174–15186 and DOI.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "rahman2025llmswarms",
+      "title": "{LLM}-Powered Swarms: A New Frontier or a Conceptual Stretch?",
+      "authors_bibtex": "Rahman, Muhammad Atta Ur and Schranz, Melanie and Hayat, Samira",
+      "year": "2025",
+      "primary_source": "https://arxiv.org/abs/2506.14496",
+      "checked_evidence": "Author metadata and abstract, version 3",
+      "supported_manuscript_claim": "Swarm simulations evaluate LLM-driven physical coordination.",
+      "resolution": "Normalized family name to Rahman from structured author metadata; retained full displayed name and explicit 2026 v3 revision under a 2025 initial preprint year.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "LLM-Powered Swarms: A New Frontier or a Conceptual Stretch?"
+        ],
+        "citation_author": [
+          "Rahman, Muhammad Atta Ur",
+          "Schranz, Melanie",
+          "Hayat, Samira"
+        ],
+        "citation_date": [
+          "2025/06/17"
+        ],
+        "citation_online_date": [
+          "2026/08/27"
+        ],
+        "citation_arxiv_id": [
+          "2506.14496"
+        ],
+        "url": "https://arxiv.org/abs/2506.14496"
+      }
+    },
+    {
+      "key": "reynolds1987flocks",
+      "title": "Flocks, Herds and Schools: A Distributed Behavioral Model",
+      "authors_bibtex": "Reynolds, Craig W.",
+      "year": "1987",
+      "primary_source": "https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/",
+      "checked_evidence": "Original author paper and Crossref",
+      "supported_manuscript_claim": "Collision avoidance, velocity matching and flock centering motivate distributed motion.",
+      "resolution": "Verified 1987, 21(4), 25–34 and DOI 10.1145/37402.37406. Our S/A/C prompts are explicitly a translation.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "riedl2026coordination",
+      "title": "Emergent Coordination in Multi-Agent Language Models",
+      "authors_bibtex": "Riedl, Christoph",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2510.05174",
+      "checked_evidence": "Author metadata, ICLR 2026 journal reference and abstract",
+      "supported_manuscript_claim": "Information-theoretic measures and prompt interventions distinguish coupling from goal-aligned organization.",
+      "resolution": "Removed the unnecessary shuffled-reference detail from the manuscript; retained supported general claim.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Emergent Coordination in Multi-Agent Language Models"
+        ],
+        "citation_author": [
+          "Riedl, Christoph"
+        ],
+        "citation_date": [
+          "2025/10/05"
+        ],
+        "citation_online_date": [
+          "2026/04/28"
+        ],
+        "citation_arxiv_id": [
+          "2510.05174"
+        ],
+        "url": "https://arxiv.org/abs/2510.05174"
+      }
+    },
+    {
+      "key": "shinohara2025lmpso",
+      "title": "Large Language Models as Particle Swarm Optimizers",
+      "authors_bibtex": "Shinohara, Yamato and Xu, Jinglue and Li, Tianshui and Iba, Hitoshi",
+      "year": "2025",
+      "primary_source": "https://arxiv.org/abs/2504.09247",
+      "checked_evidence": "Author metadata and abstract",
+      "supported_manuscript_claim": "Particle-swarm search is translated into language-model proposals.",
+      "resolution": "Retained 2025 preprint; do not equate PSO with Reynolds’s S/A/C.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Large Language Models as Particle Swarm Optimizers"
+        ],
+        "citation_author": [
+          "Shinohara, Yamato",
+          "Xu, Jinglue",
+          "Li, Tianshui",
+          "Iba, Hitoshi"
+        ],
+        "citation_date": [
+          "2025/04/12"
+        ],
+        "citation_online_date": [
+          "2025/04/12"
+        ],
+        "citation_arxiv_id": [
+          "2504.09247"
+        ],
+        "url": "https://arxiv.org/abs/2504.09247"
+      }
+    },
+    {
+      "key": "tam2026smith",
+      "title": "Joint Optimization of Tool Creation and Use for Large Language Model Agents",
+      "authors_bibtex": "Tam, Zhi Rui and Lin, Chieh-Yen and Chen, Yun-Nung and Sun, Shao-Hua and Lee, Hung-yi",
+      "year": "2026",
+      "primary_source": "https://arxiv.org/abs/2608.24571",
+      "checked_evidence": "arXiv metadata and abstract",
+      "supported_manuscript_claim": "Creation and use are jointly optimized in a policy.",
+      "resolution": "Retained 2026 preprint status; this is not a role-free social-organization experiment.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Joint Optimization of Tool Creation and Use for Large Language Model Agents"
+        ],
+        "citation_author": [
+          "Tam, Zhi Rui",
+          "Lin, Chieh-Yen",
+          "Chen, Yun-Nung",
+          "Sun, Shao-Hua",
+          "Lee, Hung-yi"
+        ],
+        "citation_date": [
+          "2026/08/25"
+        ],
+        "citation_online_date": [
+          "2026/08/25"
+        ],
+        "citation_arxiv_id": [
+          "2608.24571"
+        ],
+        "url": "https://arxiv.org/abs/2608.24571"
+      }
+    },
+    {
+      "key": "vakudavathu2026toolsmith",
+      "title": "{ToolSmith}: A Multi-Agent Framework for Enterprise Tool Creation",
+      "authors_bibtex": "Vakudavathu, Purna Chandra Sekhar and Mukherjee, Kushal and Bandlamudi, Jayachandu and Sindhgatta, Renuka and Mehta, Sameep",
+      "year": "2026",
+      "primary_source": "https://ojs.aaai.org/index.php/AAAI/article/view/42388",
+      "checked_evidence": "Venue metadata and abstract",
+      "supported_manuscript_claim": "Multi-agent creation and testing of enterprise tool wrappers.",
+      "resolution": "Verified 40(48), 41706–41708 and publication DOI.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "wang2023voyager",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "authors_bibtex": "Wang, Guanzhi and Xie, Yuqi and Jiang, Yunfan and Mandlekar, Ajay and Xiao, Chaowei and Zhu, Yuke and Fan, Linxi and Anandkumar, Anima",
+      "year": "2023",
+      "primary_source": "https://arxiv.org/abs/2305.16291",
+      "checked_evidence": "arXiv metadata and abstract",
+      "supported_manuscript_claim": "An embodied agent accumulates executable skills.",
+      "resolution": "Retained preprint status rather than inventing a venue.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "Voyager: An Open-Ended Embodied Agent with Large Language Models"
+        ],
+        "citation_author": [
+          "Wang, Guanzhi",
+          "Xie, Yuqi",
+          "Jiang, Yunfan",
+          "Mandlekar, Ajay",
+          "Xiao, Chaowei",
+          "Zhu, Yuke",
+          "Fan, Linxi",
+          "Anandkumar, Anima"
+        ],
+        "citation_date": [
+          "2023/05/25"
+        ],
+        "citation_online_date": [
+          "2023/10/19"
+        ],
+        "citation_arxiv_id": [
+          "2305.16291"
+        ],
+        "url": "https://arxiv.org/abs/2305.16291"
+      }
+    },
+    {
+      "key": "wu2024autogen",
+      "title": "{AutoGen}: Enabling Next-Gen {LLM} Applications via Multi-Agent Conversations",
+      "authors_bibtex": "Wu, Qingyun and Bansal, Gagan and Zhang, Jieyu and Wu, Yiran and Li, Beibin and Zhu, Erkang and Jiang, Li and Zhang, Xiaoyun and Zhang, Shaokun and Liu, Jiale and Awadallah, Ahmed and White, Ryen W. and Burger, Doug and Wang, Chi",
+      "year": "2024",
+      "primary_source": "https://openreview.net/pdf/db83d7ffc58f8ea86ddd2bcc9314d43c2bdaa911.pdf",
+      "checked_evidence": "Official COLM PDF indexed header/byline/abstract; author full-text framework section",
+      "supported_manuscript_claim": "Interaction patterns can be programmed and use execution feedback.",
+      "resolution": "Conference title uses Conversations (plural); retain Ahmed Awadallah from PDF, although arXiv metadata expands Ahmed Hassan Awadallah. Author preprint is arXiv:2308.08155.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation"
+        ],
+        "citation_author": [
+          "Wu, Qingyun",
+          "Bansal, Gagan",
+          "Zhang, Jieyu",
+          "Wu, Yiran",
+          "Li, Beibin",
+          "Zhu, Erkang",
+          "Jiang, Li",
+          "Zhang, Xiaoyun",
+          "Zhang, Shaokun",
+          "Liu, Jiale",
+          "Awadallah, Ahmed Hassan",
+          "White, Ryen W",
+          "Burger, Doug",
+          "Wang, Chi"
+        ],
+        "citation_date": [
+          "2023/08/16"
+        ],
+        "citation_online_date": [
+          "2023/10/03"
+        ],
+        "citation_arxiv_id": [
+          "2308.08155"
+        ],
+        "url": "https://arxiv.org/abs/2308.08155"
+      }
+    },
+    {
+      "key": "yuan2024craft",
+      "title": "{CRAFT}: Customizing {LLMs} by Creating and Retrieving from Specialized Toolsets",
+      "authors_bibtex": "Yuan, Lifan and Chen, Yangyi and Wang, Xingyao and Fung, Yi R. and Peng, Hao and Ji, Heng",
+      "year": "2024",
+      "primary_source": "https://arxiv.org/abs/2309.17428",
+      "checked_evidence": "arXiv metadata, abstract and acceptance comment",
+      "supported_manuscript_claim": "Specialized toolsets are constructed and retrieved.",
+      "resolution": "ICLR 2024 is confirmed by the author record; OpenReview direct access challenged.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "CRAFT: Customizing LLMs by Creating and Retrieving from Specialized Toolsets"
+        ],
+        "citation_author": [
+          "Yuan, Lifan",
+          "Chen, Yangyi",
+          "Wang, Xingyao",
+          "Fung, Yi R.",
+          "Peng, Hao",
+          "Ji, Heng"
+        ],
+        "citation_date": [
+          "2023/09/29"
+        ],
+        "citation_online_date": [
+          "2024/03/13"
+        ],
+        "citation_arxiv_id": [
+          "2309.17428"
+        ],
+        "url": "https://arxiv.org/abs/2309.17428"
+      }
+    },
+    {
+      "key": "yue2025toollibgen",
+      "title": "{ToolLibGen}: Scalable Automatic Tool Creation and Aggregation for {LLM} Reasoning",
+      "authors_bibtex": "Yue, Murong and Liu, Zhiwei and Yang, Liangwei and Zhang, Jianguo and Liu, Zuxin and Chen, Haolin and Yao, Ziyu and Savarese, Silvio and Xiong, Caiming and Heinecke, Shelby and Wang, Huan",
+      "year": "2025",
+      "primary_source": "https://arxiv.org/abs/2510.07768",
+      "checked_evidence": "arXiv metadata and abstract",
+      "supported_manuscript_claim": "Code and Reviewing agents build and aggregate tools.",
+      "resolution": "Retained 2025 preprint label; all 11 authors verified.",
+      "status": "verified_with_scope_recorded",
+      "author_record": {
+        "citation_title": [
+          "ToolLibGen: Scalable Automatic Tool Creation and Aggregation for LLM Reasoning"
+        ],
+        "citation_author": [
+          "Yue, Murong",
+          "Liu, Zhiwei",
+          "Yang, Liangwei",
+          "Zhang, Jianguo",
+          "Liu, Zuxin",
+          "Chen, Haolin",
+          "Yao, Ziyu",
+          "Savarese, Silvio",
+          "Xiong, Caiming",
+          "Heinecke, Shelby",
+          "Wang, Huan"
+        ],
+        "citation_date": [
+          "2025/10/09"
+        ],
+        "citation_online_date": [
+          "2025/10/09"
+        ],
+        "citation_arxiv_id": [
+          "2510.07768"
+        ],
+        "url": "https://arxiv.org/abs/2510.07768"
+      }
+    },
+    {
+      "key": "zhuge2024gptswarm",
+      "title": "{GPTS}warm: Language Agents as Optimizable Graphs",
+      "authors_bibtex": "Zhuge, Mingchen and Wang, Wenyi and Kirsch, Louis and Faccio, Francesco and Khizbullin, Dmitrii and Schmidhuber, J{\\\"u}rgen",
+      "year": "2024",
+      "primary_source": "https://proceedings.mlr.press/v235/zhuge24a.html",
+      "checked_evidence": "Official proceedings metadata and abstract",
+      "supported_manuscript_claim": "Agent computational graphs are optimized.",
+      "resolution": "Verified all six authors, ICML 2024/PMLR 235, 62743–62767.",
+      "status": "verified_with_scope_recorded"
+    },
+    {
+      "key": "zomer2026collective",
+      "title": "Unraveling the Emergence of Collective Behavior in Networks of Cognitive Agents",
+      "authors_bibtex": "Zomer, Nicola and De Domenico, Manlio",
+      "year": "2026",
+      "primary_source": "https://www.nature.com/articles/s44387-026-00091-5",
+      "checked_evidence": "Official publisher indexed article record and Crossref metadata",
+      "supported_manuscript_claim": "Cognitive-agent networks study collective exploration and convergence.",
+      "resolution": "Verified authors, 2026, npj Artificial Intelligence 2, article 36 and DOI. Direct publisher fetch was limited; official indexed record and registered metadata agree.",
+      "status": "verified_with_scope_recorded"
+    }
+  ]
+}

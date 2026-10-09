@@ -1,0 +1,79 @@
+{
+  "diagram_color": "#002FA7",
+  "condition_colors": {
+    "local-neutral": "#2878B5",
+    "local-boids": "#D97932",
+    "independent": "#737C86"
+  },
+  "source_hashes": {
+    "societies.csv": "994fb446e6882e3806650b177a165b9c2446e57eecf22e38a711594ca3986c51",
+    "rounds.csv": "9478aa2f9852022594faeeb1fe0eae87bf178d9192653cf745cca5f98e204eec",
+    "publications.csv": "157198b15b830e8cbfc03635a0cee8419e1df147dc9549078fed1b2b755dbbf4",
+    "authors.csv": "3cf9931f3f62620b2cd330cef6f091fd3e440cd062021d3146ea2653429a5740",
+    "author-links.csv": "69933643469577dffa0e5b4f3ea1270c442cd6ea67b1574aa064fd80034c7d51",
+    "services.csv": "b187ebcb786819b1ca2f446613a768623704e481daa3321bd0a3f113e5bcd316",
+    "summary.json": "b413ec05b1dfc4927de361308f3e6737b1c6d5ca0c70a341e1e453edbd1715d1"
+  },
+  "script_sha256": "9f3f4c504e2b077768b14878c7ee38359e519b5c79e33e8f1f3b3daa1ea7349b",
+  "figures": [
+    {
+      "name": "fig01-tool-communication",
+      "sources": [],
+      "claim": "Separate the implemented exchange pipeline from four evidential questions.",
+      "caveat": "Schematic; the four observations are not equivalent and failure points are not all observed."
+    },
+    {
+      "name": "fig02-boids-mapping",
+      "sources": [],
+      "claim": "Map the three local concepts to implemented guidance and finite observable tests.",
+      "caveat": "Klein blue identifies conceptual diagrams, not a treatment condition."
+    },
+    {
+      "name": "fig03-main-results",
+      "sources": [
+        "societies.csv"
+      ],
+      "claim": "All nine endpoints are retained unchanged.",
+      "caveat": "Exact previous export; three societies per condition, no case-based intervals."
+    },
+    {
+      "name": "fig04-dynamics",
+      "sources": [
+        "rounds.csv"
+      ],
+      "claim": "Show all seed trajectories using the original separate score panels.",
+      "caveat": "Upper row original DEV; lower row archived common fresh panel. No rescoring."
+    },
+    {
+      "name": "fig05-society-atlas",
+      "sources": [
+        "publications.csv",
+        "authors.csv",
+        "author-links.csv"
+      ],
+      "claim": "Retain all nine networks, all 432 opportunities and all 72 ownership profiles in one atlas.",
+      "caveat": "Round cells use original DEV; O/S use common fresh DEV. Author projections can be cyclic; fixed positions, unweighted edges; narrow declarations outlined."
+    },
+    {
+      "name": "fig06-cost-reliability",
+      "sources": [
+        "societies.csv",
+        "services.csv",
+        "summary.json"
+      ],
+      "claim": "Separate code size, model tokens and conditional output reliability.",
+      "caveat": "Root code excludes dependencies; input includes cache; field mismatch is not a universal cause. Seed shapes match endpoint figure."
+    },
+    {
+      "name": "fig07-narrow-trajectory",
+      "sources": [
+        "publications.csv"
+      ],
+      "claim": "Show the original six-round narrowing and re-expansion trajectory.",
+      "caveat": "Seed2026 Boids a00; existing isolated diagnostic is described in caption, never counted as an observed repaired role."
+    }
+  ],
+  "experimental_model_calls": 0,
+  "grader_calls": 0,
+  "generated_tool_executions": 0
+}

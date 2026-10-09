@@ -120,3 +120,35 @@
 - Experiment heartbeat prompt now explicitly prohibits any further experiments
   and remains PAUSED. This revision makes0 experimental model/grader calls and
   executes0 archived generated programs. The fixed study remains closed.
+
+## 2026-10-09: eight-page body and citation audit (no new experiments)
+
+- User clarified that the conference permits no appendix: the final target is
+  exactly eight main-text pages plus references. Removed the entire appendix,
+  compressed headings and repeated prose, and integrated seven figures/four
+  tables into the body. All nine networks, 432 opportunities and 72 own/served
+  author profiles remain in the compact society atlas. All seeds, failures,
+  service denominators, resource totals and generation revisions remain visible.
+- Refined both conceptual workflows in Klein blue #002FA7; condition colors
+  remain neutral #2878B5, Boids #D97932 and independent #737C86. Source-linked
+  vector/raster exports and QA live separately in manuscript-03. Data and the
+  original analysis-02 export marker are preserved at their historical revision.
+- Verified all27 actually cited references against original author records,
+  official venue/publisher pages/PDFs and registered metadata. Citation audit
+  records reading scope and metadata disagreements, not a claim that every full
+  paper was read. Corrected CollabToolBuilder publication metadata, MetaGPT PDF
+  author order and LATM classification; retained PDF-authoritative initials for
+  Generative Agents and CREATOR. Removed3 unused references. Narrowed unsupported
+  detail in Riedl/Nisioti/TerraLingua/Conversable Complexity descriptions.
+- Expanded the interpretation of graph pairs, functional versus structural
+  counterfactuals, task evaluation versus organization evaluation and distinct
+  infrastructure/transport/generated-code failures. No causal mediation or
+  necessary-specialization claim was introduced. All numerical evidence is old.
+- Experiment stop remains binding. Zero experimental model/grader calls, zero
+  archived generated-tool executions, zero new probes, interventions or repairs.
+  Experiment automation stays PAUSED. Original461 input hashes and historical
+  final-report SHA256 verify unchanged. Five source-only analysis tests pass.
+- Final rendered page counts, table/figure reproducibility, citation resolution,
+  overflow checks, visual review and artifact hashes are recorded in the new
+  publication-qa.json/REVISION_MANIFEST.json, rather than rewriting the older
+  completion marker. Upstream AAMAS class bytes remain unchanged.
