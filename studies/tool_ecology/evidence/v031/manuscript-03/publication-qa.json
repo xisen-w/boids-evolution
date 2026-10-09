@@ -22,9 +22,9 @@
   "pdf_exports": {
     "paper/tool-ecology/main.pdf": {
       "pages": 9,
-      "sha256": "160b18642f7635debfa39ea44cb81ebe1a4d93ea83b8875ce5485ecc437d35e1",
+      "sha256": "982ebda7ba77dede171dc2a97479d181facd6030e9576b7fff0fe136963553b3",
       "outside_page_words": 0,
-      "visual_review": "All pages inspected in final renders; English atlas, mechanism table, resources, bibliography and final body page additionally inspected at enlarged resolution. No clipping, overlaps or blank body pages.",
+      "visual_review": "Structured abstract update: pages 1\u20132 inspected; no clipping, overlap or blank body pages. Pages 3\u20139 pixel-identical to the previously reviewed export.",
       "main_text_pages": 8,
       "reference_pages": 1,
       "references_start_page": 9,
@@ -58,5 +58,22 @@
       9
     ],
     "page_1_visual_review": "Pass: ID1867 visible; no clipping or overlap."
+  },
+  "abstract_structure_update": {
+    "parent_revision": "961f9f54220509da3e6c38b84bd63c8b6de664a7",
+    "change": "Background, Motivation, Experiment and three Findings; remaining manuscript source unchanged.",
+    "pixel_identical_pages": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "changed_pages_visual_review": [
+      1,
+      2
+    ]
   }
 }

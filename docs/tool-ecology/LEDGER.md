@@ -156,3 +156,7 @@
 ### Submission metadata: 1867 (2026-10-09)
 
 - Updated only the manuscript submission ID to 1867 and rebuilt its PDF. Main text remains 8 pages plus 1 reference page, no appendix; pages 2–9 are pixel-identical to the previous export. Title, abstract, bibliography and all scientific content are unchanged. Page 1 was visually inspected. Zero experiments or model/grader calls.
+
+### Structured abstract (2026-10-09)
+
+- Rewrote the abstract as Background, Motivation, Experiment and three Findings at the user’s request. Existing numbers and interpretation boundaries are retained. No other manuscript text, figures, tables or citations changed. Export remains 8 main-text pages plus 1 reference page, no appendix. Pages 1–2 were visually inspected; pages 3–9 are pixel-identical to the preceding export. Zero experiments, model/grader calls or generated-tool executions.
