@@ -13,7 +13,7 @@ from . import workload
 from .dynamics_metrics import summarize
 from .hostio import archive_rejected, remove_workspace_entry, write_feedback
 from .images import resolve_image
-from .model import AgentPortModel, Budget
+from .model import TRANSPORT_TIMEOUT_SECONDS, AgentPortModel, Budget
 from .registry import LocalSociety, Registry, file_hashes
 from .sandbox import run_agent, stop
 from .services import judge
@@ -257,6 +257,7 @@ def main():
         mini_swe_version=importlib.metadata.version("mini-swe-agent"),
         openai_version=importlib.metadata.version("openai"),
         provider_money_cost="unverified",
+        transport_policy=dict(timeout_seconds=TRANSPORT_TIMEOUT_SECONDS, max_retries=0),
         maximum_requests=len(arms) * len(seeds) * args.agents * args.rounds * args.steps,
     )
     (args.output / "manifest.json").write_text(json.dumps(manifest, indent=2))

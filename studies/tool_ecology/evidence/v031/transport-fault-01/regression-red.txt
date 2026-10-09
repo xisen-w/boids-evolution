@@ -1,0 +1,23 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_transport_allows_slow_response_without_sdk_retries ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x110b113a0>
+tmp_path = PosixPath('/private/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/pytest-of-wangxiang/pytest-48/test_transport_allows_slow_res0')
+
+    def test_transport_allows_slow_response_without_sdk_retries(monkeypatch, tmp_path):
+        options = {}
+    
+        def client(**kwargs):
+            options.update(kwargs)
+            return object()
+    
+        monkeypatch.setattr(model, "OpenAI", client)
+        model.AgentPortModel("offline-test-key", model.Budget(tmp_path / "api"), "fixture")
+>       assert options["timeout"] == 180
+E       assert 55 == 180
+
+studies/tool_ecology/tests/test_ecology_transport.py:17: AssertionError
+=========================== short test summary info ============================
+FAILED studies/tool_ecology/tests/test_ecology_transport.py::test_transport_allows_slow_response_without_sdk_retries
+1 failed, 1 passed in 2.60s

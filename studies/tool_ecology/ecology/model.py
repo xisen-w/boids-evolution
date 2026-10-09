@@ -7,6 +7,8 @@ from minisweagent.exceptions import FormatError
 from minisweagent.models.litellm_response_model import LitellmResponseModel
 from openai import OpenAI
 
+TRANSPORT_TIMEOUT_SECONDS = 180
+
 
 def normalize_input(items):
     allowed = {
@@ -57,7 +59,12 @@ class AgentPortModel(LitellmResponseModel):
 
     def __init__(self, key: str, budget: Budget, label: str, max_tokens=3000):
         super().__init__(model_name="azure:gpt-6-luna", cost_tracking="ignore_errors")
-        self.client = OpenAI(api_key=key, base_url="https://agentport.world/v1", max_retries=0, timeout=55)
+        self.client = OpenAI(
+            api_key=key,
+            base_url="https://agentport.world/v1",
+            max_retries=0,
+            timeout=TRANSPORT_TIMEOUT_SECONDS,
+        )
         self.budget, self.label, self.max_tokens = budget, label, max_tokens
 
     def query(self, messages, **kwargs):
