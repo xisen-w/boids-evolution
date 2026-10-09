@@ -65,6 +65,20 @@ def main():
                 condition=condition,
                 **cell_provenance(manifest, f"{society.parent.name}/{condition}"),
                 publications=summary["publications"],
+                declared_six_service_publications=sum(
+                    r["publication_status"] == "published" and len(r.get("service_counts", {})) == 6
+                    for r in records
+                ),
+                declared_single_service_publications=sum(
+                    r["publication_status"] == "published" and len(r.get("service_counts", {})) == 1
+                    for r in records
+                ),
+                round_one_declared_six_service_publications=sum(
+                    r["round"] == 1
+                    and r["publication_status"] == "published"
+                    and len(r.get("service_counts", {})) == 6
+                    for r in records
+                ),
                 correct_publications=summary["correct_publications"],
                 coverage=len(summary["verified_family_coverage"]),
                 complete_six_publications=sum(len(r["verified_families"]) == 6 for r in records),
