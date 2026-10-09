@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 
 import pytest
@@ -93,6 +94,8 @@ def test_executed_cross_author_dependency_and_noncrashing_intervention(tmp_path)
             "docker",
             "run",
             "--rm",
+            "--user",
+            f"{os.getuid()}:{os.getgid()}",
             "--network=none",
             "--read-only",
             "--cap-drop=ALL",

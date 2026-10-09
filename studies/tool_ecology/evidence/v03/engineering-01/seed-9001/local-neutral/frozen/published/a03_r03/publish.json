@@ -1,0 +1,1 @@
+{"description":"Native Python facade for six verified list-of-dictionaries table services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

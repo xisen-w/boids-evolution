@@ -1,0 +1,1 @@
+{"description":"Dependency-free Python adapters for cleaning, revenue derivation, aggregation, lookup, and rolling windows.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"serve_clean","revenue":"serve_revenue","group":"serve_group","monthly":"serve_monthly","lookup":"serve_lookup","window":"serve_window"}}

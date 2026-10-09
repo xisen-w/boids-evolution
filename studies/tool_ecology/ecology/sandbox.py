@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -33,6 +34,8 @@ def run_agent(model, workspace: Path, library: Path, output: Path, image: str, s
         },
         run_args=[
             "--rm",
+            "--user",
+            f"{os.getuid()}:{os.getgid()}",
             "--network=none",
             "--read-only",
             "--cap-drop=ALL",

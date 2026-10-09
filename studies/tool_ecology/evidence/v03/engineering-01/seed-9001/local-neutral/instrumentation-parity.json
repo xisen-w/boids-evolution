@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a00_r01",
+    "equal": true
+  },
+  {
+    "id": "a01_r01",
+    "equal": true
+  },
+  {
+    "id": "a02_r01",
+    "equal": true
+  },
+  {
+    "id": "a03_r01",
+    "equal": true
+  },
+  {
+    "id": "a00_r02",
+    "equal": true
+  },
+  {
+    "id": "a01_r02",
+    "equal": true
+  },
+  {
+    "id": "a02_r02",
+    "equal": true
+  },
+  {
+    "id": "a03_r02",
+    "equal": true
+  },
+  {
+    "id": "a00_r03",
+    "equal": true
+  },
+  {
+    "id": "a01_r03",
+    "equal": true
+  },
+  {
+    "id": "a02_r03",
+    "equal": true
+  },
+  {
+    "id": "a03_r03",
+    "equal": true
+  }
+]

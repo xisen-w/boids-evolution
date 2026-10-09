@@ -1,0 +1,20 @@
+[
+  {
+    "seed": 9001,
+    "condition": "local-boids",
+    "parity_all_equal": true,
+    "replayed_publications": 12,
+    "eligible_edges": 6,
+    "intervened_edges": 6,
+    "confirmed_functional_edges": 6
+  },
+  {
+    "seed": 9001,
+    "condition": "local-neutral",
+    "parity_all_equal": true,
+    "replayed_publications": 12,
+    "eligible_edges": 0,
+    "intervened_edges": 0,
+    "confirmed_functional_edges": 0
+  }
+]

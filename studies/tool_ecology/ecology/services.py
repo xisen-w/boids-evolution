@@ -1,6 +1,7 @@
 """Docker evaluation of published service adapters. References stay on the host."""
 
 import json
+import os
 import subprocess
 import uuid
 from pathlib import Path
@@ -30,6 +31,8 @@ def judge(library, artifact, out, image, *, seed, round_, ablate_edge="", instru
         "--rm",
         "--name",
         name,
+        "--user",
+        f"{os.getuid()}:{os.getgid()}",
         "--network=none",
         "--read-only",
         "--cap-drop=ALL",

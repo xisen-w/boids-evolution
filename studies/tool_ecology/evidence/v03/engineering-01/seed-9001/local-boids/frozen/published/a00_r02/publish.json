@@ -1,0 +1,1 @@
+{"description":"Nonmutating revenue derivation and trailing row-window mean services, preserving region values.","capabilities":["revenue","window"],"dependencies":[],"checks":{"revenue":"revenue","window":"window"}}

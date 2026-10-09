@@ -1,0 +1,198 @@
+[
+  {
+    "recipient": "a01",
+    "sender": "a00",
+    "root": "a00_r01",
+    "member": "a00_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a03",
+    "sender": "a00",
+    "root": "a00_r01",
+    "member": "a00_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a02",
+    "sender": "a01",
+    "root": "a01_r01",
+    "member": "a01_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a00",
+    "sender": "a01",
+    "root": "a01_r01",
+    "member": "a01_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a03",
+    "sender": "a02",
+    "root": "a02_r01",
+    "member": "a02_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a01",
+    "sender": "a02",
+    "root": "a02_r01",
+    "member": "a02_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a00",
+    "sender": "a03",
+    "root": "a03_r01",
+    "member": "a03_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a02",
+    "sender": "a03",
+    "root": "a03_r01",
+    "member": "a03_r01",
+    "available_round": 2
+  },
+  {
+    "recipient": "a01",
+    "sender": "a00",
+    "root": "a00_r02",
+    "member": "a00_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a03",
+    "sender": "a00",
+    "root": "a00_r02",
+    "member": "a00_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a02",
+    "sender": "a01",
+    "root": "a01_r02",
+    "member": "a01_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a00",
+    "sender": "a01",
+    "root": "a01_r02",
+    "member": "a01_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a03",
+    "sender": "a02",
+    "root": "a02_r02",
+    "member": "a02_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a01",
+    "sender": "a02",
+    "root": "a02_r02",
+    "member": "a02_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a00",
+    "sender": "a03",
+    "root": "a03_r02",
+    "member": "a03_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a02",
+    "sender": "a03",
+    "root": "a03_r02",
+    "member": "a03_r02",
+    "available_round": 3
+  },
+  {
+    "recipient": "a01",
+    "sender": "a00",
+    "root": "a00_r03",
+    "member": "a00_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a01",
+    "sender": "a00",
+    "root": "a00_r03",
+    "member": "a01_r02",
+    "available_round": 4
+  },
+  {
+    "recipient": "a03",
+    "sender": "a00",
+    "root": "a00_r03",
+    "member": "a00_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a03",
+    "sender": "a00",
+    "root": "a00_r03",
+    "member": "a01_r02",
+    "available_round": 4
+  },
+  {
+    "recipient": "a02",
+    "sender": "a01",
+    "root": "a01_r03",
+    "member": "a01_r02",
+    "available_round": 4
+  },
+  {
+    "recipient": "a02",
+    "sender": "a01",
+    "root": "a01_r03",
+    "member": "a01_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a00",
+    "sender": "a01",
+    "root": "a01_r03",
+    "member": "a01_r02",
+    "available_round": 4
+  },
+  {
+    "recipient": "a00",
+    "sender": "a01",
+    "root": "a01_r03",
+    "member": "a01_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a03",
+    "sender": "a02",
+    "root": "a02_r03",
+    "member": "a02_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a01",
+    "sender": "a02",
+    "root": "a02_r03",
+    "member": "a02_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a00",
+    "sender": "a03",
+    "root": "a03_r03",
+    "member": "a03_r03",
+    "available_round": 4
+  },
+  {
+    "recipient": "a02",
+    "sender": "a03",
+    "root": "a03_r03",
+    "member": "a03_r03",
+    "available_round": 4
+  }
+]

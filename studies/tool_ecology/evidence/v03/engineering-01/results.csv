@@ -1,0 +1,3 @@
+seed,condition,publications,correct_publications,coverage,redundant_author_family_pairs,mean_author_profile_jaccard,sustained_specialists,correct_cross_author_publications,observed_cross_author_edges,physical_requests,input_tokens,output_tokens,cached_tokens,errors
+9001,local-boids,12,12,6,18,1.0,0,1,6,53,214539,22929,146904,0
+9001,local-neutral,12,12,6,18,1.0,0,0,0,54,221698,19533,157583,0

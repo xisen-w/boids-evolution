@@ -60,6 +60,15 @@ def main():
                 publications=summary["publications"],
                 correct_publications=summary["correct_publications"],
                 coverage=len(summary["verified_family_coverage"]),
+                complete_six_publications=sum(len(r["verified_families"]) == 6 for r in records),
+                strict_claimed_publications=sum(
+                    bool(r.get("service_counts"))
+                    and all(v["passed"] == v["total"] for v in r["service_counts"].values())
+                    for r in records
+                ),
+                correct_cross_author_requests=summary["correct_cross_author_requests"],
+                correct_service_requests=summary["correct_service_requests"],
+                total_declared_service_requests=summary["total_service_requests"],
                 redundant_author_family_pairs=summary["redundant_author_family_pairs"],
                 mean_author_profile_jaccard=summary["mean_author_profile_jaccard"],
                 sustained_specialists=len(summary["sustained_specialists"]),
