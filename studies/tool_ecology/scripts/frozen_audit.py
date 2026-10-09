@@ -9,6 +9,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from studies.tool_ecology.scripts.collection_provenance import cell_provenance
+
 from ecology.registry import Registry
 from ecology.services import judge
 
@@ -107,6 +109,7 @@ def main():
         result = dict(
             seed=int(root.parent.name.split("-")[1]),
             condition=root.name,
+            **cell_provenance(manifest, f"{root.parent.name}/{root.name}"),
             panel_seed=PANEL_SEED,
             panel_round=PANEL_ROUND,
             evaluated_publications=len(rows),
@@ -127,6 +130,14 @@ def main():
             dict(
                 classification="additional_frozen_DEV_robustness_diagnostic",
                 generation_code_revision=manifest["code_revision"],
+                generation_code_revisions=manifest.get("code_revisions", [manifest["code_revision"]]),
+                generation_classification=manifest["classification"],
+                cell_generation_provenance={
+                    f"seed-{r['seed']}/{r['condition']}": {
+                        k: r[k] for k in ("generation_code_revision", "timeout_seconds", "max_retries")
+                    }
+                    for r in results
+                },
                 analysis_source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                 panel_seed=PANEL_SEED,
                 panel_round=PANEL_ROUND,

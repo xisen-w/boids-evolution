@@ -9,6 +9,8 @@ import json
 import shutil
 from pathlib import Path
 
+from studies.tool_ecology.scripts.collection_provenance import cell_provenance, usage_accounting
+
 from ecology.dynamics import is_cross
 from ecology.registry import Registry
 from ecology.services import judge
@@ -29,6 +31,8 @@ def main():
     manifest = json.loads((args.run / "manifest.json").read_text())
     shutil.copyfile(args.run / "manifest.json", args.output / "manifest.json")
     shutil.copyfile(args.run / "summary.json", args.output / "summary.json")
+    if (args.run / "COLLECTION.json").exists():
+        shutil.copyfile(args.run / "COLLECTION.json", args.output / "COLLECTION.json")
     table, diagnostics = [], []
     for society in sorted(args.run.glob("seed-*/*")):
         if not (society / "records.json").exists():
@@ -45,6 +49,8 @@ def main():
         dest.mkdir(parents=True)
         for name in ("records.json", "summary.json", "config.json", "usage.json", "receipts.json"):
             shutil.copyfile(society / name, dest / name)
+        if (society / "generation-manifest.json").exists():
+            shutil.copyfile(society / "generation-manifest.json", dest / "generation-manifest.json")
         shutil.copytree(frozen, dest / "frozen")
         rounds = []
         for rnd in range(1, config["rounds"] + 1):
@@ -57,6 +63,7 @@ def main():
             dict(
                 seed=seed,
                 condition=condition,
+                **cell_provenance(manifest, f"{society.parent.name}/{condition}"),
                 publications=summary["publications"],
                 correct_publications=summary["correct_publications"],
                 coverage=len(summary["verified_family_coverage"]),
@@ -87,8 +94,8 @@ def main():
         for row in records:
             if row["publication_status"] != "published":
                 continue
-            slot = society / "builders" / row["author"] / f'round-{row["round"]:02d}'
-            artifact = json.loads((society / "registry" / f'{row["id"]}.json').read_text())
+            slot = society / "builders" / row["author"] / f"round-{row['round']:02d}"
+            artifact = json.loads((society / "registry" / f"{row['id']}.json").read_text())
             original = json.loads((slot / "service/result.json").read_text())
             plain = judge(
                 slot / "judge-view",
@@ -110,8 +117,8 @@ def main():
                     candidates.append((row, edge))
         interventions = []
         for row, edge in candidates[: args.edge_limit]:
-            slot = society / "builders" / row["author"] / f'round-{row["round"]:02d}'
-            artifact = json.loads((society / "registry" / f'{row["id"]}.json').read_text())
+            slot = society / "builders" / row["author"] / f"round-{row['round']:02d}"
+            artifact = json.loads((society / "registry" / f"{row['id']}.json").read_text())
             original = json.loads((slot / "service/result.json").read_text())
             changed = judge(
                 slot / "judge-view",
@@ -158,6 +165,10 @@ def main():
                 eligible_edges=len(candidates),
                 intervened_edges=len(interventions),
                 confirmed_functional_edges=sum(x["noncrashing_correctness_loss"] for x in interventions),
+                unique_intervened_edges=len({x["edge"] for x in interventions}),
+                unique_confirmed_functional_edges=len(
+                    {x["edge"] for x in interventions if x["noncrashing_correctness_loss"]}
+                ),
             )
         )
         print(json.dumps(diagnostics[-1]), flush=True)
@@ -166,12 +177,10 @@ def main():
         writer.writeheader()
         writer.writerows(table)
     (args.output / "diagnostics.json").write_text(json.dumps(diagnostics, indent=2))
-    totals = {
-        key: sum(r[key] for r in table)
-        for key in ("physical_requests", "input_tokens", "output_tokens", "cached_tokens", "errors")
-    }
-    (args.output / "usage.json").write_text(json.dumps(totals, indent=2))
-    print(json.dumps(dict(societies=len(table), **totals)), flush=True)
+    accounting = usage_accounting(manifest, table)
+    (args.output / "usage.json").write_text(json.dumps(accounting["all_attempt_usage"], indent=2))
+    (args.output / "usage-accounting.json").write_text(json.dumps(accounting, indent=2))
+    print(json.dumps(dict(societies=len(table), **accounting)), flush=True)
 
 
 if __name__ == "__main__":
