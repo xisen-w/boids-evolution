@@ -1,0 +1,92 @@
+{
+  "task_revision": "a1f4e886063373d43e52b53b98492cf108f294e3",
+  "reviewed": "three design specifications, environment requirements, task/problem inventory; not hidden test assertions",
+  "candidates": [
+    {
+      "task": "pyda",
+      "problems": 21,
+      "public_examples": [
+        "overlapping-logs",
+        "customer-merge"
+      ],
+      "held_out": [
+        "county-crash-priority",
+        "county-storm-burden",
+        "device-pair-agreement",
+        "ensemble-scores",
+        "exposure-monitoring",
+        "faers-signal-watch",
+        "marine-heatwave",
+        "pattern-growth",
+        "planar-territories",
+        "policy-anonymization",
+        "road-safety-priority",
+        "saccr-capital",
+        "scorer-lineage",
+        "sec-leverage-watch",
+        "storm-mitigation-priority",
+        "survival-risk",
+        "taxonomy-match",
+        "trade-imbalance",
+        "weather-features"
+      ],
+      "specification_sha256": "624de885be0ddc713578f6810616e8c71efa0e10c0b235614a42813453c211e6",
+      "capability_bullets": 16
+    },
+    {
+      "task": "python_validation",
+      "problems": 14,
+      "public_examples": [
+        "profile-patch",
+        "trading-events"
+      ],
+      "held_out": [
+        "boundary-views",
+        "cli-dispatch",
+        "env-config",
+        "ha-triggers",
+        "llm-contracts",
+        "ml-run-config",
+        "paper-poster",
+        "pipeline-provenance",
+        "rtl-pin-lock",
+        "tagged-config",
+        "thermostat-codec",
+        "typed-client"
+      ],
+      "specification_sha256": "bb8393c1350ba6f4f1e5fb0c877ea6b212921bb0ef3752a4bc75fa70ba827ed2",
+      "capability_bullets": 16
+    },
+    {
+      "task": "uglypie",
+      "problems": 11,
+      "public_examples": [
+        "page-cleaner",
+        "kml-schema-import"
+      ],
+      "held_out": [
+        "access-tree",
+        "article-rewrite",
+        "exhibit-route",
+        "festival-revisions",
+        "genome-catalog",
+        "hearing-replay",
+        "news-crawl",
+        "page-notes",
+        "portal-ingest"
+      ],
+      "specification_sha256": "d6e57bb1eb0a7d0a5582d2760c8ed76f844620d32db18951abd410b1811877f7",
+      "capability_bullets": 15
+    }
+  ],
+  "selected_task": "pyda",
+  "selected_problems": [
+    "weather-features",
+    "scorer-lineage"
+  ],
+  "selected_reason": "deterministic IO, relational, grouping and time capabilities; closest to existing tool-building substrate",
+  "excluded_reason": {
+    "python_validation": "schema/metaclass/generic API interactions make interface engineering an additional initial confound",
+    "uglypie": "shared mutable tree and parser semantics make independently authored components harder to combine initially"
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "condition": "local-neutral",
+    "problem": "weather-features",
+    "passed": 19,
+    "total": 19,
+    "ldb_score": 0.8763720205234786,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  },
+  {
+    "condition": "local-neutral",
+    "problem": "scorer-lineage",
+    "passed": 14,
+    "total": 14,
+    "ldb_score": 0.41408139365317137,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  },
+  {
+    "condition": "local-boids",
+    "problem": "weather-features",
+    "passed": 9,
+    "total": 19,
+    "ldb_score": 0.20481748645852188,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  },
+  {
+    "condition": "local-boids",
+    "problem": "scorer-lineage",
+    "passed": 14,
+    "total": 14,
+    "ldb_score": 0.3945580527965223,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  },
+  {
+    "condition": "no-library",
+    "problem": "weather-features",
+    "passed": 19,
+    "total": 19,
+    "ldb_score": 0.8353826530612245,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  },
+  {
+    "condition": "no-library",
+    "problem": "scorer-lineage",
+    "passed": 11,
+    "total": 14,
+    "ldb_score": 0.23775990636767924,
+    "same_test_counts": true,
+    "same_ldb_score": true
+  }
+]

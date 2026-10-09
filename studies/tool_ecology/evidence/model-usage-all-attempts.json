@@ -1,0 +1,56 @@
+{
+  "classification": "all_engineering_model_requests_known_in_this_session",
+  "money_cost": "unverified",
+  "failed_response_usage": "unavailable",
+  "attempts": [
+    {
+      "name": "route_probe",
+      "requests": 1,
+      "input_tokens": 13,
+      "output_tokens": 5
+    },
+    {
+      "name": "smoke-01",
+      "requests": 0
+    },
+    {
+      "name": "smoke-02",
+      "requests": 3,
+      "input_tokens_with_usage": 1835,
+      "output_tokens_with_usage": 147,
+      "errors": 1
+    },
+    {
+      "name": "smoke-03-environment-defective",
+      "requests": 165,
+      "input_tokens": 629846,
+      "output_tokens": 84093,
+      "cached_tokens": 427379
+    },
+    {
+      "name": "smoke-04",
+      "requests": 0
+    },
+    {
+      "name": "smoke-05",
+      "requests": 0
+    },
+    {
+      "name": "smoke-06",
+      "requests": 0
+    },
+    {
+      "name": "smoke-07-valid-engineering",
+      "requests": 179,
+      "input_tokens": 689147,
+      "output_tokens": 92496,
+      "cached_tokens": 489018
+    }
+  ],
+  "totals": {
+    "model_requests_including_failed": 348,
+    "input_tokens_reported": 1320841,
+    "output_tokens_reported": 176741,
+    "cached_input_tokens_reported": 916397
+  }
+}

@@ -1,0 +1,419 @@
+{
+  "run": "luna-smoke-07",
+  "code_revision": "c7e22a6a1255fbedf91fb437c70e8ecfea9aff30",
+  "usage_by_label": {
+    "local-neutral/a03/r2": {
+      "requests": 6,
+      "input_tokens": 24003,
+      "output_tokens": 3066,
+      "cached_tokens": 16661,
+      "errors": 0
+    },
+    "local-boids/a03/r2": {
+      "requests": 5,
+      "input_tokens": 18300,
+      "output_tokens": 3164,
+      "cached_tokens": 10808,
+      "errors": 0
+    },
+    "local-neutral/a02/r1": {
+      "requests": 5,
+      "input_tokens": 13451,
+      "output_tokens": 3325,
+      "cached_tokens": 7302,
+      "errors": 0
+    },
+    "consumer/local-boids/weather-features": {
+      "requests": 12,
+      "input_tokens": 91685,
+      "output_tokens": 3605,
+      "cached_tokens": 83164,
+      "errors": 0
+    },
+    "local-neutral/a00/r1": {
+      "requests": 6,
+      "input_tokens": 16740,
+      "output_tokens": 4117,
+      "cached_tokens": 9798,
+      "errors": 0
+    },
+    "local-neutral/a01/r3": {
+      "requests": 6,
+      "input_tokens": 26540,
+      "output_tokens": 2329,
+      "cached_tokens": 19002,
+      "errors": 0
+    },
+    "local-boids/a00/r3": {
+      "requests": 6,
+      "input_tokens": 20922,
+      "output_tokens": 2159,
+      "cached_tokens": 13976,
+      "errors": 0
+    },
+    "local-boids/a01/r2": {
+      "requests": 6,
+      "input_tokens": 23745,
+      "output_tokens": 3452,
+      "cached_tokens": 16187,
+      "errors": 0
+    },
+    "local-boids/a02/r1": {
+      "requests": 6,
+      "input_tokens": 19513,
+      "output_tokens": 4340,
+      "cached_tokens": 12459,
+      "errors": 0
+    },
+    "local-neutral/a02/r2": {
+      "requests": 6,
+      "input_tokens": 29531,
+      "output_tokens": 3001,
+      "cached_tokens": 20801,
+      "errors": 0
+    },
+    "local-neutral/a03/r1": {
+      "requests": 6,
+      "input_tokens": 16134,
+      "output_tokens": 4150,
+      "cached_tokens": 9260,
+      "errors": 0
+    },
+    "local-neutral/a02/r3": {
+      "requests": 4,
+      "input_tokens": 15062,
+      "output_tokens": 2659,
+      "cached_tokens": 8378,
+      "errors": 0
+    },
+    "consumer/no-library/weather-features": {
+      "requests": 8,
+      "input_tokens": 25296,
+      "output_tokens": 3281,
+      "cached_tokens": 21111,
+      "errors": 0
+    },
+    "consumer/local-neutral/weather-features": {
+      "requests": 7,
+      "input_tokens": 39855,
+      "output_tokens": 3050,
+      "cached_tokens": 32601,
+      "errors": 0
+    },
+    "local-boids/a01/r1": {
+      "requests": 6,
+      "input_tokens": 15862,
+      "output_tokens": 3846,
+      "cached_tokens": 9147,
+      "errors": 0
+    },
+    "local-boids/a03/r3": {
+      "requests": 4,
+      "input_tokens": 15232,
+      "output_tokens": 1700,
+      "cached_tokens": 7713,
+      "errors": 0
+    },
+    "local-neutral/a03/r3": {
+      "requests": 5,
+      "input_tokens": 17420,
+      "output_tokens": 2888,
+      "cached_tokens": 11194,
+      "errors": 0
+    },
+    "consumer/no-library/scorer-lineage": {
+      "requests": 9,
+      "input_tokens": 30176,
+      "output_tokens": 2852,
+      "cached_tokens": 26681,
+      "errors": 0
+    },
+    "local-neutral/a00/r2": {
+      "requests": 6,
+      "input_tokens": 24630,
+      "output_tokens": 4217,
+      "cached_tokens": 17529,
+      "errors": 0
+    },
+    "local-neutral/a00/r3": {
+      "requests": 5,
+      "input_tokens": 21590,
+      "output_tokens": 2148,
+      "cached_tokens": 13854,
+      "errors": 0
+    },
+    "local-neutral/a01/r1": {
+      "requests": 5,
+      "input_tokens": 14501,
+      "output_tokens": 3919,
+      "cached_tokens": 7836,
+      "errors": 0
+    },
+    "consumer/local-boids/scorer-lineage": {
+      "requests": 7,
+      "input_tokens": 22163,
+      "output_tokens": 2353,
+      "cached_tokens": 18850,
+      "errors": 0
+    },
+    "local-boids/a01/r3": {
+      "requests": 6,
+      "input_tokens": 24173,
+      "output_tokens": 2945,
+      "cached_tokens": 16917,
+      "errors": 0
+    },
+    "local-neutral/a01/r2": {
+      "requests": 5,
+      "input_tokens": 16167,
+      "output_tokens": 3118,
+      "cached_tokens": 9360,
+      "errors": 0
+    },
+    "local-boids/a02/r2": {
+      "requests": 6,
+      "input_tokens": 24333,
+      "output_tokens": 2639,
+      "cached_tokens": 16699,
+      "errors": 0
+    },
+    "consumer/local-neutral/scorer-lineage": {
+      "requests": 7,
+      "input_tokens": 23398,
+      "output_tokens": 2278,
+      "cached_tokens": 19590,
+      "errors": 0
+    },
+    "local-boids/a00/r2": {
+      "requests": 5,
+      "input_tokens": 16781,
+      "output_tokens": 2585,
+      "cached_tokens": 10032,
+      "errors": 0
+    },
+    "local-boids/a03/r1": {
+      "requests": 5,
+      "input_tokens": 15214,
+      "output_tokens": 4081,
+      "cached_tokens": 8183,
+      "errors": 0
+    },
+    "local-boids/a00/r1": {
+      "requests": 5,
+      "input_tokens": 13591,
+      "output_tokens": 3453,
+      "cached_tokens": 7247,
+      "errors": 0
+    },
+    "local-boids/a02/r3": {
+      "requests": 4,
+      "input_tokens": 13139,
+      "output_tokens": 1776,
+      "cached_tokens": 6678,
+      "errors": 0
+    }
+  },
+  "conditions": {
+    "local-neutral": {
+      "publications": 12,
+      "publication_statuses": {
+        "published": 12
+      },
+      "builder_exit_statuses": {
+        "Submitted": 9,
+        "LimitsExceeded": 3
+      },
+      "declared_dependencies": [
+        {
+          "source": "a00_r03",
+          "target": "a00_r01"
+        },
+        {
+          "source": "a01_r03",
+          "target": "a01_r01"
+        },
+        {
+          "source": "a03_r02",
+          "target": "a03_r01"
+        }
+      ],
+      "declared_cross_author_dependencies": [],
+      "receipt_entries": 30,
+      "snapshot_violations": [],
+      "frozen_hashes_verified": true,
+      "escaping_relative_imports": [],
+      "builder_usage": {
+        "requests": 65,
+        "input_tokens": 235769,
+        "output_tokens": 38937,
+        "cached_tokens": 150975,
+        "errors": 0
+      },
+      "grades": [
+        {
+          "problem": "scorer-lineage",
+          "passed": 14,
+          "total": 14,
+          "strict_success": true,
+          "ldb_score": 0.41408139365317137,
+          "consumer_calls": 7,
+          "consumer_exit": "Submitted",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        },
+        {
+          "problem": "weather-features",
+          "passed": 19,
+          "total": 19,
+          "strict_success": true,
+          "ldb_score": 0.8763720205234786,
+          "consumer_calls": 7,
+          "consumer_exit": "Submitted",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        }
+      ]
+    },
+    "local-boids": {
+      "publications": 12,
+      "publication_statuses": {
+        "published": 12
+      },
+      "builder_exit_statuses": {
+        "Submitted": 9,
+        "LimitsExceeded": 3
+      },
+      "declared_dependencies": [
+        {
+          "source": "a00_r03",
+          "target": "a00_r01"
+        },
+        {
+          "source": "a00_r02",
+          "target": "a00_r01"
+        },
+        {
+          "source": "a02_r02",
+          "target": "a02_r01"
+        },
+        {
+          "source": "a03_r03",
+          "target": "a00_r01"
+        },
+        {
+          "source": "a02_r03",
+          "target": "a02_r01"
+        }
+      ],
+      "declared_cross_author_dependencies": [
+        {
+          "source": "a03_r03",
+          "target": "a00_r01"
+        }
+      ],
+      "receipt_entries": 34,
+      "snapshot_violations": [],
+      "frozen_hashes_verified": true,
+      "escaping_relative_imports": [],
+      "builder_usage": {
+        "requests": 64,
+        "input_tokens": 220805,
+        "output_tokens": 36140,
+        "cached_tokens": 136046,
+        "errors": 0
+      },
+      "grades": [
+        {
+          "problem": "scorer-lineage",
+          "passed": 14,
+          "total": 14,
+          "strict_success": true,
+          "ldb_score": 0.3945580527965223,
+          "consumer_calls": 7,
+          "consumer_exit": "Submitted",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        },
+        {
+          "problem": "weather-features",
+          "passed": 9,
+          "total": 19,
+          "strict_success": false,
+          "ldb_score": 0.20481748645852188,
+          "consumer_calls": 12,
+          "consumer_exit": "LimitsExceeded",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        }
+      ]
+    },
+    "no-library": {
+      "publications": 0,
+      "publication_statuses": {},
+      "builder_exit_statuses": {},
+      "declared_dependencies": [],
+      "declared_cross_author_dependencies": [],
+      "receipt_entries": 0,
+      "snapshot_violations": [],
+      "frozen_hashes_verified": true,
+      "escaping_relative_imports": [],
+      "builder_usage": {
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cached_tokens": 0,
+        "errors": 0
+      },
+      "grades": [
+        {
+          "problem": "scorer-lineage",
+          "passed": 11,
+          "total": 14,
+          "strict_success": false,
+          "ldb_score": 0.23775990636767924,
+          "consumer_calls": 9,
+          "consumer_exit": "Submitted",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        },
+        {
+          "problem": "weather-features",
+          "passed": 19,
+          "total": 19,
+          "strict_success": true,
+          "ldb_score": 0.8353826530612245,
+          "consumer_calls": 8,
+          "consumer_exit": "Submitted",
+          "direct_tool_calls": {},
+          "cross_author_executed_calls": {},
+          "submitted_published_mentions": []
+        }
+      ]
+    }
+  },
+  "symlinks": [],
+  "manifest_source_files_verified_against_commit": [
+    "__init__.py",
+    "audit.py",
+    "cli.py",
+    "evaluate.py",
+    "hostio.py",
+    "instrument/sitecustomize.py",
+    "model.py",
+    "registry.py",
+    "sandbox.py",
+    "study.py"
+  ],
+  "usage": {
+    "physical_requests": 179,
+    "input_tokens": 689147,
+    "output_tokens": 92496,
+    "cached_tokens": 489018,
+    "errors": 0
+  }
+}

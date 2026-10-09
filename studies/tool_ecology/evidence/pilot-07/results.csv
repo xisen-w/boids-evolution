@@ -1,0 +1,7 @@
+condition,problem,passed,total,strict_success,ldb_score,consumer_model_calls,consumer_exit,observed_library_function_edges,published_mentions_in_submission
+local-neutral,weather-features,19,19,True,0.8763720205234786,7,Submitted,0,0
+local-neutral,scorer-lineage,14,14,True,0.41408139365317137,7,Submitted,0,0
+local-boids,weather-features,9,19,False,0.20481748645852188,12,LimitsExceeded,0,0
+local-boids,scorer-lineage,14,14,True,0.3945580527965223,7,Submitted,0,0
+no-library,weather-features,19,19,True,0.8353826530612245,8,Submitted,0,0
+no-library,scorer-lineage,11,14,False,0.23775990636767924,9,Submitted,0,0

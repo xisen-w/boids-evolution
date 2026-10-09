@@ -1,0 +1,7 @@
+{
+  "classification": "posthoc_diagnosis_excluded_from_primary",
+  "model_calls": 0,
+  "change": "include leading dot in extension lookup keys",
+  "before_sha256": "e1fff4bd59ba56eefde665daa7a1e5907846eb0b83a2339e37f4898340d15103",
+  "after_sha256": "3fb4186f7990cb7e73f2c236305103ca6577087f58f55135907ffe6604367832"
+}
