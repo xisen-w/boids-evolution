@@ -1,0 +1,1 @@
+{"description":"Uniform named dispatcher and direct adapters for six tested tabular services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

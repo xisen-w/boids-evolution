@@ -1,0 +1,10 @@
+seed,condition,generation_code_revision,timeout_seconds,max_retries,publications,declared_six_service_publications,declared_single_service_publications,round_one_declared_six_service_publications,correct_publications,coverage,complete_six_publications,strict_claimed_publications,correct_cross_author_requests,correct_service_requests,total_declared_service_requests,redundant_author_family_pairs,mean_author_profile_jaccard,sustained_specialists,correct_cross_author_publications,observed_cross_author_edges,physical_requests,input_tokens,output_tokens,cached_tokens,errors
+108,independent,376966bde00b87200d6a17a612c387f7eef80edd,55,0,47,47,0,8,47,6,38,38,0,1608,1692,42,1.0,0,0,0,236,836925,70572,639500,0
+108,local-boids,376966bde00b87200d6a17a612c387f7eef80edd,55,0,45,45,0,8,45,6,35,35,720,1527,1620,42,1.0,0,20,120,224,1083478,65747,790157,0
+108,local-neutral,ff3588123181b0259e443276f42263b2d9a3cb45,180,0,47,47,0,8,47,6,30,30,324,1555,1692,42,1.0,0,9,48,225,1099799,70234,808244,0
+2026,independent,fb3e8e27ea59cdfa81db1d0ee91a06fb8be3e0e6,180,0,46,46,0,8,46,6,39,39,0,1586,1656,42,1.0,0,0,0,229,813568,69334,576527,0
+2026,local-boids,6e0daf1e8f477917cae650207425bacaf13fdaa7,180,0,48,44,4,8,47,6,32,35,612,1510,1608,42,1.0,0,20,104,215,1064844,66176,754251,0
+2026,local-neutral,e0199e17f222a34702f22f160850fb2df8ff32d1,180,0,46,46,0,8,46,6,38,38,468,1587,1656,42,1.0,0,13,78,234,1175435,66799,879085,0
+71,independent,376966bde00b87200d6a17a612c387f7eef80edd,55,0,48,48,0,8,48,6,38,38,0,1646,1728,42,1.0,0,0,0,230,820355,66831,587253,0
+71,local-boids,376966bde00b87200d6a17a612c387f7eef80edd,55,0,46,46,0,8,46,6,36,36,600,1561,1656,42,1.0,0,17,100,222,1168942,73730,855479,0
+71,local-neutral,376966bde00b87200d6a17a612c387f7eef80edd,55,0,47,47,0,8,47,6,31,31,144,1558,1692,42,1.0,0,4,23,237,1191730,76828,889525,0

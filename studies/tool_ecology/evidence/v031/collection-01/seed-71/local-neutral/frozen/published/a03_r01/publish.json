@@ -1,0 +1,1 @@
+{"description":"Native Python transformations for normalized, revenue, grouped, monthly, lookup-enriched, and trailing-window tables.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

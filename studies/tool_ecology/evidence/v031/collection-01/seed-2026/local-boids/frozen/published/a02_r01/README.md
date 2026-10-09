@@ -1,0 +1,5 @@
+# Tabular service adapters
+
+Import with `from candidate import clean, revenue, group, monthly, lookup, window`. Each public callable takes `(rows, lookup, request)` and returns a new list of dictionaries; inputs are not mutated. `clean` normalizes regions and fills missing units. `revenue` does that and appends `revenue_cents`. `group` and `monthly` aggregate nonmissing revenue (with missing-group keys dropped); aggregation is selected by `request['agg']` (`sum`, `mean`, `count`). `lookup` appends `revenue_cents_per_target`; `window` appends the trailing-row mean `roll_revenue_cents`.
+
+Example: `revenue([{'region':' West ','units':2,'price_cents':50}], [], {'fill':'zero'})` returns a copied row with region `west` and `revenue_cents` 100. Missing unit fills support `zero`, `mean`, and `median` (all-missing becomes zero; even median averages the middle pair). Lookup region keys are normalized with strip/lower; unknown/zero/missing targets yield None. Window sizes 2, 3, and 4 are supported. Existing input columns and order are preserved, with derived fields appended. Aggregates sort by stringified group keys.

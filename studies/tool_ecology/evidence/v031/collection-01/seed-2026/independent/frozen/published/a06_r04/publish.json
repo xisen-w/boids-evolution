@@ -1,0 +1,1 @@
+{"description":"Reusable pure-Python adapters for six row transformation and analytics services, reusing a service-verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

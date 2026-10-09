@@ -1,0 +1,1 @@
+{"description":"Stable facade for six verified row-table services, reusing the published a04_r02 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

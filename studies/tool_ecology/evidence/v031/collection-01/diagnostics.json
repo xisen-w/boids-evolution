@@ -1,0 +1,101 @@
+[
+  {
+    "seed": 108,
+    "condition": "independent",
+    "parity_all_equal": true,
+    "replayed_publications": 47,
+    "eligible_edges": 0,
+    "intervened_edges": 0,
+    "confirmed_functional_edges": 0,
+    "unique_intervened_edges": 0,
+    "unique_confirmed_functional_edges": 0
+  },
+  {
+    "seed": 108,
+    "condition": "local-boids",
+    "parity_all_equal": true,
+    "replayed_publications": 45,
+    "eligible_edges": 120,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 12,
+    "unique_intervened_edges": 12,
+    "unique_confirmed_functional_edges": 12
+  },
+  {
+    "seed": 108,
+    "condition": "local-neutral",
+    "parity_all_equal": true,
+    "replayed_publications": 47,
+    "eligible_edges": 54,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 12,
+    "unique_intervened_edges": 12,
+    "unique_confirmed_functional_edges": 12
+  },
+  {
+    "seed": 2026,
+    "condition": "independent",
+    "parity_all_equal": true,
+    "replayed_publications": 46,
+    "eligible_edges": 0,
+    "intervened_edges": 0,
+    "confirmed_functional_edges": 0,
+    "unique_intervened_edges": 0,
+    "unique_confirmed_functional_edges": 0
+  },
+  {
+    "seed": 2026,
+    "condition": "local-boids",
+    "parity_all_equal": true,
+    "replayed_publications": 48,
+    "eligible_edges": 105,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 11,
+    "unique_intervened_edges": 12,
+    "unique_confirmed_functional_edges": 11
+  },
+  {
+    "seed": 2026,
+    "condition": "local-neutral",
+    "parity_all_equal": true,
+    "replayed_publications": 46,
+    "eligible_edges": 78,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 12,
+    "unique_intervened_edges": 12,
+    "unique_confirmed_functional_edges": 12
+  },
+  {
+    "seed": 71,
+    "condition": "independent",
+    "parity_all_equal": true,
+    "replayed_publications": 48,
+    "eligible_edges": 0,
+    "intervened_edges": 0,
+    "confirmed_functional_edges": 0,
+    "unique_intervened_edges": 0,
+    "unique_confirmed_functional_edges": 0
+  },
+  {
+    "seed": 71,
+    "condition": "local-boids",
+    "parity_all_equal": true,
+    "replayed_publications": 46,
+    "eligible_edges": 110,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 12,
+    "unique_intervened_edges": 10,
+    "unique_confirmed_functional_edges": 10
+  },
+  {
+    "seed": 71,
+    "condition": "local-neutral",
+    "parity_all_equal": true,
+    "replayed_publications": 47,
+    "eligible_edges": 24,
+    "intervened_edges": 12,
+    "confirmed_functional_edges": 12,
+    "unique_intervened_edges": 12,
+    "unique_confirmed_functional_edges": 12
+  }
+]

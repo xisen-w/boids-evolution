@@ -1,0 +1,47 @@
+{
+  "protocol": "v0.3.1-repeated-demand-entry-attribution",
+  "classification": "exploratory",
+  "code_revision": "6e0daf1e8f477917cae650207425bacaf13fdaa7",
+  "image": "sha256:7e37d56580e826dd1ce4b9cb64bd07b333bf75f2ebfccf9c81622d257782c990",
+  "parameters": {
+    "output": "studies/tool_ecology/runs/demand-recovery-2026-boids-01",
+    "image": "boids-pyda:20261008",
+    "agents": 8,
+    "rounds": 6,
+    "steps": 6,
+    "workers": 4,
+    "seeds": "2026",
+    "arms": "local-boids",
+    "phase": "exploratory"
+  },
+  "source_hashes": {
+    "__init__.py": "49168c2530cf9a9f0a8f32bb49f3230bfbb1f2e5d73bc05633b038f643eb6eae",
+    "audit.py": "4d675323c8beca781de90f3b63b7b85c5844f8ab46db53f3c085ad0e9ba770a3",
+    "cli.py": "9f654adc4056439306bf76dc69b76175db827091435489e9f1bc717dc84c12f9",
+    "dynamics.py": "4d492b3ce4578472d6a7f427425fe2311062a42bcca869d4cd85368d1f36565e",
+    "dynamics_metrics.py": "b47d6a696d4e6de0521e810c84e87ad5b019b4605ce61ac20baeedfc50f0ad31",
+    "evaluate.py": "d756be2e17913ca75f5e304a3a4e6dda154776df1409685331d3a272ea8be562",
+    "hostio.py": "039429cd4468799c532e120859bc799a4f96a5561c42931c23cd52959ad92f87",
+    "images.py": "57f0f09bf9c43082da5fabba1590755b7a91b00d0ff1acd830181927e21c7384",
+    "instrument/sitecustomize.py": "4c9a40f17299eef30e90dcaaeec423a5b6d9782631d7349478d46cc9c0310fc4",
+    "model.py": "2a7c87ae9230dff906958266d9ef06e8099934206dd200b579e7ae85f0d96539",
+    "registry.py": "efc0ac64c26a4205850b7c455d2647b455d7e222d59a2b04282a2c43c9054aa2",
+    "sandbox.py": "ed786b6cb38945bb65f561f6e97e081b94862928a38ed355052c1db2f5820cac",
+    "service_worker.py": "a4f74f5778b2f8000a73e04a9c7834c38c8cea02944638dfe7fcbb00623dea23",
+    "services.py": "1fd3d29a4dcf4fa67b839a44e4a7992a602f3ddbd59243d7d41097c2d10baf42",
+    "study.py": "cff372b50a3791467a43489b332a0ce7eb3bc7eceba758dea27cacacc67c8c8b",
+    "workload.py": "fd4371bd41155a7ee684dd615aa445a284b9900fcc64419094e5ac855c3a8404"
+  },
+  "reference_hashes": {
+    "__init__.py": "8ecab4e25c90398fc0506053329a9508929557d5add41e4ed18e9c6aa835600f",
+    "mechenv.py": "cdcd6bb1cf8c78243986658641575acd3a49eb63c8538b0947a50955234b9e7a"
+  },
+  "mini_swe_version": "2.4.6",
+  "openai_version": "2.54.0",
+  "provider_money_cost": "unverified",
+  "transport_policy": {
+    "timeout_seconds": 180,
+    "max_retries": 0
+  },
+  "maximum_requests": 288
+}

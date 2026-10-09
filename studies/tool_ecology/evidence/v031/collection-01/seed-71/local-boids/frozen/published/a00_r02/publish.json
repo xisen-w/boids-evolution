@@ -1,0 +1,1 @@
+{"description":"Pure Python row transformation services with separate revenue-preserving and normalized-region behavior.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

@@ -1,0 +1,1 @@
+{"description":"Native Python entry points for six verified row-preserving tabular transformations, reusing the published a02 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

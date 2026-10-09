@@ -1,0 +1,1 @@
+{"description":"Native Python row transformations implementing all six tabular service families without mutating inputs.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

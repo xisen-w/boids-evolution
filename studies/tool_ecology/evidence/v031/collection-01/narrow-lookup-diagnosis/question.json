@@ -1,0 +1,10 @@
+{
+  "classification": "posthoc_isolated_program_diagnosis",
+  "selection": "only observed three-round same-author single-service declaration trajectory in the fixed collection; not lowest-score selection",
+  "question": "Does writing normalized region back into output explain a00_r04 lookup failure?",
+  "model_calls": 0,
+  "original_score_changes": false,
+  "seed": 2026,
+  "round": 4,
+  "identity": "a00_r04"
+}

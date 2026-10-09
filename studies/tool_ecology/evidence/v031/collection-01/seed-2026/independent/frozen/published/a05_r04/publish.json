@@ -1,0 +1,1 @@
+{"description":"Reusable pure-Python sales table transforms with six input-preserving service adapters.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

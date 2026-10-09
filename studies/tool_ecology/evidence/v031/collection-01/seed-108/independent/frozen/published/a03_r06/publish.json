@@ -1,0 +1,1 @@
+{"description":"Stable re-export of service-tested pure-Python row-table adapters for six recurring table services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

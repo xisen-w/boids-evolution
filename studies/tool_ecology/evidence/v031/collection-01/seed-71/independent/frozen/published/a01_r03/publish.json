@@ -1,0 +1,1 @@
+{"description":"Reusable aliases for six service-verified native tabular adapters, depending on a01_r02.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a01_r02"],"checks":{"clean":"clean_check","revenue":"revenue_check","group":"group_check","monthly":"monthly_check","lookup":"lookup_check","window":"window_check"}}

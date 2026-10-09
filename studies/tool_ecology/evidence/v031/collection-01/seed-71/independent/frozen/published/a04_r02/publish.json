@@ -1,0 +1,1 @@
+{"description":"Dependency-free native Python row transformation and aggregation services, with non-mutating inputs.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"serve_clean","revenue":"serve_revenue","group":"serve_group","monthly":"serve_monthly","lookup":"serve_lookup","window":"serve_window"}}

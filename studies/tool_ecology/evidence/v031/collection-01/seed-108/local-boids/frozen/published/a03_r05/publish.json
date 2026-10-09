@@ -1,0 +1,1 @@
+{"description":"Stable native-Python facade and named dispatcher for six verified row-table transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r04"],"checks":{"clean":"clean_service","revenue":"revenue_service","group":"group_service","monthly":"monthly_service","lookup":"lookup_service","window":"window_service"}}

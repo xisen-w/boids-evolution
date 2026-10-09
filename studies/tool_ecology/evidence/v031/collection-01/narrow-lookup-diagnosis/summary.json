@@ -1,0 +1,30 @@
+{
+  "classification": "posthoc_isolated_program_diagnosis",
+  "selection": "only observed three-round same-author single-service declaration trajectory in the fixed collection; not lowest-score selection",
+  "question": "Does writing normalized region back into output explain a00_r04 lookup failure?",
+  "model_calls": 0,
+  "original_score_changes": false,
+  "seed": 2026,
+  "round": 4,
+  "identity": "a00_r04",
+  "baseline": {
+    "lookup": {
+      "passed": 1,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    }
+  },
+  "isolated_patch": {
+    "lookup": {
+      "passed": 6,
+      "total": 6,
+      "crashed": 0,
+      "input_mutations": 0
+    }
+  },
+  "original_source_sha256": "39bdbdd68122876531a621491d5198070c2f6f11210436d0032994bb67458832",
+  "patched_source_sha256": "f8b254baa7207b9f0f72df7bf96b2b5a746347d51d14fb0bbb050a355fb684ae",
+  "original_freeze_unchanged": true,
+  "limitation": "One generated-program output writeback defect; does not establish a Boids rule effect or a three-round specialist in the actual scored run."
+}

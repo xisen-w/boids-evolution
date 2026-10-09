@@ -1,0 +1,78 @@
+{
+  "classification": "repeated_demand_archived_attempt_costs_not_all_historical_project_spending",
+  "phases": [
+    {
+      "run": "demand-engineering-01",
+      "classification": "historical_engineering",
+      "physical_requests": 107,
+      "input_tokens": 436237,
+      "output_tokens": 42462,
+      "cached_tokens": 304487,
+      "errors": 0
+    },
+    {
+      "run": "demand-batch-01",
+      "classification": "measurement_invalidated",
+      "physical_requests": 581,
+      "input_tokens": 2718194,
+      "output_tokens": 182267,
+      "cached_tokens": 1995014,
+      "errors": 0
+    },
+    {
+      "run": "demand-batch-02",
+      "classification": "transport_aborted_corrected_base",
+      "physical_requests": 1218,
+      "input_tokens": 5326395,
+      "output_tokens": 380564,
+      "cached_tokens": 3923156,
+      "errors": 1
+    },
+    {
+      "run": "demand-recovery-108-neutral-01",
+      "classification": "fresh_recovery",
+      "physical_requests": 225,
+      "input_tokens": 1099799,
+      "output_tokens": 70234,
+      "cached_tokens": 808244,
+      "errors": 0
+    },
+    {
+      "run": "demand-recovery-2026-independent-01",
+      "classification": "fresh_recovery",
+      "physical_requests": 229,
+      "input_tokens": 813568,
+      "output_tokens": 69334,
+      "cached_tokens": 576527,
+      "errors": 0
+    },
+    {
+      "run": "demand-recovery-2026-neutral-01",
+      "classification": "fresh_recovery",
+      "physical_requests": 234,
+      "input_tokens": 1175435,
+      "output_tokens": 66799,
+      "cached_tokens": 879085,
+      "errors": 0
+    },
+    {
+      "run": "demand-recovery-2026-boids-01",
+      "classification": "fresh_recovery",
+      "physical_requests": 215,
+      "input_tokens": 1064844,
+      "output_tokens": 66176,
+      "cached_tokens": 754251,
+      "errors": 0
+    }
+  ],
+  "total_known_usage": {
+    "physical_requests": 2809,
+    "input_tokens": 12634472,
+    "output_tokens": 877836,
+    "cached_tokens": 9240764,
+    "errors": 1
+  },
+  "timeout_provider_usage": "unknown_not_free",
+  "provider_money_cost": "unverified",
+  "cached_input_is_subset": true
+}

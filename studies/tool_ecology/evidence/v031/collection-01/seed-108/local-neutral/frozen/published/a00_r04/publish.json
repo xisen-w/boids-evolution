@@ -1,0 +1,1 @@
+{"description":"Reusable row-table transformation services implemented as adapters over the verified a00_r02 package.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

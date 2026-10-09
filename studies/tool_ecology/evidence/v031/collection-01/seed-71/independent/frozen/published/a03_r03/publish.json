@@ -1,0 +1,1 @@
+{"description":"Native Python table transforms, repairing revenue and rolling-window region preservation while retaining aggregation services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

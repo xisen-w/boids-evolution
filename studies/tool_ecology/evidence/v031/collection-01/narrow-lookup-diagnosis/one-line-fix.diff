@@ -1,0 +1,10 @@
+--- original/a00_r04/__init__.py
++++ isolated-patch/a00_r04/__init__.py
+@@ -24,6 +24,7 @@
+         row['revenue_cents'] = revenue
+         region = source.get('region')
+         region = region.strip().lower() if isinstance(region, str) else region
++        row['region'] = region
+         target = targets.get(region)
+         row['revenue_cents_per_target'] = None if revenue is None or target is None or target == 0 else revenue / target
+         output.append(row)

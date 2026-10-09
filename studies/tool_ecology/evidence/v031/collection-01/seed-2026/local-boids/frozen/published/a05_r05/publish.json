@@ -1,0 +1,1 @@
+{"description":"Pure-Python adapters for six row-oriented tabular service families, using a verified implementation dependency.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

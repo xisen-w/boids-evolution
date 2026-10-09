@@ -1,0 +1,1 @@
+{"description":"Maintained native Python adapters for six tabular service families, verified on all available service cases in the prior publication.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

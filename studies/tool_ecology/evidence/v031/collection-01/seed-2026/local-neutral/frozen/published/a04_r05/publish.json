@@ -1,0 +1,1 @@
+{"description":"Stable compatibility entry points for verified pure-Python tabular row transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,1 @@
+{"description":"Verified native Python transforms for clean, revenue, grouped/monthly aggregation, lookup ratios, and trailing-row rolling means.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

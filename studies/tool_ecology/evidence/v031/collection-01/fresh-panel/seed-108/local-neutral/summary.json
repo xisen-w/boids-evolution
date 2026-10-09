@@ -1,0 +1,230 @@
+{
+  "seed": 108,
+  "condition": "local-neutral",
+  "generation_code_revision": "ff3588123181b0259e443276f42263b2d9a3cb45",
+  "timeout_seconds": 180,
+  "max_retries": 0,
+  "panel_seed": 31415926,
+  "panel_round": 99,
+  "evaluated_publications": 47,
+  "author_profiles": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a04": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a05": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a06": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a07": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "all_families": [
+    "clean",
+    "group",
+    "lookup",
+    "monthly",
+    "revenue",
+    "window"
+  ],
+  "after_author_removal": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a04": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a05": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a06": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a07": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "coverage_loss": {
+    "a00": 0,
+    "a01": 0,
+    "a02": 0,
+    "a03": 0,
+    "a04": 0,
+    "a05": 0,
+    "a06": 0,
+    "a07": 0
+  },
+  "self_contained_author_profiles": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a04": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a05": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a06": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a07": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "best_self_contained_author_coverage": 6,
+  "collective_minus_best_self_contained_coverage": 0,
+  "fresh_verified_family_coverage": 6,
+  "best_author_coverage": 6,
+  "complementarity_coverage_gap": 0
+}

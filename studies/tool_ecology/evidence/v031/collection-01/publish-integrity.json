@@ -1,0 +1,11 @@
+{
+  "classification": "staged_public_freeze_byte_integrity",
+  "frozen_societies": 9,
+  "staged_frozen_files_verified": 1287,
+  "mismatches": 0,
+  "public_file_credential_scan_count": 2386,
+  "actual_key_matches": 0,
+  "credential_like_matches": 0,
+  "private_api_payload_files": 0,
+  "original_boidsnet_and_legacy_diff_empty": true
+}

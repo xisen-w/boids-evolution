@@ -1,0 +1,25 @@
+{
+  "all_attempt_usage": {
+    "physical_requests": 2121,
+    "input_tokens": 9480041,
+    "output_tokens": 653107,
+    "cached_tokens": 6941263,
+    "errors": 1
+  },
+  "included_cell_usage": {
+    "physical_requests": 2052,
+    "input_tokens": 9255076,
+    "output_tokens": 626251,
+    "cached_tokens": 6780021,
+    "errors": 0
+  },
+  "discarded_attempt_usage": {
+    "physical_requests": 69,
+    "input_tokens": 224965,
+    "output_tokens": 26856,
+    "cached_tokens": 161242,
+    "errors": 1
+  },
+  "provider_money_cost": "unverified",
+  "timeout_request_usage": "unknown_not_free"
+}

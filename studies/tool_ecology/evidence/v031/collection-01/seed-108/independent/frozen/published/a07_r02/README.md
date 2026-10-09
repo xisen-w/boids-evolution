@@ -1,0 +1,6 @@
+# tabular_services
+Pure-Python adapters for six table operations. Public APIs are `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup_rows, request)`, and `window(rows, lookup_rows, request)`. They return new dictionaries and do not mutate inputs.
+
+`clean` normalizes non-null region via strip/lower and fills missing units (request `fill`: zero, mean, median; default zero), preserving columns. `revenue` fills units and appends `revenue_cents`; it does not normalize region. `group` normalizes region and returns region plus `<agg>_revenue_cents`; `monthly` adds month grouping. Aggregation request `agg` is sum, mean, or count (default sum); null grouping keys are omitted. `lookup` normalizes region and appends exact-key `revenue_cents_per_target`. `window` adds trailing-row `roll_revenue_cents`, where request `window` must be 2, 3, or 4; it does not normalize region. Derived revenue is units times price, or null if either is null. All-missing units fill with zero; only None is missing.
+
+Example: `group(rows, [], {'fill':'median', 'agg':'sum'})`. Lookup ratios are null for unknown region, missing/zero target, or null revenue. Invalid fill/aggregation/window raises ValueError. Date month uses the first seven characters.

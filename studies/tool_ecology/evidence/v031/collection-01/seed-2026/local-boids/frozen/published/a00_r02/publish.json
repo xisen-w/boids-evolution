@@ -1,0 +1,1 @@
+{"description":"A focused adapter for region-normalized revenue-per-target lookup, reusing a verified neighbor implementation.","capabilities":["lookup"],"dependencies":["a03_r01"],"checks":{"lookup":"lookup"}}

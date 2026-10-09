@@ -1,0 +1,5 @@
+# Tabular service adapters
+
+Native Python package, no external dependencies. Public APIs are `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup, request)`, and `window(rows, lookup, request)`. Each returns a new list of dictionaries and does not mutate inputs. `clean` normalizes string regions and fills missing units; `revenue` also derives revenue_cents; group/monthly aggregate; lookup derives revenue_cents_per_target; window derives trailing-row roll_revenue_cents.
+
+Request uses `fill` (`zero`, `mean`, `median`; default zero), `agg` (`sum`, `mean`, `count`; default sum), and `window` (positive row count; default 2). All-missing units fill with zero. Aggregate outputs omit null grouping keys and exclude missing revenue; empty means are `None`. Lookup region keys are normalized by strip/lower just like row regions; missing/zero targets produce `None`. Example: `from candidate import revenue; revenue([{'region':' West ', 'units':2, 'price_cents':5}], [], {'fill':'zero'})` returns a row with region `west` and revenue_cents `10`.

@@ -1,0 +1,1 @@
+{"description":"Verified native Python row adapters for normalization, revenue, group/month aggregates, exact-region target ratios, and trailing-row revenue means.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

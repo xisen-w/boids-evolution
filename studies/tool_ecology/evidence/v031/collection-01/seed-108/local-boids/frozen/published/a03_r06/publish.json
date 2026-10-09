@@ -1,0 +1,1 @@
+{"description":"Verified row-table service facade with ordered multi-request batch dispatch.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r05"],"checks":{"clean":"clean_service","revenue":"revenue_service","group":"group_service","monthly":"monthly_service","lookup":"lookup_service","window":"window_service"}}

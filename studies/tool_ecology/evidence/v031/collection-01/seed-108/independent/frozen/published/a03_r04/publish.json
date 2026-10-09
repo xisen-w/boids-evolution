@@ -1,0 +1,1 @@
+{"description":"Stable package-root API re-exporting six previously service-verified pure-Python row-table adapters.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

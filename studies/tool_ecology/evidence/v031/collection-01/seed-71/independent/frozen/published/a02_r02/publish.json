@@ -1,0 +1,1 @@
+{"description":"Root-level adapters reusing verified implementations of six tabular service families.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,1 @@
+{"description":"Six verified row-table service adapters with single- and multi-family dispatch.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

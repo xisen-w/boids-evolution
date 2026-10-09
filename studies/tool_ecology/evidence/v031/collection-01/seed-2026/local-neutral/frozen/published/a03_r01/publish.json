@@ -1,0 +1,1 @@
+{"description":"Pure Python row-preserving regional revenue transforms and aggregations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

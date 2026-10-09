@@ -1,0 +1,1 @@
+{"description":"Small stable entry-point package for six verified sales-row transformation services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

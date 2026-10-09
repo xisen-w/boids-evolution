@@ -1,0 +1,1 @@
+{"description":"Root-level adapters for six verified row-table transformation families.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

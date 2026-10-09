@@ -1,0 +1,63 @@
+{
+  "classification": "additional_frozen_DEV_robustness_diagnostic",
+  "generation_code_revision": null,
+  "generation_code_revisions": [
+    "376966bde00b87200d6a17a612c387f7eef80edd",
+    "6e0daf1e8f477917cae650207425bacaf13fdaa7",
+    "e0199e17f222a34702f22f160850fb2df8ff32d1",
+    "fb3e8e27ea59cdfa81db1d0ee91a06fb8be3e0e6",
+    "ff3588123181b0259e443276f42263b2d9a3cb45"
+  ],
+  "generation_classification": "exploratory_recovered_collection",
+  "cell_generation_provenance": {
+    "seed-108/independent": {
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "timeout_seconds": 55,
+      "max_retries": 0
+    },
+    "seed-108/local-boids": {
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "timeout_seconds": 55,
+      "max_retries": 0
+    },
+    "seed-108/local-neutral": {
+      "generation_code_revision": "ff3588123181b0259e443276f42263b2d9a3cb45",
+      "timeout_seconds": 180,
+      "max_retries": 0
+    },
+    "seed-2026/independent": {
+      "generation_code_revision": "fb3e8e27ea59cdfa81db1d0ee91a06fb8be3e0e6",
+      "timeout_seconds": 180,
+      "max_retries": 0
+    },
+    "seed-2026/local-boids": {
+      "generation_code_revision": "6e0daf1e8f477917cae650207425bacaf13fdaa7",
+      "timeout_seconds": 180,
+      "max_retries": 0
+    },
+    "seed-2026/local-neutral": {
+      "generation_code_revision": "e0199e17f222a34702f22f160850fb2df8ff32d1",
+      "timeout_seconds": 180,
+      "max_retries": 0
+    },
+    "seed-71/independent": {
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "timeout_seconds": 55,
+      "max_retries": 0
+    },
+    "seed-71/local-boids": {
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "timeout_seconds": 55,
+      "max_retries": 0
+    },
+    "seed-71/local-neutral": {
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "timeout_seconds": 55,
+      "max_retries": 0
+    }
+  },
+  "analysis_source_sha256": "72676b8caf6caf6ab50356daf950cdc45b736d5dc19d2844bbc2dc577123025f",
+  "panel_seed": 31415926,
+  "panel_round": 99,
+  "model_calls": 0
+}

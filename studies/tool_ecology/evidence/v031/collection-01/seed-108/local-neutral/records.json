@@ -1,0 +1,3518 @@
+[
+  {
+    "author": "a00",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a00_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 26,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a01",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 26,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a02",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a02_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 21,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a03",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a04",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a04_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 21,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a05",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a06",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a06_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 26,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a07",
+    "round": 1,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r01",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 26,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a00",
+    "round": 2,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a03_r01",
+      "a05_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a00_r02->published.a05_r01.clean",
+      "published.a00_r02->published.a05_r01.group",
+      "published.a00_r02->published.a05_r01.lookup",
+      "published.a00_r02->published.a05_r01.monthly",
+      "published.a00_r02->published.a05_r01.revenue",
+      "published.a00_r02->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a00_r02",
+    "verified_cross_author_edges": [
+      "published.a00_r02->published.a05_r01.clean",
+      "published.a00_r02->published.a05_r01.group",
+      "published.a00_r02->published.a05_r01.lookup",
+      "published.a00_r02->published.a05_r01.monthly",
+      "published.a00_r02->published.a05_r01.revenue",
+      "published.a00_r02->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r01"
+    ]
+  },
+  {
+    "author": "a01",
+    "round": 2,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a06_r01",
+      "a07_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a02",
+    "round": 2,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a04_r01",
+      "a05_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a02_r02->published.a05_r01.clean",
+      "published.a02_r02->published.a05_r01.group",
+      "published.a02_r02->published.a05_r01.lookup",
+      "published.a02_r02->published.a05_r01.monthly",
+      "published.a02_r02->published.a05_r01.revenue",
+      "published.a02_r02->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a02_r02",
+    "verified_cross_author_edges": [
+      "published.a02_r02->published.a05_r01.clean",
+      "published.a02_r02->published.a05_r01.group",
+      "published.a02_r02->published.a05_r01.lookup",
+      "published.a02_r02->published.a05_r01.monthly",
+      "published.a02_r02->published.a05_r01.revenue",
+      "published.a02_r02->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r01"
+    ]
+  },
+  {
+    "author": "a03",
+    "round": 2,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a03_r01",
+      "a07_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a04",
+    "round": 2,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a04_r01",
+      "a06_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a04_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 27,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a05",
+    "round": 2,
+    "execution": {
+      "exit_status": "LimitsExceeded",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a02_r01",
+      "a05_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 27,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a06",
+    "round": 2,
+    "execution": {
+      "exit_status": "LimitsExceeded",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a04_r01",
+      "a06_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a06_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a07",
+    "round": 2,
+    "execution": {
+      "exit_status": "LimitsExceeded",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a03_r01",
+      "a07_r01"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r02",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a00",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a03_r01",
+      "a03_r02",
+      "a05_r01",
+      "a05_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a00_r03->published.a05_r01.clean",
+      "published.a00_r03->published.a05_r01.group",
+      "published.a00_r03->published.a05_r01.lookup",
+      "published.a00_r03->published.a05_r01.monthly",
+      "published.a00_r03->published.a05_r01.revenue",
+      "published.a00_r03->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a00_r03",
+    "verified_cross_author_edges": [
+      "published.a00_r03->published.a05_r01.clean",
+      "published.a00_r03->published.a05_r01.group",
+      "published.a00_r03->published.a05_r01.lookup",
+      "published.a00_r03->published.a05_r01.monthly",
+      "published.a00_r03->published.a05_r01.revenue",
+      "published.a00_r03->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a00_r02"
+    ]
+  },
+  {
+    "author": "a01",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a06_r01",
+      "a06_r02",
+      "a07_r01",
+      "a07_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a01_r02"
+    ]
+  },
+  {
+    "author": "a02",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a04_r01",
+      "a04_r02",
+      "a05_r01",
+      "a05_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a02_r03->published.a05_r01.clean",
+      "published.a02_r03->published.a05_r01.group",
+      "published.a02_r03->published.a05_r01.lookup",
+      "published.a02_r03->published.a05_r01.monthly",
+      "published.a02_r03->published.a05_r01.revenue",
+      "published.a02_r03->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a02_r03",
+    "verified_cross_author_edges": [
+      "published.a02_r03->published.a05_r01.clean",
+      "published.a02_r03->published.a05_r01.group",
+      "published.a02_r03->published.a05_r01.lookup",
+      "published.a02_r03->published.a05_r01.monthly",
+      "published.a02_r03->published.a05_r01.revenue",
+      "published.a02_r03->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r01"
+    ]
+  },
+  {
+    "author": "a03",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a03_r01",
+      "a03_r02",
+      "a05_r01",
+      "a07_r01",
+      "a07_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a04",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a04_r01",
+      "a04_r02",
+      "a05_r01",
+      "a06_r01",
+      "a06_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a04_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a05",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a02_r01",
+      "a02_r02",
+      "a05_r01",
+      "a05_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a06",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a04_r01",
+      "a04_r02",
+      "a06_r01",
+      "a06_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a06_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a07",
+    "round": 3,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a03_r01",
+      "a03_r02",
+      "a07_r01",
+      "a07_r02"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r03",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a00",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a00_r04->published.a05_r01.clean",
+      "published.a00_r04->published.a05_r01.group",
+      "published.a00_r04->published.a05_r01.lookup",
+      "published.a00_r04->published.a05_r01.monthly",
+      "published.a00_r04->published.a05_r01.revenue",
+      "published.a00_r04->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a00_r04",
+    "verified_cross_author_edges": [
+      "published.a00_r04->published.a05_r01.clean",
+      "published.a00_r04->published.a05_r01.group",
+      "published.a00_r04->published.a05_r01.lookup",
+      "published.a00_r04->published.a05_r01.monthly",
+      "published.a00_r04->published.a05_r01.revenue",
+      "published.a00_r04->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a00_r02"
+    ]
+  },
+  {
+    "author": "a01",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r04",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a01_r02"
+    ]
+  },
+  {
+    "author": "a02",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a02_r04->published.a05_r01.clean",
+      "published.a02_r04->published.a05_r01.group",
+      "published.a02_r04->published.a05_r01.lookup",
+      "published.a02_r04->published.a05_r01.monthly",
+      "published.a02_r04->published.a05_r01.revenue",
+      "published.a02_r04->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a02_r04",
+    "verified_cross_author_edges": [
+      "published.a02_r04->published.a05_r01.clean",
+      "published.a02_r04->published.a05_r01.group",
+      "published.a02_r04->published.a05_r01.lookup",
+      "published.a02_r04->published.a05_r01.monthly",
+      "published.a02_r04->published.a05_r01.revenue",
+      "published.a02_r04->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a02_r03"
+    ]
+  },
+  {
+    "author": "a03",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a05_r01",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r04",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a03_r03"
+    ]
+  },
+  {
+    "author": "a04",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a05_r01",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a04_r04",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a05",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r04",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r03"
+    ]
+  },
+  {
+    "author": "a06",
+    "round": 4,
+    "execution": {
+      "exit_status": "LimitsExceeded",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03"
+    ],
+    "verified_families": [],
+    "cross_author_edges": [],
+    "publication_status": "publication_contract_failure",
+    "error": "symlink or invalid root forbidden",
+    "rejection_archive": {
+      "archived": false,
+      "reason": "symlink or invalid root forbidden"
+    }
+  },
+  {
+    "author": "a07",
+    "round": 4,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r04",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a00",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a00_r04->published.a05_r01.clean",
+      "published.a00_r04->published.a05_r01.group",
+      "published.a00_r04->published.a05_r01.lookup",
+      "published.a00_r04->published.a05_r01.monthly",
+      "published.a00_r04->published.a05_r01.revenue",
+      "published.a00_r04->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a00_r05",
+    "verified_cross_author_edges": [
+      "published.a00_r04->published.a05_r01.clean",
+      "published.a00_r04->published.a05_r01.group",
+      "published.a00_r04->published.a05_r01.lookup",
+      "published.a00_r04->published.a05_r01.monthly",
+      "published.a00_r04->published.a05_r01.revenue",
+      "published.a00_r04->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a00_r04"
+    ]
+  },
+  {
+    "author": "a01",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r05",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a01_r04"
+    ]
+  },
+  {
+    "author": "a02",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a02_r05->published.a05_r01.clean",
+      "published.a02_r05->published.a05_r01.group",
+      "published.a02_r05->published.a05_r01.lookup",
+      "published.a02_r05->published.a05_r01.monthly",
+      "published.a02_r05->published.a05_r01.revenue",
+      "published.a02_r05->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a02_r05",
+    "verified_cross_author_edges": [
+      "published.a02_r05->published.a05_r01.clean",
+      "published.a02_r05->published.a05_r01.group",
+      "published.a02_r05->published.a05_r01.lookup",
+      "published.a02_r05->published.a05_r01.monthly",
+      "published.a02_r05->published.a05_r01.revenue",
+      "published.a02_r05->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a02_r04"
+    ]
+  },
+  {
+    "author": "a03",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a05_r01",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r05",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a03_r04"
+    ]
+  },
+  {
+    "author": "a04",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a05_r01",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [
+      "published.a04_r05->published.a05_r01.clean",
+      "published.a04_r05->published.a05_r01.group",
+      "published.a04_r05->published.a05_r01.lookup",
+      "published.a04_r05->published.a05_r01.monthly",
+      "published.a04_r05->published.a05_r01.revenue",
+      "published.a04_r05->published.a05_r01.window"
+    ],
+    "publication_status": "published",
+    "id": "a04_r05",
+    "verified_cross_author_edges": [
+      "published.a04_r05->published.a05_r01.clean",
+      "published.a04_r05->published.a05_r01.group",
+      "published.a04_r05->published.a05_r01.lookup",
+      "published.a04_r05->published.a05_r01.monthly",
+      "published.a04_r05->published.a05_r01.revenue",
+      "published.a04_r05->published.a05_r01.window"
+    ],
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a02_r03"
+    ]
+  },
+  {
+    "author": "a05",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r05",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r03"
+    ]
+  },
+  {
+    "author": "a06",
+    "round": 5,
+    "execution": {
+      "exit_status": "LimitsExceeded",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a06_r05",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a07",
+    "round": 5,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r05",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a00",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a00_r05",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a03_r05",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04",
+      "a05_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a00_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a01",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a01_r05",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03",
+      "a06_r05",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04",
+      "a07_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a01_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 26,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a02",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a02_r05",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a04_r05",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04",
+      "a05_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a02_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 31,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a03",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a00_r05",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a03_r05",
+      "a05_r01",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04",
+      "a07_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a03_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a03_r05"
+    ]
+  },
+  {
+    "author": "a04",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a02_r05",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a04_r05",
+      "a05_r01",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03",
+      "a06_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a04_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 32,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a05",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a00_r01",
+      "a00_r02",
+      "a00_r03",
+      "a00_r04",
+      "a00_r05",
+      "a02_r01",
+      "a02_r02",
+      "a02_r03",
+      "a02_r04",
+      "a02_r05",
+      "a05_r01",
+      "a05_r02",
+      "a05_r03",
+      "a05_r04",
+      "a05_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a05_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": [
+      "a05_r03"
+    ]
+  },
+  {
+    "author": "a06",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a01_r05",
+      "a02_r03",
+      "a04_r01",
+      "a04_r02",
+      "a04_r03",
+      "a04_r04",
+      "a04_r05",
+      "a05_r01",
+      "a06_r01",
+      "a06_r02",
+      "a06_r03",
+      "a06_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a06_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  },
+  {
+    "author": "a07",
+    "round": 6,
+    "execution": {
+      "exit_status": "Submitted",
+      "submission": ""
+    },
+    "visible": [
+      "a01_r01",
+      "a01_r02",
+      "a01_r03",
+      "a01_r04",
+      "a01_r05",
+      "a03_r01",
+      "a03_r02",
+      "a03_r03",
+      "a03_r04",
+      "a03_r05",
+      "a07_r01",
+      "a07_r02",
+      "a07_r03",
+      "a07_r04",
+      "a07_r05"
+    ],
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "cross_author_edges": [],
+    "publication_status": "published",
+    "id": "a07_r06",
+    "verified_cross_author_edges": [],
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 36,
+    "total_service_requests": 36,
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    },
+    "declared_dependencies": []
+  }
+]

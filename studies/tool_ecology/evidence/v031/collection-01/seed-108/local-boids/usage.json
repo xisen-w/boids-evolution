@@ -1,0 +1,7 @@
+{
+  "physical_requests": 224,
+  "input_tokens": 1083478,
+  "output_tokens": 65747,
+  "cached_tokens": 790157,
+  "errors": 0
+}

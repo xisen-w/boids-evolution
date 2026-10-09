@@ -1,0 +1,1 @@
+{"description":"Reusable facade exposing six row-table services through a verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

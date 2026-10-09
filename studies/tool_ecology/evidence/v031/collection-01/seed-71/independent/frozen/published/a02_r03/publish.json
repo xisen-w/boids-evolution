@@ -1,0 +1,1 @@
+{"description":"Stable native adapters for six tabular transformation services, reusing the verified a02_r02 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

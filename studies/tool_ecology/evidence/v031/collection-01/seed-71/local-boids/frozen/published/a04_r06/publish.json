@@ -1,0 +1,1 @@
+{"description":"Named dispatcher and direct APIs for six reusable row-table services, backed by verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

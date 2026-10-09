@@ -1,0 +1,1 @@
+{"description":"Unified named dispatcher and direct adapters for immutable row-table services, backed by verified native implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

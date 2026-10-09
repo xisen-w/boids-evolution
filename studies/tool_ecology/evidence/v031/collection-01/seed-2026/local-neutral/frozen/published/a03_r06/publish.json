@@ -1,0 +1,1 @@
+{"description":"Dependency-free native Python implementations of six reusable row-table services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

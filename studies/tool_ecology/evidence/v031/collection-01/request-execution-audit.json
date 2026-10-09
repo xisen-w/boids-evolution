@@ -1,0 +1,143 @@
+{
+  "classification": "posthoc_descriptive_execution_case_audit",
+  "caveat": "Correct execution and a nonempty input do not themselves prove functional necessity; cases are not independent societies. Primary counts are unchanged.",
+  "model_calls": 0,
+  "rows": [
+    {
+      "seed": 108,
+      "condition": "independent",
+      "correct_cross_author_requests": 0,
+      "nonempty_correct_cross_author_requests": 0,
+      "empty_correct_cross_author_requests": 0,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 108,
+      "condition": "local-boids",
+      "correct_cross_author_requests": 720,
+      "nonempty_correct_cross_author_requests": 600,
+      "empty_correct_cross_author_requests": 120,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 108,
+      "condition": "local-neutral",
+      "correct_cross_author_requests": 324,
+      "nonempty_correct_cross_author_requests": 270,
+      "empty_correct_cross_author_requests": 54,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 2026,
+      "condition": "independent",
+      "correct_cross_author_requests": 0,
+      "nonempty_correct_cross_author_requests": 0,
+      "empty_correct_cross_author_requests": 0,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 2026,
+      "condition": "local-boids",
+      "correct_cross_author_requests": 612,
+      "nonempty_correct_cross_author_requests": 507,
+      "empty_correct_cross_author_requests": 105,
+      "incorrect_cross_author_requests": 18
+    },
+    {
+      "seed": 2026,
+      "condition": "local-neutral",
+      "correct_cross_author_requests": 468,
+      "nonempty_correct_cross_author_requests": 390,
+      "empty_correct_cross_author_requests": 78,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 71,
+      "condition": "independent",
+      "correct_cross_author_requests": 0,
+      "nonempty_correct_cross_author_requests": 0,
+      "empty_correct_cross_author_requests": 0,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 71,
+      "condition": "local-boids",
+      "correct_cross_author_requests": 600,
+      "nonempty_correct_cross_author_requests": 500,
+      "empty_correct_cross_author_requests": 100,
+      "incorrect_cross_author_requests": 0
+    },
+    {
+      "seed": 71,
+      "condition": "local-neutral",
+      "correct_cross_author_requests": 144,
+      "nonempty_correct_cross_author_requests": 120,
+      "empty_correct_cross_author_requests": 24,
+      "incorrect_cross_author_requests": 0
+    }
+  ],
+  "narrow_publications": [
+    {
+      "seed": 2026,
+      "condition": "local-boids",
+      "id": "a00_r02",
+      "services": {
+        "lookup": {
+          "passed": 6,
+          "total": 6,
+          "crashed": 0,
+          "input_mutations": 0
+        }
+      },
+      "dependencies": [
+        "a03_r01"
+      ]
+    },
+    {
+      "seed": 2026,
+      "condition": "local-boids",
+      "id": "a01_r02",
+      "services": {
+        "lookup": {
+          "passed": 6,
+          "total": 6,
+          "crashed": 0,
+          "input_mutations": 0
+        }
+      },
+      "dependencies": [
+        "a02_r01"
+      ]
+    },
+    {
+      "seed": 2026,
+      "condition": "local-boids",
+      "id": "a00_r03",
+      "services": {
+        "lookup": {
+          "passed": 6,
+          "total": 6,
+          "crashed": 0,
+          "input_mutations": 0
+        }
+      },
+      "dependencies": [
+        "a00_r02"
+      ]
+    },
+    {
+      "seed": 2026,
+      "condition": "local-boids",
+      "id": "a00_r04",
+      "services": {
+        "lookup": {
+          "passed": 1,
+          "total": 6,
+          "crashed": 0,
+          "input_mutations": 0
+        }
+      },
+      "dependencies": []
+    }
+  ]
+}

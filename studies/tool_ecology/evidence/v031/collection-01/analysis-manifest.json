@@ -1,0 +1,16 @@
+{
+  "classification": "offline_analysis_source_archive",
+  "source_hashes": {
+    "assemble_collection.py": "e5a9d3bbec54ccf2e7c4118be10ae8f1aeede1bf2d5472d0f145cc009909b210",
+    "analyze_dynamics.py": "668238a6cb641845ee336f76172883470171b75c89c3b114f53f332622a74609",
+    "collection_provenance.py": "99aca73cd1a61500b77f2a95e3f1cec282f9443927c296450215a51c092c4044",
+    "frozen_audit.py": "72676b8caf6caf6ab50356daf950cdc45b736d5dc19d2844bbc2dc577123025f",
+    "plot_dynamics.py": "a55c4ac673013b9fc61b7420d34436d3dd20eeffc8d6360ea2f330fec0cf593a",
+    "plot_reuse_graph.py": "0916a70eb409370f3df7639e5c453013e62781bf60a22009874d258ba40efc8c",
+    "plot_dependency_provenance.py": "3e23517d5bc9d7d7b90429a78edbfb107f3a34b9baf715e6b674081d8f75fcae",
+    "audit_output_differences.py": "2da1512c80f41039ee0b097981db7eaa029dab7bb2bead5d5b9d1673db15134a",
+    "audit_run_provenance.py": "fd6c5fe2631fd1a1be75adb726f875efd1e1dc67d8476e149980fd78834168d0"
+  },
+  "model_calls": 0,
+  "all_primary_scores_unchanged": true
+}

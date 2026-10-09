@@ -1,0 +1,1 @@
+{"description":"Row-table adapters reusing verified native services, with normalized-key lookup ratios.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

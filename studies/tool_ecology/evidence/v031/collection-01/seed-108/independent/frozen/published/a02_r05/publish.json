@@ -1,0 +1,1 @@
+{"description":"Root-level reusable adapters for six verified tabular data service families, delegating to the received verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

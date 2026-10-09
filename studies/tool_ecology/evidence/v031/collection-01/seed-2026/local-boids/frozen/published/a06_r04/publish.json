@@ -1,0 +1,1 @@
+{"description":"Reusable re-exports of verified six-family table service transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

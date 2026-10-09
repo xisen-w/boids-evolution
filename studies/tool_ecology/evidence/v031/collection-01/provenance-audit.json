@@ -1,0 +1,163 @@
+{
+  "classification": "read_only_generation_and_API_metadata_audit",
+  "generation_Git_blobs_verified": 90,
+  "included_frozen_cells_verified": 9,
+  "requested_model": "azure:gpt-6-luna",
+  "returned_model": "gpt-6-luna",
+  "reasoning_effort": "low",
+  "max_output_tokens": 3000,
+  "model_calls_for_audit": 0,
+  "all_attempt_usage": {
+    "physical_requests": 2121,
+    "input_tokens": 9480041,
+    "output_tokens": 653107,
+    "cached_tokens": 6941263,
+    "errors": 1
+  },
+  "attempts": [
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-108/independent",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 236
+      },
+      "error_types": {},
+      "physical_requests": 236,
+      "input_tokens": 836925,
+      "output_tokens": 70572,
+      "cached_tokens": 639500,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-108/local-boids",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 224
+      },
+      "error_types": {},
+      "physical_requests": 224,
+      "input_tokens": 1083478,
+      "output_tokens": 65747,
+      "cached_tokens": 790157,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-108/local-neutral",
+      "included_frozen_cell": false,
+      "returned_models": {
+        "gpt-6-luna": 68
+      },
+      "error_types": {
+        "APITimeoutError": 1
+      },
+      "physical_requests": 69,
+      "input_tokens": 224965,
+      "output_tokens": 26856,
+      "cached_tokens": 161242,
+      "errors": 1
+    },
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-71/independent",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 230
+      },
+      "error_types": {},
+      "physical_requests": 230,
+      "input_tokens": 820355,
+      "output_tokens": 66831,
+      "cached_tokens": 587253,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-71/local-boids",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 222
+      },
+      "error_types": {},
+      "physical_requests": 222,
+      "input_tokens": 1168942,
+      "output_tokens": 73730,
+      "cached_tokens": 855479,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-batch-02",
+      "cell": "seed-71/local-neutral",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 237
+      },
+      "error_types": {},
+      "physical_requests": 237,
+      "input_tokens": 1191730,
+      "output_tokens": 76828,
+      "cached_tokens": 889525,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-recovery-108-neutral-01",
+      "cell": "seed-108/local-neutral",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 225
+      },
+      "error_types": {},
+      "physical_requests": 225,
+      "input_tokens": 1099799,
+      "output_tokens": 70234,
+      "cached_tokens": 808244,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-recovery-2026-independent-01",
+      "cell": "seed-2026/independent",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 229
+      },
+      "error_types": {},
+      "physical_requests": 229,
+      "input_tokens": 813568,
+      "output_tokens": 69334,
+      "cached_tokens": 576527,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-recovery-2026-neutral-01",
+      "cell": "seed-2026/local-neutral",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 234
+      },
+      "error_types": {},
+      "physical_requests": 234,
+      "input_tokens": 1175435,
+      "output_tokens": 66799,
+      "cached_tokens": 879085,
+      "errors": 0
+    },
+    {
+      "source_run": "demand-recovery-2026-boids-01",
+      "cell": "seed-2026/local-boids",
+      "included_frozen_cell": true,
+      "returned_models": {
+        "gpt-6-luna": 215
+      },
+      "error_types": {},
+      "physical_requests": 215,
+      "input_tokens": 1064844,
+      "output_tokens": 66176,
+      "cached_tokens": 754251,
+      "errors": 0
+    }
+  ],
+  "timeout_provider_usage": "unknown_not_free",
+  "analysis_source_sha256": "fd6c5fe2631fd1a1be75adb726f875efd1e1dc67d8476e149980fd78834168d0"
+}

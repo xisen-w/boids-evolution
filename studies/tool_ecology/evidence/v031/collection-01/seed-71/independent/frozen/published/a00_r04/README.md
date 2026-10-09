@@ -1,0 +1,5 @@
+# Tabular service adapters
+
+Native Python, non-mutating adapters. Public API: `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup, request)`, and `window(rows, lookup, request)`. Each takes the specified list of row dictionaries, lookup dictionaries and request dictionary and returns a new list of dictionaries. Examples: `clean(rows, [], {"fill":"median"})`; `group(rows, [], {"fill":"mean","agg":"count"})`; `window(rows, [], {"fill":"zero","window":3})`.
+
+Fill options are zero, mean, median (even medians average central values); all-missing units fill to zero. Aggregations are sum, mean, count. Window is 2, 3, or 4 rows. Group results omit missing keys; revenue and clean preserve input row order/columns and add derived columns as specified. Lookup keys are compared exactly to the normalized row region; lookup targets are not normalized. Unknown, zero, or missing targets produce None. No external dependencies. Inputs are not mutated. Invalid parameter values raise ValueError.

@@ -1,0 +1,1 @@
+{"description":"Six reusable row-table transformation services using a verified implementation dependency.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r05","a04_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,210 @@
+{
+  "classification": "descriptive_original_DEV_output_differences",
+  "caveat": "A field mismatch does not establish a code cause or rule effect; cases are not independent societies.",
+  "analysis_source_sha256": "2da1512c80f41039ee0b097981db7eaa029dab7bb2bead5d5b9d1673db15134a",
+  "model_calls": 0,
+  "results": [
+    {
+      "society": "seed-108/independent",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 84
+      },
+      "failed_cases_by_family": {
+        "revenue": 45,
+        "window": 39
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 84
+        }
+      ]
+    },
+    {
+      "society": "seed-108/local-boids",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 93
+      },
+      "failed_cases_by_family": {
+        "revenue": 50,
+        "window": 43
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 93
+        }
+      ]
+    },
+    {
+      "society": "seed-108/local-neutral",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 137
+      },
+      "failed_cases_by_family": {
+        "revenue": 55,
+        "window": 43,
+        "clean": 10,
+        "lookup": 29
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 127
+        },
+        {
+          "fields": [
+            "revenue_cents"
+          ],
+          "failed_cases": 10
+        }
+      ]
+    },
+    {
+      "society": "seed-2026/independent",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 70
+      },
+      "failed_cases_by_family": {
+        "revenue": 35,
+        "window": 35
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 70
+        }
+      ]
+    },
+    {
+      "society": "seed-2026/local-boids",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 98
+      },
+      "failed_cases_by_family": {
+        "lookup": 38,
+        "revenue": 30,
+        "window": 30
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 84
+        },
+        {
+          "fields": [
+            "region",
+            "units"
+          ],
+          "failed_cases": 9
+        },
+        {
+          "fields": [
+            "units"
+          ],
+          "failed_cases": 5
+        }
+      ]
+    },
+    {
+      "society": "seed-2026/local-neutral",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 69
+      },
+      "failed_cases_by_family": {
+        "revenue": 29,
+        "window": 35,
+        "clean": 5
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 64
+        },
+        {
+          "fields": [
+            "revenue_cents"
+          ],
+          "failed_cases": 5
+        }
+      ]
+    },
+    {
+      "society": "seed-71/independent",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 82
+      },
+      "failed_cases_by_family": {
+        "lookup": 12,
+        "revenue": 35,
+        "window": 35
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 82
+        }
+      ]
+    },
+    {
+      "society": "seed-71/local-boids",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 95
+      },
+      "failed_cases_by_family": {
+        "revenue": 50,
+        "window": 45
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 95
+        }
+      ]
+    },
+    {
+      "society": "seed-71/local-neutral",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 134
+      },
+      "failed_cases_by_family": {
+        "lookup": 17,
+        "revenue": 59,
+        "window": 58
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 134
+        }
+      ]
+    }
+  ]
+}

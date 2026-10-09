@@ -1,0 +1,1 @@
+{"description":"Named dispatcher and service adapters reusing verified tabular implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r02"],"checks":{"clean":"clean_adapter","revenue":"revenue_adapter","group":"group_adapter","monthly":"monthly_adapter","lookup":"lookup_adapter","window":"window_adapter"}}

@@ -1,0 +1,1 @@
+{"description":"Compact stable API exposing verified native sales transformation services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

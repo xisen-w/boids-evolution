@@ -1,0 +1,1 @@
+{"description":"Reusable native Python adapters for six sales-table transformation and aggregation services, backed by a verified dependency.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

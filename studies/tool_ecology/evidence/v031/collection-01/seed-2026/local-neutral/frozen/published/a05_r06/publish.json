@@ -1,0 +1,1 @@
+{"description":"Reusable, verified sales-table service adapters re-exported from the prior immutable native implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}
