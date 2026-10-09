@@ -19,6 +19,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("evidence", type=Path)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--note", default=None, help="Explicit study/provenance note for standalone figures")
     args = p.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
@@ -63,7 +64,7 @@ def main():
         axes,
         [
             "Verified ecosystem coverage",
-            "Cumulative capability overlap",
+            "Cumulative served-family overlap",
             "Correct cross-author service calls",
         ],
         ["Families covered (of 6)", "Mean author-profile Jaccard", "Correct requests this round"],
@@ -78,7 +79,8 @@ def main():
     axes[2].set_ylim(bottom=-0.5)
     axes[0].legend(frameon=False, fontsize=8)
     fig.suptitle(
-        "Role-free tool ecology: thin lines are societies; thick lines are condition means", fontsize=10
+        args.note or "Role-free tool ecology: thin lines are societies; thick lines are condition means",
+        fontsize=10,
     )
     for ext in ("png", "svg", "pdf"):
         fig.savefig(args.output / f"ecology-trajectories.{ext}", dpi=220, bbox_inches="tight")
@@ -99,7 +101,7 @@ def main():
         for row in records:
             matrix[int(row["author"][1:]), row["round"] - 1] = len(row["verified_families"])
         image = ax.imshow(matrix, vmin=0, vmax=6, cmap="viridis", aspect="auto")
-        ax.set_title(f'{LABELS[root.name]} · seed {cfg["seed"]}', fontsize=9)
+        ax.set_title(f"{LABELS[root.name]} · seed {cfg['seed']}", fontsize=9)
         ax.set_xticks(range(cfg["rounds"]), range(1, cfg["rounds"] + 1))
         ax.set_xlabel("Round")
         ax.set_yticks(range(cfg["agents"]), [f"a{i:02d}" for i in range(cfg["agents"])])
@@ -123,9 +125,7 @@ def main():
         shrink=0.7,
         ticks=range(7),
     )
-    fig.suptitle(
-        "Narrow contributions and generalists: published capability breadth over rounds", fontsize=10
-    )
+    fig.suptitle(args.note or "Published service breadth, including declared dependencies", fontsize=10)
     for ext in ("png", "svg", "pdf"):
         fig.savefig(args.output / f"author-round-capabilities.{ext}", dpi=220, bbox_inches="tight")
     plt.close(fig)

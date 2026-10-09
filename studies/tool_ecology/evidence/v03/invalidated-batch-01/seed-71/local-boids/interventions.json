@@ -1,0 +1,170 @@
+[
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.clean",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "clean",
+        "index": 0
+      },
+      {
+        "family": "clean",
+        "index": 1
+      },
+      {
+        "family": "clean",
+        "index": 3
+      },
+      {
+        "family": "clean",
+        "index": 4
+      },
+      {
+        "family": "clean",
+        "index": 5
+      }
+    ]
+  },
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.group",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "group",
+        "index": 0
+      },
+      {
+        "family": "group",
+        "index": 1
+      },
+      {
+        "family": "group",
+        "index": 3
+      },
+      {
+        "family": "group",
+        "index": 4
+      },
+      {
+        "family": "group",
+        "index": 5
+      }
+    ]
+  },
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.lookup",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "lookup",
+        "index": 0
+      },
+      {
+        "family": "lookup",
+        "index": 1
+      },
+      {
+        "family": "lookup",
+        "index": 3
+      },
+      {
+        "family": "lookup",
+        "index": 4
+      },
+      {
+        "family": "lookup",
+        "index": 5
+      }
+    ]
+  },
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.monthly",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "monthly",
+        "index": 0
+      },
+      {
+        "family": "monthly",
+        "index": 1
+      },
+      {
+        "family": "monthly",
+        "index": 3
+      },
+      {
+        "family": "monthly",
+        "index": 4
+      },
+      {
+        "family": "monthly",
+        "index": 5
+      }
+    ]
+  },
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.revenue",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "revenue",
+        "index": 0
+      },
+      {
+        "family": "revenue",
+        "index": 1
+      },
+      {
+        "family": "revenue",
+        "index": 3
+      },
+      {
+        "family": "revenue",
+        "index": 4
+      },
+      {
+        "family": "revenue",
+        "index": 5
+      }
+    ]
+  },
+  {
+    "id": "a03_r02",
+    "edge": "published.a03_r02->published.a01_r01.window",
+    "mutated": true,
+    "noncrashing_correctness_loss": true,
+    "witnesses": [
+      {
+        "family": "window",
+        "index": 0
+      },
+      {
+        "family": "window",
+        "index": 1
+      },
+      {
+        "family": "window",
+        "index": 3
+      },
+      {
+        "family": "window",
+        "index": 4
+      },
+      {
+        "family": "window",
+        "index": 5
+      }
+    ]
+  }
+]

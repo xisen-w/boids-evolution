@@ -50,13 +50,20 @@ Boids 首轮 a00_r01 把地区名标准化放进公共 `_base`，但 revenue/win
 
 [独立诊断](../../studies/tool_ecology/evidence/v03/engineering-01/helper-scope-diagnosis.json) · [源代码差异](../../studies/tool_ecology/evidence/v03/engineering-01/helper-scope.diff)
 
+进一步逐项比较全部失败输出：工程 Boids 组 63 个失败案例中，51 个只在 `region` 列不同；中性组 25 个失败全部只在该列不同。其余 Boids 失败包括列值或输出行数差异。列差异是描述性证据，不能自动推断每个程序都有相同原因，也不能据此断言 Boids 导致错误。
+
+[失败输出字段审计](../../studies/tool_ecology/evidence/v03/engineering-01/output-differences.json)
+
 ## 实际成本和完整证据
 
 本轮 107 次实际 Luna 请求：中性 54，Boids 53。输入 436,237 tokens，输出 42,462，缓存输入 304,487；API 错误 0。没有核实货币单价，所以不把 runtime 的 cost=0 当作免费。
 
-- [机器结果](../../studies/tool_ecology/evidence/v03/engineering-01/results.csv)
+- [修正后的机器结果](../../studies/tool_ecology/evidence/v03/engineering-01/entry-attribution/corrected-results.csv)
+- [原始漏计表，保留审计](../../studies/tool_ecology/evidence/v03/engineering-01/results.csv)
 - [干预与未追踪重放](../../studies/tool_ecology/evidence/v03/engineering-01/diagnostics.json)
-- [每作者、每轮能力图](../../studies/tool_ecology/evidence/v03/engineering-01/figures/author-round-capabilities.svg)
+- [修正后的轨迹图](../../studies/tool_ecology/evidence/v03/engineering-01/entry-attribution/figures/ecology-trajectories.svg)
+- [中性组实际工具流向](../../studies/tool_ecology/evidence/v03/engineering-01/entry-attribution/execution-graphs/seed-9001/local-neutral/execution-graph.svg)
+- [Boids 组实际工具流向](../../studies/tool_ecology/evidence/v03/engineering-01/entry-attribution/execution-graphs/seed-9001/local-boids/execution-graph.svg)
 - [完整固定协议](EXPERIMENT_2026-10-09.md)
 - [执行记录及失败](LEDGER.md)
 - [修正版本固定协议](EXPERIMENT_V031.md)
@@ -65,8 +72,10 @@ Boids 首轮 a00_r01 把地区名标准化放进公共 `_base`，但 revenue/win
 
 ## 接下来的固定批次
 
-原计划为 8 agent × 6 轮，种子 71、108、2026，局部中性、局部 Boids、独立三种条件，总计九个社会。旧批次因测量/反馈 bug 已中止，不能称为完成九社会的实验。修复后将用单独版本、全新工作目录重新执行固定配置；每 agent 每轮最多六次模型调用，最多四个 agent 并发。
+配置为 8 agent × 6 轮，种子 71、108、2026，局部中性、局部 Boids、独立三种条件，总计九个社会。旧批次因测量/反馈 bug 已中止，不能称为完成九社会的实验。修复后的 v0.3.1 已从干净提交 `376966b`、全新工作目录 `demand-batch-02` 启动；每 agent 每轮最多六次模型调用，最多四个 agent 并发，整批最多 2,592 次请求。48 项本地测试、两次原生工具 Linux CI 和原核心 Linux DEV CI 均通过。
 
 重点检验这次功能性采用是否重复出现，以及采用之后是否真的减少重复建造、形成持续互补能力，还是所有人继续成为通才。三个种子仍然只能支持探索性结论，不能包装成确定的 Boids 性能优势。
 
 旧八 agent 批次已完成的种子 71 中性组有 47/48 次成功发布，原始统计 72 个正确跨作者请求，日志归因修正后为 108；Boids 组原始为 600，修正后为 900。两组均无持续单类贡献。中性组一次拒收来自依赖版本声明与实际 import 不一致；Boids 组一次主动 skip。以上是旧反馈条件下的诊断，不能替代修复后的条件比较。
+
+旧批次共花费 581 次 API 请求，未完成独立社会的 114 次也全部计入；输入 2,718,194、输出 182,267、缓存输入 1,995,014 tokens，零 API 错误。94 份已完成社会的发布全部重放，服务成绩不变；两组各六条新增入口干预均确认非崩溃的正确性损失。[中止批次及完整成本](../../studies/tool_ecology/evidence/v03/invalidated-batch-01/inventory.json) · [重放审计](../../studies/tool_ecology/evidence/v03/invalidated-batch-01/summary.json)

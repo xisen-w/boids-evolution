@@ -1,0 +1,65 @@
+{
+  "classification": "descriptive_original_DEV_output_differences",
+  "caveat": "A field mismatch does not establish a code cause or rule effect; cases are not independent societies.",
+  "analysis_source_sha256": "2da1512c80f41039ee0b097981db7eaa029dab7bb2bead5d5b9d1673db15134a",
+  "model_calls": 0,
+  "results": [
+    {
+      "society": "seed-9001/local-boids",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 56,
+        "shape_or_row_count": 7
+      },
+      "failed_cases_by_family": {
+        "revenue": 25,
+        "window": 25,
+        "group": 5,
+        "lookup": 5,
+        "monthly": 3
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 51
+        },
+        {
+          "fields": [
+            "region",
+            "revenue_cents_per_target"
+          ],
+          "failed_cases": 4
+        },
+        {
+          "fields": [
+            "region",
+            "sum_revenue_cents"
+          ],
+          "failed_cases": 1
+        }
+      ]
+    },
+    {
+      "society": "seed-9001/local-neutral",
+      "frozen": true,
+      "failure_kinds": {
+        "value_or_keys": 25
+      },
+      "failed_cases_by_family": {
+        "revenue": 10,
+        "window": 10,
+        "lookup": 5
+      },
+      "differing_field_sets": [
+        {
+          "fields": [
+            "region"
+          ],
+          "failed_cases": 25
+        }
+      ]
+    }
+  ]
+}

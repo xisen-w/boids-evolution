@@ -2,7 +2,7 @@
 
 ## Repeated-demand native tool ecology (2026-10-09)
 
-The latest authorized exploratory experiment uses GPT-6-Luna through mini-SWE-agent, persistent private workspaces, native Python package sharing, and independently verified recurring service requests. It is a separately versioned mechanism study, not an execution of the older SAC confirmatory freeze. See [live Chinese results](docs/tool-ecology/RESULTS_ZH.md), [protocol and fixed first batch](docs/tool-ecology/EXPERIMENT_2026-10-09.md) and [implementation](studies/tool_ecology/README.md). The earlier actual LDB engineering pilot and its limitations are preserved in [the Chinese report](studies/tool_ecology/REPORT_ZH.md).
+The latest authorized exploratory experiment uses GPT-6-Luna through mini-SWE-agent, persistent private workspaces, native Python package sharing, and independently verified recurring service requests. It is a separately versioned mechanism study. A direct-function re-export attribution bug invalidated v0.3 feedback comparisons; all attempts are preserved. Corrected v0.3.1 is running a fresh fixed nine-society batch. See [live Chinese results](docs/tool-ecology/RESULTS_ZH.md), [corrected protocol](docs/tool-ecology/EXPERIMENT_V031.md), [original design](docs/tool-ecology/EXPERIMENT_2026-10-09.md) and [implementation](studies/tool_ecology/README.md). The earlier LDB engineering pilot and its limitations remain in [the historical report](studies/tool_ecology/REPORT_ZH.md).
 
 ## Current review draft: original Boids guidance controls
 

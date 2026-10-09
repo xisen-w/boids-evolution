@@ -1,0 +1,1 @@
+{"description":"Pure Python non-mutating row transformation services with corrected revenue and window column preservation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

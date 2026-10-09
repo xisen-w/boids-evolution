@@ -1,0 +1,106 @@
+{
+  "publications": 47,
+  "verified_family_coverage": [
+    "clean",
+    "group",
+    "lookup",
+    "monthly",
+    "revenue",
+    "window"
+  ],
+  "author_profiles": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a04": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a05": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a06": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a07": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "verified_authors_per_family": {
+    "clean": 8,
+    "group": 8,
+    "lookup": 8,
+    "monthly": 8,
+    "revenue": 8,
+    "window": 8
+  },
+  "redundant_author_family_pairs": 42,
+  "mean_author_profile_jaccard": 1.0,
+  "sustained_specialists": [],
+  "correct_cross_author_publications": 2,
+  "correct_cross_author_requests": 72,
+  "correct_service_requests": 1577,
+  "total_service_requests": 1692,
+  "publications_with_correct_cross_author_requests": 2,
+  "correct_cross_author_publication_ids": [
+    "a02_r05",
+    "a02_r06"
+  ],
+  "correct_publications": 47,
+  "observed_cross_author_edges": [
+    "published.a02_r05->published.a07_r01.clean",
+    "published.a02_r05->published.a07_r01.group",
+    "published.a02_r05->published.a07_r01.lookup",
+    "published.a02_r05->published.a07_r01.monthly",
+    "published.a02_r05->published.a07_r01.window",
+    "published.a02_r05->published.a07_r02.revenue"
+  ]
+}

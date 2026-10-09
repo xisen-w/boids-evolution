@@ -1,0 +1,5 @@
+# a05_r03 transformation facade
+
+Pure-Python facade re-exporting the verified row-table transformations from `a05_r02` (declared dependency). Public API consists of `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup_rows, request)`, and `window(rows, lookup, request)`. Each returns a new list of dictionaries and leaves inputs unmodified.
+
+Example: `revenue([{'units': 2, 'price_cents': 50}], [], {'fill': 'zero'})` returns `[{'units': 2, 'price_cents': 50, 'revenue_cents': 100}]`. Clean normalizes regions and fills units; revenue adds revenue; group/monthly aggregate as documented by the service contract; lookup adds per-target revenue using exact region keys; window adds a trailing ROWS mean. Requests use fill `zero|mean|median`, aggregation `sum|mean|count`, and window width `2|3|4`. Null revenue is excluded from aggregate statistics. Limitations: this package is a thin facade and relies on `a05_r02`; malformed input rows are outside the API contract.

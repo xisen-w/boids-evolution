@@ -1,0 +1,1 @@
+{"description":"Compact row-service adapters and ordered multi-family dispatch reusing a verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window","transform_many"],"dependencies":["a06_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

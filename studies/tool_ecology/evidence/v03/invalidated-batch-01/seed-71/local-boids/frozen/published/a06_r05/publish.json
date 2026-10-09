@@ -1,0 +1,1 @@
+{"description":"Composable row-table transformation facade with single-family and multi-family dispatch, backed by verified implementations.","capabilities":["clean","revenue","group","monthly","lookup","window","dispatch"],"dependencies":["a06_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

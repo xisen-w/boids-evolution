@@ -1,0 +1,1 @@
+{"description":"Pure Python row-preserving revenue and aggregation adapters with missing-value filling.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

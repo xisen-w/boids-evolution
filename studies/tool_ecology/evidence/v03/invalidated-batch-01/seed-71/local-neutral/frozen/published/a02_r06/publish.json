@@ -1,0 +1,1 @@
+{"description":"Non-mutating adapters for six verified row-oriented tabular transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

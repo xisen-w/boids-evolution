@@ -1,0 +1,1 @@
+{"description":"Stable thin Python adapters for six verified row transformation services, reusing a07_r04.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

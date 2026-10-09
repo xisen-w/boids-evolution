@@ -1,0 +1,1 @@
+{"description":"Reusable facade exposing verified pure row cleaning, revenue, grouping, monthly, lookup and rolling-window services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

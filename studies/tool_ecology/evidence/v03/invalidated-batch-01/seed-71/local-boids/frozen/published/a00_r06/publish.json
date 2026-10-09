@@ -1,0 +1,1 @@
+{"description":"Composable dispatch and batch execution for the six verified row-table services.","capabilities":["clean","revenue","group","monthly","lookup","window","dispatch"],"dependencies":["a06_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

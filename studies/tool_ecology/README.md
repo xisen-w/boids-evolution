@@ -1,13 +1,13 @@
 # Native tool ecology in the core Boids repository
 
-Imported from the separately delivered c447544 implementation on 2026-10-09. Its earlier v0.2 LDB pilot is preserved below and in REPORT_ZH.md. The repeated-demand v0.3 mechanism study is described in ../../docs/tool-ecology/EXPERIMENT_2026-10-09.md. Original boidsnet/ and legacy/ source are preserved.
+Imported from the separately delivered c447544 implementation on 2026-10-09. Its earlier v0.2 LDB pilot is preserved below and in REPORT_ZH.md. The repeated-demand study's corrected v0.3.1 protocol is in [EXPERIMENT_V031](../../docs/tool-ecology/EXPERIMENT_V031.md); v0.3's re-export measurement/feedback error and stopped batch remain separately documented. Original boidsnet/ and legacy/ source are preserved.
 
 From the **core repository root**, using the pinned host runtime and existing pinned Docker image:
 
 ```bash
 PYTHONPATH=studies/tool_ecology python -m pytest studies/tool_ecology/tests -q
 PYTHONPATH=studies/tool_ecology python -m ecology.dynamics --phase engineering --agents 4 --rounds 3 --seeds 9001 --arms local-neutral,local-boids --output studies/tool_ecology/runs/demand-engineering-01
-PYTHONPATH=studies/tool_ecology python -m ecology.dynamics --phase exploratory --output studies/tool_ecology/runs/demand-batch-01
+PYTHONPATH=studies/tool_ecology python -m ecology.dynamics --phase exploratory --output studies/tool_ecology/runs/demand-batch-02
 ```
 
 Both model launchers require a clean committed source tree and a fresh output directory. No keys enter model mounts; default key file is host-only /tmp/boids-agentport.key. No API retry or silent fallback. Maximum requests for the fixed nine-society batch: 2,592; max_output_tokens=3,000 per physical request. This is a request/token ceiling, not a verified dollar-price cap. Four concurrent agents, synchronous pre-round snapshots, per-round role-free self-selection. Service feedback is independently verified DEV feedback and is explicitly **not** sealed TEST performance or an external validated benchmark.
