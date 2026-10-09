@@ -48,7 +48,7 @@ def judge(library, artifact, out, image, *, seed, round_, ablate_edge="", instru
         "-v",
         f"{traces.resolve()}:/trace:rw",
         "-v",
-        f'{Path(__file__).with_name("service_worker.py")}:/worker.py:ro',
+        f"{Path(__file__).with_name('service_worker.py')}:/worker.py:ro",
         "-v",
         f"{instrument_path}:/instrument:ro",
         "-e",
@@ -114,6 +114,7 @@ def judge(library, artifact, out, image, *, seed, round_, ablate_edge="", instru
                 error=error,
                 input_mutated=mutated,
                 executed_edges=actual.get("executed_edges", []) if actual else [],
+                service_entry_edges=actual.get("service_entry_edges", []) if actual else [],
             )
         )
     edges = {}
@@ -121,7 +122,7 @@ def judge(library, artifact, out, image, *, seed, round_, ablate_edge="", instru
         if file.name == "outputs.json":
             continue
         for edge, values in json.loads(file.read_text()).items():
-            merged = edges.setdefault(edge, dict(calls=0, mutated=0, exceptions=0))
+            merged = edges.setdefault(edge, dict(calls=0, mutated=0, exceptions=0, service_entries=0))
             for key in merged:
                 merged[key] += values.get(key, 0)
     result = dict(

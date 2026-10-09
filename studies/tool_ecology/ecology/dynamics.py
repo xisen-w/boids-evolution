@@ -102,7 +102,7 @@ def run_society(root, condition, image, key, *, seed, n, rounds, steps, workers)
                 steps=steps,
                 workers=workers,
                 ring=society.ring,
-                protocol="v0.3-repeated-demand",
+                protocol="v0.3.1-repeated-demand-entry-attribution",
             ),
             indent=2,
         )
@@ -245,7 +245,7 @@ def main():
     image = resolve_image(args.image)
     args.output.mkdir(parents=True)
     manifest = dict(
-        protocol="v0.3-repeated-demand",
+        protocol="v0.3.1-repeated-demand-entry-attribution",
         classification=args.phase,
         code_revision=revision,
         image=image,

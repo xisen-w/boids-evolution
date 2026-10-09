@@ -7,6 +7,8 @@ calls, arbitrary dynamic callbacks and generator iteration are not complete.
 """
 
 import atexit
+import contextlib
+import contextvars
 import functools
 import importlib.abc
 import importlib.machinery
@@ -17,6 +19,22 @@ import sys
 
 COUNTS = {}
 EDGE = os.environ.get("BOIDS_ABLATE_EDGE", "")
+SERVICE_ROOT = contextvars.ContextVar("boids_service_root", default=None)
+
+
+@contextlib.contextmanager
+def service_entry(namespace):
+    """Attribute the judge's entry call to the package whose adapter is tested.
+
+    A direct re-export executes the provider function without any intervening
+    code in the publishing package. Preserve that actual provider as the callee,
+    but identify the served publication rather than the judge as the caller.
+    """
+    token = SERVICE_ROOT.set(namespace)
+    try:
+        yield
+    finally:
+        SERVICE_ROOT.reset(token)
 
 
 def perturb(value):
@@ -40,12 +58,16 @@ def wrap(function, module, name):
     def observed(*args, **kwargs):
         frame = inspect.currentframe().f_back
         caller = frame.f_globals.get("__name__", "unknown")
+        service_entry_call = caller == "__main__" and SERVICE_ROOT.get() is not None
+        if service_entry_call:
+            caller = SERVICE_ROOT.get()
         if frame.f_code.co_filename.startswith("/workspace/"):
             caller = "consumer"
         del frame
         edge = f"{caller}->{module}.{name}"
-        row = COUNTS.setdefault(edge, dict(calls=0, mutated=0, exceptions=0))
+        row = COUNTS.setdefault(edge, dict(calls=0, mutated=0, exceptions=0, service_entries=0))
         row["calls"] += 1
+        row["service_entries"] += int(service_entry_call)
         try:
             value = function(*args, **kwargs)
         except BaseException:

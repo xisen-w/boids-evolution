@@ -1,5 +1,6 @@
 """Runs inside isolated grader; inputs contain no expected outputs or references."""
 
+import contextlib
 import copy
 import importlib
 import json
@@ -25,9 +26,13 @@ for item in job["cases"]:
     )
     counts = getattr(sys.modules.get("sitecustomize"), "COUNTS", {})
     before_calls = {edge: data["calls"] for edge, data in counts.items()}
+    before_entries = {edge: data.get("service_entries", 0) for edge, data in counts.items()}
     if module is not None:
         try:
-            result["output"] = getattr(module, item["callable"])(rows, lookup, request)
+            entry = getattr(sys.modules.get("sitecustomize"), "service_entry", None)
+            context = entry("published." + job["identity"]) if entry else contextlib.nullcontext()
+            with context:
+                result["output"] = getattr(module, item["callable"])(rows, lookup, request)
         except BaseException as exc:
             result["error"] = f"{type(exc).__name__}: {exc}"[:1000]
         try:
@@ -45,6 +50,9 @@ for item in job["cases"]:
             result["error"] = f"non-JSON output: {type(exc).__name__}: {exc}"[:1000]
     result["executed_edges"] = [
         edge for edge, data in counts.items() if data["calls"] > before_calls.get(edge, 0)
+    ]
+    result["service_entry_edges"] = [
+        edge for edge, data in counts.items() if data.get("service_entries", 0) > before_entries.get(edge, 0)
     ]
     results.append(result)
     Path("/trace/outputs.json").write_text(json.dumps(results, allow_nan=False))

@@ -176,3 +176,77 @@ class Cleaner:
     assert changed["edges"][edge]["mutated"] > 0
     assert changed["families"]["clean"]["passed"] < 6
     assert changed["families"]["clean"]["crashed"] == 0
+
+
+def test_foreign_reexport_is_actual_service_reuse_not_host_only_call(tmp_path):
+    from ecology.dynamics import service_evidence
+
+    reg = Registry(tmp_path / "registry")
+    code = """import statistics
+def clean(rows, lookup, request):
+    values=[r['units'] for r in rows if r.get('units') is not None]
+    fill=0 if not values or request['fill']=='zero' else statistics.mean(values) if request['fill']=='mean' else statistics.median(values)
+    out=[dict(r) for r in rows]
+    for r in out:
+        if isinstance(r.get('region'),str): r['region']=r['region'].strip().lower()
+        if r.get('units') is None: r['units']=fill
+    return out
+"""
+    first = reg.publish("a00", 1, packet(tmp_path, "one", code, {"clean": "clean"}), allowed=set())
+    alias = reg.publish(
+        "a01",
+        2,
+        packet(
+            tmp_path, "two", f"from published.{first} import clean as serve\n", {"clean": "serve"}, [first]
+        ),
+        allowed={first},
+    )
+    transitive = reg.publish(
+        "a02",
+        3,
+        packet(tmp_path, "three", f"from published.{alias} import serve\n", {"clean": "serve"}, [alias]),
+        allowed={first, alias},
+    )
+    own = reg.publish(
+        "a00",
+        2,
+        packet(tmp_path, "own", f"from published.{first} import clean\n", {"clean": "clean"}, [first]),
+        allowed={first},
+    )
+    frozen = reg.freeze(tmp_path / "frozen")
+    image = resolve_image("boids-pyda:20261008")
+    for identity in (alias, transitive):
+        baseline = judge(
+            frozen, reg.artifacts[identity], tmp_path / identity / "baseline", image, seed=71, round_=3
+        )
+        assert baseline["families"]["clean"]["passed"] == 6
+        edge = f"published.{identity}->published.{first}.clean"
+        assert baseline["edges"].get(edge, {}).get("calls") == 6
+        assert baseline["edges"][edge]["service_entries"] == 6
+        assert all(edge in item["service_entry_edges"] for item in baseline["details"])
+        assert service_evidence(baseline)["correct_cross_author_requests"] == 6
+        changed = judge(
+            frozen,
+            reg.artifacts[identity],
+            tmp_path / identity / "changed",
+            image,
+            seed=71,
+            round_=3,
+            ablate_edge=edge,
+        )
+        assert changed["edges"][edge]["mutated"] > 0
+        assert changed["families"]["clean"]["passed"] < 6
+        assert changed["families"]["clean"]["crashed"] == 0
+        plain = judge(
+            frozen,
+            reg.artifacts[identity],
+            tmp_path / identity / "plain",
+            image,
+            seed=71,
+            round_=3,
+            instrument=False,
+        )
+        assert plain["families"] == baseline["families"]
+    own_result = judge(frozen, reg.artifacts[own], tmp_path / "own-result", image, seed=71, round_=2)
+    assert own_result["families"]["clean"]["passed"] == 6
+    assert service_evidence(own_result)["correct_cross_author_requests"] == 0

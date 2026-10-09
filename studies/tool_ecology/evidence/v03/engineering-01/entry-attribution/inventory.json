@@ -1,0 +1,20 @@
+[
+  {
+    "society": "seed-9001/local-boids",
+    "frozen": true,
+    "physical_requests": 53,
+    "input_tokens": 214539,
+    "output_tokens": 22929,
+    "cached_tokens": 146904,
+    "errors": 0
+  },
+  {
+    "society": "seed-9001/local-neutral",
+    "frozen": true,
+    "physical_requests": 54,
+    "input_tokens": 221698,
+    "output_tokens": 19533,
+    "cached_tokens": 157583,
+    "errors": 0
+  }
+]
