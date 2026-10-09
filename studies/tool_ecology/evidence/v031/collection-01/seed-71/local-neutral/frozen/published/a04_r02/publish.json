@@ -1,0 +1,1 @@
+{"description":"Native Python implementations of six tabular transformation and aggregation services, with exact-key lookup behavior.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

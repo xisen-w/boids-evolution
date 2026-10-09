@@ -1,0 +1,19 @@
+{
+  "condition": "local-neutral",
+  "seed": 2026,
+  "agents": 8,
+  "rounds": 6,
+  "steps": 6,
+  "workers": 4,
+  "ring": [
+    "a06",
+    "a07",
+    "a03",
+    "a00",
+    "a05",
+    "a04",
+    "a02",
+    "a01"
+  ],
+  "protocol": "v0.3.1-repeated-demand-entry-attribution"
+}

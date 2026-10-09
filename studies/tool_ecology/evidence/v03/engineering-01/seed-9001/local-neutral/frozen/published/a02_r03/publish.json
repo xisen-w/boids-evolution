@@ -1,0 +1,1 @@
+{"description":"Dependency-light facade exposing verified native row-table transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

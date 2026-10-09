@@ -1,0 +1,162 @@
+# Execution ledger — repeated-demand v0.3, 2026-10-09
+
+- Base core GitHub main: 8b3cd95. Local branch codex/tool-ecology-dynamics.
+- Imported original mini-SWE ecology source/evidence from c447544, unchanged initially; old legacy/ and boidsnet/ are preserved.
+- Baseline imported test suite: 23 passed (12.89s), actual Docker environment.
+- Earlier ecology origin points to Desktop checkout, not GitHub. Core clone created outside iCloud to avoid known dataless metadata stalls.
+- Ruling: latest user instruction authorizes iterative implementation, paid API experiments and GitHub updates; no repeated design permission request. Existing v0.2 remains separately labelled; new actual service feedback is v0.3 exploratory, not an old confirmatory freeze.
+- Pre-flight interface: Registry publication metadata must preserve checks mapping; materialized catalogue must carry actual verified feedback; inference and judges share pinned Python runtime but only judge gets private inputs/instrumentation; round snapshots materialized before dispatch.
+- Workload references: 4 offline tests passed; registry checks initially failed on missing metadata then passed after preservation/validation.
+- Service harness actual Docker tests: correct cross-author call, noncrashing return intervention, all-cell plain replay, input-mutation rejection, and explicit Docker-start infra failure (RED -> GREEN).
+- Native round-barrier integration test uses real Docker + mini-SWE with only inference replaced by deterministic fixture: three parallel agents, two rounds, all pre-round views checked, zero false semantic successes.
+- Imported plus new suite: 34 passed in 19.44s. Ruff formatting/lint clean. Fresh whole-branch reviewer dispatched read-only.
+- Core baseline suite in Luna runtime: 90 tests, 4 errors, 3 skips. Two errors lack optional sklearn; two tests require Linux os-root isolation and macOS correctly refuses hook-only key loading. Separate core DEV runtime installed using requirements.txt and requirements-sac.txt; pinned environment archived. No original sandbox bypass or weakening.
+- Fresh review: six P2 findings reproduced, no P1. One fix pass with failing regression tests: non-object manifests, per-case JSON/checkpoint isolation, native instance-method reuse tracing/intervention, partial-correct request edges independent of complete family verification, nondegenerate mean filling/aggregation probes, bounded generated-output classification. Absolute numeric tolerance was also corrected with failing fixture; metric prose now precisely says sustained single-family publication and cumulative profiles, at most six calls. No deferred review items.
+- Old core full suite in separately pinned DEV runtime: 90 tests, 2 platform errors, 1 skip (195.948s). Names: RetryTests.test_azure_client_constructed_without_network and RetryTests.test_transport_policy_and_required_api_version require Linux os-root and macOS is hook-only. Full logs retained; no claim of a completely green old Mac suite; Linux CI will verify these when the branch is published. This code did not change boidsnet/ or legacy/.
+- Final whole imported/new suite after review fixes: 44 passed in 33.28s, real Docker. Ruff clean; credential scan 81 imported/changed files, zero actual-key matches. Only source .py hashes enter the new manifest; ignored host bytecode is not treated as source. Original boidsnet/ and legacy/ diff empty.
+- Paid engineering run demand-engineering-01 launched at c7d53b6 (4 agents, 3 rounds, seed 9001, neutral/Boids, at most 144 calls). Source pushed to core GitHub branch and PR #2 attached to this task. Hourly follow-up boids records this authorized task and avoids duplicate running batches; stops paid continuation once an interpretable result is documented.
+- Early engineering observations are provisional: several first-round publications already pass multiple/all six families. This may indicate tasks permit generalists; do not equate prompt-induced narrow publications with exclusive competence. Fixed multi-seed batch remains unchanged.
+- Added dedicated offline Linux CI for the imported/new native-tool contracts; no model calls or credentials in CI. Existing original DEV CI remains separate.
+
+- Engineering complete at c7d53b6: 107 actual Luna requests, 436237 input / 42462 output / 304487 cached input tokens, zero API errors. Both arms cover six families; no sustained single-family publications. Boids has 36 correct cross-author requests from one whole-library wrapper a00_r03 -> a01_r02, six distinct function edges; neutral has zero. All 24 publications replay identically without instrumentation; all six eligible edges have noncrashing correctness-loss witnesses. This supports functional adoption, not complementary specialization.
+- Linux native CI initially failed 7/44. Reproduced exact cause in a Linux Docker named volume: cap-drop=ALL removes DAC override, so uid0 cannot write host uid1001-owned 0755 bind mounts. uid1001 succeeds. Fix runs native agents/service judges with host numeric uid/gid; direct test fixture matches. Mac c7d engineering outputs remain unchanged and valid. Original DEV Linux CI passed. The earlier LDB grader is a separately historical path; this patch only claims native v0.3 Linux parity.
+- First analysis-script invocation lacked the core repository in PYTHONPATH and failed before any diagnostics/output creation; corrected invocation uses PYTHONPATH=.:studies/tool_ecology. No model calls or altered outputs.
+- Main fixed nine-society batch demand-batch-01 is running at exact revision 9de2cbf, 8 agents × 6 rounds × seeds 71/108/2026 × neutral/Boids/independent. Parent Python pid 62273 at launch; inspect process rather than assuming PID persists. Maximum 2592 calls. Do not edit ecology/ or mounted instrument/worker source while this process runs. Only docs and analysis utilities may change. Automation boids target is this thread; never duplicate the running batch.
+- Both native Linux CI jobs at 9de2cbf passed (1m15s / 1m28s). Earlier failures remain in GitHub and local reproduction evidence; old DEV CI is separate.
+- Host-only scope diagnosis: a00_r01 common _base normalized region in revenue/window against the preserve-original contract. In a separate copy, limiting normalization to applicable services changes revenue/window from 1/6 to 6/6, all other four stay 6/6. Source diff and results archived; no original scores or model calls changed. First host patch had conditional-expression precedence wrong and did not change behavior; retained as attempt 01, corrected in attempt 02.
+- Analysis addendum before completion of the fixed batch: after freezing, evaluate every published bundle on one common new DEV-data panel (seed 31415926, round selector 99), without models or feedback. This separates cumulative historical pass labels from capabilities that still work on a shared fresh panel. Report this explicitly as an additional frozen robustness diagnostic, not a new original benchmark task or confirmatory outcome. Also compute structural coverage after removal of an author and its declared dependent bundles; label as graph-derived robustness, not adaptation or a noncrashing causal intervention.
+- Common-panel engineering audit complete: 24 bundles regraded without models. Both societies retain 6-family coverage, best author service coverage 6, and zero coverage loss for every individual author removal. Preserve the original audit summaries and inputs separately.
+- Provenance addendum: service coverage via a neighbor wrapper is not independent author competence. A failing regression exposed the missing distinction in the analysis utility; retain only bundles whose entire declared dependency closure belongs to the same author for self-contained profiles. On the common engineering panel both societies still have best self-contained author coverage 6, collective-minus-best gap 0. This does not rule out earlier reading/copying of code. Main source remains frozen at 9de2cbf; only analysis/docs change while its paid batch runs.
+- First main society complete, seed 71 neutral: 47/48 publications, 72 correct cross-author requests, no sustained narrow contribution. Rejected a07_r06 imported a07_r04 while declaring a07_r05; retain as publication contract/version error, no mid-batch repair/rescore.
+- Infrastructure fault found during source inspection: direct foreign re-exports enter service_worker from __main__, so v0.3 cross-author classification omitted them. Raw traces show engineering neutral a03_r02/a03_r03 delegated 72 correct requests; the reported zero was wrong. Engineering Boids remains 36. Completed seed-71 neutral changes 72 -> 108, Boids 600 -> 900 from raw-log attribution.
+- Feedback contamination confirmed: main neutral 24/48 trajectories and Boids 22/48 include reuse-count fields in tool output. Thus a posthoc metric correction cannot reconstruct behavior under correct feedback. Sent SIGINT to the old runner, confirmed it exited and no study containers remain. ABORTED.json preserves KeyboardInterrupt and INVALIDATED_MEASUREMENT.json records the reason; this is an infrastructure stop, not score-selected stopping.
+- Stopped main costs: 581 actual requests (neutral 243, Boids 224, partial independent 114), 2718194 input / 182267 output / 1995014 cached tokens, zero API errors. Two societies are frozen; independent has 16 graded opportunities plus subsequent completed/in-flight turn artifacts. Never label this a completed nine-society batch or splice it into a corrected run.
+- Re-export regression fails on exact old __main__ edge, then passes with scoped service-entry attribution. Direct and transitive re-exports must count the executed original provider; own-history aliases must remain non-cross-author. Entry dispatch is explicitly marked separately from internal Python calls, including in per-case traces; both permit return interventions. Original LDB consumer instrumentation remains unchanged without a service-entry context.
+- Corrected v0.3.1 will use unchanged tasks, arms, seed plan and limits in a new directory; predeclare and commit before paid calls. No rerun is selected by a favorable score. Private feedback will contain corrected counts from the start.
+- v0.3.1 whole suite: 48 passed in 25.76s, including direct/transitive re-export, own-history negative control, semantic parity and entry-edge intervention. Both new Linux native CI jobs passed (1m26s / 1m23s). Runtime fix committed and pushed at 376966b.
+- All 24 engineering publications regraded with corrected attribution: identical family scores. Neutral 72 correct cross-author requests, Boids 36. All six first eligible neutral foreign-entry edges have noncrashing correctness-loss witnesses. All 94 publications in the two completed invalidated main societies also retain identical semantic scores; both sets of six eligible entry interventions confirm functional contribution. No inference calls for any audit.
+- Corrected fixed batch demand-batch-02 launched at exact clean revision 376966bde00b87200d6a17a612c387f7eef80edd, maximum 2592 calls. Parent Python pid67038 at launch, inspect before resuming; unified exec session45269. Do not edit ecology/ or mounted worker/instrument source until the batch ends. Old batch01 is invalidated and must not resume or be combined.
+- Added observed execution graphs with tests preventing double-counted functions within a request and invented proxy execution for transitive re-exports. Nodes show served breadth including dependencies, not independent expertise. Corrected engineering graphs and trajectories rendered and visually inspected; original plots remain historical.
+- Descriptive output-field audit: engineering Boids 51/63 failed cases differ only in region; neutral 25/25. This is not an automatic causal diagnosis. The separately patched helper-scope example remains the causal program-level evidence. All original outputs and first audit artifacts preserved.
+- Additional analysis suite: 50 passed in32.85s, real Docker. Active batch02 source/reference hashes still exactly match manifest376966b. Both original DEV and native Linux CI passed at that paid revision; analysis-only commits do not change it.
+- User status check: valid batch02 has five frozen societies; no API errors, source/reference hashes unchanged. Complete seed71 comparison: neutral31 / Boids36 / independent38 all-six passing publications; correct cross-author case requests144 /600 /0, sustained narrow contributions0 in all three. These are provisional one-seed observations, not a multi-seed efficacy claim; do not interrupt the remaining fixed societies. Latest GitHub checks green before this docs-only update.
+- Transport failure: batch02 stopped on a single AgentPort APITimeoutError, seed108 neutral/a07/r2, society request55. No writer remains. Five complete societies have zero API errors; failed neutral has8 graded opportunities/69 requests and is excluded from complete-cell comparisons. Total known batch usage1218 requests,5326395 input/380564 output/3923156 cached tokens, one error; timed-out usage unknown.
+- Ruling: preserve batch02 as aborted, retain its five independently valid frozen cells, and explicitly recover only four missing cells in new directories, one per continuation, <=288 requests each. Never copy recovery cells into batch02 or reuse measurement-invalidated batch01. Assemble a separately labelled recovered exploratory collection with all costs and per-cell provenance only after all nine valid cells exist. Original maximum2592 still bounds the projected1218+1152=2370 requests.
+- Transport policy change:55 ->180 seconds waiting, max_retries remains0, identical model/effort/output/action budget/prompt/workload/grader. Only model.py and dynamics.py hashes differ (transport and recorded metadata). Offline test first fails55 !=180; new tests also confirm exactly one archived failed request without fallback. Recovery protocol declared in RECOVERY_V031.md before paid calls.
+- First explicit recovery demand-recovery-108-neutral-01 launched at exact clean ff3588123181b0259e443276f42263b2d9a3cb45 (pid74293/session66545 at launch). It completed all48 opportunities:47 publications,30 all-six publications,324 correct cross-author case requests,0 sustained narrow contributions;225 physical requests,1099799 input/70234 output/808244 cached tokens,0 errors. Runtime and reference hashes verified against its manifest; frozen library verified. The original aborted batch remains untouched. No second recovery launched in this continuation.
+- Six complete cells now form two full seed comparisons. Accumulated corrected-study attempts1443, of which1374 belong to valid cells and69 to the transport-failed partial cell; known6426194 input/450798 output/4731400 cached tokens,1 API error with unknown provider timeout usage. All three remaining seed2026 recoveries remain predeclared; at most one288-call society per later continuation.
+- Added separate collection assembler with tests requiring all nine unique complete cells, matching runtime/reference settings, no API failures in included cells and verified freezes. It copies rather than mutates original runs; retains per-cell generation manifests/revisions/transport and all attempted costs. A nine-cell offline integration fixture verifies copied views/service outputs, original aborted-directory byte hashes unchanged, and cost inclusion of a69-call failed attempt. Missing recovery prevents output creation. Analysis CSV and fresh-panel summaries now preserve per-cell lineage; usage.json includes all attempts and usage-accounting.json separates included/discarded attempts. Whole suite64 passed28.20s in real Docker; Ruff passed after import ordering fixes. Runtime source remains frozen at ff35881 during the paid recovery.
+- Next predeclared recovery demand-recovery-2026-independent-01 launched at exact clean fb3e8e27ea59cdfa81db1d0ee91a06fb8be3e0e6 (pid76716/session25469 at launch). No other runner existed. Runtime/reference hashes match the completed ff35881 recovery; native and original DEV Linux CI at fb3e8e2 all passed. Eight agents/six rounds/six steps/four workers, maximum288 calls,180-second transport waiting/max_retries0. Only docs and analysis may change during this run; no second paid society in this continuation.
+- Posthoc descriptive mechanism check on the six previously frozen cells: all280 admitted publications declare all six services, including all48 first-round opportunities; only3 of those48 first-round packages pass all six. No admitted single-service package exists. This is observed breadth selection, separate from measured correctness or self-contained expertise. All arms choose broad packages before local publication exposure; later Boids reuse can propagate a complete library rather than form distinct service roles. The cheap-generalist/no-necessity interpretation is a hypothesis supported by the design's per-package feedback and uniform opportunity/budget, not a proved causal effect. No paid prompts/workload changed; add declared-breadth columns to offline analysis for the final nine-cell report.
+- User status check confirmed seed2026 independent completed at fb3e8e2:48 opportunities,46 publications,39 all-six,0 cross-author requests,0 sustained narrow contributions;229 physical calls,813568 input/69334 output/576527 cached tokens,0 API errors. Freeze/runtime/reference hashes verified. No active runner existed. Corrected-study completed/aborted attempt totals1672 calls,7239762 input/520132 output/5307927 cached tokens,1 prior timeout with unknown provider usage;1603 valid-cell calls and69 discarded partial calls.
+- Continued existing authorization with the next predeclared fresh recovery seed2026 local-neutral, directory demand-recovery-2026-neutral-01, at exact clean e0199e17f222a34702f22f160850fb2df8ff32d1 (pid78479/session80287 at launch). All three Linux CI checks passed and runtime hashes are unchanged. Eight agents/six rounds/six steps/four workers, maximum288 calls, timeout180/max_retries0. Only one new society launched this continuation; Boids remains for the next. User informed clearly that seven of nine are complete and the full frozen analysis is still pending.
+
+- Eighth cell seed2026 neutral completed at e0199e1:48 opportunities,46 publications,38 all-six,468 correct cross-author requests,0 sustained narrow contributions;234 calls,1175435 input/66799 output/879085 cached tokens,0 errors. Freeze/runtime/reference hashes verified.
+- Final predeclared paid cell seed2026 Boids launched at exact clean6e0daf1e8f477917cae650207425bacaf13fdaa7 (pid79783/session62694 at launch), all three Linux CI checks passed; completed48 opportunities,48 publications,32 all-six,612 correct cross-author requests,0 sustained narrow contributions;215 calls,1064844 input/66176 output/754251 cached tokens,0 errors. Runtime/reference hashes unchanged and all nine freezes verified. No more paid work planned.
+- All corrected-study attempts now2121 physical calls,9480041 input/653107 output/6941263 cached tokens,1 prior transport timeout whose provider usage/billing is unknown;2052 valid-cell calls plus69 failed partial calls. Original2592 ceiling respected. All nine valid cells have0 API errors. Raw three-seed all-six counts:neutral31/30/38,Boids36/35/32,independent38/38/39; correct cross-author requestsneutral144/324/468,Boids600/720/612,independent0. Frozen replay/interventions/common-panel audits still pending; do not yet label final analysis complete.
+- Added read-only provenance audit that checks each generation source/reference hash against its recorded Git revision, original and collected freeze hashes, current shared grader/reference hashes, archived API request settings/returned models and all attempt usage. It publishes counts/settings/hashes only, never raw prompts/responses.
+
+- Recovered exploratory collection assembled separately at analysis revision9a83c16:all9 planned unique frozen cells; original batch02 retains ABORTED and no COMPLETE. Read-only audit verified90 generation/reference Git blobs, nine original/collected freezes, shared current grader/reference hashes,2121 archived request/response pairs and usage;2120 successful responses are gpt-6-luna,1 prior timeout. All original scores unchanged.
+- Final offline analysis complete:420/420 instrumentation/plain score parity. Deterministic first12 eligible edges per local society,72 interventions total,71 with noncrashing correctness-loss witnesses. One unconfirmed helper edge in seed2026 Boids/a05_r02 only has an originally correct empty-table lookup request; shape-preserving perturbation cannot alter that empty list, and modifying already-wrong cases supplies no witness. Retain this limitation without replacing the selected edge.
+- Common fresh DEV panel complete for all420 publications:all9 societies cover6, best self-contained author history covers6, collective-minus-best gap0, all72 individual-author/transitive-dependent removals lose0 service categories. Self-contained six-family authors by seed71/108/2026:neutral7/7/6,Boids5/4/4,independent8/8/8; served profiles all6. This is dependency organization, not original authorship, independently understood expertise or complementary necessity.
+- Final declaration audit:416 of420 admitted packages declare6 services;4 declare only lookup, all in seed2026 Boids. Three lookup-only packages pass6/6; a00_r04 passes1/6. a00 narrows r2/r3/r4 then returns to whole-library exports r5/r6. Predeclared verified three-round persistence remains0; the broader declaration trajectory must be reported, not erased by that proxy. All72 first-round packages declare6 services. All-six counts measure broad offerings and exclude successful narrow contributions; never use them alone as a division-of-labour quality score.
+- Specific posthoc offline question, selected as the only three-round single-service declaration trajectory:does writing normalized region back explain a00_r04 failure? Isolated registry copy, one-line row['region']=region, original plain1/6 ->patched6/6, no crashes/input mutation, original freeze unchanged. This is a generated-program defect, not an infra failure or established Boids causal effect; do not score the patched trajectory as an observed sustained specialist. Zero model calls.
+- Descriptive output audit:15000 admitted service cases,862 failures;833 differ only in region,15 only revenue_cents,9 region+units,5 only units. All observed admitted failures are value/key differences. Field mismatch does not establish a universal code cause or rule effect. Nonempty correct cross-author requests:neutral780,Boids1607; original primary counts936/1932 unchanged.
+- All prescribed trajectories, author-round matrices, nine versioned execution graphs, and additional common-panel source-provenance heatmap exported PNG/SVG/PDF. Representative trajectories, provenance matrix and narrow-trajectory execution graph visually inspected with no clipping/label overlap. Latest whole suite64 passed31.03s in real Docker; Ruff clean. New analysis utilities additionally executed on the full fixed collection. Repeated-demand archived attempts including engineering107 and invalidated581 total2809 calls; corrected comparison remains2121, with valid2052 and failed69. Money and timeout usage remain unverified. Final report explains three-seed/recovery/coverage/proxy limits and missing single/centralized controls. No further paid experiments.
+
+- Publication checks:2386 tracked/new public files scanned,0 actual-key or credential-pattern matches;0 private API payload/prompt/trajectory/grader input/output files. All final report links resolve. All1287 staged files within the nine frozen libraries, including freeze manifests, match expected SHA256 byte hashes; no line-ending corruption. Original boidsnet/ and legacy/ diff against8b3cd95 is empty. Complete analysis marker and final report source hash archived; source/docs diff check clean while immutable generated evidence bytes are preserved.
+
+- Final count clarification:72 selected publication-edge intervention records correspond to70 unique edges within societies;71 records and69 unique edges have witnesses. Two internal edges recur under different root publications. The deterministic selection and all original results remain unchanged; final report/summary explicitly separate intervention count from distinct-edge evidence. This is a reporting clarification, not additional probes or a score adjustment.
+
+## 2026-10-09: analysis-only manuscript revision
+
+- User explicitly ended all further experiments and requested deeper analysis,
+  coordinated figures, full tables and a unified manuscript. No new model calls,
+  grader calls, generated-program runs, probes, interventions or repairs occur.
+  Experiment automation remains paused; no continuation may launch paid work
+  without a later explicit user instruction superseding this stop.
+- Added a public-record-only analyzer, conservative adapter-syntax descriptors,
+  source-linked tables and ten Python figure sets in separate `analysis-02`.
+  Original `collection-01`, paid generation source, scores, frozen libraries,
+  selected intervention records and historical final report remain unchanged.
+- New posthoc units: adopting publications57/115 Boids versus26/116 neutral after
+  round one; per all post-initial opportunities57/120 versus26/120. Adopting
+  authors15/24 versus8/24. These remain nested within three societies per arm,
+  not new treatment replicates. No case-level p-values or causal mediation claims.
+- Common-panel prefix analysis finds exactly two positive historical/latest
+  coverage gaps, neutral71/round1 and Boids2026/round1, both before tool exchange.
+  All later gaps and all final latest-version gaps are zero. Thus initial pooling
+  complementarity cannot be attributed to local interaction. No new scoring.
+- Among adopting publications, all adapters are direct imported checks or
+  simple single-return delegates in39/57 Boids and19/26 neutral packages.
+  The conservative AST classification distinguishes ownership from syntax and
+  rejects overwritten imports; it establishes neither originality nor necessity.
+- Root AST pooled medians114/822.5/755 (Boids/neutral/independent) exclude imported
+  code, vary by seed and do not measure effort. Boids has34.3% more input tokens
+  than independent generation and nearly equal output tokens. All cell values
+  and cached-input accounting remain visible; no monetary-cost claim.
+- Declared-case correctness94.14% Boids,93.25% neutral,95.35% independent has
+  unequal declaration-conditioned denominators. Boids-minus-neutral seed
+  differences+2.18/+2.36/-1.93pp do not establish a consistent reliability effect.
+  Original862 output failures, four narrow declarations, single-program existing
+  writeback diagnosis and the unconfirmed empty-table edge remain intact.
+- Full AAMAS working manuscript now centers the completed native-tool study.
+  It uses the supplied official class, explicit local v0.3.1 mapping, all-seed
+  tables, all nine projected author graphs and all432 opportunities. The old
+  global-catalogue/TF-IDF pilot is not mislabeled as this protocol or pooled.
+  A separate Chinese deep-analysis document explains observations and hypotheses.
+  The authors are not cited as independent prior work on their own substrate.
+- Final analysis QA:461 input SHA256 values verified; all nine derived output
+  files reproduce byte-for-byte in a fresh temporary directory. Four manuscript
+  tables regenerate exactly; all nine Chinese rows match CSV; ten figure PDFs
+  match the source exports. Five new analysis-only contract tests pass in0.01s;
+  Ruff passes for all ecology/tests/scripts. Original final-report SHA and all
+  collection/runtime source remain unchanged.
+- English export15 pages and Chinese export11 pages reviewed in full, including
+  enlarged principal tables/figures; no outside-page words, unresolved citations,
+  missing glyphs or overfull boxes. Supplied AAMAS class's local incomplete-ifx
+  warning also occurs in a minimal Hello document and is disclosed in the paper
+  README; the class is preserved unmodified. Both document builds succeed.
+- Experiment heartbeat prompt now explicitly prohibits any further experiments
+  and remains PAUSED. This revision makes0 experimental model/grader calls and
+  executes0 archived generated programs. The fixed study remains closed.
+
+## 2026-10-09: eight-page body and citation audit (no new experiments)
+
+- User clarified that the conference permits no appendix: the final target is
+  exactly eight main-text pages plus references. Removed the entire appendix,
+  compressed headings and repeated prose, and integrated seven figures/four
+  tables into the body. All nine networks, 432 opportunities and 72 own/served
+  author profiles remain in the compact society atlas. All seeds, failures,
+  service denominators, resource totals and generation revisions remain visible.
+- Refined both conceptual workflows in Klein blue #002FA7; condition colors
+  remain neutral #2878B5, Boids #D97932 and independent #737C86. Source-linked
+  vector/raster exports and QA live separately in manuscript-03. Data and the
+  original analysis-02 export marker are preserved at their historical revision.
+- Verified all27 actually cited references against original author records,
+  official venue/publisher pages/PDFs and registered metadata. Citation audit
+  records reading scope and metadata disagreements, not a claim that every full
+  paper was read. Corrected CollabToolBuilder publication metadata, MetaGPT PDF
+  author order and LATM classification; retained PDF-authoritative initials for
+  Generative Agents and CREATOR. Removed3 unused references. Narrowed unsupported
+  detail in Riedl/Nisioti/TerraLingua/Conversable Complexity descriptions.
+- Expanded the interpretation of graph pairs, functional versus structural
+  counterfactuals, task evaluation versus organization evaluation and distinct
+  infrastructure/transport/generated-code failures. No causal mediation or
+  necessary-specialization claim was introduced. All numerical evidence is old.
+- Experiment stop remains binding. Zero experimental model/grader calls, zero
+  archived generated-tool executions, zero new probes, interventions or repairs.
+  Experiment automation stays PAUSED. Original461 input hashes and historical
+  final-report SHA256 verify unchanged. Five source-only analysis tests pass.
+- Final rendered page counts, table/figure reproducibility, citation resolution,
+  overflow checks, visual review and artifact hashes are recorded in the new
+  publication-qa.json/REVISION_MANIFEST.json, rather than rewriting the older
+  completion marker. Upstream AAMAS class bytes remain unchanged.
+
+### Submission metadata: 1867 (2026-10-09)
+
+- Updated only the manuscript submission ID to 1867 and rebuilt its PDF. Main text remains 8 pages plus 1 reference page, no appendix; pages 2–9 are pixel-identical to the previous export. Title, abstract, bibliography and all scientific content are unchanged. Page 1 was visually inspected. Zero experiments or model/grader calls.
+
+### Structured abstract (2026-10-09)
+
+- Rewrote the abstract as Background, Motivation, Experiment and three Findings at the user’s request. Existing numbers and interpretation boundaries are retained. No other manuscript text, figures, tables or citations changed. Export remains 8 main-text pages plus 1 reference page, no appendix. Pages 1–2 were visually inspected; pages 3–9 are pixel-identical to the preceding export. Zero experiments, model/grader calls or generated-tool executions.

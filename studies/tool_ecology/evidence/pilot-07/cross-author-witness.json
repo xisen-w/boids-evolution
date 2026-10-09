@@ -1,0 +1,121 @@
+{
+  "classification": "host_authored_posthoc_engineering_probe_not_a_scored_consumer_or_emergence_claim",
+  "cross_author_csv_composition": true,
+  "noncrashing_upstream_intervention_changed_output": true,
+  "parquet_baseline": {
+    "error_type": "ImportError",
+    "error": "Parquet requires pandas and a parquet engine"
+  },
+  "rows": [
+    {
+      "case": "baseline",
+      "outputs": {
+        "csv": {
+          "output": [
+            {
+              "team": "A",
+              "sum": 5.0,
+              "mean": 2.5,
+              "count": 2
+            },
+            {
+              "team": "B",
+              "sum": 7.0,
+              "mean": 7.0,
+              "count": 1
+            }
+          ]
+        },
+        "parquet": {
+          "error_type": "ImportError",
+          "error": "Parquet requires pandas and a parquet engine"
+        }
+      },
+      "edges": {
+        "__main__->published.a03_r03.summarize": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 1
+        },
+        "published.a03_r03->published.a03_r03.iter_transform": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a03_r03->published.a00_r01.iter_rows": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._paths": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._row": {
+          "calls": 3,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._convert": {
+          "calls": 6,
+          "mutated": 0,
+          "exceptions": 0
+        }
+      },
+      "process_returncode": 0
+    },
+    {
+      "case": "upstream_conversion_intervention",
+      "outputs": {
+        "csv": {
+          "output": [
+            {
+              "team": "",
+              "sum": 0,
+              "mean": 0.0,
+              "count": 3
+            }
+          ]
+        },
+        "parquet": {
+          "error_type": "ImportError",
+          "error": "Parquet requires pandas and a parquet engine"
+        }
+      },
+      "edges": {
+        "__main__->published.a03_r03.summarize": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 1
+        },
+        "published.a03_r03->published.a03_r03.iter_transform": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a03_r03->published.a00_r01.iter_rows": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._paths": {
+          "calls": 2,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._row": {
+          "calls": 3,
+          "mutated": 0,
+          "exceptions": 0
+        },
+        "published.a00_r01->published.a00_r01._convert": {
+          "calls": 6,
+          "mutated": 6,
+          "exceptions": 0
+        }
+      },
+      "process_returncode": 0
+    }
+  ]
+}

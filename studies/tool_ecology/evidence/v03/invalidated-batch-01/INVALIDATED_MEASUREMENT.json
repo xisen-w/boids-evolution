@@ -1,0 +1,8 @@
+{
+  "status": "stopping_paid_batch_due_to_infrastructure_measurement_bug",
+  "timestamp": 1791521263.035253,
+  "bug": "Re-exported foreign checks enter from __main__ and were omitted from cross-author metrics.",
+  "consequence": "Incorrect reuse metrics were exposed in private feedback and read by agents; posthoc correction cannot reconstruct behavior under corrected feedback.",
+  "preserve": "All semantic service scores, raw trajectories, costs, completed societies and partial control retained. Do not combine with a corrected-protocol batch.",
+  "not_score_selected_stop": true
+}

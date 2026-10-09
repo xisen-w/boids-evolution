@@ -1,0 +1,7 @@
+# Sales table transforms
+
+Native Python package exposing `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup, request)`, and `window(rows, lookup, request)` at package root. Each takes a list of row dictionaries, lookup-row list (unused except by `lookup`), and request dictionary and returns new dictionaries without mutating inputs.
+
+`request.fill` is `zero` (default), `mean`, or `median`; missing units are filled from nonmissing units, with all-missing columns filled by zero. `request.agg` is `sum` (default), `mean`, or `count`. `request.window` is trailing row count (default 2). Region strings are stripped and lowercased. Revenue is units times price_cents, or `None` if either is missing. Group families omit null grouping keys; count counts non-null revenues. Lookup matches normalized region keys and returns revenue per target (null for unknown/zero/null target or null revenue).
+
+Example: `revenue([{'region':' North ', 'units':2, 'price_cents':50}], [], {'fill':'zero'})` returns a row with region `north` and `revenue_cents` 100. Input columns are retained, with derived columns appended; grouped outputs contain only the documented grouping and aggregate columns. Monthly extracts the first seven date characters. Dates are expected to use ISO YYYY-MM-DD; unusual date strings are not validated.

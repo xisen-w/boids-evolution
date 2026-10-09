@@ -1,0 +1,1 @@
+{"description":"Native Python implementations of row normalization, revenue, grouping, monthly grouping, lookup ratios, and trailing revenue windows.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

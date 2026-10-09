@@ -1,0 +1,3 @@
+# Tabular services
+
+Native Python package; no dependencies. Each public family function accepts `(rows, lookup, request)` and returns its documented service result without mutating inputs. `clean`, `revenue`, `group`, `monthly`, `lookup`, and `window` are available (also exported as corresponding `*_service` check adapters). Request supports `fill` (`zero`, `mean`, `median`; all-missing gives zero), `agg` (`sum`, `mean`, `count`), and `window` (row count). Revenue and window preserve region exactly; region normalization applies to clean, group, monthly, lookup. Example: `from candidate import group; group(rows, [], {'fill':'zero','agg':'sum'})`.

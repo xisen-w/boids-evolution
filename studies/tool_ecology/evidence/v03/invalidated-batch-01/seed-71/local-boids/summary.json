@@ -1,0 +1,11 @@
+{
+  "society": "seed-71/local-boids",
+  "original_correct_cross_author_requests": 600,
+  "corrected_correct_cross_author_requests": 900,
+  "original_cross_author_publications": 20,
+  "corrected_cross_author_publications": 25,
+  "replayed_publications": 47,
+  "service_scores_all_equal": true,
+  "intervened_foreign_entry_edges": 6,
+  "confirmed_noncrashing_edges": 6
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "society": "seed-71/independent",
+    "frozen": false,
+    "physical_requests": 114,
+    "input_tokens": 386113,
+    "output_tokens": 43536,
+    "cached_tokens": 277485,
+    "errors": 0
+  },
+  {
+    "society": "seed-71/local-boids",
+    "frozen": true,
+    "physical_requests": 224,
+    "input_tokens": 1146409,
+    "output_tokens": 64359,
+    "cached_tokens": 844071,
+    "errors": 0
+  },
+  {
+    "society": "seed-71/local-neutral",
+    "frozen": true,
+    "physical_requests": 243,
+    "input_tokens": 1185672,
+    "output_tokens": 74372,
+    "cached_tokens": 873458,
+    "errors": 0
+  }
+]

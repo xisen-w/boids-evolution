@@ -1,0 +1,677 @@
+[
+  {
+    "round": 1,
+    "publications": 8,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 5,
+      "monthly": 8,
+      "revenue": 3,
+      "window": 3
+    },
+    "redundant_author_family_pairs": 29,
+    "mean_author_profile_jaccard": 0.7321428571428571,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 0,
+    "correct_cross_author_requests": 0,
+    "correct_service_requests": 226,
+    "total_service_requests": 288,
+    "publications_with_correct_cross_author_requests": 0,
+    "correct_cross_author_publication_ids": [],
+    "correct_publications": 8,
+    "observed_cross_author_edges": []
+  },
+  {
+    "round": 2,
+    "publications": 16,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 8,
+      "monthly": 8,
+      "revenue": 8,
+      "window": 8
+    },
+    "redundant_author_family_pairs": 42,
+    "mean_author_profile_jaccard": 1.0,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 1,
+    "correct_cross_author_requests": 36,
+    "correct_service_requests": 514,
+    "total_service_requests": 576,
+    "publications_with_correct_cross_author_requests": 1,
+    "correct_cross_author_publication_ids": [
+      "a05_r02"
+    ],
+    "correct_publications": 16,
+    "observed_cross_author_edges": [
+      "published.a05_r02->published.a01_r01.lookup",
+      "published.a05_r02->published.a04_r01.clean",
+      "published.a05_r02->published.a04_r01.group",
+      "published.a05_r02->published.a04_r01.monthly",
+      "published.a05_r02->published.a04_r01.revenue",
+      "published.a05_r02->published.a04_r01.window"
+    ]
+  },
+  {
+    "round": 3,
+    "publications": 24,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 8,
+      "monthly": 8,
+      "revenue": 8,
+      "window": 8
+    },
+    "redundant_author_family_pairs": 42,
+    "mean_author_profile_jaccard": 1.0,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 2,
+    "correct_cross_author_requests": 72,
+    "correct_service_requests": 793,
+    "total_service_requests": 864,
+    "publications_with_correct_cross_author_requests": 2,
+    "correct_cross_author_publication_ids": [
+      "a05_r02",
+      "a05_r03"
+    ],
+    "correct_publications": 24,
+    "observed_cross_author_edges": [
+      "published.a05_r02->published.a01_r01.lookup",
+      "published.a05_r02->published.a04_r01.clean",
+      "published.a05_r02->published.a04_r01.group",
+      "published.a05_r02->published.a04_r01.monthly",
+      "published.a05_r02->published.a04_r01.revenue",
+      "published.a05_r02->published.a04_r01.window",
+      "published.a05_r03->published.a01_r01.lookup",
+      "published.a05_r03->published.a04_r01.clean",
+      "published.a05_r03->published.a04_r01.group",
+      "published.a05_r03->published.a04_r01.monthly",
+      "published.a05_r03->published.a04_r01.revenue",
+      "published.a05_r03->published.a04_r01.window"
+    ]
+  },
+  {
+    "round": 4,
+    "publications": 32,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 8,
+      "monthly": 8,
+      "revenue": 8,
+      "window": 8
+    },
+    "redundant_author_family_pairs": 42,
+    "mean_author_profile_jaccard": 1.0,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 3,
+    "correct_cross_author_requests": 108,
+    "correct_service_requests": 1081,
+    "total_service_requests": 1152,
+    "publications_with_correct_cross_author_requests": 3,
+    "correct_cross_author_publication_ids": [
+      "a05_r02",
+      "a05_r03",
+      "a05_r04"
+    ],
+    "correct_publications": 32,
+    "observed_cross_author_edges": [
+      "published.a05_r02->published.a01_r01.lookup",
+      "published.a05_r02->published.a04_r01.clean",
+      "published.a05_r02->published.a04_r01.group",
+      "published.a05_r02->published.a04_r01.monthly",
+      "published.a05_r02->published.a04_r01.revenue",
+      "published.a05_r02->published.a04_r01.window",
+      "published.a05_r03->published.a01_r01.lookup",
+      "published.a05_r03->published.a04_r01.clean",
+      "published.a05_r03->published.a04_r01.group",
+      "published.a05_r03->published.a04_r01.monthly",
+      "published.a05_r03->published.a04_r01.revenue",
+      "published.a05_r03->published.a04_r01.window",
+      "published.a05_r04->published.a01_r01.lookup",
+      "published.a05_r04->published.a04_r01.clean",
+      "published.a05_r04->published.a04_r01.group",
+      "published.a05_r04->published.a04_r01.monthly",
+      "published.a05_r04->published.a04_r01.revenue",
+      "published.a05_r04->published.a04_r01.window"
+    ]
+  },
+  {
+    "round": 5,
+    "publications": 39,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 8,
+      "monthly": 8,
+      "revenue": 8,
+      "window": 8
+    },
+    "redundant_author_family_pairs": 42,
+    "mean_author_profile_jaccard": 1.0,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 4,
+    "correct_cross_author_requests": 144,
+    "correct_service_requests": 1325,
+    "total_service_requests": 1404,
+    "publications_with_correct_cross_author_requests": 4,
+    "correct_cross_author_publication_ids": [
+      "a05_r02",
+      "a05_r03",
+      "a05_r04",
+      "a05_r05"
+    ],
+    "correct_publications": 39,
+    "observed_cross_author_edges": [
+      "published.a05_r02->published.a01_r01.lookup",
+      "published.a05_r02->published.a04_r01.clean",
+      "published.a05_r02->published.a04_r01.group",
+      "published.a05_r02->published.a04_r01.monthly",
+      "published.a05_r02->published.a04_r01.revenue",
+      "published.a05_r02->published.a04_r01.window",
+      "published.a05_r03->published.a01_r01.lookup",
+      "published.a05_r03->published.a04_r01.clean",
+      "published.a05_r03->published.a04_r01.group",
+      "published.a05_r03->published.a04_r01.monthly",
+      "published.a05_r03->published.a04_r01.revenue",
+      "published.a05_r03->published.a04_r01.window",
+      "published.a05_r04->published.a01_r01.lookup",
+      "published.a05_r04->published.a04_r01.clean",
+      "published.a05_r04->published.a04_r01.group",
+      "published.a05_r04->published.a04_r01.monthly",
+      "published.a05_r04->published.a04_r01.revenue",
+      "published.a05_r04->published.a04_r01.window",
+      "published.a05_r05->published.a04_r01.clean",
+      "published.a05_r05->published.a04_r01.group",
+      "published.a05_r05->published.a04_r01.monthly",
+      "published.a05_r05->published.a04_r01.revenue",
+      "published.a05_r05->published.a04_r01.window"
+    ]
+  },
+  {
+    "round": 6,
+    "publications": 47,
+    "verified_family_coverage": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "author_profiles": {
+      "a00": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a01": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a02": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a03": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a04": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a05": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a06": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ],
+      "a07": [
+        "clean",
+        "group",
+        "lookup",
+        "monthly",
+        "revenue",
+        "window"
+      ]
+    },
+    "verified_authors_per_family": {
+      "clean": 8,
+      "group": 8,
+      "lookup": 8,
+      "monthly": 8,
+      "revenue": 8,
+      "window": 8
+    },
+    "redundant_author_family_pairs": 42,
+    "mean_author_profile_jaccard": 1.0,
+    "sustained_specialists": [],
+    "correct_cross_author_publications": 4,
+    "correct_cross_author_requests": 144,
+    "correct_service_requests": 1558,
+    "total_service_requests": 1692,
+    "publications_with_correct_cross_author_requests": 4,
+    "correct_cross_author_publication_ids": [
+      "a05_r02",
+      "a05_r03",
+      "a05_r04",
+      "a05_r05"
+    ],
+    "correct_publications": 47,
+    "observed_cross_author_edges": [
+      "published.a05_r02->published.a01_r01.lookup",
+      "published.a05_r02->published.a04_r01.clean",
+      "published.a05_r02->published.a04_r01.group",
+      "published.a05_r02->published.a04_r01.monthly",
+      "published.a05_r02->published.a04_r01.revenue",
+      "published.a05_r02->published.a04_r01.window",
+      "published.a05_r03->published.a01_r01.lookup",
+      "published.a05_r03->published.a04_r01.clean",
+      "published.a05_r03->published.a04_r01.group",
+      "published.a05_r03->published.a04_r01.monthly",
+      "published.a05_r03->published.a04_r01.revenue",
+      "published.a05_r03->published.a04_r01.window",
+      "published.a05_r04->published.a01_r01.lookup",
+      "published.a05_r04->published.a04_r01.clean",
+      "published.a05_r04->published.a04_r01.group",
+      "published.a05_r04->published.a04_r01.monthly",
+      "published.a05_r04->published.a04_r01.revenue",
+      "published.a05_r04->published.a04_r01.window",
+      "published.a05_r05->published.a04_r01.clean",
+      "published.a05_r05->published.a04_r01.group",
+      "published.a05_r05->published.a04_r01.monthly",
+      "published.a05_r05->published.a04_r01.revenue",
+      "published.a05_r05->published.a04_r01.window"
+    ]
+  }
+]

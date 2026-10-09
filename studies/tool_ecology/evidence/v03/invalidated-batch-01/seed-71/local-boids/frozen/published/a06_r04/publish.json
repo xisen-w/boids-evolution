@@ -1,0 +1,1 @@
+{"description":"Composable row-table service adapters and multi-family dispatch, reusing verified implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

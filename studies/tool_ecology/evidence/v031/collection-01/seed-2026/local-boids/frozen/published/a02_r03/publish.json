@@ -1,0 +1,1 @@
+{"description":"Stable facade re-exporting the six independently verified tabular service families.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

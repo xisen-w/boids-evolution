@@ -1,0 +1,1 @@
+{"description":"Native implementations of six row-table transformation services, with revenue preserving region values exactly.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

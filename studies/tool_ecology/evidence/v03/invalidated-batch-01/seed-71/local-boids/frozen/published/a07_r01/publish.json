@@ -1,0 +1,1 @@
+{"description":"Pure Python non-mutating row table transformation adapters for clean, revenue, grouped, monthly, lookup-ratio and trailing-window services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

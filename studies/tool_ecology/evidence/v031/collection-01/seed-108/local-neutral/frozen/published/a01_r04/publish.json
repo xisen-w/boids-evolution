@@ -1,0 +1,1 @@
+{"description":"Reusable row-table service adapters backed by verified native implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a01_r02"],"checks":{"clean":"clean_service","revenue":"revenue_service","group":"group_service","monthly":"monthly_service","lookup":"lookup_service","window":"window_service"}}

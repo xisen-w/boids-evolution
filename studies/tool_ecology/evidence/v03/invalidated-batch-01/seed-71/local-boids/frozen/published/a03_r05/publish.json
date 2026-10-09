@@ -1,0 +1,1 @@
+{"description":"Selective multi-view dispatcher backed by verified native sales-table services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a01_r01"],"checks":{"clean":"clean_adapter","revenue":"revenue_adapter","group":"group_adapter","monthly":"monthly_adapter","lookup":"lookup_adapter","window":"window_adapter"}}

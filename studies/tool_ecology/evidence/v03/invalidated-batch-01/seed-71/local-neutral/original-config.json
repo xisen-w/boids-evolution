@@ -1,0 +1,19 @@
+{
+  "condition": "local-neutral",
+  "seed": 71,
+  "agents": 8,
+  "rounds": 6,
+  "steps": 6,
+  "workers": 4,
+  "ring": [
+    "a01",
+    "a03",
+    "a07",
+    "a02",
+    "a00",
+    "a06",
+    "a04",
+    "a05"
+  ],
+  "protocol": "v0.3-repeated-demand"
+}

@@ -1,0 +1,1 @@
+{"description":"Reusable pure-Python adapters for six row-table transformation services, reusing the verified a05 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

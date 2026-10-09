@@ -1,0 +1,1 @@
+{"description":"Reusable pure-Python row transformations, lookups, rolling and grouped revenue adapters, re-exporting verified implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

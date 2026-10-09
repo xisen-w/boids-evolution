@@ -1,0 +1,1 @@
+{"description":"Facade with six verified row-table service adapters and family dispatch, including multi-family execution.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

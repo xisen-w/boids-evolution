@@ -1,0 +1,1 @@
+{"description":"Reusable, input-preserving row-table transformations re-exported from the independently service-verified a06_r05 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

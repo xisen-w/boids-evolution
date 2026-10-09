@@ -1,0 +1,1 @@
+{"description":"Reusable entry points for six row-table services, composing the verified published a06_r02 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

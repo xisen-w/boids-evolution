@@ -1,0 +1,1 @@
+{"description":"Six reusable native Python tabular service adapters backed by the previously service-verified implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

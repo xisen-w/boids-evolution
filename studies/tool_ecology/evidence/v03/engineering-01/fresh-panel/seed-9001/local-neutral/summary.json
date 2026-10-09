@@ -1,0 +1,92 @@
+{
+  "seed": 9001,
+  "condition": "local-neutral",
+  "panel_seed": 31415926,
+  "panel_round": 99,
+  "evaluated_publications": 12,
+  "author_profiles": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "all_families": [
+    "clean",
+    "group",
+    "lookup",
+    "monthly",
+    "revenue",
+    "window"
+  ],
+  "after_author_removal": {
+    "a00": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a01": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a02": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "a03": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ]
+  },
+  "coverage_loss": {
+    "a00": 0,
+    "a01": 0,
+    "a02": 0,
+    "a03": 0
+  },
+  "fresh_verified_family_coverage": 6,
+  "best_author_coverage": 6,
+  "complementarity_coverage_gap": 0
+}

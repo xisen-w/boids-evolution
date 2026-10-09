@@ -1,0 +1,72 @@
+{
+  "societies": [
+    {
+      "society": "seed-108/independent",
+      "frozen": true,
+      "graded_opportunities": 48,
+      "physical_requests": 236,
+      "input_tokens": 836925,
+      "output_tokens": 70572,
+      "cached_tokens": 639500,
+      "errors": 0
+    },
+    {
+      "society": "seed-108/local-boids",
+      "frozen": true,
+      "graded_opportunities": 48,
+      "physical_requests": 224,
+      "input_tokens": 1083478,
+      "output_tokens": 65747,
+      "cached_tokens": 790157,
+      "errors": 0
+    },
+    {
+      "society": "seed-108/local-neutral",
+      "frozen": false,
+      "graded_opportunities": 8,
+      "physical_requests": 69,
+      "input_tokens": 224965,
+      "output_tokens": 26856,
+      "cached_tokens": 161242,
+      "errors": 1
+    },
+    {
+      "society": "seed-71/independent",
+      "frozen": true,
+      "graded_opportunities": 48,
+      "physical_requests": 230,
+      "input_tokens": 820355,
+      "output_tokens": 66831,
+      "cached_tokens": 587253,
+      "errors": 0
+    },
+    {
+      "society": "seed-71/local-boids",
+      "frozen": true,
+      "graded_opportunities": 48,
+      "physical_requests": 222,
+      "input_tokens": 1168942,
+      "output_tokens": 73730,
+      "cached_tokens": 855479,
+      "errors": 0
+    },
+    {
+      "society": "seed-71/local-neutral",
+      "frozen": true,
+      "graded_opportunities": 48,
+      "physical_requests": 237,
+      "input_tokens": 1191730,
+      "output_tokens": 76828,
+      "cached_tokens": 889525,
+      "errors": 0
+    }
+  ],
+  "all_attempt_usage": {
+    "physical_requests": 1218,
+    "input_tokens": 5326395,
+    "output_tokens": 380564,
+    "cached_tokens": 3923156,
+    "errors": 1
+  },
+  "timeout_usage": "unknown_not_free"
+}

@@ -1,0 +1,234 @@
+{
+  "classification": "posthoc_descriptive_analysis_of_existing_public_records",
+  "model_calls": 0,
+  "grader_calls": 0,
+  "replicates": "three societies per condition; matched workload/topology seeds, stochastic remote generation",
+  "condition_aggregates": {
+    "local-neutral": {
+      "publications": 140,
+      "adoption_publications": 26,
+      "post_round_one_publications": 116,
+      "correct_cross_author_cases": 936,
+      "nonempty_correct_cross_author_cases": 780,
+      "physical_requests": 696,
+      "input_tokens": 3466964,
+      "output_tokens": 213861,
+      "cached_tokens": 2576854,
+      "correct_cases": 4700,
+      "declared_cases": 5040,
+      "all_checks_direct_import_publications": 46,
+      "all_checks_import_or_simple_delegate_publications": 54,
+      "foreign_closure_publications": 26,
+      "post_round_one_adoption_rate": 0.22413793103448276,
+      "adoption_per_post_round_one_opportunity": 0.21666666666666667,
+      "conditional_case_accuracy": 0.9325396825396826,
+      "self_contained_six_authors": 20,
+      "root_ast_median": 822.5,
+      "all_checks_import_or_simple_delegate_adoption_publications": 19
+    },
+    "local-boids": {
+      "publications": 139,
+      "adoption_publications": 57,
+      "post_round_one_publications": 115,
+      "correct_cross_author_cases": 1932,
+      "nonempty_correct_cross_author_cases": 1607,
+      "physical_requests": 661,
+      "input_tokens": 3317264,
+      "output_tokens": 205653,
+      "cached_tokens": 2399887,
+      "correct_cases": 4598,
+      "declared_cases": 4884,
+      "all_checks_direct_import_publications": 63,
+      "all_checks_import_or_simple_delegate_publications": 71,
+      "foreign_closure_publications": 57,
+      "post_round_one_adoption_rate": 0.4956521739130435,
+      "adoption_per_post_round_one_opportunity": 0.475,
+      "conditional_case_accuracy": 0.9414414414414415,
+      "self_contained_six_authors": 13,
+      "root_ast_median": 114,
+      "all_checks_import_or_simple_delegate_adoption_publications": 39
+    },
+    "independent": {
+      "publications": 141,
+      "adoption_publications": 0,
+      "post_round_one_publications": 117,
+      "correct_cross_author_cases": 0,
+      "nonempty_correct_cross_author_cases": 0,
+      "physical_requests": 695,
+      "input_tokens": 2470848,
+      "output_tokens": 206737,
+      "cached_tokens": 1803280,
+      "correct_cases": 4840,
+      "declared_cases": 5076,
+      "all_checks_direct_import_publications": 50,
+      "all_checks_import_or_simple_delegate_publications": 61,
+      "foreign_closure_publications": 0,
+      "post_round_one_adoption_rate": 0.0,
+      "adoption_per_post_round_one_opportunity": 0.0,
+      "conditional_case_accuracy": 0.9535066981875493,
+      "self_contained_six_authors": 24,
+      "root_ast_median": 755,
+      "all_checks_import_or_simple_delegate_adoption_publications": 0
+    }
+  },
+  "boids_minus_neutral_by_seed": [
+    {
+      "seed": 71,
+      "adoption_publication_difference": 13,
+      "case_adoption_ratio": 4.166666666666667,
+      "conditional_accuracy_difference_pp": 2.1829067735635643,
+      "input_token_ratio": 0.9808782190596863,
+      "output_token_ratio": 0.9596761597334306,
+      "physical_request_difference": -15,
+      "self_contained_six_author_difference": -2
+    },
+    {
+      "seed": 108,
+      "adoption_publication_difference": 11,
+      "case_adoption_ratio": 2.2222222222222223,
+      "conditional_accuracy_difference_pp": 2.3561859732072477,
+      "input_token_ratio": 0.985160015602851,
+      "output_token_ratio": 0.9361135632314833,
+      "physical_request_difference": -1,
+      "self_contained_six_author_difference": -3
+    },
+    {
+      "seed": 2026,
+      "adoption_publication_difference": 7,
+      "case_adoption_ratio": 1.3076923076923077,
+      "conditional_accuracy_difference_pp": -1.9278606965174139,
+      "input_token_ratio": 0.9059148315304547,
+      "output_token_ratio": 0.990673513076543,
+      "physical_request_difference": -19,
+      "self_contained_six_author_difference": -2
+    }
+  ],
+  "failed_cases": 862,
+  "failed_field_sets": {
+    "region": 833,
+    "revenue_cents": 15,
+    "region + units": 9,
+    "units": 5
+  },
+  "original_collection_summary_unchanged": {
+    "classification": "final_recovered_exploratory_mechanism_summary",
+    "societies": 9,
+    "seeds": [
+      71,
+      108,
+      2026
+    ],
+    "opportunities": 432,
+    "publications": 420,
+    "publication_contract_failures": 3,
+    "skips": 9,
+    "admitted_six_service_publications": 416,
+    "admitted_single_service_publications": 4,
+    "first_round_six_service_declarations": 72,
+    "instrumentation_parity": {
+      "publications": 420,
+      "all_equal": true
+    },
+    "return_interventions": {
+      "selected": 72,
+      "noncrashing_correctness_loss": 71,
+      "unconfirmed": 1,
+      "unique_edges_within_societies": 70,
+      "unique_confirmed_functional_edges": 69,
+      "selection_unit": "publication-edge candidate; the same internal edge can recur under different root publications"
+    },
+    "common_panel": {
+      "seed": 31415926,
+      "round": 99,
+      "all_societies_cover_six": true,
+      "all_best_self_contained_author_histories_cover_six": true,
+      "all_collective_coverage_gaps_zero": true,
+      "all_single_author_removal_losses_zero": true
+    },
+    "condition_aggregate": {
+      "independent": {
+        "publications": 141,
+        "complete_six_publications": 115,
+        "correct_cross_author_requests": 0,
+        "correct_service_requests": 4840,
+        "total_declared_service_requests": 5076,
+        "physical_requests": 695,
+        "input_tokens": 2470848,
+        "output_tokens": 206737,
+        "cached_tokens": 1803280
+      },
+      "local-boids": {
+        "publications": 139,
+        "complete_six_publications": 103,
+        "correct_cross_author_requests": 1932,
+        "correct_service_requests": 4598,
+        "total_declared_service_requests": 4884,
+        "physical_requests": 661,
+        "input_tokens": 3317264,
+        "output_tokens": 205653,
+        "cached_tokens": 2399887
+      },
+      "local-neutral": {
+        "publications": 140,
+        "complete_six_publications": 99,
+        "correct_cross_author_requests": 936,
+        "correct_service_requests": 4700,
+        "total_declared_service_requests": 5040,
+        "physical_requests": 696,
+        "input_tokens": 3466964,
+        "output_tokens": 213861,
+        "cached_tokens": 2576854
+      }
+    },
+    "usage_accounting": {
+      "all_attempt_usage": {
+        "physical_requests": 2121,
+        "input_tokens": 9480041,
+        "output_tokens": 653107,
+        "cached_tokens": 6941263,
+        "errors": 1
+      },
+      "included_cell_usage": {
+        "physical_requests": 2052,
+        "input_tokens": 9255076,
+        "output_tokens": 626251,
+        "cached_tokens": 6780021,
+        "errors": 0
+      },
+      "discarded_attempt_usage": {
+        "physical_requests": 69,
+        "input_tokens": 224965,
+        "output_tokens": 26856,
+        "cached_tokens": 161242,
+        "errors": 1
+      },
+      "provider_money_cost": "unverified",
+      "timeout_request_usage": "unknown_not_free"
+    },
+    "limitations": [
+      "three societies per condition; no case-level significance",
+      "recovery selection and55/180s waiting disclosed",
+      "single-family persistence is a narrow correctness-dependent proxy",
+      "self-contained history does not imply original authorship or understanding",
+      "all-six publication count measures broad offerings and excludes successful narrow contributions",
+      "no paid single-agent or centralized baseline",
+      "prompt guidance is not original continuous Boids dynamics"
+    ],
+    "paid_work_ended": true,
+    "verification": {
+      "runtime_and_analysis_tests": 64,
+      "seconds": 31.03,
+      "ruff": "passed",
+      "generation_Git_blobs": 90,
+      "public_generated_code_is_immutable": true
+    }
+  },
+  "limitations": [
+    "No case-level significance or causal mediation claims",
+    "Posthoc metrics are explicitly descriptive",
+    "Declared closure ownership does not imply originality",
+    "Static syntax classifications do not establish dynamic necessity",
+    "Latest-version and historical-library coverage answer different questions",
+    "No new model calls, executions, probes, repairs or rescoring"
+  ]
+}

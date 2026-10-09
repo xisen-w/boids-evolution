@@ -1,0 +1,1 @@
+{"description":"Six row-table service adapters with a family-name dispatcher, backed by a verified reusable implementation.","capabilities":["clean","revenue","group","monthly","lookup","window","dispatch"],"dependencies":["a06_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

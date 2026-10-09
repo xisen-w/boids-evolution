@@ -1,0 +1,1 @@
+{"description":"Reusable adapters for six tabular transformation service families, built on verified native implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

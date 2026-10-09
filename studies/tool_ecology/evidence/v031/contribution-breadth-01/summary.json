@@ -1,0 +1,127 @@
+{
+  "classification": "posthoc_descriptive_mechanism_audit",
+  "societies": 6,
+  "admitted_publications": 280,
+  "declared_six_service_publications": 280,
+  "declared_single_service_publications": 0,
+  "round_one_declared_six": 48,
+  "round_one_pass_all_six": 3,
+  "model_calls": 0,
+  "limitation": "Declarations are not correctness or independently runnable expertise; generalist affordability is a hypothesis, not a causal intervention.",
+  "cells": [
+    {
+      "seed": 108,
+      "condition": "independent",
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "records_sha256": "3a41f990cd36ae45fdd35547009088f79ae489affa7482b2dadb90afdfef8b67",
+      "admitted_publications": 47,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 47
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 0
+    },
+    {
+      "seed": 108,
+      "condition": "local-boids",
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "records_sha256": "b85c8c9638980b0f9cd4e19af7232ad3f7a1086188d783fa6d963e63368f920e",
+      "admitted_publications": 45,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 45
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 1
+    },
+    {
+      "seed": 71,
+      "condition": "independent",
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "records_sha256": "535aff9cbf1e3448be88d63715f57b5aa815690d8bdbea4dbaea0c191d244273",
+      "admitted_publications": 48,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 48
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 1
+    },
+    {
+      "seed": 71,
+      "condition": "local-boids",
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "records_sha256": "9163116e7b5a71f84c52c0b9591982e04d39ca98a8ccf937aa210a6a5a799211",
+      "admitted_publications": 46,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 46
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 0
+    },
+    {
+      "seed": 71,
+      "condition": "local-neutral",
+      "generation_code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "records_sha256": "d4e98b74d16454fe362db1cbce1f53cb96ec75a2702500ff02c3e431dac3c78b",
+      "admitted_publications": 47,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 47
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 0
+    },
+    {
+      "seed": 108,
+      "condition": "local-neutral",
+      "generation_code_revision": "ff3588123181b0259e443276f42263b2d9a3cb45",
+      "records_sha256": "eb3e613707b2ebffc8ea43c6a9abc2250e24f8d042ab18208cc5a01389c65268",
+      "admitted_publications": 47,
+      "declared_service_breadth_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 47
+      },
+      "round_one_admitted": 8,
+      "round_one_declared_six": 8,
+      "round_one_pass_all_six": 1
+    }
+  ]
+}

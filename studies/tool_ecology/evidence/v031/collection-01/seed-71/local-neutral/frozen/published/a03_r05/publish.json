@@ -1,0 +1,1 @@
+{"description":"Convenience re-export of verified reusable sales-table transformations","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,1 @@
+Read-only focused review of c7e22a6 confirmed: rejected archives validate bounded trees; atomic feedback replaces symlinks; escaping relative imports rejected; named graders force-remove containers in finally. No blocking issue found in that limited scope. Reviewer did not change files or run the live pilot. Later image resolution change verified by unit and Docker regressions.

@@ -1,0 +1,15 @@
+{
+  "condition": "local-boids",
+  "seed": 9001,
+  "agents": 4,
+  "rounds": 3,
+  "steps": 6,
+  "workers": 4,
+  "ring": [
+    "a03",
+    "a02",
+    "a01",
+    "a00"
+  ],
+  "protocol": "v0.3-repeated-demand"
+}

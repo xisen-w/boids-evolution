@@ -1,0 +1,1 @@
+{"description":"Native row-oriented table services reusing the verified a07_r03 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,7 @@
+{
+  "classification": "descriptive_common_panel_dependency_provenance",
+  "summary_sha256": "2b8699802093c73498d549734e4c80fc18df23849553c9943a6214436dda7587",
+  "analysis_source_sha256": "3e23517d5bc9d7d7b90429a78edbfb107f3a34b9baf715e6b674081d8f75fcae",
+  "caveat": "Profiles are unions over published history, not current-package breadth, original authorship, independent understanding or assigned roles.",
+  "model_calls": 0
+}

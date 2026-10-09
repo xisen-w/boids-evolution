@@ -1,0 +1,1 @@
+{"description":"Native Python transformations for row tables, including revenue and trailing-window calculations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

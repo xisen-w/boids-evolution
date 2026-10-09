@@ -1,0 +1,1 @@
+{"description":"Verified reusable row-table transformation adapters.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a03_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

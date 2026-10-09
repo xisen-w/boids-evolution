@@ -1,0 +1,1 @@
+{"description":"Thin, stable root adapters for six recurring tabular service families, reusing the verified native implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a01_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

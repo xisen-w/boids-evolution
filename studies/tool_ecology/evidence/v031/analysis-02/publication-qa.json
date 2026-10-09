@@ -1,0 +1,46 @@
+{
+  "study_status": "closed; analysis only by explicit user instruction",
+  "experimental_model_calls": 0,
+  "grader_calls": 0,
+  "generated_tool_executions": 0,
+  "source_collection": "../collection-01",
+  "original_study_completion_revision": "9ce4a3f1a6e3268e74bf53693198877c39878dbd",
+  "input_hashes_verified": 461,
+  "analysis_outputs_exactly_reproduced": 9,
+  "manuscript_tables_exactly_regenerated": 4,
+  "Chinese_all_seed_rows_cross_checked": 9,
+  "manuscript_figure_pdfs_match": 10,
+  "offline_analysis_contract_tests": {
+    "passed": 5,
+    "seconds": 0.01,
+    "never_execute_generated_tools": true
+  },
+  "ruff": "all ecology/tests/scripts pass; all new analysis source formatting passes",
+  "local_markdown_links_checked": 51,
+  "pdf_exports": {
+    "paper/tool-ecology/main.pdf": {
+      "pages": 15,
+      "outside_page_words": 0,
+      "sha256": "2626463d47ebc9f6f6b92891dd85f8b5314c38b8c2811f416a01d96925cad185",
+      "visual_review": "all pages inspected; final Chinese table and principal figure inspected at enlarged resolution"
+    },
+    "docs/tool-ecology/DEEP_ANALYSIS_ZH.pdf": {
+      "pages": 11,
+      "outside_page_words": 0,
+      "sha256": "5da4f85bde89a497eabbb8627c64f378189d6eb2965dd5dccfde178153c6a758",
+      "visual_review": "all pages inspected; final Chinese table and principal figure inspected at enlarged resolution"
+    }
+  },
+  "tex_build": "both successful; no unresolved references, missing glyphs or overfull boxes",
+  "supplied_template_warning": "AAMAS class emits incomplete ifx warning, reproduced in a minimal Hello document; class preserved unchanged",
+  "automation": "boids PAUSED; prompt updated to prohibit further experiments",
+  "inferential_limits": [
+    "posthoc descriptive analysis",
+    "three independent societies per condition",
+    "case/publication/author counts are nested",
+    "no causal rule or mediation identification",
+    "no new single-agent or centralized baseline"
+  ],
+  "render_backend": "Python/matplotlib only; TeX document typesetting",
+  "export_text_encoding": "UTF-8; derived CSV LF; SVG whitespace normalized; upstream TeX templates preserved verbatim"
+}

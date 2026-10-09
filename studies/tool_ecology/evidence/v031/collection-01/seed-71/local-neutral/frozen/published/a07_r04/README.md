@@ -1,0 +1,5 @@
+# a07_r04
+
+Native Python transforms over lists of dictionaries. Public functions are `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup, request)`, and `window(rows, lookup, request)`. Each returns fresh dictionaries and does not modify inputs.
+
+Request options: `fill` is `zero`, `mean`, or `median` (default zero); `agg` is `sum`, `mean`, or `count` (default sum); `window` is a trailing row count. Missing values are `None`; all-missing fill becomes zero. Example: `revenue([{'region':' EAST ','units':2,'price_cents':50}], [], {'fill':'zero'})` derives revenue 100 and leaves region unchanged. `clean` and grouping/lookup normalize region with strip/lower. `group` produces `region` and `<agg>_revenue_cents`; `monthly` additionally groups on YYYY-MM. Group outputs omit missing group keys. Lookup adds only per-target revenue (not target/manager). Window averages nonmissing revenue in the trailing rows including current. Inputs are expected to follow the documented service schema; malformed numeric values/date values are not supported.

@@ -1,0 +1,1 @@
+{"description":"Focused region-normalized revenue-per-target lookup, reusing a verified implementation.","capabilities":["lookup"],"dependencies":["a00_r02"],"checks":{"lookup":"lookup"}}

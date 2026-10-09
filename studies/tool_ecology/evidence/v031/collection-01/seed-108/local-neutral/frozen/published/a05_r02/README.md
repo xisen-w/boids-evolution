@@ -1,0 +1,7 @@
+# a05_r02 table services
+
+Dependency-free native Python adapters for the six table service families. Public API: `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup_rows, request)`, and `window(rows, lookup, request)`. Each takes list-of-dict inputs and returns a new list; input mappings/lists are not mutated. Import, for example, `from candidate import revenue` (with `/workspace` on `PYTHONPATH`).
+
+Rows retain insertion order and original fields; derived fields are appended. Regions are stripped/lowercased (non-string/missing becomes `None`). `request.fill` supports `zero`, `mean`, and `median`; all-missing units fill to zero and even medians average the central values. `request.agg` supports `sum`, `mean`, and `count`; count ignores missing revenue, empty sum/count are zero, empty mean is `None`. Group outputs drop missing keys and sort by stringified keys. `request.window` is a trailing row count including current row; missing revenue is skipped within that window. Lookup matches normalized region keys and returns `None` for absent/zero targets or missing revenue. Date month is the first seven date characters, or missing when date is `None`.
+
+Example: `clean([{'region':' West ', 'units':None}], [], {'fill':'zero'})` returns `[{'region':'west','units':0}]`. Rows are expected to follow the documented table schema; aggregation names and fill policies are expected to be valid.

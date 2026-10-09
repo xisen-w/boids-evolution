@@ -1,0 +1,2278 @@
+[
+  {
+    "id": "a00_r01",
+    "author": "a00",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r02",
+    "author": "a00",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r04",
+    "author": "a00",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r05",
+    "author": "a00",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r06",
+    "author": "a00",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r01",
+    "author": "a01",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r02",
+    "author": "a01",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r03",
+    "author": "a01",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r04",
+    "author": "a01",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r05",
+    "author": "a01",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r06",
+    "author": "a01",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r01",
+    "author": "a02",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r02",
+    "author": "a02",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r03",
+    "author": "a02",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r04",
+    "author": "a02",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r05",
+    "author": "a02",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r06",
+    "author": "a02",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r01",
+    "author": "a03",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r02",
+    "author": "a03",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r03",
+    "author": "a03",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r04",
+    "author": "a03",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r05",
+    "author": "a03",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r06",
+    "author": "a03",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a04_r01",
+    "author": "a04",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a04_r02",
+    "author": "a04",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a04_r03",
+    "author": "a04",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a04_r05",
+    "author": "a04",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a04_r06",
+    "author": "a04",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r01",
+    "author": "a05",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r02",
+    "author": "a05",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r03",
+    "author": "a05",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r04",
+    "author": "a05",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r05",
+    "author": "a05",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a05_r06",
+    "author": "a05",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a06_r01",
+    "author": "a06",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a06_r02",
+    "author": "a06",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a06_r04",
+    "author": "a06",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a06_r05",
+    "author": "a06",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a06_r06",
+    "author": "a06",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r01",
+    "author": "a07",
+    "publication_round": 1,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 2,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r02",
+    "author": "a07",
+    "publication_round": 2,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r03",
+    "author": "a07",
+    "publication_round": 3,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r04",
+    "author": "a07",
+    "publication_round": 4,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r05",
+    "author": "a07",
+    "publication_round": 5,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a07_r06",
+    "author": "a07",
+    "publication_round": 6,
+    "passing_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  }
+]

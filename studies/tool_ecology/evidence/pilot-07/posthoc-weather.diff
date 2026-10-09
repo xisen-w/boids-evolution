@@ -1,0 +1,11 @@
+--- frozen-submission
++++ posthoc-diagnostic-only
+@@ -50,7 +50,7 @@
+   con.execute('pragma journal_mode=off');con.execute('pragma synchronous=off');con.execute('create table seen(src integer, st text, ts text, primary key(src,st,ts)) without rowid');con.execute('create table win(st text,ts text,day text,temp real,src integer,pri real,ord integer, primary key(st,ts)) without rowid')
+   quality=[]; source_names=set()
+   for oi,s in enumerate(m['sources']):
+-   name=s['source']; pri=float(s['priority']); files=paths(s['path']); fmt=str(s.get('format', {'csv':'csv','jsonl':'jsonl','ndjson':'jsonl','parquet':'parquet','pq':'parquet'}.get(os.path.splitext(files[0])[1].lower(),'')) if files else '').lower()
++   name=s['source']; pri=float(s['priority']); files=paths(s['path']); fmt=str(s.get('format', {'.csv':'csv','.jsonl':'jsonl','.ndjson':'jsonl','.parquet':'parquet','.pq':'parquet'}.get(os.path.splitext(files[0])[1].lower(),'')) if files else '').lower()
+    if not files: raise ValueError()
+    # require extension format
+    ext={'csv':('.csv',),'jsonl':('.jsonl','.ndjson'),'parquet':('.parquet','.pq')}.get(fmt)

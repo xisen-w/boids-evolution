@@ -1,0 +1,5 @@
+# Row services
+
+Import `clean`, `revenue`, `group`, `monthly`, `lookup`, or `window` from this package. Each callable accepts `(rows, lookup, request)` and returns new dictionaries without mutating inputs. Missing units use request `fill` (`zero`, `mean`, `median`; default zero; all-missing becomes zero). `clean` also strips/lowercases string regions. Revenue derivation fills units and adds `revenue_cents`, without changing region. Group and monthly normalize regions; `agg` is `sum`, `mean`, or `count` (default sum), and monthly groups by the first seven date characters. Lookup adds `revenue_cents_per_target`, using normalized exact region keys. Window adds a trailing-row mean in `roll_revenue_cents`; `window` is 2, 3, or 4 (default 2). Missing revenue is ignored in means and counts; empty group sums/counts are zero.
+
+Example: `revenue([{'units': 2, 'price_cents': 50}], [], {})` returns `[{'units': 2, 'price_cents': 50, 'revenue_cents': 100}]`. Unknown aggregation/fill and unsupported window sizes raise `ValueError`.

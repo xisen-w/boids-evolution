@@ -1,0 +1,1 @@
+{"description":"Small dispatchable facade to verified implementations of all six row-table service families.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r02"],"checks":{"clean":"serve_clean","revenue":"serve_revenue","group":"serve_group","monthly":"serve_monthly","lookup":"serve_lookup","window":"serve_window"}}

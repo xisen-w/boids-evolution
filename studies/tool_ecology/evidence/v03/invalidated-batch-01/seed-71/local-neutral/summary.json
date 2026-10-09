@@ -1,0 +1,11 @@
+{
+  "society": "seed-71/local-neutral",
+  "original_correct_cross_author_requests": 72,
+  "corrected_correct_cross_author_requests": 108,
+  "original_cross_author_publications": 2,
+  "corrected_cross_author_publications": 3,
+  "replayed_publications": 47,
+  "service_scores_all_equal": true,
+  "intervened_foreign_entry_edges": 6,
+  "confirmed_noncrashing_edges": 6
+}

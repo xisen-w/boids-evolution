@@ -1,0 +1,1 @@
+{"description":"Reusable lookup adapter backed by the previously verified a02_r01 implementation.","capabilities":["lookup"],"dependencies":["a02_r01"],"checks":{"lookup":"lookup"}}

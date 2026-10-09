@@ -1,0 +1,6 @@
+{
+  "classification": "observational_correct_request_execution_pairs",
+  "orientation": "executed provider -> actual caller or requested service-entry publication",
+  "caveat": "Weights count repeated service cases, not independent adoptions or causal effects. Nodes show served breadth including dependencies.",
+  "edges": []
+}

@@ -1,0 +1,1 @@
+{"description":"Facade for six verified, non-mutating tabular row service families.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r03"],"checks":{"clean":"serve_clean","revenue":"serve_revenue","group":"serve_group","monthly":"serve_monthly","lookup":"serve_lookup","window":"serve_window"}}

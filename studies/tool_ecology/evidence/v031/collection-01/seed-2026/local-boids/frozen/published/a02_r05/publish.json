@@ -1,0 +1,1 @@
+{"description":"Ordered multi-service batch dispatch and stable adapters reusing verified tabular transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

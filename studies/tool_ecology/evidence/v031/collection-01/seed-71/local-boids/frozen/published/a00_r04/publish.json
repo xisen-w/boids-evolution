@@ -1,0 +1,1 @@
+{"description":"Batch dispatcher and thin adapters for verified row-table services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a00_r02"],"checks":{"clean":"clean_service","revenue":"revenue_service","group":"group_service","monthly":"monthly_service","lookup":"lookup_adapter","window":"window_service"}}

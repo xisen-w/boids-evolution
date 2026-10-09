@@ -1,0 +1,1 @@
+{"description":"Native Python adapters for clean, revenue, group, monthly, lookup and trailing-window table transformations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

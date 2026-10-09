@@ -1,0 +1,1 @@
+{"description":"Non-mutating lookup enrichment with robust missing-unit fill and region-target rate calculation.","capabilities":["lookup"],"dependencies":[],"checks":{"lookup":"lookup"}}

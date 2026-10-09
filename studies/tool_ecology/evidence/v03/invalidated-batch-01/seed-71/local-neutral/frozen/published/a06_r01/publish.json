@@ -1,0 +1,1 @@
+{"description":"Pure Python row-table transformations for normalized, derived, grouped, looked-up, and rolling revenue data.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

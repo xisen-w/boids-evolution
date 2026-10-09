@@ -1,0 +1,1 @@
+{"description":"Reusable pure-Python adapters for six row-table services, re-exporting the verified a04_r05 implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a04_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

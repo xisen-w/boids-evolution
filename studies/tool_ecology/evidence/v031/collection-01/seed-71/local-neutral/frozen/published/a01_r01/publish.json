@@ -1,0 +1,1 @@
+{"description":"Native Python adapters for clean, revenue derivation, grouped and monthly aggregation, target lookup, and trailing-row revenue windows.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

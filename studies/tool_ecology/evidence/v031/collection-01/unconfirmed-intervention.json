@@ -1,0 +1,17 @@
+{
+  "classification": "posthoc_unconfirmed_return_intervention_explanation",
+  "seed": 2026,
+  "condition": "local-boids",
+  "id": "a05_r02",
+  "edge": "published.a05_r02->published.a00_r01._revenue_rows",
+  "correct_baseline_edge_hit_cases": [
+    {
+      "family": "lookup",
+      "index": 2,
+      "input_row_count": 0
+    }
+  ],
+  "reason": "The only correct request hitting this caller/helper edge has an empty row table. Shape-preserving return perturbation cannot alter an empty list. Mutations on already-incorrect requests do not establish loss of correctness.",
+  "interpretation": "Unconfirmed by this intervention; not evidence of absent execution or of functional necessity.",
+  "model_calls": 0
+}

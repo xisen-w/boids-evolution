@@ -1,0 +1,1 @@
+{"description":"Pure Python row-table services for normalization, revenue, aggregation, lookup, and trailing windows.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean_service","revenue":"revenue_service","group":"group_service","monthly":"monthly_service","lookup":"lookup_service","window":"window_service"}}

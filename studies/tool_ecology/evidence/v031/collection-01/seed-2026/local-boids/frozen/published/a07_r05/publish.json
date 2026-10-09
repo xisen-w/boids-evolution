@@ -1,0 +1,1 @@
+{"description":"Maintained stable API for six verified table transformation services, backed by a tested published implementation.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r04"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

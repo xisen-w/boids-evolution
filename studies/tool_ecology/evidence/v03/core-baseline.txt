@@ -1,0 +1,223 @@
+ss/Users/wangxiang/.local/share/boids-evolution/tests/test_batch.py:22: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp_9lyx7fk/batch_status.json' mode='r' encoding='UTF-8'>
+  st = json.load(open(os.path.join(out, "batch_status.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_batch.py:30: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp_9lyx7fk/IM_s07/FAILED.json' mode='w' encoding='UTF-8'>
+  json.dump({"error_type": "X"}, open(os.path.join(d, "FAILED.json"), "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+............E......E...........................EE.....s........../Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:282: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpru51u2_3/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(soc, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:284: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpru51u2_3/ENG_L0_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  json.dump(man, open(os.path.join(soc, "run_manifest.json"), "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.../Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:298: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmppdb93iji/ENG_L0_s01/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(out, "ENG_L0_s01", "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+./Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:199: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpmd0nhji_/L0_s01/utility_dev/utility.json' mode='r' encoding='UTF-8'>
+  written = json.load(open(os.path.join(soc, "utility_dev", "utility.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:204: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpmd0nhji_/L0_s01/utility_dev/solver_log.jsonl' mode='r' encoding='UTF-8'>
+  rows = [json.loads(l) for l in open(os.path.join(soc, "utility_dev", "solver_log.jsonl"))]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:212: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpmd0nhji_/L0_s01/utility_dev/frozen_library/acl.json' mode='r' encoding='UTF-8'>
+  acl = json.load(open(os.path.join(soc, "utility_dev", "frozen_library", "acl.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+./Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:99: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpf_9upwrl/L0_s01/library/index.json' mode='r' encoding='UTF-8'>
+  index = json.load(open(os.path.join(self.soc, "library", "index.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..../Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/library/index.json' mode='r' encoding='UTF-8'>
+  index = json.load(open(os.path.join(lib, "index.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:227: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/library/acl.json' mode='r' encoding='UTF-8'>
+  acl = json.load(open(os.path.join(lib, "acl.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:230: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/library/tools/a07_r99.py' mode='w' encoding='UTF-8'>
+  open(os.path.join(lib, "tools", tid + ".py"), "w").write(src)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:233: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/library/acl.json' mode='w' encoding='UTF-8'>
+  json.dump(acl, open(os.path.join(lib, "acl.json"), "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:239: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/library/index.json' mode='w' encoding='UTF-8'>
+  json.dump(index, open(os.path.join(lib, "index.json"), "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:243: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp38sr4r3_/L0_s01/utility/solver_log.jsonl' mode='r' encoding='UTF-8'>
+  log = [json.loads(l) for l in open(os.path.join(soc, "utility", "solver_log.jsonl"))]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+......./Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:426: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpeeqr5wco/pilot_report.json' mode='r' encoding='UTF-8'>
+  rep = json.load(open(os.path.join(out, "pilot_report.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+../Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:366: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_E_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  json.dump({"model": "dep-x", "model_client": "StubModel"},
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:366: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_L0_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  json.dump({"model": "dep-x", "model_client": "StubModel"},
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:366: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_R0_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  json.dump({"model": "dep-x", "model_client": "StubModel"},
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:366: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_IM_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  json.dump({"model": "dep-x", "model_client": "StubModel"},
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_R0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpnnlp17fb/ENG_IM_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+./Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_E_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_L0_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_R0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_R0_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_IM_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_IM_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_R0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_IM_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:381: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(man_p)); man["n_rounds"] = 10; json.dump(man, open(man_p, "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/tests/test_utility.py:381: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmp0itzj0ul/smoke/ENG_E_s9001/run_manifest.json' mode='w' encoding='UTF-8'>
+  man = json.load(open(man_p)); man["n_rounds"] = 10; json.dump(man, open(man_p, "w"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+./Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_E_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_L0_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_R0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_R0_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:63: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_IM_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  man = json.load(open(os.path.join(d, "run_manifest.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:71: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_IM_s9001/summary.json' mode='r' encoding='UTF-8'>
+  summ = json.load(open(os.path.join(d, "summary.json")))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_E_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_L0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_R0_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/smoke.py:126: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/fv/lkh46jcn57d1dj9hwqd535kw0000gq/T/tmpr_odxizn/smoke/ENG_IM_s9001/run_manifest.json' mode='r' encoding='UTF-8'>
+  m = json.load(open(mp))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....
+======================================================================
+ERROR: test_azure_client_constructed_without_network (tests.test_model.RetryTests.test_azure_client_constructed_without_network)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/tests/test_model.py", line 101, in test_azure_client_constructed_without_network
+    m = M.OpenAICompatModel("my-deployment", "FAKE_AZ_KEY_X", allow_spend=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/model.py", line 74, in __init__
+    raise PermissionError(f"refusing to load a model key: sandbox isolation is {isolation_level()!r}")
+PermissionError: refusing to load a model key: sandbox isolation is 'hook-only'
+
+======================================================================
+ERROR: test_transport_policy_and_required_api_version (tests.test_model.RetryTests.test_transport_policy_and_required_api_version)
+msg #134/#131: SDK retries off, explicit timeout; Azure api version never implicit.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/tests/test_model.py", line 115, in test_transport_policy_and_required_api_version
+    M.OpenAICompatModel("dep", "FAKE_AZ_KEY_Y", True, azure_endpoint="https://example.openai.azure.com")
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/model.py", line 74, in __init__
+    raise PermissionError(f"refusing to load a model key: sandbox isolation is {isolation_level()!r}")
+PermissionError: refusing to load a model key: sandbox isolation is 'hook-only'
+
+======================================================================
+ERROR: test_adoption_requires_prior_round_and_recorded_acl (tests.test_sac_sharing.EvidenceTests.test_adoption_requires_prior_round_and_recorded_acl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 148, in _separation
+    from sklearn.feature_extraction.text import TfidfVectorizer
+ModuleNotFoundError: No module named 'sklearn'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/tests/test_sac_sharing.py", line 56, in test_adoption_requires_prior_round_and_recorded_acl
+    bundle = build_evidence(fixture(), [1, 3], 3,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 365, in build_evidence
+    separation = _separation(pool, tool_evidence)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 152, in _separation
+    raise RuntimeError(
+RuntimeError: Original Boids separation evidence requires scikit-learn; install the project's declared scikit-learn dependency. No alternate similarity implementation is used, including for S=0 controls.
+
+======================================================================
+ERROR: test_nonempty_matched_evidence_all_toggles (tests.test_sac_sharing.EvidenceTests.test_nonempty_matched_evidence_all_toggles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 148, in _separation
+    from sklearn.feature_extraction.text import TfidfVectorizer
+ModuleNotFoundError: No module named 'sklearn'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/wangxiang/.local/share/boids-evolution/tests/test_sac_sharing.py", line 37, in test_nonempty_matched_evidence_all_toggles
+    bundle = build_evidence(snapshot, [1, 3], 3, source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 365, in build_evidence
+    separation = _separation(pool, tool_evidence)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wangxiang/.local/share/boids-evolution/boidsnet/runner/mechanisms.py", line 152, in _separation
+    raise RuntimeError(
+RuntimeError: Original Boids separation evidence requires scikit-learn; install the project's declared scikit-learn dependency. No alternate similarity implementation is used, including for S=0 controls.
+
+----------------------------------------------------------------------
+Ran 90 tests in 190.015s
+
+FAILED (errors=4, skipped=3)
+{
+ "ok": 4,
+ "failed": []
+}

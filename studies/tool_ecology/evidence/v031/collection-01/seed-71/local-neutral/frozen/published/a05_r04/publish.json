@@ -1,0 +1,1 @@
+{"description":"Reusable Python adapters for six verified tabular transformation services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a01_r01","a04_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

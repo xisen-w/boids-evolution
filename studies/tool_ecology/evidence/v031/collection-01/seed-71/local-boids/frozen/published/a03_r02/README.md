@@ -1,0 +1,4 @@
+# Row services
+Dependency-free Python functions accept `(rows, lookup, request)` and return new lists without mutating inputs. Public functions `clean`, `revenue`, `group`, `monthly`, `lookup`, and `window` implement the corresponding service families. Missing units are filled by `request['fill']` (`zero`, `mean`, or `median`; default zero; all-missing gives zero). Aggregation uses `request['agg']` (`sum`, `mean`, `count`; default sum). Window width is 2, 3, or 4 from `request['window']`.
+
+Example: `revenue([{'region':' EAST ','units':2,'price_cents':50}], [], {})` returns a copied row with normalized region `east` and `revenue_cents` 100. Revenue is `None` if either operand is missing. Group output omits missing keys; mean of empty valid values is `None`. Lookup region keys are used as given (lookup region strings should be normalized to match rows); no manager/target columns are added. Windows count positions (rows), not last nonmissing values.

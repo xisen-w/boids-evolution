@@ -1,0 +1,1 @@
+{"description":"Generic name-based dispatcher and six stable adapters reusing verified a02_r03 implementations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a02_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

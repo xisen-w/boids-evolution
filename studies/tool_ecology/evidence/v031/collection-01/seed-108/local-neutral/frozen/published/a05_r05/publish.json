@@ -1,0 +1,1 @@
+{"description":"Dependency-backed Python adapters for six table processing services.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a05_r03"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup_service","window":"window"}}

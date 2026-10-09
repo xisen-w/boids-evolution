@@ -1,0 +1,35 @@
+name: Native tool ecology offline verification
+on:
+  pull_request:
+    paths:
+      - 'studies/tool_ecology/**'
+      - 'boidsnet/env/**'
+      - '.github/workflows/tool-ecology-dev.yml'
+  push:
+    branches: [main, codex/tool-ecology-dynamics]
+    paths:
+      - 'studies/tool_ecology/**'
+      - 'boidsnet/env/**'
+      - '.github/workflows/tool-ecology-dev.yml'
+permissions:
+  contents: read
+jobs:
+  native-tool-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned host runtime
+        run: python -m pip install -r studies/tool_ecology/requirements-host.lock.txt
+      - name: Build pinned Python service environment
+        run: docker build -t boids-pyda:20261008 studies/tool_ecology/docker
+      - name: Verify offline native tool contracts
+        env:
+          PYTHONPATH: studies/tool_ecology
+          PYTHONPYCACHEPREFIX: /tmp/boids-ci-bytecode
+        run: |
+          python -m ruff check studies/tool_ecology/ecology studies/tool_ecology/tests studies/tool_ecology/scripts
+          python -m pytest studies/tool_ecology/tests -q

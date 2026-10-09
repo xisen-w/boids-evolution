@@ -1,0 +1,20 @@
+{
+  "all_attempt_usage": {
+    "physical_requests": 1672,
+    "input_tokens": 7239762,
+    "output_tokens": 520132,
+    "cached_tokens": 5307927,
+    "errors": 1
+  },
+  "included_cell_usage": {
+    "physical_requests": 1603,
+    "input_tokens": 7014797,
+    "output_tokens": 493276,
+    "cached_tokens": 5146685,
+    "errors": 0
+  },
+  "completed_cells": 7,
+  "planned_cells": 9,
+  "timeout_request_usage": "unknown_not_free",
+  "provider_money_cost": "unverified"
+}

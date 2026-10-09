@@ -1,0 +1,1 @@
+{"description":"Pure-Python row-preserving clean, revenue, lookup and rolling services plus regional and monthly aggregations.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":[],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

@@ -1,0 +1,230 @@
+% Official supplied AAMAS class; anonymous working draft, not submitted.
+\documentclass[sigconf,anonymous]{aamas}
+\usepackage{amsmath,booktabs,array,graphicx,xcolor}
+\definecolor{NeutralBlue}{HTML}{2878B5}
+\definecolor{BoidsOrange}{HTML}{D97932}
+\definecolor{IndependentGray}{HTML}{737C86}
+\definecolor{TextInk}{HTML}{243544}
+\newcommand{\neutralname}{\textcolor{NeutralBlue}{Local neutral}}
+\newcommand{\boidsname}{\textcolor{BoidsOrange}{Local Boids}}
+\newcommand{\independentname}{\textcolor{IndependentGray}{Independent}}
+\newcommand{\figfile}[1]{figures/#1.pdf}
+\makeatletter
+\gdef\@copyrightpermission{\begin{minipage}{0.2\columnwidth}\href{https://creativecommons.org/licenses/by/4.0/}{\includegraphics[width=0.90\textwidth]{by}}\end{minipage}\hfill\begin{minipage}{0.8\columnwidth}\href{https://creativecommons.org/licenses/by/4.0/}{This work is licensed under a Creative Commons Attribution International 4.0 License.}\end{minipage}\vspace{5pt}}
+\makeatother
+\setcopyright{ifaamas}
+\acmConference[AAMAS 2027]{Proc.\@ of the 26th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2027)}{3--7 May 2027}{Hanoi, Vietnam}{M.~Baldoni, F.~Fang, W.~Yeoh, N.~Yorke-Smith (eds.)}
+\copyrightyear{2027}\acmYear{2027}\acmDOI{}\acmISBN{}
+\acmSubmissionID{1867}\submissionType{Research Paper Track}
+\title[Revisiting Boids through Tools]{Revisiting Boids: Tool Adoption without Sustained Complementary Specialization}
+\author{Xisen Wang}\author{Qi Zhang}
+
+\begin{abstract}
+\textbf{Background.} Boids shows how simple local rules can generate collective motion, but their transfer to language-model collaboration remains unclear.
+\textbf{Motivation.} We are motivated to study whether tool-mediated local interactions organize complementary contributions without assigned roles, distinguishing adoption from specialization.
+\textbf{Experiment.} We compare local Boids, local neutral and independent generation across nine eight-agent societies, three seeds per condition and six rounds. This recovered exploratory collection supports execution audits, dependency interventions and author-removal analyses.
+\textbf{Findings.} We find (1) more correct cross-author adoption under Boids: 57/115 post-initial publications versus 26/116 under neutral; (2) functional reuse: 69/70 selected unique dependency edges have noncrashing correctness-loss witnesses, while all 420 publication scores remain unchanged without instrumentation; and (3) no sustained verified single-family contributions or demonstrated necessary complementarity: final collective family coverage equals the best self-contained author history in every society, and author-plus-dependent removals preserve coverage. Local rules can organize tool dependencies without demonstrated sustained complementary specialization. Three seeds per condition, short runs and saturated coverage limit generalization.
+\end{abstract}
+\ccsdesc[500]{Computing methodologies~Multi-agent systems}
+\keywords{emergent collaboration, local rules, Boids, tool building, specialization, executable artifacts}
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+Agents can exchange useful artifacts without developing complementary roles. They may reuse complete solutions, retain overlapping capabilities, or depend on neighbors while adding no new group capability. Task accuracy alone cannot distinguish these outcomes.
+
+We study this distinction in a society of language-model agents that repeatedly build and exchange executable tools. Tools persist beyond the interaction that produced them. Published source, interfaces, dependencies and execution records make contributions attributable; return interventions test whether another author's code matters for a successful computation.
+
+Boids supplies simple concepts for local organization. Reynolds connects collision avoidance, velocity matching and local centering to collective motion~\cite{reynolds1987flocks}. We translate this vocabulary into guidance about avoiding redundant construction, reusing useful neighbor interfaces and fitting recurring needs. These modeling choices provide neither physical steering equations nor cognitive guarantees.
+
+Our question is: \emph{Which aspects of organization appear when Boids-inspired local guidance acts through tools, and where does this translation fail to produce complementary collaboration?} Eight agents receive identical opportunities, without assigned specialties, over six rounds. Three workload/topology seeds compare local Boids, local neutral and independent builders pooled afterward. Remote generation remains stochastic; failures and whole-society recoveries are disclosed.
+
+The evidence separates correct adoption, self-contained author capability, persistent narrow contributions and collective coverage. Boids has more adopting publications in every seed match. Yet broad offerings dominate and no final society exceeds its best self-contained author history. Our contribution is an interpretable account of dependency organization and its limits, rather than a benchmark win or an assumption that these tasks require multiple agents.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig01-tool-communication}}
+\caption{Tools as communication and evidence. The implemented pipeline freezes views, admits immutable packages and supplies next-round feedback. Availability, correct adoption, a functional effect and collective coverage are distinct questions; none implies the next. The lower line gives diagnostic limits, not a claim that every failure occurred.}
+\Description{A four-stage executable communication pipeline and four distinct levels of evidence.}
+\label{fig:communication}
+\end{figure*}
+
+\section{Related Work}
+\input{related_work}
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig02-boids-mapping}}
+\caption{The current Boids mapping. Three physical concepts motivate prompt hints, observable quantities and failure hypotheses. The implemented local study has no continuous steering law, adaptive neighborhoods or automatic enforcement of specialization. This is the v0.3.1 native-tool protocol, not the earlier global-catalogue pilot.}
+\Description{Three rows map separation, alignment and cohesion to implemented guidance and measurable outcomes.}
+\label{fig:mapping}
+\end{figure*}
+
+\section{Tools as Interaction}\label{sec:medium}
+\paragraph{Versions and views.} Eight authors operate in synchronous rounds. A publication is native Python code with an immutable identifier, interface documentation, declared dependencies and service adapters. Internal functions, classes and modules are unrestricted; adapters provide host-checkable boundaries rather than a fixed operation language.
+
+Before each round, the host freezes every agent's view. Local agents receive their own history and permitted neighbor packages, with declared dependency closures. All sessions finish before admission, grading and next-round release. Scheduling therefore cannot reveal same-round work. Dependencies point to earlier versions, forming an acyclic graph; private workspaces persist. A seeded fixed ring defines neighbors, although transitive closures can carry earlier non-neighbor contributions. Independent agents receive only own history, with their final libraries pooled.
+
+
+\paragraph{Observable effects.} Tools support provenance, composition and behavioral intervention (Figure~\ref{fig:communication}). A successful import is weaker than a correct executed request; a noncrashing correctness-loss witness tests a task-relative functional effect. Neither establishes advantage over rebuilding or substitutes. Unlike a bird's current movement, an old library remains available after its author changes direction. Identical served profiles can thus conceal different dependency and maintenance patterns.
+
+Source and finite checks do not establish formal correctness, originality or independent understanding. Copied code may be self-contained. Native, reflective and generator execution is incompletely traced. These limits apply to every interpretation below.
+
+\section{Study and Measures}\label{sec:design}
+\subsection{Tasks and conditions}
+All agents receive six recurring opportunities: cleaning, revenue calculation, grouping, monthly aggregation, target lookup and rolling means. Inputs vary missing values, capitalization, whitespace, dates and parameters. Downstream services consume newly produced values, including normalized regions and revenue. This is a controlled tool ecology, not an external programming benchmark.
+
+After each session, the host checks every declared service on six new DEV cases inaccessible to generated programs, alongside the reference implementation. Next-round feedback aggregates per-service results. Empty tables are valid. Outputs must preserve specified keys and order, meet numerical tolerance and avoid input mutation. Agents can declare any service subset, so a correct narrow publication is not penalized for omissions. Of 432 opportunities, 420 admit packages, three violate the publication contract and nine skip. All attempts enter opportunity and cost accounting; sealed TEST cases remain unopened.
+
+The common prompt permits narrow or general capabilities, requests correctness and discourages needless reimplementation. \neutralname{} adds general evidence-based contribution guidance. \boidsname{} adds the bundled triad in Figure~\ref{fig:mapping}: avoid redundant construction where useful neighbor code exists (separation), reuse verified useful interfaces (alignment), and fit recurring needs and recent capabilities (cohesion). Repair remains allowed. \independentname{} uses neutral guidance with own-history visibility. Boids versus neutral therefore compares bundled prompts under identical local access, not permission versus prohibition on reuse; individual rule effects are unidentified.
+
+
+\subsection{Budget and recovery}
+The existing GPT-6-Luna runner uses AgentPort, low reasoning effort, at most 3,000 output tokens per call, six calls per agent-turn and four workers. Model fallback and SDK retries are disabled. Nominal opportunities and action budgets match; realized consumption is reported.
+
+The corrected batch completed five societies before a transport timeout interrupted a sixth, consuming 69 partial-cell calls. Four missing cells were generated as fresh whole societies. Recovery changed waiting from 55 to 180 seconds and manifest metadata, retaining prompts, workload, grader, model and budgets. Table~\ref{tab:cost} discloses per-cell revisions. The aborted directory is preserved; this is a recovered exploratory collection, not an uninterrupted uniform-revision batch. An earlier batch whose re-export attribution bug reached feedback is invalidated and excluded.
+
+\begin{table*}[t]
+\centering\small\setlength{\tabcolsep}{4pt}\input{tables/cost-provenance}
+\caption{Every valid society's usage and generation source. Cached input is a subset of input. Wait is client timeout, not run duration. The failed partial society adds 69 calls, retained separately in total accounting; no currency conversion is claimed. Recovery cells remain distinct from the aborted batch.}
+\label{tab:cost}
+\end{table*}
+
+\subsection{Measures}
+\paragraph{Adoption.} A publication adopts foreign code if a correct original DEV request executes a cross-author edge. Adopting publications and case requests are separate counts. Round one has no received tools; the main rate uses admitted publications in rounds 2--6, accompanied by rates per all 120 post-initial opportunities. Cases, publications and authors remain nested in societies, the treatment units.
+
+\paragraph{Capability.} Using an already archived common fresh DEV panel, let $P(u)$ be the families fully passed by publication $u$. Self-contained publications have entirely same-author declared dependency closures. Define served and own-author historical coverage as
+\begin{align}
+H_a(r)&=\bigcup_{u:\,\mathrm{author}(u)=a,\,\mathrm{round}(u)\le r}P(u),\\
+H_a^{\rm own}(r)&=\bigcup_{u:\,\mathrm{author}(u)=a,\,\mathrm{round}(u)\le r,\,\mathrm{own}(u)}P(u).
+\end{align}
+The descriptive collective increment is
+\begin{equation}\label{eq:gap}
+G(r)=\left|\bigcup_a H_a(r)\right|-\max_a|H_a^{\rm own}(r)|.
+\end{equation}
+Histories union versions, not necessarily one callable package. We also compute the analogous contrast from each author's latest admitted version. Neither is a paid single-agent baseline.
+
+\paragraph{Persistence and removal.} The prespecified narrow proxy requires an author to fully pass exactly one family for three consecutive rounds. This differs from declaring one family and misses broader or intermittent roles. Structural removal deletes an author and all transitively dependent packages, measuring lost family coverage from archived common-panel scores without adaptation.
+
+\paragraph{Functional evidence.} Plain replay checks score parity with instrumentation. Return interventions require an originally correct request to lose correctness without crashing or mutating inputs. Deterministic round/publication/edge order selects the first 12 eligible publication--edge candidates per local society. A repeated internal edge under different roots yields multiple records, not unique edges. Witnesses do not exclude substitutes.
+
+\paragraph{Posthoc analysis.} New descriptions read archived records, graphs, source and scores; they execute no generated tool, grader, repair or model. Imported-adapter and single-return-delegate labels describe root syntax. Root AST size excludes dependencies and does not measure effort, originality or complexity. No case-level significance or mediation tests are reported.
+
+\section{Results}\label{sec:results}
+\begin{table*}[t]
+\centering\small\setlength{\tabcolsep}{4.5pt}
+\input{tables/all-societies}
+\caption{All nine societies, each with 48 opportunities. Adoption is adopting publications divided by admitted publications after round one. Cross cases count correct foreign-tool requests, not distinct cooperative events. Own-six counts authors whose self-contained history passes all six families on the common fresh panel. Gain is Equation~\ref{eq:gap} at round six. All-six counts broad offerings; it is not a division-of-labour quality score. Colors have the same meaning throughout.}
+\label{tab:all}
+\end{table*}
+
+\subsection{Adoption and functional evidence}
+Boids has 17, 20 and 20 adopting publications for seeds 71, 108 and 2026; neutral has 4, 9 and 13. Post-initial admitted rates are 57/115 (49.6\%) versus 26/116 (22.4\%); per 120 opportunities they are 47.5\% versus 21.7\%. Thus the contrast survives moving from repeated cases to publication opportunities (Table~\ref{tab:all}, Figure~\ref{fig:main}).
+
+Correct cross-author requests total 1,932 Boids versus 936 neutral, or 1,607 versus 780 excluding empty inputs. Fifteen of 24 Boids authors adopt at least once, compared with eight of 24 neutral authors. Every seed match has more adopting publications and authors under Boids; three small societies per condition do not establish a population-level causal effect.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig03-main-results}}
+\caption{All society endpoints. Marker shape identifies the workload/topology seed; faint lines join neutral and Boids seed matches, not deterministic model counterfactuals. More publications adopt foreign code (a), fewer authors have a complete self-contained history (b), and all final family-coverage increments are zero (c). No case-based confidence interval is used.}
+\Description{Three panels show adoption rates, self-contained six-family authors and zero final collective coverage increment.}
+\label{fig:main}
+\end{figure*}
+
+All 420 instrumented/plain publication scores match. The 72 selected intervention records cover 70 unique edges within societies. Seventy-one records, involving 69 unique edges, have noncrashing correctness-loss witnesses. This supports task-relative functional contributions among selected edges, not universal necessity.
+
+The unconfirmed edge reaches a helper whose only originally correct case is an empty table. Shape-preserving return perturbation cannot change an empty list; perturbing incorrect cases cannot demonstrate correctness loss. The candidate is retained rather than replaced.
+
+\subsection{Dependence without complementary coverage}
+All authors' final cumulative served profiles cover six services, giving served-family Jaccard overlap 1.0 in every society. This concerns available categories, not implementation or understanding. Self-contained histories differ: neutral has 7/8, 7/8 and 6/8 six-family authors; Boids has 5/8, 4/8 and 4/8; independent has 8/8 in every seed. Eleven of 24 Boids authors versus four of 24 neutral authors supplement incomplete own histories through dependencies. Figure~\ref{fig:provenance} retains all graphs, publications and ownership profiles.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig05-society-atlas}}
+\caption{All nine societies, with no selected examples omitted. Left: correct original-request author graphs, provider $\to$ caller; node identities are fixed, edges unweighted. Right: all 432 opportunities, authors 0--7 by rounds 1--6; numbers count fully passing declared families on original round DEV cases. $\times$ denotes skip/rejection; zero is an admitted package passing no complete family. Outlines mark lookup-only declarations. After the white divider, O/S give final own/served historical breadth on the archived common fresh panel. Version unions are not single packages. The author projection may cycle; version dependencies cannot.}
+\Description{Nine graph and matrix pairs retain all societies, publications and author histories.}
+\label{fig:provenance}
+\end{figure*}
+
+The graphs also change at the author level: neutral has 2, 3 and 4 unique provider-to-caller pairs, versus 7, 6 and 8 under Boids; independent has none. Edges aggregate correct requests across versions, so they reveal who has served whom, not simultaneous dependence or independent cooperative events. An author can supply another author early and borrow back later, producing an author-level cycle while the version graph remains acyclic. More pairs establish broader observed exchange, not a complementary allocation of the six functions.
+
+Every final society covers six families, matching its best self-contained history: $G(6)=0$ throughout. The final latest-version contrast is also zero. All 72 author-plus-dependent-package removals lose zero categories. These endpoints demonstrate no necessary complementarity at the family level; they do not measure substitution cost, implementation interchangeability or adaptive recovery.
+
+All societies reach collective and best-own six-family historical coverage by round two (Table~\ref{tab:mechanism}). Neutral seed 71 and Boids seed 2026 briefly have $G(1)=1$: independent packages jointly cover six while the best author covers five. No tool exchange has occurred. Both gaps vanish in round two, with every later historical and latest-version gap zero. This transient pooling benefit therefore precedes social reuse.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig04-dynamics}}
+\caption{All seed trajectories. The upper row counts adopting publications among eight opportunities in each original round. The lower row counts authors with six-family self-contained histories using the common fresh panel. Increased adoption and incomplete own-author breadth can coexist. Original round checks and common-panel history checks remain separate measurements.}
+\Description{Six line plots show adoption and self-contained capability trajectories for all seeds and conditions.}
+\label{fig:dynamics}
+\end{figure*}
+
+\subsection{Narrow declarations do not persist}
+Of 420 admitted packages, 416 declare six services, including all 72 first-round packages. Only four declare lookup alone, all in seed 2026 Boids: three pass 6/6 cases, one 1/6. No society satisfies the sustained verified single-family proxy.
+
+Author a00 wraps a neighbor's lookup in round two, delegates to its own wrapper in round three while retaining the foreign closure, then rewrites a self-contained lookup in round four. Scores move from 6/6 and 6/6 to 1/6. Rounds five and six re-export a broad neighbor library, passing all families. Author a01 narrows for just one round.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig07-narrow-trajectory}}
+\caption{Seed 2026 Boids author a00: the only three-round narrow-declaration sequence. The rewrite interrupts correctness before a return to broad foreign exports. This archived trajectory is unchanged by the previously recorded isolated repair.}
+\Description{Six rounds move from broad services through narrow wrappers and a failed lookup rewrite to broad exports.}
+\label{fig:narrow}
+\end{figure*}
+
+An existing isolated diagnosis found that a00 computed a normalized region without writing it back to the output row. One-line writeback changed that archived diagnostic from 1/6 to 6/6. Original code, freeze and scores remain unchanged. This explains one generated-program defect, not a Boids-caused defect or a manually repaired observed role.
+
+Static syntax further distinguishes interfaces from providers: 19/26 neutral and 39/57 Boids adopting packages expose all checks through imported adapters or simple single-return delegates. Broad providers can serve narrow wrappers. These reproducible labels do not establish that wrappers contribute nothing or that providers lack substitutes.
+
+\begin{table*}[t]
+\centering\small\setlength{\tabcolsep}{4pt}\input{tables/mechanism-details}
+\caption{All-seed mechanism descriptions. Foreign: packages with foreign declared closures. Aliases: all checks imported or simple single-return delegates, including own reuse. AST medians exclude dependencies. Pairs: directed author execution pairs. Group/Own 6: first common-panel rounds of complete group/best self-contained historical coverage. Accuracy conditions on admitted declarations.}
+\label{tab:mechanism}
+\end{table*}
+
+\section{Reliability and Resources}\label{sec:cost}
+All-six publication counts are 99 neutral, 103 Boids and 115 independent, describing reliable broad offerings rather than specialization quality. Among admitted declared cases, correctness is 4,700/5,040 (93.25\%), 4,598/4,884 (94.14\%) and 4,840/5,076 (95.35\%), respectively. Declaration-dependent denominators give neither credit nor penalty for omitted services. Boids-minus-neutral contrasts are +2.18, +2.36 and -1.93 percentage points across seeds, not a consistent reliability gain.
+
+\begin{table}[t]
+\centering\small\setlength{\tabcolsep}{4pt}\input{tables/service-reliability}
+\caption{Original DEV correctness by declared family: correct/declared cases (percentage). Counts pool three societies descriptively, not as independent case replicates.}
+\label{tab:reliability}
+\end{table}
+
+Among 15,000 declared cases, 862 fail through mismatched output values or keys: 833 region only, 15 revenue only, nine region plus units, and five units only. Revenue and window failures are prominent in every condition (Figure~\ref{fig:resources}). Mismatched fields locate output contracts, not a shared code cause or a rule effect.
+
+Pooled root AST medians are 822.5 neutral, 114 Boids and 755 independent, excluding imported code. Seed composition matters: seed 2026 neutral and independent medians are smaller than Boids. All society values accompany the pooled summary (Table~\ref{tab:mechanism}).
+
+Valid Boids cells use 661 calls, 3.317 million input and 205,653 output tokens; neutral uses 696 calls, 3.467 million input and 213,861 output; independent uses 695 calls, 2.471 million input and 206,737 output. Boids roots are smaller in the pooled comparison, yet input is 34.3\% higher than independent with similar output. Local access changes context, so code size cannot establish cheaper interaction. Cached tokens are a subset of input; monetary prices and equivalent-performance efficiency are unverified.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=\textwidth]{\figfile{fig06-cost-reliability}}
+\caption{Resources and reliability. Shapes follow Figure~\ref{fig:main}, retaining every society. (a) Root AST median excludes dependencies; (b,c) input and output tokens, with cached input included. (d) Declared-service failure rates; Table~\ref{tab:reliability} gives denominators. (e) The 862 mismatches by output field; field differences do not identify a common code cause. Smaller submitted roots do not establish cheaper collaboration.}
+\Description{All-seed code and token points, service failures and mismatched-field counts.}
+\label{fig:resources}
+\end{figure*}
+
+\section{Discussion}\label{sec:discussion}
+\paragraph{What transfers.} Correct adoption, functional witnesses and ownership profiles consistently show changed dependency organization under the local triad. Served profiles alone conceal it: everyone eventually offers six categories. However, borrowing a generalist library can relocate maintenance without making the borrower a necessary specialist. More edges and differing ownership do not establish complementary contributions.
+
+\paragraph{What changes in the translation.} Physical separation prevents spatial collision; alignment coordinates movement. In this ecology, avoiding redundant construction and matching useful interfaces can both favor delegation to one broad provider. This interpretation fits wrappers and histories but is not an identified mediation pathway. Cohesion targets an externally fixed menu rather than endogenously discovered demand. Persistent early libraries remain useful as coverage saturates, changing both the object of separation and the temporal role of collective memory.
+
+\paragraph{Why specialization was not demonstrated.} By round two, every society has a self-contained author history covering all needs. Almost every package declares the entire menu, even before exchange. Broad capability therefore appears affordable under current tasks and budgets, a design hypothesis rather than proof that difficulty or resource pressure causes specialization. This local negative result does not generalize to Boids universally; single-agent and centralized-allocation controls were not run.
+
+\paragraph{Two distinct counterfactuals.} Return interventions and structural removal ask different questions. The former changes a selected executed value under a fixed successful request; the latter removes a provider's entire dependent closure and examines the surviving category inventory. A tool can be functionally important for one computation while another self-contained package preserves every category after removal. Thus the 69 witnessed unique edges and 72 zero-loss removals are compatible. Neither test models the effort to find a substitute, regain reliability or maintain it over time. The current evidence supports correct use and redundant family coverage simultaneously.
+
+\paragraph{An ecology rather than a leaderboard.} A task benchmark usually ranks solvers against a stable success criterion. Here, recurring tasks provide observable demand through which agents can organize. Reliability remains essential, but a higher all-six count favors broad packages by definition and cannot identify division of labour. Conversely, different ownership profiles do not establish a useful collective if one author already covers the menu. Evaluating organization therefore requires both the interaction trace and a capability contrast. The present task distribution exposes their separation but saturates too early to demonstrate a necessary group-level advantage.
+
+\paragraph{The interpretable boundary.} Independent pooling briefly adds a category before exchange; subsequent functional dependencies become common without lasting coverage gain. A narrow API appears, then an implementation defect interrupts correctness before broad exports return. Separating transmission, functional effect, dependence, persistence and collective capability preserves these distinct outcomes. Tools enable their inspection while leaving the utility of the resulting organization unsettled.
+
+\section{Limitations and Reproducibility}
+Three societies per condition, one endpoint, six rounds and six families limit generalization. Seeds align data/topology, not remote sampling. Recovery selection, different transport waits and possible service drift limit comparisons. The triad is bundled; access changes context volume. Historical unions may overstate currently packaged capability, although final latest-version gains are also zero. Category coverage saturates and does not measure reliability or maintenance gains. Structural removal excludes adaptation; own-author closure excludes declared foreign dependencies, not copied code or claims about understanding.
+
+Failures also have different evidential roles. The invalidated attribution bug changes what agents were told and invalidates that earlier comparison; recovery timeouts affect transport and selection. In contrast, an admitted agent's incorrect rewrite is an observed tool-building reliability failure. It can interrupt a candidate role without establishing a systematic failure of the local-rule idea. The diagnosis explains one program, without repairing the society retrospectively or explaining every mismatch.
+
+Finite DEV probes and incomplete tracing limit semantics; TEST remains sealed. Selected interventions leave one empty-input edge unconfirmed. Generated-code defects and contract rejections remain separate from the invalidated infrastructure bug and transport failure.
+
+The corrected study used 2,121 physical requests including 69 partial-cell calls, below its 2,592 ceiling. Known usage is 9,480,041 input, 653,107 output and 6,941,263 cached-input tokens; one timeout has unknown billing. Earlier engineering/invalidated attempts are separately archived. This revision uses zero model and grader calls. Sanitized packages, all-seed tables, revisions, prior scores, interventions and source-linked analyses are available; credentials and raw responses remain private. Host guarantees cover budgets, temporal visibility, immutable versions and finite contracts, not program correctness or emergent specialization.
+
+\section{Conclusion}
+Boids guidance accompanies more correct foreign-tool adoption and changed dependency organization. Broad libraries dominate, narrow contributions do not persist reliably, and final collective family coverage never exceeds an existing self-contained author history. Executable tools expose the boundary between organized dependence and necessary complementary collaboration in a setting where broad individual capability is already available.
+
+\clearpage
+\bibliographystyle{ACM-Reference-Format}\bibliography{refs}
+\end{document}

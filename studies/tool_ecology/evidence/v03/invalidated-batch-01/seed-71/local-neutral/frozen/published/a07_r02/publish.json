@@ -1,0 +1,1 @@
+{"description":"Reusable row-oriented cleaning, revenue, aggregation, lookup, and rolling-window services, with revenue preserving region exactly.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r01"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

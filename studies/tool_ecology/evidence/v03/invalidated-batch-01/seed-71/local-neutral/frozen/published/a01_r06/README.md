@@ -1,0 +1,5 @@
+# Tabular adapters
+
+Public functions are `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup(rows, lookup_rows, request)`, and `window(rows, lookup, request)`. Inputs are lists of dictionaries; each call returns new dictionaries and does not modify inputs. Example: `from candidate import clean; clean([{'region':' West ','units':None}], [], {'fill':'zero'})` returns `[{'region':'west','units':0}]`.
+
+`fill` accepts `zero`, `mean`, or `median` (default `zero`); all-missing units fill with zero. Revenue is units times price or `None` if price is missing. Group aggregation accepts `sum`, `mean`, or `count` (default `sum`); missing grouping keys are dropped. Monthly uses the first seven date characters. Lookup adds per-target revenue using exact lookup region keys; absent/zero targets yield `None`. Window defaults to two trailing rows. Inputs are expected to follow the service schema; invalid parameter values are not validated.

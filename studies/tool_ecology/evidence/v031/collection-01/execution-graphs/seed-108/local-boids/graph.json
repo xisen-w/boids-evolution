@@ -1,0 +1,247 @@
+{
+  "classification": "observational_correct_request_execution_pairs",
+  "orientation": "executed provider -> actual caller or requested service-entry publication",
+  "caveat": "Weights count repeated service cases, not independent adoptions or causal effects. Nodes show served breadth including dependencies.",
+  "edges": [
+    {
+      "caller": "a01_r03",
+      "provider": "a06_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a01_r04",
+      "provider": "a06_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a01_r05",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a01_r06",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a02_r03",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a02_r04",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a02_r05",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a02_r06",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a04_r03",
+      "provider": "a06_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a04_r05",
+      "provider": "a06_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a04_r06",
+      "provider": "a06_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a05_r02",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a05_r03",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a05_r04",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a05_r05",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a05_r06",
+      "provider": "a00_r01",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a07_r03",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a07_r04",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a07_r05",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    },
+    {
+      "caller": "a07_r06",
+      "provider": "a03_r02",
+      "correct_request_family_counts": {
+        "clean": 6,
+        "group": 6,
+        "lookup": 6,
+        "monthly": 6,
+        "revenue": 6,
+        "window": 6
+      }
+    }
+  ]
+}

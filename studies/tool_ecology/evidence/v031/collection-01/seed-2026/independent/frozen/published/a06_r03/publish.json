@@ -1,0 +1,1 @@
+{"description":"Service-verified pure-Python row adapters for clean, revenue, group, monthly, lookup and window analytics.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a06_r02"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

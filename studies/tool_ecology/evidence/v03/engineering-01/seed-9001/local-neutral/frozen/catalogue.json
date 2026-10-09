@@ -1,0 +1,921 @@
+[
+  {
+    "id": "a00_r01",
+    "author": "a00",
+    "round": 1,
+    "description": "Dependency-free Python adapters for cleaning, revenue derivation, aggregation, lookup, and rolling windows.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "serve_clean",
+      "revenue": "serve_revenue",
+      "group": "serve_group",
+      "monthly": "serve_monthly",
+      "lookup": "serve_lookup",
+      "window": "serve_window"
+    },
+    "ast_nodes": 926,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "24a0e875f645ebaa667fd6792b2ba786f328f43c8206b2aa86f074e520a05c83",
+      "__init__.py": "4c1a25f2bcf740f97d978478980db0b0cf3c2e94893c1740d0bafaa1ab7c09d5",
+      "publish.json": "0209f037fd56fd68fb50c9ab653fb5049ed85dcd55adc416cb3c634d8d5c3892"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r02",
+    "author": "a00",
+    "round": 2,
+    "description": "Native Python list-of-dictionaries services for six tabular transformations, separating revenue derivation from region normalization.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "serve_clean",
+      "revenue": "serve_revenue",
+      "group": "serve_group",
+      "monthly": "serve_monthly",
+      "lookup": "serve_lookup",
+      "window": "serve_window"
+    },
+    "ast_nodes": 1000,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "31d927f88429fe2643d11aaf238d45b591b973dc1748a67f09a62121995b3283",
+      "__init__.py": "5f0f6a8ae46f969bddb074e413338f34edeaa35f05b57fc8a29a3abe57d18bf7",
+      "publish.json": "684db6a62fe274b6fa1c78da54c9a09eca5262a2f1636b48b1205fdc42246c23"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a00_r03",
+    "author": "a00",
+    "round": 3,
+    "description": "Small dispatchable facade to verified implementations of all six row-table service families.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a00_r02"
+    ],
+    "checks": {
+      "clean": "serve_clean",
+      "revenue": "serve_revenue",
+      "group": "serve_group",
+      "monthly": "serve_monthly",
+      "lookup": "serve_lookup",
+      "window": "serve_window"
+    },
+    "ast_nodes": 123,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "3fcac8d5a4e8114dbda409b8b7a8d5858e92a67cc3f11f61c28c41657f584c6a",
+      "__init__.py": "cf5173356fba3a14cf3eaa7dd9c52724045ab4edbb0d0a04c26c7012744369b9",
+      "publish.json": "362a3e935d6d5a53bbb9bcaed42ba662343bde7792e86b14d64b089ba210ac8e"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r01",
+    "author": "a01",
+    "round": 1,
+    "description": "Dependency-free list-of-dict implementations of six table service families.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 903,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "8ae0dc9d6766a3844c4aee9b86f92238fd81137d8988198415726ad80e1efcbc",
+      "__init__.py": "eef9e0326c0385b94d48fa68f126776aec1e07f13f888c2bf18315920d4867d5",
+      "publish.json": "f7006ec3e8a4689e275ad2ad73f63410c05bdf550661c3b3f7473535d78f8876"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r02",
+    "author": "a01",
+    "round": 2,
+    "description": "Pure Python table service adapters, including normalized two-sided lookup keys.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 815,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "265cb93c43b44f8e351f2b8da7655f85bbfae0da2748524a0f90cb4b6ae0614e",
+      "__init__.py": "1cdb9fb5b4a4635be7b46d69d10e003417607061a09a511f5fe96c2cda7dfdc0",
+      "publish.json": "169f2ea49b4f145b6ff757b110be7a8c859b92bc89c3fb4a9f7b0ddf96c5fe82"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a01_r03",
+    "author": "a01",
+    "round": 3,
+    "description": "Reusable six-family native table-service API delegating to verified dependency a01_r02.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a01_r02"
+    ],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 21,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "c5cedac3f7722025c7e140dcd5cc7adb48f6e535c9b49b20a4573ddc6945f7c3",
+      "__init__.py": "c8d46790b15a183728330040849dc2bc9dc0294ca3b40a3ce8b7e72a103a24a7",
+      "publish.json": "4c2d1a3c493e75e37fd801a0ee7332366f9de5b862cbdae9564a4aa6cc0f0902"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r01",
+    "author": "a02",
+    "round": 1,
+    "description": "Pure-Python implementations of row cleaning, revenue derivation, grouped/monthly aggregation, lookup ratios, and trailing-row revenue means.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 798,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "5b604cb17d780043e6c7f9b6ea803164203b7683d9be533b3c48f6a7658b9d83",
+      "__init__.py": "c5aab469b2181bb570325da3329065a8017874b5f6427e98b40eb2225e936ce0",
+      "publish.json": "0535792a364d5f407a6c9ce9c95695dadafec4d9591a92bc06b05e957df05aa6"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r02",
+    "author": "a02",
+    "round": 2,
+    "description": "Stable facade reusing the verified pure-Python six-family row table services.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a02_r01"
+    ],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 21,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "d5d6e8f4bc62c57c04b0a77601d3550bebdb7bb1bc8764b2020c864aa07ef356",
+      "__init__.py": "30e84140a04b0e43562d18a223dbb93b00085d4674bd2134d92d76a88e85b010",
+      "publish.json": "f3f5d62fd2a44cf1af2873acefcf34737534c424f4cd866946d3508d5ae75174"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a02_r03",
+    "author": "a02",
+    "round": 3,
+    "description": "Dependency-light facade exposing verified native row-table transformations.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a02_r01"
+    ],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 21,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "8daeca0565db273a5e305dae029965c19725e9c94b23cf3c1424ab216f2dca19",
+      "__init__.py": "8d4f5347856134726b43aea756a8da7a7c3f00dbf20914780bef636605e99a93",
+      "publish.json": "a20c312b2b2ea38ef722b06835c1c69f31950bad11f06a8effab569e06faa5f0"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r01",
+    "author": "a03",
+    "round": 1,
+    "description": "Dependency-free row transformations for clean, revenue, grouping, monthly aggregation, lookup ratios, and trailing row windows.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 899,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "f56ed8f8e8aae4bbbcc332e6cbabb9e703e971c7a65ed69c591758e660ce05ad",
+      "__init__.py": "8c08223322e099b214686d1a51f8229f2ac13758b641b5d7fd0f70561a198019",
+      "publish.json": "262a9c7e583560d29103ae9f6856ee462c98095eca6dd2e4da3f08d5a9fe5d3c"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 1,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r02",
+    "author": "a03",
+    "round": 2,
+    "description": "Reusable native-Python table service adapters, reusing verified pure-Python service implementations.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a02_r01"
+    ],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 21,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "df5bf06d1a7480724022a61bcc8b715f422b041bf1f746818367567e3f7f2131",
+      "__init__.py": "492c816d33e1ee7b3732cea64b859c5041a0c7d5c7cce8cceabe62ab5d3b9631",
+      "publish.json": "0813de03beb6df8e060da96edf5be77805e27dc431c06fbc059e614de715d85f"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  },
+  {
+    "id": "a03_r03",
+    "author": "a03",
+    "round": 3,
+    "description": "Native Python facade for six verified list-of-dictionaries table services.",
+    "capabilities": [
+      "clean",
+      "revenue",
+      "group",
+      "monthly",
+      "lookup",
+      "window"
+    ],
+    "dependencies": [
+      "a02_r01"
+    ],
+    "checks": {
+      "clean": "clean",
+      "revenue": "revenue",
+      "group": "group",
+      "monthly": "monthly",
+      "lookup": "lookup",
+      "window": "window"
+    },
+    "ast_nodes": 21,
+    "status": "syntax_checked_only",
+    "hashes": {
+      "README.md": "acad8c91b156185748c4e7df53b70c141cd68551ccc3e2834d8182e0b63cefde",
+      "__init__.py": "ea58e7a150481434855da6a933e3e26b04d4a653b135871ec8a888d673a1b40e",
+      "publish.json": "41a788f35b826e05c35725775cad26af64ca6725a64386cb1da9554212d2231c"
+    },
+    "verified_families": [
+      "clean",
+      "group",
+      "lookup",
+      "monthly",
+      "revenue",
+      "window"
+    ],
+    "service_counts": {
+      "clean": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "revenue": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "group": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "monthly": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "lookup": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      },
+      "window": {
+        "passed": 6,
+        "total": 6,
+        "crashed": 0,
+        "input_mutations": 0
+      }
+    }
+  }
+]

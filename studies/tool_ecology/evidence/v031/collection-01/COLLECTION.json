@@ -1,0 +1,207 @@
+{
+  "lineage": [
+    {
+      "cell": "seed-71/independent",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/independent",
+      "code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "transport_policy": {
+        "timeout_seconds": 55,
+        "max_retries": 0,
+        "provenance": "original_pinned_model_source"
+      },
+      "source_manifest_sha256": "c3613d308484072e7ca752f850469366ad8e9e281b4d1646d25839c51b34e2f6",
+      "freeze_manifest_sha256": "47b643121caefd117d0d72fbac351b411d0d8794568714426e9d7cb5b65e47d1"
+    },
+    {
+      "cell": "seed-71/local-boids",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/local-boids",
+      "code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "transport_policy": {
+        "timeout_seconds": 55,
+        "max_retries": 0,
+        "provenance": "original_pinned_model_source"
+      },
+      "source_manifest_sha256": "c3613d308484072e7ca752f850469366ad8e9e281b4d1646d25839c51b34e2f6",
+      "freeze_manifest_sha256": "90abe9dcb76d6604930c287ae74f685d759b5733af33fc8f731fefda41baf808"
+    },
+    {
+      "cell": "seed-71/local-neutral",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/local-neutral",
+      "code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "transport_policy": {
+        "timeout_seconds": 55,
+        "max_retries": 0,
+        "provenance": "original_pinned_model_source"
+      },
+      "source_manifest_sha256": "c3613d308484072e7ca752f850469366ad8e9e281b4d1646d25839c51b34e2f6",
+      "freeze_manifest_sha256": "95a9ff407338c4e24e16ad2a1bca46b6c1b49fcc8d0951dbefc813f4c5f41b6a"
+    },
+    {
+      "cell": "seed-108/independent",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-108/independent",
+      "code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "transport_policy": {
+        "timeout_seconds": 55,
+        "max_retries": 0,
+        "provenance": "original_pinned_model_source"
+      },
+      "source_manifest_sha256": "c3613d308484072e7ca752f850469366ad8e9e281b4d1646d25839c51b34e2f6",
+      "freeze_manifest_sha256": "282204685c081a8e5755550545bcd649040c46d6f374776cb6772b1b535f8892"
+    },
+    {
+      "cell": "seed-108/local-boids",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-108/local-boids",
+      "code_revision": "376966bde00b87200d6a17a612c387f7eef80edd",
+      "transport_policy": {
+        "timeout_seconds": 55,
+        "max_retries": 0,
+        "provenance": "original_pinned_model_source"
+      },
+      "source_manifest_sha256": "c3613d308484072e7ca752f850469366ad8e9e281b4d1646d25839c51b34e2f6",
+      "freeze_manifest_sha256": "630958575adc496de58d309348279f7e93b889f1ce2f2b99aaad6ec02f2b28ec"
+    },
+    {
+      "cell": "seed-108/local-neutral",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-108-neutral-01/seed-108/local-neutral",
+      "code_revision": "ff3588123181b0259e443276f42263b2d9a3cb45",
+      "transport_policy": {
+        "timeout_seconds": 180,
+        "max_retries": 0
+      },
+      "source_manifest_sha256": "e77ed9672e29637fdec13212b140459bef66977c36921dc96dce38c5fd5f9255",
+      "freeze_manifest_sha256": "e896971d5d5f41abf7c8096e06cacd94c1b94cc7f51651685cacd1a016ee6619"
+    },
+    {
+      "cell": "seed-2026/independent",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-independent-01/seed-2026/independent",
+      "code_revision": "fb3e8e27ea59cdfa81db1d0ee91a06fb8be3e0e6",
+      "transport_policy": {
+        "timeout_seconds": 180,
+        "max_retries": 0
+      },
+      "source_manifest_sha256": "e95cd7e1f52b95f8bbd3edebee52310f1479f7cce5ee20766e6e998fe474474c",
+      "freeze_manifest_sha256": "e6b9de5a43c7bb0693f432a8a1f9cc0aec48625054cd907b24a97aef63f6b1aa"
+    },
+    {
+      "cell": "seed-2026/local-boids",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-boids-01/seed-2026/local-boids",
+      "code_revision": "6e0daf1e8f477917cae650207425bacaf13fdaa7",
+      "transport_policy": {
+        "timeout_seconds": 180,
+        "max_retries": 0
+      },
+      "source_manifest_sha256": "96315798e51c32847769d55d497265200545f9a6b6afc7ebe9a4cdcbfd3baf27",
+      "freeze_manifest_sha256": "5d24ccbf144a19b1ad940e5e8476d1f6088830427fda1f8698455092236d4aed"
+    },
+    {
+      "cell": "seed-2026/local-neutral",
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-neutral-01/seed-2026/local-neutral",
+      "code_revision": "e0199e17f222a34702f22f160850fb2df8ff32d1",
+      "transport_policy": {
+        "timeout_seconds": 180,
+        "max_retries": 0
+      },
+      "source_manifest_sha256": "dead3e44c92be8aa88a6852a1a82d5c0957257f6d3c1c69aa7e35b361ad1129e",
+      "freeze_manifest_sha256": "a884eb6f52538f8126ea4ef407c9c36c35ed661cafe2e0fe4fb278ebc1a30d6f"
+    }
+  ],
+  "all_attempt_usage": {
+    "physical_requests": 2121,
+    "input_tokens": 9480041,
+    "output_tokens": 653107,
+    "cached_tokens": 6941263,
+    "errors": 1
+  },
+  "attempt_inventory": [
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-108/independent",
+      "frozen": true,
+      "physical_requests": 236,
+      "input_tokens": 836925,
+      "output_tokens": 70572,
+      "cached_tokens": 639500,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-108/local-boids",
+      "frozen": true,
+      "physical_requests": 224,
+      "input_tokens": 1083478,
+      "output_tokens": 65747,
+      "cached_tokens": 790157,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-108/local-neutral",
+      "frozen": false,
+      "physical_requests": 69,
+      "input_tokens": 224965,
+      "output_tokens": 26856,
+      "cached_tokens": 161242,
+      "errors": 1
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/independent",
+      "frozen": true,
+      "physical_requests": 230,
+      "input_tokens": 820355,
+      "output_tokens": 66831,
+      "cached_tokens": 587253,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/local-boids",
+      "frozen": true,
+      "physical_requests": 222,
+      "input_tokens": 1168942,
+      "output_tokens": 73730,
+      "cached_tokens": 855479,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-batch-02/seed-71/local-neutral",
+      "frozen": true,
+      "physical_requests": 237,
+      "input_tokens": 1191730,
+      "output_tokens": 76828,
+      "cached_tokens": 889525,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-108-neutral-01/seed-108/local-neutral",
+      "frozen": true,
+      "physical_requests": 225,
+      "input_tokens": 1099799,
+      "output_tokens": 70234,
+      "cached_tokens": 808244,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-independent-01/seed-2026/independent",
+      "frozen": true,
+      "physical_requests": 229,
+      "input_tokens": 813568,
+      "output_tokens": 69334,
+      "cached_tokens": 576527,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-neutral-01/seed-2026/local-neutral",
+      "frozen": true,
+      "physical_requests": 234,
+      "input_tokens": 1175435,
+      "output_tokens": 66799,
+      "cached_tokens": 879085,
+      "errors": 0
+    },
+    {
+      "source_society": "/Users/wangxiang/.local/share/boids-evolution/studies/tool_ecology/runs/demand-recovery-2026-boids-01/seed-2026/local-boids",
+      "frozen": true,
+      "physical_requests": 215,
+      "input_tokens": 1064844,
+      "output_tokens": 66176,
+      "cached_tokens": 754251,
+      "errors": 0
+    }
+  ]
+}

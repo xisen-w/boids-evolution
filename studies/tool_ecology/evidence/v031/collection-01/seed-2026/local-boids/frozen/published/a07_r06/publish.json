@@ -1,0 +1,1 @@
+{"description":"Stable six-family table transformation API, preserving the verified a07 service behavior.","capabilities":["clean","revenue","group","monthly","lookup","window"],"dependencies":["a07_r05"],"checks":{"clean":"clean","revenue":"revenue","group":"group","monthly":"monthly","lookup":"lookup","window":"window"}}

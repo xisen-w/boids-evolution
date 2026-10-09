@@ -1,0 +1,5 @@
+# Row table services
+
+Import public functions from `candidate`: `clean(rows, lookup, request)`, `revenue(rows, lookup, request)`, `group(rows, lookup, request)`, `monthly(rows, lookup, request)`, `lookup_revenue(rows, lookup, request)`, and `window(rows, lookup, request)`. The six corresponding `*_service` root functions provide the same `(rows, lookup, request)` service interface.
+
+Example: `revenue([{'units': 3, 'price_cents': 20}], [], {'fill': 'zero'})` returns the input fields plus `revenue_cents: 60`. `clean` normalizes string regions and fills missing units; revenue-based services fill missing units and derive revenue. Group/monthly aggregate nonmissing revenue. Lookup adds revenue per target, using normalized input regions to match lookup keys. Window computes a trailing ROWS mean including current row. Inputs are not mutated. Fill modes are zero/mean/median (all-missing -> 0); aggregation modes sum/mean/count. Empty aggregation conventions follow the service contract. Schemas and request values are assumed valid; dates used by monthly should be ISO strings.
